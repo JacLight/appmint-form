@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { GithubPicker, SketchPicker, ChromePicker, PhotoshopPicker } from 'react-color';
 import { useColorPickerStore } from './color-picker-store';
 import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker';
 import { Popover } from '../popover';
@@ -55,35 +54,11 @@ export const CommonColorPicker = (props: { color; updateColor; type; toggle?; us
   }
 
   const getPicker = () => {
-    let selPicker;
-    switch (props.type) {
-      case 'sketch':
-        selPicker = <SketchPicker className="sketch-picker" onChangeComplete={handleChangeComplete} color={colorTemp || '#000'} onChange={handleChange} />;
-        break;
-      case 'chrome':
-        selPicker = <ChromePicker className="chrome-picker" onChangeComplete={handleChangeComplete} color={colorTemp || '#000'} onChange={handleChange} />;
-        break;
-      case 'photoshop':
-        selPicker = <PhotoshopPicker className="photoshop-picker" onChangeComplete={handleChangeComplete} color={colorTemp || '#000'} onChange={handleChange} onCancel={onCancel} onAccept={onAccept} />;
-        break;
-      case 'gradient':
-        selPicker = (
-          <div className="p-2 shadow bg-white border-gray-100 border-2">
-            <ColorPicker height={250} value={gradient} onChange={handleGradientChange} />
-          </div>
-        );
-        break;
-      default:
-        selPicker = <GithubPicker className="github-picker" onChangeComplete={handleChangeComplete} color={colorTemp || '#000'} onChange={handleChange} />;
-        break;
-    }
-
-    if (props.useFloatBox) {
-      const pos = props.floatBoxPos || { top: '20px', left: '25px' };
-      return <div style={{ position: 'absolute', zIndex: 100, ...pos }}>{selPicker}</div>;
-    } else {
-      return selPicker;
-    }
+    return (
+      <div className="p-2 shadow bg-white border-gray-100 border-2">
+        <ColorPicker height={250} value={gradient} onChange={handleGradientChange} />
+      </div>
+    );
   };
 
 

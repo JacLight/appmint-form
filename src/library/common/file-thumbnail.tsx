@@ -1,7 +1,7 @@
 import React from 'react';
 import { getFileExtension, isImageFile } from './fm-utils';
-import { FileIcon, defaultStyles } from 'react-file-icon';
 import { ButtonDelete } from './button-delete';
+import { defaultStyles, FileIcon } from './file-icon';
 
 const MyFile: any = FileIcon;
 export const FileThumbnail = ({ url, path, deleteClick, showPath = true }) => {

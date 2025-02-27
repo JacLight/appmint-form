@@ -29,12 +29,10 @@ const schema = {
             minLength: 5,
             maxLength: 10
         },
-        email: {
+        textArea: {
             type: 'string',
-            title: 'Email Field',
-            description: 'Email input with validation',
             format: 'email',
-            'x-control': 'email'
+            'x-control-variant': 'textarea',
         },
         textarea: {
             type: 'string',
