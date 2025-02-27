@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.2.2",
   "license": "MIT",
   "main": "dist/appmint-form.cjs.js",
   "module": "dist/appmint-form.es.js",
@@ -102,7 +102,6 @@
     "immer": "^10.1.1",
     "lucide-react": "^0.476.0",
     "object-path": "^0.11.8",
-    "puppeteer": "^24.3.0",
     "react-best-gradient-color-picker": "^3.0.14",
     "react-color": "^2.19.3",
     "react-file-icon": "^1.6.0",
