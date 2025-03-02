@@ -1,6 +1,6 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
-import { ComponentStyling, extractStylingFromSchema, getComponentPartStyling } from './style-utils';
+import { ComponentStyling, ThemeStyling, extractStylingFromSchema, getComponentPartStyling } from './style-utils';
 
 interface StyledComponentProps {
     /**
@@ -14,9 +14,9 @@ interface StyledComponentProps {
     part: string;
 
     /**
-     * The theme to use
+     * The theme to use (can be a string name or a theme object)
      */
-    theme?: string;
+    theme?: string | ThemeStyling;
 
     /**
      * The schema object that may contain styling information
@@ -55,7 +55,7 @@ export const StyledComponent: React.FC<StyledComponentProps> = ({
     // Extract styling from schema
     const customStyling = extractStylingFromSchema(schema);
 
-    // Get styling for the component part
+    // Get styling for the component part, supporting both group-level and component-specific styling
     const styling = getComponentPartStyling(componentType, part, theme, customStyling);
 
     // Combine with additional className

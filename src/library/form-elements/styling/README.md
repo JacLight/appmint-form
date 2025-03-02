@@ -1,187 +1,195 @@
-# Component Styling System
+# Form Elements Styling System
 
-This document outlines the new styling system for form elements using Tailwind CSS.
+This directory contains the new styling system for form elements. The system provides a flexible and consistent way to style form elements using a component-based approach.
 
 ## Overview
 
-The styling system provides a consistent and intuitive way to customize the appearance of form elements and their sub-components using Tailwind CSS classes.
+The new styling system replaces the legacy `x-ui` approach with a more structured and maintainable solution. It offers several key improvements:
 
-## Key Features
+1. **Component-Based**: Each form element is composed of multiple parts that can be styled independently.
+2. **Hierarchical**: Styles are applied in a clear hierarchy (common → component → custom).
+3. **Tailwind Integration**: Seamless integration with Tailwind CSS for consistent styling.
+4. **Backward Compatible**: Support for the legacy `x-ui` format with automatic conversion.
+5. **Accessibility**: Improved accessibility with proper ARIA attributes and focus states.
 
-- **Consistent Structure**: A unified approach to styling all components
-- **Granular Control**: Style each part of a component independently
-- **Simple API**: Easy to understand and use
-- **Theme Support**: Built-in themes with the ability to override specific parts
-- **Style Inheritance**: Components inherit styles from their parent theme with the ability to override
+## Key Files
 
-## Usage
+- **`index.ts`**: Exports the main styling components and utilities.
+- **`StyledComponent.tsx`**: The core component that handles styling application.
+- **`style-utils.ts`**: Utility functions for extracting and applying styles.
+- **`theme.ts`**: Default theme definitions for all components.
+- **`COMPONENT_PARTS.md`**: Documentation of all component parts that can be styled.
+- **`MIGRATION_STATUS.md`**: Status of component migration to the new styling system.
+
+## How to Use
 
 ### Basic Usage
 
-```json
+To style a component, use the `styling` property in your schema:
+
+```javascript
 {
   "type": "string",
-  "title": "Username",
+  "title": "First Name",
   "styling": {
-    "container": "bg-gray-50 p-4 rounded-lg",
-    "label": "text-blue-600 font-medium",
-    "input": "border-blue-300 focus:ring-blue-500"
-  }
-}
-```
-
-### Component-Specific Styling
-
-```json
-{
-  "type": "string",
-  "title": "Email Address",
-  "format": "email",
-  "styling": {
-    "container": "bg-gray-50 p-4 rounded-lg",
-    "label": "text-blue-600 font-medium",
-    "input": "border-blue-300 focus:ring-blue-500",
-    "description": "text-gray-500 text-xs mt-1",
-    "error": "text-red-500 text-xs mt-1"
-  }
-}
-```
-
-### Advanced Usage with Sub-Components
-
-```json
-{
-  "type": "array",
-  "title": "Options",
-  "items": {
-    "type": "object",
-    "properties": {
-      "label": { "type": "string" },
-      "value": { "type": "string" }
-    }
-  },
-  "styling": {
-    "container": "bg-gray-50 p-4 rounded-lg",
-    "label": "text-blue-600 font-medium",
-    "item": {
-      "container": "border-b border-gray-200 py-2",
-      "label": "font-medium",
-      "input": "ml-2"
-    },
-    "addButton": "bg-blue-500 text-white px-3 py-1 rounded-md mt-2",
-    "removeButton": "text-red-500 ml-2"
-  }
-}
-```
-
-## Theme Support
-
-Themes provide a consistent look and feel across all components. You can define a theme at the form level and override specific parts at the component level.
-
-```json
-{
-  "type": "object",
-  "theme": "primary",
-  "properties": {
-    "username": {
-      "type": "string",
-      "title": "Username",
-      "styling": {
-        "label": "text-lg" // Override just the label styling
+    "text": {
+      "container": {
+        "classes": ["bg-gray-50", "rounded-lg"],
+        "style": { "borderColor": "#3b82f6" }
+      },
+      "input": {
+        "classes": ["text-lg", "font-medium"],
+        "style": { "color": "#1f2937" }
       }
     }
   }
 }
 ```
 
-## Styling Approach
+### Component Parts
 
-The styling system supports two levels of specificity:
+Each component is divided into parts that can be styled independently. For example, a text input has the following parts:
 
-1. **Group-level styling**: Apply styles to all components of a certain part type
-2. **Component-specific styling**: Apply styles to a specific component type's part
+- `container`: The outer container
+- `label`: The label of the input
+- `input`: The input field itself
+- `description`: Help text or description
+- `error`: Error message
 
-### Group-level Styling
+For a complete list of all component parts, see [COMPONENT_PARTS.md](./COMPONENT_PARTS.md).
 
-Group-level styling applies to all components that have a particular part, regardless of the component type:
+### Styling Options
 
-```json
+Each part can be styled using the following options:
+
+- `classes`: An array of Tailwind CSS classes to apply.
+- `style`: A JavaScript object with CSS properties (camelCase).
+
+### Styling Hierarchy
+
+Styles are applied in the following order:
+
+1. **Base Styles**: Default styles defined in the theme.
+2. **Component Styles**: Styles specific to the component type.
+3. **Custom Styles**: Styles provided in the schema.
+
+This hierarchy allows for consistent styling while still providing flexibility for customization.
+
+## Migration from Legacy `x-ui`
+
+The new styling system is designed to be backward compatible with the legacy `x-ui` approach. The system automatically converts `x-ui` properties to the new format.
+
+For example, the following legacy format:
+
+```javascript
 {
-  "styling": {
-    "label": "text-blue-600 font-medium", // Applies to all labels
-    "input": "border-blue-300 focus:ring-blue-500" // Applies to all inputs
+  "x-ui": {
+    "input": {
+      "classes": ["bg-gray-50", "rounded-lg"]
+    }
   }
 }
 ```
 
-### Component-specific Styling
+Is equivalent to:
 
-Component-specific styling applies only to a specific component type's part:
-
-```json
+```javascript
 {
   "styling": {
-    "text.input": "border-blue-300", // Only applies to text inputs
-    "checkbox.input": "border-green-300" // Only applies to checkbox inputs
+    "text": {
+      "input": {
+        "classes": ["bg-gray-50", "rounded-lg"]
+      }
+    }
   }
 }
 ```
 
-### Combining Both Approaches
+For a complete list of migrated components, see [MIGRATION_STATUS.md](./MIGRATION_STATUS.md).
 
-You can combine both approaches for maximum flexibility:
+## Examples
 
-```json
+### Custom Text Input
+
+```javascript
 {
+  "type": "string",
+  "title": "Email Address",
   "styling": {
-    "input": "border-gray-300", // Base styling for all inputs
-    "text.input": "border-blue-300", // Override for text inputs
-    "checkbox.input": "border-green-300" // Override for checkbox inputs
+    "text": {
+      "container": {
+        "classes": ["bg-blue-50", "rounded-lg", "p-2"]
+      },
+      "label": {
+        "classes": ["text-blue-700", "font-semibold"]
+      },
+      "input": {
+        "classes": ["border-blue-300", "focus:ring-blue-500", "focus:border-blue-500"]
+      },
+      "description": {
+        "classes": ["text-blue-600", "text-xs", "mt-1"]
+      }
+    }
   }
 }
 ```
 
-## Available Style Targets
+### Custom Radio Group
 
-For a complete list of all component parts that can be styled, please refer to the [COMPONENT_PARTS.md](./COMPONENT_PARTS.md) file.
+```javascript
+{
+  "type": "string",
+  "title": "Subscription Plan",
+  "enum": ["basic", "premium", "enterprise"],
+  "enumNames": ["Basic", "Premium", "Enterprise"],
+  "styling": {
+    "select-many-radio": {
+      "group": {
+        "classes": ["space-y-3", "mt-2"]
+      },
+      "option": {
+        "classes": ["flex", "items-center", "p-2", "border", "rounded-md"]
+      },
+      "optionSelected": {
+        "classes": ["border-indigo-500", "bg-indigo-50"]
+      },
+      "optionUnselected": {
+        "classes": ["border-gray-300", "hover:bg-gray-50"]
+      },
+      "label": {
+        "classes": ["ml-3", "font-medium"]
+      }
+    }
+  }
+}
+```
 
-Here's a summary of the most common style targets:
+## Best Practices
 
-### Common Style Targets (available for all components)
+1. **Use Tailwind Classes**: Prefer using Tailwind classes for styling when possible, as they provide a consistent design system.
 
-- `container`: The outer container of the component
-- `label`: The label of the component
-- `description`: The description/help text
-- `error`: The error message
+2. **Avoid Inline Styles**: Use inline styles only when necessary, such as for dynamic values or when a specific style cannot be achieved with Tailwind.
 
-### Text Input Style Targets
+3. **Maintain Accessibility**: Ensure that your styling maintains accessibility, such as proper contrast ratios and focus states.
 
-- `text.input`: The input element
-- `text.prefix`: Prefix content (if any)
-- `text.suffix`: Suffix content (if any)
+4. **Be Consistent**: Use consistent styling across your forms to provide a cohesive user experience.
 
-### Select Style Targets
+5. **Test Responsiveness**: Test your styling on different screen sizes to ensure it works well on all devices.
 
-- `select.select`: The select element
-- `select.option`: The option elements
-- `select.placeholder`: The placeholder text
+## Contributing
 
-### Checkbox/Radio Style Targets
+When adding new components or modifying existing ones, please follow these guidelines:
 
-- `checkbox.input`: The checkbox input element
-- `checkbox.checkmark`: The visual checkmark
-- `radio.option`: Individual radio option
-- `radio.optionSelected`: Selected radio option
+1. Use the `StyledComponent` for all component parts.
+2. Extract styling from the schema using `extractStylingFromSchema`.
+3. Apply styling using `getComponentPartStyling`.
+4. Update the component parts documentation in `COMPONENT_PARTS.md`.
+5. Update the migration status in `MIGRATION_STATUS.md`.
 
-### Switch Style Targets
+## Future Improvements
 
-- `switch.track`: The track/background of the switch
-- `switch.trackOn`: The track when switch is on
-- `switch.trackOff`: The track when switch is off
-- `switch.thumb`: The movable thumb/handle
-
-### Array/Object Style Targets
-
-- `array.item`: The container for each item
-- `array.addButton`: The button to add a new item
-- `array.removeButton`: The button to remove an item
+1. **Theme Customization**: Allow for global theme customization.
+2. **Style Presets**: Provide pre-defined style presets for common use cases.
+3. **Style Editor**: Create a visual style editor for easier customization.
+4. **Style Validation**: Validate styles to ensure they meet accessibility standards.
+5. **Style Export/Import**: Allow for exporting and importing styles between forms.

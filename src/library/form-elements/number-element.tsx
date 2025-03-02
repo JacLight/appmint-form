@@ -3,6 +3,8 @@ import { getElementTheme } from '../context/store';
 import { twMerge } from 'tailwind-merge';
 import React, { useState } from 'react';
 import { SliderElement } from './slider';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
 export const NumberElement = (props: { change; blur; focus; mode; storeId; schema; path; name; value, className, ui?, theme }) => {
   const handleBlur = e => {
@@ -24,8 +26,17 @@ export const NumberElement = (props: { change; blur; focus; mode; storeId; schem
   const showInput = props.schema['x-show-input'];
   const showValue = props.schema['x-show-value'];
 
-  const { classes, style } = (props.ui || {})['number'] || {};
-  const controlTheme = getElementTheme('number', props.theme);
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
+
+  // Get number styling
+  const containerClasses = getComponentPartStyling('number', 'container', props.theme, customStyling);
+  const inputClasses = getComponentPartStyling('number', 'input', props.theme, customStyling);
+  const prefixClasses = getComponentPartStyling('number', 'prefix', props.theme, customStyling);
+  const suffixClasses = getComponentPartStyling('number', 'suffix', props.theme, customStyling);
+  const stepperClasses = getComponentPartStyling('number', 'stepper', props.theme, customStyling);
+  const stepperUpClasses = getComponentPartStyling('number', 'stepperUp', props.theme, customStyling);
+  const stepperDownClasses = getComponentPartStyling('number', 'stepperDown', props.theme, customStyling);
 
   if (variant === 'vertical' || variant === 'horizontal' || variant === 'slider') {
     return <SliderElement name={props.name} storeId={props.storeId} showInput={showInput} showValue={showValue} change={props.change} blur={props.blur} focus={props.focus} value={props.value} schema={props.schema} className={props.className} ui={props.ui} theme={props.theme} />;
@@ -37,12 +48,29 @@ export const NumberElement = (props: { change; blur; focus; mode; storeId; schem
   let step = (schema?.step && typeof schema?.step === 'string' ? parseFloat(schema?.step) : schema?.step) || 1;
 
   return (
-    <div
-      className={classNames(
-        'flex items-center w-full rounded border-0 text-gray-900 bg-white/20 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-5',
-      )}
+    <StyledComponent
+      componentType="number"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className="flex items-center"
     >
-      <input
+      {props.schema.prefix && (
+        <StyledComponent
+          componentType="number"
+          part="prefix"
+          schema={props.schema}
+          theme={props.theme}
+        >
+          {props.schema.prefix}
+        </StyledComponent>
+      )}
+      <StyledComponent
+        componentType="number"
+        part="input"
+        schema={props.schema}
+        theme={props.theme}
+        as="input"
         key={`${props.storeId}-${props.path}-${props.name}`}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -56,9 +84,19 @@ export const NumberElement = (props: { change; blur; focus; mode; storeId; schem
         step={step}
         name={props.name}
         id={props.path}
-        className={twMerge('w-full flex-1 border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-5', props.className, controlTheme.className, classes?.join(' '))}
+        className={props.className}
         placeholder={props.schema.placeholder}
       />
-    </div>
+      {props.schema.suffix && (
+        <StyledComponent
+          componentType="number"
+          part="suffix"
+          schema={props.schema}
+          theme={props.theme}
+        >
+          {props.schema.suffix}
+        </StyledComponent>
+      )}
+    </StyledComponent>
   );
 };

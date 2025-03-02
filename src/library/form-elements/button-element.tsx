@@ -6,6 +6,9 @@ import { classNames } from '../utils';
 import { ElementCommonView } from './element-common-view';
 import { buttonsActions } from '../form-view/button-actions';
 import { ElementIcon } from './element-icon';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
 export const ButtonElement = (props: {
   storeId;
@@ -55,29 +58,52 @@ export const ButtonElement = (props: {
     }
   }
 
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(schema);
+
+  // Get button styling
+  const containerClasses = getComponentPartStyling('button', 'container', props.theme, customStyling);
+  const buttonClasses = getComponentPartStyling('button', 'button', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('button', 'label', props.theme, customStyling);
+  const descriptionClasses = getComponentPartStyling('button', 'description', props.theme, customStyling);
+  const errorClasses = getComponentPartStyling('button', 'error', props.theme, customStyling);
+
   const description =
     schema.description || info ? (
-      <Wrapper ui={schema['x-ui']} path={path} name={'control-help'} className={classNames(iconStarEnd && labelStartEnd && schema.icon && !isInline && 'ml-8', 'cb-control-error text-gray-500 text-[10px]')}>
+      <StyledComponent
+        componentType="button"
+        part="description"
+        schema={schema}
+        theme={props.theme}
+        className={classNames(iconStarEnd && labelStartEnd && schema.icon && !isInline && 'ml-8')}
+      >
         {schema.description || ''} {info}
-      </Wrapper>
+      </StyledComponent>
     ) : null;
+
   const error = errorMsg ? (
-    <Wrapper ui={schema['x-ui']} path={path} name={'control-error'} className="cb-control-help text-xs text-red-400">
+    <StyledComponent
+      componentType="button"
+      part="error"
+      schema={schema}
+      theme={props.theme}
+    >
       {errorMsg}
-    </Wrapper>
+    </StyledComponent>
   ) : null;
-  const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon icon={schema?.icon} image={schema?.image} mode={props.mode} /> : null;
+  const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon icon={schema?.icon} image={schema?.image} mode={props.mode} schema={schema} theme={props.theme} /> : null;
   const caption = schema.title || schema.name || props.name;
   const label = (
-    <Wrapper ui={schema['x-ui']} path={path} name={'control-label'} className={classNames(labelStartEnd && !isInline && '-mt-5', 'cb-label text-xs')}>
+    <StyledComponent
+      componentType="button"
+      part="label"
+      schema={schema}
+      theme={props.theme}
+      className={classNames(labelStartEnd && !isInline && '-mt-5')}
+    >
       {toSentenceCase(caption)}
-    </Wrapper>
+    </StyledComponent>
   );
-
-  const theme = schema.theme || props.theme;
-  const controlTheme = getElementTheme('control', theme);
-
-  const className = classNames(`cb-control  cb-button label-${labelPosition || 'auto'}`, schema.hideLabel && 'hide-label', schema.hidden && ' opacity-60 ', controlTheme.className);
 
   const clickHandler = async e => {
     updateError(dataPath, null);
@@ -100,25 +126,35 @@ export const ButtonElement = (props: {
     const email = getStateItem('email');
     await actionInfo.fn({ storeId: props.storeId, dataPath, actionSchema: schema, email, collectionForm, formData, formSchema, formRules });
   };
-  const controlThemeStyle = getElementTheme('button', theme);
+
   return (
-    <Wrapper ui={schema['x-ui']} path={path} name={'control'} className={className}>
-      <Wrapper
-        ui={schema['x-ui']}
-        path={path}
-        name={'button'}
+    <StyledComponent
+      componentType="button"
+      part="container"
+      schema={schema}
+      theme={props.theme}
+      className={classNames(
+        `label-${labelPosition || 'auto'}`,
+        schema.hideLabel && 'hide-label',
+        schema.hidden && 'opacity-60'
+      )}
+    >
+      <StyledComponent
+        componentType="button"
+        part="button"
+        schema={schema}
+        theme={props.theme}
+        as="button"
         readOnly={props.readOnly || schema.readOnly}
         disabled={schema.disabled}
-        className={classNames(elementStyleClassMap['button'], controlThemeStyle.className)}
-        tag="button"
         onClick={clickHandler}
       >
         {!['end', 'afterLabel'].includes(iconPosition) && icon}
         {label}
         {['end', 'afterLabel'].includes(iconPosition) && icon}
-      </Wrapper>
+      </StyledComponent>
       {description}
       {error}
-    </Wrapper>
+    </StyledComponent>
   );
 };

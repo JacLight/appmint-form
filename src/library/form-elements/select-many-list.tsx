@@ -3,6 +3,9 @@ import { Listbox, ListboxOptions, ListboxOption, ListboxButton } from '../common
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { classNames } from '../utils';
 import { ElementIcon } from './element-icon';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
 export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; path?; name?; data?; value?; options?; dataPath?; className?; buttonClassName?; theme?}) => {
   const [selected, setSelected] = useState<any>();
@@ -20,45 +23,86 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
   };
 
   const options = [{ label: '', value: undefined }, ...(props.options || [])];
-  const themeClass = themeClasses[props.theme] || themeClasses['default'];
   const hideOptionLabel = props.schema ? props.schema['x-hide-option-label'] : undefined;
+
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
+
+  // Get listbox styling
+  const containerClasses = getComponentPartStyling('listbox', 'container', props.theme, customStyling);
+  const buttonClasses = getComponentPartStyling('listbox', 'button', props.theme, customStyling);
+  const optionsClasses = getComponentPartStyling('listbox', 'options', props.theme, customStyling);
+  const optionClasses = getComponentPartStyling('listbox', 'option', props.theme, customStyling);
+  const optionActiveClasses = getComponentPartStyling('listbox', 'optionActive', props.theme, customStyling);
+  const optionInactiveClasses = getComponentPartStyling('listbox', 'optionInactive', props.theme, customStyling);
+  const iconClasses = getComponentPartStyling('listbox', 'icon', props.theme, customStyling);
+  const selectedIconClasses = getComponentPartStyling('listbox', 'selectedIcon', props.theme, customStyling);
+  const selectedIconActiveClasses = getComponentPartStyling('listbox', 'selectedIconActive', props.theme, customStyling);
+  const selectedIconInactiveClasses = getComponentPartStyling('listbox', 'selectedIconInactive', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('listbox', 'label', props.theme, customStyling);
+  const labelSelectedClasses = getComponentPartStyling('listbox', 'labelSelected', props.theme, customStyling);
+  const labelUnselectedClasses = getComponentPartStyling('listbox', 'labelUnselected', props.theme, customStyling);
+  const placeholderClasses = getComponentPartStyling('listbox', 'placeholder', props.theme, customStyling);
+  const chevronClasses = getComponentPartStyling('listbox', 'chevron', props.theme, customStyling);
 
   return (
     <Listbox value={selected} onChange={handleChange}>
-      <div className="relative  w-full">
-        <ListboxButton className={classNames(props.buttonClassName, themeClass.button)}>
+      <div className={containerClasses}>
+        <ListboxButton className={twMerge(buttonClasses, props.buttonClassName)}>
           <span className="flex items-center">
             {selected ? (
               <>
-                <ElementIcon icon={selected.icon} image={selected.image} className="h-10 w-10 flex-shrink-0 rounded-full" mode={props.mode} />
+                <ElementIcon icon={selected.icon} image={selected.image} className={iconClasses} mode={props.mode} />
                 {!hideOptionLabel && (
-                  <span className="block truncate">{selected.label}</span>
+                  <span className={twMerge(labelClasses, labelSelectedClasses)}>
+                    {selected.label}
+                  </span>
                 )}
               </>
             ) : (
-              <span className="block truncate text-gray-400">{props.schema?.placeholder || 'Select an option'}</span>
+              <span className={placeholderClasses}>
+                {props.schema?.placeholder || 'Select an option'}
+              </span>
             )}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 ml-1 flex items-center pr-px">
-            <ChevronsUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
+            <ChevronsUpDown className={chevronClasses} aria-hidden="true" />
           </span>
         </ListboxButton>
-        <ListboxOptions anchor="bottom start" className={classNames('z-[1110] max-w-96', props.className, themeClass.options)}>
+        <ListboxOptions anchor="bottom start" className={twMerge(optionsClasses, 'z-[1110] max-w-96', props.className)}>
           {options?.map(item => {
-            const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className="h-5 w-5 flex-shrink-0 rounded-full" mode={props.mode} path={props.path} />;
+            const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className={iconClasses} mode={props.mode} path={props.path} />;
             return (
-              <ListboxOption key={item.value} className={({ active }) => classNames(active ? 'bg-indigo-600 text-white' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9')} value={item}>
+              <ListboxOption
+                key={item.value}
+                className={({ active }) =>
+                  twMerge(
+                    optionClasses,
+                    active ? optionActiveClasses : optionInactiveClasses
+                  )
+                }
+                value={item}
+              >
                 {({ selected, active }) => (
                   <>
                     <div className="flex items-center">
                       {iconOrImage}
                       {!hideOptionLabel && (
-                        <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}>{item.label}</span>
+                        <span className={twMerge(
+                          labelClasses,
+                          selected ? labelSelectedClasses : labelUnselectedClasses
+                        )}>
+                          {item.label}
+                        </span>
                       )}
                     </div>
                     {selected ? (
-                      <span className={classNames(active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4')}>
-                        <Check className="h-5 w-5" aria-hidden="true" />
+                      <span className={twMerge(
+                        'absolute inset-y-0 right-0 flex items-center pr-4',
+                        selectedIconClasses,
+                        active ? selectedIconActiveClasses : selectedIconInactiveClasses
+                      )}>
+                        <Check aria-hidden="true" />
                       </span>
                     ) : null}
                   </>
@@ -68,7 +112,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
           })}
         </ListboxOptions>
       </div>
-    </Listbox >
+    </Listbox>
   );
 };
 

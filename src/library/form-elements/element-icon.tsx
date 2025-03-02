@@ -1,29 +1,76 @@
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { ElementCommonView } from './element-common-view';
-import { getElementTheme } from '../context/store';
 import { classNames } from '../utils';
 import { twMerge } from 'tailwind-merge';
 import React from 'react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
-export const ElementIcon = (props: { icon; mode; image; className?; defaultIcon?; path?, theme?, ui?}) => {
+export const ElementIcon = (props: { icon; mode; image; className?; defaultIcon?; path?, theme?, ui?, schema?}) => {
   const { image, icon = props.defaultIcon } = props;
-  const Wrapper: any = ElementCommonView;
 
-  const { classes: iconClasses } = (props.ui || {})['icon'] || {};
-  const iconTheme = getElementTheme('control-icon', props.theme)
-
-  const { classes: imageClasses } = (props.ui || {})['image'] || {};
-  const imageTheme = getElementTheme('control-image', props.theme)
+  // Extract styling from schema or ui
+  const customStyling = props.schema ? extractStylingFromSchema(props.schema) :
+    props.ui ? convertUiToStyling(props.ui) : undefined;
 
   if (image) {
     if (props.path) {
-      return <Wrapper path={props.path} tag="img" src={image?.url || image} alt="" className={twMerge(classNames('control-image', props.className ? props.className : 'w-10 h-10'), imageTheme.className, imageClasses.join(' '))} />;
+      return (
+        <StyledComponent
+          componentType="control-image"
+          part="image"
+          schema={props.schema}
+          theme={props.theme}
+          as="img"
+          src={image?.url || image}
+          alt=""
+          className={props.className || 'w-10 h-10'}
+        />
+      );
     } else {
-      return <img src={image?.url || image} alt="" className={twMerge(classNames('control-image', props.className ? props.className : 'w-10 h-10'), imageTheme.className, imageClasses.join(' '))} />;
+      return (
+        <img
+          src={image?.url || image}
+          alt=""
+          className={twMerge(
+            getComponentPartStyling('control-image', 'image', props.theme, customStyling),
+            props.className || 'w-10 h-10'
+          )}
+        />
+      );
     }
   }
+
   if (icon) {
-    return icon.length === 2 ? icon : <IconRenderer icon={icon} className={twMerge("control-icon", iconTheme?.className, iconClasses?.join(' '))} />;
+    if (icon.length === 2) {
+      return icon;
+    } else {
+      return (
+        <IconRenderer
+          icon={icon}
+          className={twMerge(
+            getComponentPartStyling('control-icon', 'icon', props.theme, customStyling),
+            props.className
+          )}
+        />
+      );
+    }
   }
-  return;
+
+  return null;
+};
+
+// Helper function to convert legacy ui format to styling format
+const convertUiToStyling = (ui: any) => {
+  const styling: any = {};
+
+  if (ui.icon && ui.icon.classes) {
+    styling.icon = Array.isArray(ui.icon.classes) ? ui.icon.classes.join(' ') : ui.icon.classes;
+  }
+
+  if (ui.image && ui.image.classes) {
+    styling.image = Array.isArray(ui.image.classes) ? ui.image.classes.join(' ') : ui.image.classes;
+  }
+
+  return styling;
 };

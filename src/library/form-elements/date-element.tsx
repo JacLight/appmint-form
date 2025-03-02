@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { DateTimePicker } from './date-time-picker';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export const DateElement = (props: { change; focus; blur; mode; value; schema; path; name; data; reloadValue }) => {
+export const DateElement = (props: { change; focus; blur; mode; value; schema; path; name; data; reloadValue; theme?}) => {
   const [dateTime, setDateTime] = useState<any>();
   let variant = props.schema['format'] || props.schema['x-control-variant'] || 'date';
   variant = (variant === 'datetime' || variant === 'date-time') ? 'date-time' : variant;
@@ -48,9 +51,34 @@ export const DateElement = (props: { change; focus; blur; mode; value; schema; p
 
   const { min, max, disabled, readOnly, prefix, suffix, placeholder } = props.schema;
 
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
+
+  // Get date styling
+  const containerClasses = getComponentPartStyling('date', 'container', props.theme, customStyling);
+  const inputClasses = getComponentPartStyling('date', 'input', props.theme, customStyling);
+  const prefixClasses = getComponentPartStyling('date', 'prefix', props.theme, customStyling);
+  const suffixClasses = getComponentPartStyling('date', 'suffix', props.theme, customStyling);
+  const calendarClasses = getComponentPartStyling('date', 'calendar', props.theme, customStyling);
+
   return (
-    <>
-      {prefix && <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">{prefix}</span>}
+    <StyledComponent
+      componentType="date"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className="flex items-center"
+    >
+      {prefix && (
+        <StyledComponent
+          componentType="date"
+          part="prefix"
+          schema={props.schema}
+          theme={props.theme}
+        >
+          {prefix}
+        </StyledComponent>
+      )}
       <DateTimePicker
         onChange={handleChange}
         startDate={dateTime}
@@ -60,10 +88,19 @@ export const DateElement = (props: { change; focus; blur; mode; value; schema; p
         max={max}
         mode={variant}
         isRange={false}
-        className={'w-full flex-1 border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-5'}
+        className={twMerge(inputClasses, 'flex-1')}
         placeholder={placeholder}
       />
-      {suffix && <span className="flex select-none items-center pr-3 text-gray-500 sm:text-sm">{suffix}</span>}
-    </>
+      {suffix && (
+        <StyledComponent
+          componentType="date"
+          part="suffix"
+          schema={props.schema}
+          theme={props.theme}
+        >
+          {suffix}
+        </StyledComponent>
+      )}
+    </StyledComponent>
   );
 };

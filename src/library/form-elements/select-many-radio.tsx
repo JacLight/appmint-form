@@ -3,7 +3,9 @@ import { RadioGroup } from '../common/headless-replacements';
 import { CheckCircle } from 'lucide-react';
 import { classNames } from '../utils';
 import { ElementIcon } from './element-icon';
-import { StyledComponent, getComponentPartStyling } from './styling';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
 export const SelectManyRadio = (props: { blur?; change?; focus?; mode?; schema?; path?; name?; data?; value?; options?; dataPath?; className?; theme?}) => {
   const [selected, setSelected] = useState<any>();
@@ -22,6 +24,19 @@ export const SelectManyRadio = (props: { blur?; change?; focus?; mode?; schema?;
 
   const options = [...(props.options || [])];
   const hideOptionLabel = props.schema ? props.schema['x-hide-option-label'] : undefined;
+
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
+
+  // Get radio styling
+  const optionClasses = getComponentPartStyling('radio', 'option', props.theme, customStyling);
+  const optionSelectedClasses = getComponentPartStyling('radio', 'optionSelected', props.theme, customStyling);
+  const optionUnselectedClasses = getComponentPartStyling('radio', 'optionUnselected', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('radio', 'label', props.theme, customStyling);
+  const labelSelectedClasses = getComponentPartStyling('radio', 'labelSelected', props.theme, customStyling);
+  const labelUnselectedClasses = getComponentPartStyling('radio', 'labelUnselected', props.theme, customStyling);
+  const iconClasses = getComponentPartStyling('radio', 'icon', props.theme, customStyling);
+  const checkmarkClasses = getComponentPartStyling('radio', 'checkmark', props.theme, customStyling);
 
   return (
     <StyledComponent
@@ -44,12 +59,10 @@ export const SelectManyRadio = (props: { blur?; change?; focus?; mode?; schema?;
                 key={item.value}
                 value={item}
                 className={({ active, checked }) =>
-                  classNames(
-                    active ? 'ring-2 ring-indigo-600 ring-offset-2' : '',
-                    checked ?
-                      getComponentPartStyling('radio', 'optionSelected', props.theme) :
-                      getComponentPartStyling('radio', 'optionUnselected', props.theme),
-                    getComponentPartStyling('radio', 'option', props.theme)
+                  twMerge(
+                    optionClasses,
+                    checked ? optionSelectedClasses : optionUnselectedClasses,
+                    active ? 'ring-2 ring-indigo-600 ring-offset-2' : ''
                   )
                 }
               >
@@ -57,15 +70,23 @@ export const SelectManyRadio = (props: { blur?; change?; focus?; mode?; schema?;
                   <>
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center">
-                        {iconOrImage}
+                        <div className={iconClasses}>
+                          {iconOrImage}
+                        </div>
                         {!hideOptionLabel && (
-                          <RadioGroup.Label as="span" className={classNames(checked ? 'text-indigo-900 font-semibold' : 'text-gray-900', 'ml-3 block text-sm')}>
+                          <RadioGroup.Label
+                            as="span"
+                            className={twMerge(
+                              labelClasses,
+                              checked ? labelSelectedClasses : labelUnselectedClasses
+                            )}
+                          >
                             {item.label}
                           </RadioGroup.Label>
                         )}
                       </div>
                       {checked && (
-                        <CheckCircle className="h-5 w-5 text-indigo-600" aria-hidden="true" />
+                        <CheckCircle className={checkmarkClasses} aria-hidden="true" />
                       )}
                     </div>
                     {item.description && (

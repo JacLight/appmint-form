@@ -1,8 +1,23 @@
 import { classNames } from '../utils';
 import React, { useEffect, useState } from 'react';
 import { DateTimePicker } from './date-time-picker';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
+import { StyledComponent } from './styling';
 
-export const DateRangeElement = (props: { change; focus; blur; mode; value; schema; path; name; data }) => {
+export const DateRangeElement = (props: {
+  change;
+  focus;
+  blur;
+  mode;
+  value;
+  schema;
+  path;
+  name;
+  data;
+  theme?; // Add theme prop
+  ui?; // Add ui prop for backward compatibility
+}) => {
   const [dateTime, setDateTime] = useState<any>();
   let variant = props.schema['x-control-variant'] || 'date';
   variant = (variant === 'date-time' || variant === 'datetime') ? 'date-time' : variant;
@@ -33,13 +48,39 @@ export const DateRangeElement = (props: { change; focus; blur; mode; value; sche
 
   const { min, max, disabled, readOnly, prefix, suffix, placeholder } = props.schema;
   const [startDate, endDate] = dateTime || [null, null];
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
+
+  // Get container styling
+  const containerClasses = getComponentPartStyling('date-range', 'container', props.theme, customStyling);
+
+  // Get prefix styling
+  const prefixClasses = getComponentPartStyling('date-range', 'prefix', props.theme, customStyling);
+
+  // Get suffix styling
+  const suffixClasses = getComponentPartStyling('date-range', 'suffix', props.theme, customStyling);
+
+  // Get input styling
+  const inputClasses = getComponentPartStyling('date-range', 'input', props.theme, customStyling);
+
   return (
-    <div
-      className={classNames(
-        'flex items-center w-full  rounded border-0 text-gray-900 bg-white/20 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-5',
-      )}
+    <StyledComponent
+      componentType="date-range"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className="flex items-center"
     >
-      {prefix && <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">{prefix}</span>}
+      {prefix && (
+        <StyledComponent
+          componentType="date-range"
+          part="prefix"
+          schema={props.schema}
+          theme={props.theme}
+        >
+          {prefix}
+        </StyledComponent>
+      )}
       <DateTimePicker
         onChange={handleChange}
         startDate={startDate}
@@ -50,10 +91,19 @@ export const DateRangeElement = (props: { change; focus; blur; mode; value; sche
         max={max}
         mode={variant}
         isRange={true}
-        className={'w-full flex-1 border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-5'}
+        className={inputClasses}
         placeholder={placeholder}
       />
-      {suffix && <span className="flex select-none items-center pr-3 text-gray-500 sm:text-sm">{suffix}</span>}
-    </div>
+      {suffix && (
+        <StyledComponent
+          componentType="date-range"
+          part="suffix"
+          schema={props.schema}
+          theme={props.theme}
+        >
+          {suffix}
+        </StyledComponent>
+      )}
+    </StyledComponent>
   );
 };

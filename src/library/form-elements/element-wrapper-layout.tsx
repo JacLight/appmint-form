@@ -8,6 +8,8 @@ import { twMerge } from 'tailwind-merge';
 import { FormCollapsible } from '../form-view/form-collapsible';
 import { FormPopup } from '../form-view/form-popup';
 import { ElementIcon } from './element-icon';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
 export const ElementWrapperLayout = (props: {
   mode;
@@ -27,52 +29,98 @@ export const ElementWrapperLayout = (props: {
   const labelPosition = schema.labelPosition || 'top';
   const Wrapper = ElementCommonView;
 
-  const controlHelpTheme = getElementTheme('-help', props.theme);
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(schema);
+
   const description = schema.description ? (
-    <Wrapper ui={schema['x-ui']} path={path} theme={props.theme} name={'control-help'} className={classNames(controlHelpTheme.className, 'cb-control-error text-gray-500 text-[10px]')}>
+    <StyledComponent
+      componentType="layout"
+      part="description"
+      schema={schema}
+      theme={props.theme}
+      className="cb-control-error"
+    >
       {schema.description}
-    </Wrapper>
+    </StyledComponent>
   ) : null;
+
   const error = schema.error ? (
-    <Wrapper ui={schema['x-ui']} path={path} theme={props.theme} name={'control-error'} className="cb-control-help text-xs text-red-400">
+    <StyledComponent
+      componentType="layout"
+      part="error"
+      schema={schema}
+      theme={props.theme}
+      className="cb-control-help"
+    >
       {schema.error}
-    </Wrapper>
+    </StyledComponent>
   ) : null;
   const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon icon={schema?.icon} image={schema?.image} mode={props.mode} /> : null;
+
   let elements;
   if (!schema.collapsible && icon && (iconPosition === 'start' || iconPosition === 'end')) {
     elements = (
-      <Wrapper ui={schema['x-ui']} path={path} name={'input'} theme={props.theme} className="cb-input w-full flex gap-2">
+      <StyledComponent
+        componentType="layout"
+        part="input"
+        schema={schema}
+        theme={props.theme}
+        className="cb-input w-full flex gap-2"
+      >
         {iconPosition === 'start' && icon} {props.children} {iconPosition === 'end' && icon}
-      </Wrapper>
+      </StyledComponent>
     );
   } else {
     elements = (
-      <Wrapper ui={schema['x-ui']} path={path} name={'input'} theme={props.theme} className="cb-input w-full">
+      <StyledComponent
+        componentType="layout"
+        part="input"
+        schema={schema}
+        theme={props.theme}
+        className="cb-input w-full"
+      >
         {props.children}
-      </Wrapper>
+      </StyledComponent>
     );
   }
 
   const caption = schema.title ? schema.title : toSentenceCase(schema.name || props.name || '');
   let label;
-  const labelTheme = getElementTheme('label', props.theme);
+
   if (caption && !schema.collapsible && !schema.hideLabel) {
     if ((iconPosition === 'beforeLabel' || iconPosition === 'afterLabel')) {
       label = (
-        <Wrapper ui={schema['x-ui']} path={path} name={'control-label'} theme={props.theme} className={twMerge(' cb-label-with-icon flex gap-2 text-xs items-center', labelTheme.className)}>
+        <StyledComponent
+          componentType="layout"
+          part="label"
+          schema={schema}
+          theme={props.theme}
+          className="cb-label-with-icon flex gap-2 text-xs items-center"
+        >
           {iconPosition === 'beforeLabel' && icon}
-          <Wrapper path={path} name={name} theme={props.theme} className=" cb-label">
+          <StyledComponent
+            componentType="layout"
+            part="label-inner"
+            schema={schema}
+            theme={props.theme}
+            className="cb-label"
+          >
             {caption}
-          </Wrapper>
+          </StyledComponent>
           {iconPosition === 'afterLabel' && icon}
-        </Wrapper>
+        </StyledComponent>
       );
     } else {
       label = (
-        <Wrapper ui={schema['x-ui']} path={path} name={'control-label'} theme={props.theme} className={twMerge(' cb-label text-xs', labelTheme.className)}>
+        <StyledComponent
+          componentType="layout"
+          part="label"
+          schema={schema}
+          theme={props.theme}
+          className="cb-label text-xs"
+        >
           {caption}
-        </Wrapper>
+        </StyledComponent>
       );
     }
   }
@@ -81,11 +129,17 @@ export const ElementWrapperLayout = (props: {
   if (!schema.collapsible) {
     const hasFlex = ['start', 'end'].includes(labelPosition) || schema.layout === 'horizontal';
     render = (
-      <Wrapper ui={schema['x-ui']} path={path} name={'control-input'} theme={props.theme} className={classNames(hasFlex && 'flex', 'gap-4 items-center', 'cb-control-input w-full')}>
+      <StyledComponent
+        componentType="layout"
+        part="control-input"
+        schema={schema}
+        theme={props.theme}
+        className={classNames(hasFlex && 'flex', 'gap-4 items-center', 'cb-control-input w-full')}
+      >
         {!['end', 'bottom'].includes(labelPosition) && label}
         {elements}
         {['end', 'bottom'].includes(labelPosition) && label}
-      </Wrapper>
+      </StyledComponent>
     );
   }
 
@@ -101,10 +155,16 @@ export const ElementWrapperLayout = (props: {
         {elements}
       </FormPopup>
     );
-  const className = twMerge(`cb-layout ${labelPosition || 'top'}  ${schema.hideLabel ? 'hide-label' : ''}`);
+
   return (
-    <Wrapper ui={schema['x-ui']} path={path} name={'layout'} className={className} theme={props.theme}>
+    <StyledComponent
+      componentType="layout"
+      part="container"
+      schema={schema}
+      theme={props.theme}
+      className={`cb-layout ${labelPosition || 'top'} ${schema.hideLabel ? 'hide-label' : ''}`}
+    >
       {render}
-    </Wrapper>
+    </StyledComponent>
   );
 };

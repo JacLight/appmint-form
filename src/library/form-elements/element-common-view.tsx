@@ -3,6 +3,7 @@ import { dotPathToDash } from './element-helpers';
 import { twMerge } from 'tailwind-merge';
 import { getElementTheme } from '../context/store';
 import React, { useEffect } from 'react';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
 export const ElementCommonView = (props: { id?; readOnly?; disabled?; className?; tag?; ui?; path; theme?; name?; children?; alt?; src?; onClick?}) => {
   let dashPath = '';
@@ -25,17 +26,38 @@ export const ElementCommonView = (props: { id?; readOnly?; disabled?; className?
 
   const onBlur = e => { };
 
+  // Support for both old and new styling systems
+
+  // Old styling system
   let styleObj: any = {};
   if (props.ui && props.name) {
     styleObj = props.ui[props.name] || {};
   } else if (props.ui) {
     styleObj = props.ui || {};
   }
-  const theme = getElementTheme(props.name, props.theme)
-
+  const themeObj = getElementTheme(props.name, props.theme);
   let { classes, style } = styleObj;
 
-  let cls = twMerge(` w-full element-common`, props.className, theme?.className, Array.isArray(classes) && classes.join(' '));
+  // New styling system - extract styling from ui prop
+  const customStyling = props.ui ? extractStylingFromSchema({ 'x-ui': props.ui }) : undefined;
+
+  // Get component type from name or use a default
+  const componentType = props.name?.includes('-') ? props.name.split('-')[1] : 'common';
+  const part = props.name?.includes('-') ? props.name.split('-')[0] : props.name;
+
+  // Get styling from new system
+  const newStyling = getComponentPartStyling(componentType, part, props.theme, customStyling);
+
+  // Combine both styling systems
+  let cls = twMerge(
+    `w-full element-common`,
+    props.className,
+    themeObj?.className,
+    Array.isArray(classes) && classes.join(' '),
+    newStyling
+  );
+
+  // Remove special classes
   cls = cls.replaceAll('element-secondary-border', '');
   cls = cls.replaceAll('element-click-border', '');
   cls = cls.replaceAll('element-hover-border', '');

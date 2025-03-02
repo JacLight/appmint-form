@@ -7,6 +7,8 @@ import { getElementTheme } from '../context/store';
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ElementIcon } from './element-icon';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { StyledComponent } from './styling';
 
 const fixedLabel = ['checkbox', 'radio', 'switch', 'button', 'color', 'icon-button', 'date', 'date-time', 'date-range', 'lookup'];
 
@@ -63,16 +65,44 @@ export const ElementWrapperControl = (props: {
   const defaultClass = elementStyleClassMap[controlType] || 'my-1 ';
   const controlHelpTheme = getElementTheme('help', props.theme);
 
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(schema);
+
+  // Get help container styling
+  const helpContainerClasses = getComponentPartStyling(controlType, 'helpContainer', props.theme, customStyling);
+
+  // Get description styling
+  const descriptionClasses = getComponentPartStyling(controlType, 'description', props.theme, customStyling);
+
   const description =
     schema.description || info ? (
-      <Wrapper ui={schema['x-ui']} path={path} theme={props.theme} name={'control-help'} className={classNames(controlHelpTheme.className, iconStarEnd && labelStartEnd && schema.icon && !isInline && 'ml-8', 'cb-control-error text-gray-500 text-[10px]')}>
+      <StyledComponent
+        componentType={controlType}
+        part="description"
+        schema={schema}
+        theme={props.theme}
+        className={twMerge(
+          iconStarEnd && labelStartEnd && schema.icon && !isInline && helpContainerClasses,
+          'cb-control-error'
+        )}
+      >
         {schema.description || ''} {info}
-      </Wrapper>
+      </StyledComponent>
     ) : null;
+
+  // Get error styling
+  const errorClasses = getComponentPartStyling(controlType, 'error', props.theme, customStyling);
+
   const error = errorMsg ? (
-    <Wrapper ui={schema['x-ui']} path={path} theme={props.theme} name={'control-error'} className="cb-control-help text-xs text-red-400">
+    <StyledComponent
+      componentType={controlType}
+      part="error"
+      schema={schema}
+      theme={props.theme}
+      className="cb-control-help"
+    >
       {errorMsg}
-    </Wrapper>
+    </StyledComponent>
   ) : null;
   const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon ui={schema['x-ui']} icon={schema?.icon} image={schema?.image} mode={props.mode} theme={props.theme} /> : null;
   let element;
@@ -80,17 +110,32 @@ export const ElementWrapperControl = (props: {
   const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center', defaultClass, controlThemeStyle?.className);
   if (icon && (iconPosition === 'start' || iconPosition === 'end')) {
     element = (
-      <Wrapper ui={schema['x-ui']} theme={props.theme} path={path} name={'control-input'} className={twMerge(inputClasses)}>
+      <StyledComponent
+        componentType={controlType}
+        part="input-container"
+        schema={schema}
+        theme={props.theme}
+        className={inputClasses}
+      >
         {iconPosition === 'start' && icon} {props.children} {iconPosition === 'end' && icon}
-      </Wrapper>
+      </StyledComponent>
     );
   } else {
     element = (
-      <Wrapper ui={schema['x-ui']} theme={props.theme} path={path} name={'control-input'} className={twMerge(inputClasses)}>
+      <StyledComponent
+        componentType={controlType}
+        part="input-container"
+        schema={schema}
+        theme={props.theme}
+        className={inputClasses}
+      >
         {props.children}
-      </Wrapper>
+      </StyledComponent>
     );
   }
+
+  // Get label styling
+  const labelClasses = getComponentPartStyling(controlType, 'label', props.theme, customStyling);
 
   let label;
   const controlHelpLabel = getElementTheme('label', props.theme);
@@ -99,34 +144,46 @@ export const ElementWrapperControl = (props: {
   if (caption && !schema.hideLabel) {
     if (iconPosition === 'beforeLabel' || iconPosition === 'afterLabel') {
       label = (
-        <Wrapper ui={schema['x-ui']} theme={props.theme} path={path} name={'control-label'} className={twMerge(classNames(controlHelpLabel.className, labelStartEnd && !isInline && '-mt-5', 'cb-label-with-icon flex gap-2 text-xs items-center'))}>
+        <StyledComponent
+          componentType={controlType}
+          part="label"
+          schema={schema}
+          theme={props.theme}
+          className={twMerge(
+            labelStartEnd && !isInline && '-mt-5',
+            'cb-label-with-icon flex gap-2 text-xs items-center'
+          )}
+        >
           {iconPosition === 'beforeLabel' && icon}
-          <Wrapper path={path} theme={props.theme} name={"control-label-inner"} className="control-label-inner">
+          <StyledComponent
+            componentType={controlType}
+            part="label-inner"
+            schema={schema}
+            theme={props.theme}
+            className="control-label-inner"
+          >
             {caption}
-          </Wrapper>
+          </StyledComponent>
           {iconPosition === 'afterLabel' && icon}
-        </Wrapper>
+        </StyledComponent>
       );
     } else {
       label = (
-        <Wrapper
-          ui={schema['x-ui']}
-          path={path}
+        <StyledComponent
+          componentType={controlType}
+          part="label"
+          schema={schema}
           theme={props.theme}
-          name={'control-label'}
           className={twMerge(
-            classNames(
-              controlHelpLabel.className,
-              labelPosition === 'auto' && !isFixedLabel && !hasValue && 'opacity-0',
-              labelPosition === 'auto' && hasValue && '!text-[8px]  opacity-100',
-              labelStartEnd && !isInline && '-mt-5',
-              'cb-label text-xs',
-              ' transition-all duration-200',
-            ),
+            labelPosition === 'auto' && !isFixedLabel && !hasValue && 'opacity-0',
+            labelPosition === 'auto' && hasValue && '!text-[8px]  opacity-100',
+            labelStartEnd && !isInline && '-mt-5',
+            'cb-label text-xs',
+            'transition-all duration-200',
           )}
         >
           {caption}
-        </Wrapper>
+        </StyledComponent>
       );
     }
   }

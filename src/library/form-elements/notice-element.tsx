@@ -1,62 +1,104 @@
 import React, { Fragment, useState } from 'react';
 import { Transition } from '../common/headless-replacements';
-import { Inbox, X } from 'lucide-react';
+import { AlertCircle, CheckCircle, Info, X, AlertTriangle } from 'lucide-react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export default function Example() {
-  const [show, setShow] = useState(true);
+export const NoticeElement = ({ schema, name, value, theme, path }) => {
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(schema);
+
+  // Get notice styling
+  const containerClasses = getComponentPartStyling('notice', 'container', theme, customStyling);
+  const iconClasses = getComponentPartStyling('notice', 'icon', theme, customStyling);
+  const titleClasses = getComponentPartStyling('notice', 'title', theme, customStyling);
+  const contentClasses = getComponentPartStyling('notice', 'content', theme, customStyling);
+
+  // Determine notice type and icon
+  const type = schema?.type || 'info';
+  const title = schema?.title || value;
+  const content = schema?.content || schema?.description;
+
+  // Set colors based on type
+  const typeColors = {
+    info: 'bg-blue-50 text-blue-800',
+    success: 'bg-green-50 text-green-800',
+    warning: 'bg-yellow-50 text-yellow-800',
+    error: 'bg-red-50 text-red-800',
+  };
+
+  const typeIconColors = {
+    info: 'text-blue-400',
+    success: 'text-green-400',
+    warning: 'text-yellow-400',
+    error: 'text-red-400',
+  };
+
+  // Select icon based on type
+  const IconComponent = {
+    info: Info,
+    success: CheckCircle,
+    warning: AlertTriangle,
+    error: AlertCircle,
+  }[type] || Info;
 
   return (
-    <>
-      {/* Global notification live region, render this permanently at the end of the document */}
-      <div aria-live="assertive" className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
-        <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
-          {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
-          <Transition
-            show={show}
-            as={Fragment}
-            enter="transform ease-out duration-300 transition"
-            enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-            enterTo="translate-y-0 opacity-100 sm:translate-x-0"
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+    <StyledComponent
+      componentType="notice"
+      part="container"
+      schema={schema}
+      theme={theme}
+      className={twMerge(
+        'rounded-md p-4',
+        typeColors[type] || typeColors.info
+      )}
+    >
+      <div className="flex">
+        <div className="flex-shrink-0">
+          <StyledComponent
+            componentType="notice"
+            part="icon"
+            schema={schema}
+            theme={theme}
+            as="div"
+            className={twMerge(
+              'h-5 w-5',
+              typeIconColors[type] || typeIconColors.info
+            )}
           >
-            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-              <div className="p-4">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Inbox className="h-6 w-6 text-gray-400" aria-hidden="true" />
-                  </div>
-                  <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-sm font-medium text-gray-900">Discussion moved</p>
-                    <p className="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit oluptatum tenetur.</p>
-                    <div className="mt-3 flex space-x-7">
-                      <button type="button" className="rounded bg-white text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        Undo
-                      </button>
-                      <button type="button" className="rounded bg-white text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        Dismiss
-                      </button>
-                    </div>
-                  </div>
-                  <div className="ml-4 flex flex-shrink-0">
-                    <button
-                      type="button"
-                      className="inline-flex rounded bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      onClick={() => {
-                        setShow(false);
-                      }}
-                    >
-                      <span className="sr-only">Close</span>
-                      <X className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Transition>
+            <IconComponent aria-hidden="true" />
+          </StyledComponent>
+        </div>
+        <div className="ml-3">
+          {title && (
+            <StyledComponent
+              componentType="notice"
+              part="title"
+              schema={schema}
+              theme={theme}
+              as="h3"
+              className="text-sm font-medium"
+            >
+              {title}
+            </StyledComponent>
+          )}
+          {content && (
+            <StyledComponent
+              componentType="notice"
+              part="content"
+              schema={schema}
+              theme={theme}
+              as="div"
+              className="mt-2 text-sm"
+            >
+              <p>{content}</p>
+            </StyledComponent>
+          )}
         </div>
       </div>
-    </>
+    </StyledComponent>
   );
-}
+};
+
+export default NoticeElement;

@@ -5,6 +5,8 @@ import { classNames, isEmpty, isNotEmpty } from '../utils';
 import { ElementIcon } from './element-icon';
 import { twMerge } from 'tailwind-merge';
 import { IconRenderer } from '../common/icons/icon-renderer';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
 export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mode?; value?; schema?; path?; name?; data?; options?, theme?}) => {
   const [query, setQuery] = useState('');
@@ -144,6 +146,20 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
     props.change([]);
   };
 
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
+
+  // Get combo styling
+  const containerClasses = getComponentPartStyling('combo', 'container', props.theme, customStyling);
+  const inputClasses = getComponentPartStyling('combo', 'input', props.theme, customStyling);
+  const buttonClasses = getComponentPartStyling('combo', 'button', props.theme, customStyling);
+  const dropdownClasses = getComponentPartStyling('combo', 'dropdown', props.theme, customStyling);
+  const optionClasses = getComponentPartStyling('combo', 'option', props.theme, customStyling);
+  const selectedOptionClasses = getComponentPartStyling('combo', 'selectedOption', props.theme, customStyling);
+  const selectedTagClasses = getComponentPartStyling('combo', 'selectedTag', props.theme, customStyling);
+  const clearButtonClasses = getComponentPartStyling('combo', 'clearButton', props.theme, customStyling);
+  const addButtonClasses = getComponentPartStyling('combo', 'addButton', props.theme, customStyling);
+
   const themeClass = themeClasses[props.theme] || themeClasses['default'];
   const listSelected = props.schema?.listSelected || false;
 
@@ -212,7 +228,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
                     <span className={classNames('ml-3 truncate font-semibold')}>{item.label}</span>
                   </div>
                   <div className='flex items-center'>
-                    <button className="" onClick={() => removeItem(itemValue)}>
+                    <button className="" onClick={() => removeItem(itemValue)} title="Remove item" aria-label="Remove item">
                       <IconRenderer icon="X" className="h-4 w-4  group-hover:text-sky-500 text-red-400" aria-hidden="true" />
                     </button>
                   </div>

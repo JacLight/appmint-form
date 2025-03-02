@@ -2,11 +2,28 @@ import { statusColors } from '../context/store';
 import { classNames } from '../utils';
 import { twMerge } from 'tailwind-merge';
 import React from 'react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
-export const LabelElement = (props: { path; name; value; className }) => {
-  const prop: any = {};
+export const LabelElement = (props: { path; name; value; className; schema?; theme?}) => {
+  // Extract styling from schema
+  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
-  const handleUpdate = (emoji: any) => { };
+  // Get label styling
+  const containerClasses = getComponentPartStyling('label', 'container', props.theme, customStyling);
 
-  return <div className={twMerge(classNames('px-2 py-1 rounded-lg shadow w-fit', props.className, statusColors[props.value?.toLowerCase()]))}>{props.value}</div>;
+  // Get status color if value is a status
+  const statusColor = props.value?.toLowerCase ? statusColors[props.value?.toLowerCase()] : undefined;
+
+  return (
+    <StyledComponent
+      componentType="label"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge('px-2 py-1 rounded-lg shadow w-fit', props.className, statusColor)}
+    >
+      {props.value}
+    </StyledComponent>
+  );
 };
