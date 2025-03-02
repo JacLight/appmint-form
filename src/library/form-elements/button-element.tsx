@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { isEmpty, toTitleCase, toSentenceCase } from '../utils';
 import { getElementTheme, useFormStore } from '../context/store';
-import { elementStyleClassMap } from './element-style-class';
 import { classNames } from '../utils';
 import { ElementCommonView } from './element-common-view';
 import { buttonsActions } from '../form-view/button-actions';

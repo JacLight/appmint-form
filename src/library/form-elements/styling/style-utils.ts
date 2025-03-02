@@ -17,6 +17,8 @@ export interface ThemeStyling {
 /**
  * Base theme - the single source of truth for all styling
  * Every component must get its styling from this theme
+ * 
+ * Note: Styles from element-style-class.ts have been migrated here
  */
 const baseTheme: ThemeStyling = {
     // Common styling for all components
@@ -29,7 +31,7 @@ const baseTheme: ThemeStyling = {
         helpContainer: 'ml-8',
         icon: 'h-5 w-5 text-gray-400',
         iconContainer: 'flex items-center justify-center',
-        'input-container': 'w-full',
+        'input-container': 'w-full my-1', // Added 'my-1' from element-style-class.ts
     },
     // Icon and image components
     'control-icon': {
@@ -110,6 +112,10 @@ const baseTheme: ThemeStyling = {
         description: 'mt-1 text-xs text-gray-500',
         error: 'mt-1 text-xs text-red-500',
     },
+    // Select single styling (from element-style-class.ts)
+    selectsingle: {
+        container: 'flex items-center justify-center',
+    },
     // Listbox styling
     listbox: {
         container: 'relative w-full',
@@ -188,6 +194,18 @@ const baseTheme: ThemeStyling = {
         paletteItem: 'w-6 h-6 rounded-md cursor-pointer',
         description: 'mt-1 text-xs text-gray-500',
         error: 'mt-1 text-xs text-red-500',
+    },
+    // Button styling (added flex from element-style-class.ts)
+    button: {
+        container: 'relative my-2 flex',
+        button: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+        label: 'block text-sm font-medium text-gray-700 mb-1',
+        description: 'mt-1 text-xs text-gray-500',
+        error: 'mt-1 text-xs text-red-500',
+    },
+    // Map styling (from element-style-class.ts)
+    map: {
+        container: 'h-96 w-full',
     },
 };
 

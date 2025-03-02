@@ -1,12 +1,14 @@
 import { BaseModelDTO, getResponseErrorMessage } from '../utils';
 import * as objectPath from 'object-path';
-import { isNotEmpty, classNames } from '../utils';
+import { isNotEmpty } from '../utils';
 import React, { useState, useRef, useEffect } from 'react';
 import { SelectManyList } from './select-many-list';
 import { ButtonCancel } from '../common/button-cancel';
 import { slimButtonClass } from '../common/constants';
 import { BusyIcon } from '../common/icons/svg';
 import { IconRenderer } from '../common/icons/icon-renderer';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema } from './styling/style-utils';
 
 // Stubs for missing imports from form-view/common-imports
 const CollectionHelper = {
@@ -34,7 +36,9 @@ const requestQueueInstance = {
 
 const infoFields = ['name', 'email', 'username', 'title', 'phone'];
 
-export const DataLookupCombo = (props: { schema; change }) => {
+export const DataLookupCombo = (props: { schema; change; theme?}) => {
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
   const [datatype, setDatatype] = useState(props.schema?.datatype);
   const [keyword, setKeyword] = useState('');
   const [result, setResult] = useState<BaseModelDTO<any>>();
@@ -144,42 +148,128 @@ export const DataLookupCombo = (props: { schema; change }) => {
   };
 
   return (
-    <div className="relative">
-      {error && <div className="text-red-500 text-xs text-center">{error}</div>}
+    <StyledComponent
+      componentType="data-lookup"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className="relative"
+    >
+      {error && (
+        <StyledComponent
+          componentType="data-lookup"
+          part="error"
+          schema={props.schema}
+          theme={props.theme}
+          className="text-red-500 text-xs text-center"
+        >
+          {error}
+        </StyledComponent>
+      )}
       {selectedItems && (
-        <div className="mb-2">
+        <StyledComponent
+          componentType="data-lookup"
+          part="selectedItems"
+          schema={props.schema}
+          theme={props.theme}
+          className="mb-2"
+        >
           {selectedItems?.map((item: any) => (
-            <LookupItem item={item} remove={removeItem} />
+            <LookupItem key={item.sk} item={item} remove={removeItem} theme={props.theme} schema={props.schema} />
           ))}
-        </div>
+        </StyledComponent>
       )}
-      <div className="flex gap-1">
+      <StyledComponent
+        componentType="data-lookup"
+        part="controls"
+        schema={props.schema}
+        theme={props.theme}
+        className="flex gap-1"
+      >
         <SelectManyList change={setDatatype} options={CollectionHelper.getInstance().getCollectionOptions()} schema={{ placeholder: 'Select Datatype' }} />
-        <input type="text" placeholder="Enter name to search" value={keyword} onChange={onKeywordChange} className="flex-grow rounded border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none" />
-        <button title="Search" onClick={handleSearch} className={classNames(slimButtonClass, 'flex items-center gap-2 shadow-none')}>
+        <StyledComponent
+          componentType="data-lookup"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
+          type="text"
+          placeholder="Enter name to search"
+          value={keyword}
+          onChange={onKeywordChange}
+          className="flex-grow rounded border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+        />
+        <StyledComponent
+          componentType="data-lookup"
+          part="searchButton"
+          schema={props.schema}
+          theme={props.theme}
+          as="button"
+          title="Search"
+          onClick={handleSearch}
+          className={`${slimButtonClass} flex items-center gap-2 shadow-none`}
+        >
           <BusyIcon isLoading={isLoading} notLoadingMessage={<IconRenderer icon='Search' />} />
-        </button>
-      </div>
+        </StyledComponent>
+      </StyledComponent>
       {isNotEmpty(result) && (
-        <div className="bg-white rounded-lg shadow-md p-4 max-h-96 overflow-auto mt-2 absolute z-10">
-          <div className='flex justify-between items-center'>
-            <div className="text-sm font-semibold mb-2">{result?.total} Matching Results:</div>
+        <StyledComponent
+          componentType="data-lookup"
+          part="results"
+          schema={props.schema}
+          theme={props.theme}
+          className="bg-white rounded-lg shadow-md p-4 max-h-96 overflow-auto mt-2 absolute z-10"
+        >
+          <StyledComponent
+            componentType="data-lookup"
+            part="resultsHeader"
+            schema={props.schema}
+            theme={props.theme}
+            className="flex justify-between items-center"
+          >
+            <StyledComponent
+              componentType="data-lookup"
+              part="resultsCount"
+              schema={props.schema}
+              theme={props.theme}
+              className="text-sm font-semibold mb-2"
+            >
+              {result?.total} Matching Results:
+            </StyledComponent>
             <ButtonCancel handler={() => setResult({} as any)} />
-          </div>
-          <ul className="space-y-2">
+          </StyledComponent>
+          <StyledComponent
+            componentType="data-lookup"
+            part="resultsList"
+            schema={props.schema}
+            theme={props.theme}
+            as="ul"
+            className="space-y-2"
+          >
             {result?.data.map((result: any) => (
-              <li onClick={e => toggleSelection(e, result)} key={result.sk} className={classNames(isSelected(result.sk) ? 'bg-orange-100' : 'bg-gray-50', ' p-2 rounded-md  hover:bg-cyan-100 cursor-pointer')}>
-                <LookupItem item={result} />
-              </li>
+              <StyledComponent
+                key={result.sk}
+                componentType="data-lookup"
+                part="resultsItem"
+                schema={props.schema}
+                theme={props.theme}
+                as="li"
+                onClick={e => toggleSelection(e, result)}
+                className={isSelected(result.sk) ? 'bg-orange-100 p-2 rounded-md hover:bg-cyan-100 cursor-pointer' : 'bg-gray-50 p-2 rounded-md hover:bg-cyan-100 cursor-pointer'}
+              >
+                <LookupItem item={result} theme={props.theme} schema={props.schema} />
+              </StyledComponent>
             ))}
-          </ul>
-        </div>
+          </StyledComponent>
+        </StyledComponent>
       )}
-    </div>
+    </StyledComponent>
   );
 };
 
-const LookupItem = ({ item, remove = null }) => {
+const LookupItem = ({ item, remove = null, theme, schema }) => {
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(schema);
   const getTitle = () => {
     for (let field of infoFields) {
       if (item.data[field]) {
@@ -188,24 +278,49 @@ const LookupItem = ({ item, remove = null }) => {
     }
   }
   return (
-    <div className={classNames(remove && 'shadow px-2 py-1 rounded-lg w-full', ' text-gray-400 text-xs flex gap-4 items-center overflow-auto')}>
+    <StyledComponent
+      componentType="data-lookup"
+      part="item"
+      schema={schema}
+      theme={theme}
+      className={remove ? 'shadow px-2 py-1 rounded-lg w-full text-gray-400 text-xs flex gap-4 items-center overflow-auto' : 'text-gray-400 text-xs flex gap-4 items-center overflow-auto'}
+    >
       {remove && (
-        <button title="Remove Item" onClick={e => remove(item.sk)} className=" text-red-500">
+        <StyledComponent
+          componentType="data-lookup"
+          part="removeButton"
+          schema={schema}
+          theme={theme}
+          as="button"
+          title="Remove Item"
+          onClick={e => remove(item.sk)}
+          className="text-red-500"
+        >
           <IconRenderer icon="X" />
-        </button>
+        </StyledComponent>
       )}
-      <div className="">
+      <StyledComponent
+        componentType="data-lookup"
+        part="itemTitle"
+        schema={schema}
+        theme={theme}
+      >
         <div className="text-[9px]">title</div>
         <div className='whitespace-nowrap text-gray-500'> {getTitle()}</div>
-      </div>
+      </StyledComponent>
       {/* <div>
         <div className="text-[9px]">id</div>
         <div className="">{item.sk}</div>
       </div> */}
-      <div>
+      <StyledComponent
+        componentType="data-lookup"
+        part="itemDate"
+        schema={schema}
+        theme={theme}
+      >
         <div className="text-[9px]">modified</div>
         <div className="whitespace-nowrap">{new Date(item.modifydate).toUTCString()}</div>
-      </div>
-    </div>
+      </StyledComponent>
+    </StyledComponent>
   );
 };

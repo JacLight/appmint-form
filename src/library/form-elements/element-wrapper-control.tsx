@@ -2,7 +2,6 @@ import { classNames } from '../utils';
 import { isEmpty } from '../utils';
 import { toSentenceCase, toTitleCase } from '../utils';
 import { ElementCommonView } from './element-common-view';
-import { elementStyleClassMap } from './element-style-class';
 import { getElementTheme } from '../context/store';
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -62,7 +61,6 @@ export const ElementWrapperControl = (props: {
   }
 
   const isFixedLabel = fixedLabel.includes(controlType);
-  const defaultClass = elementStyleClassMap[controlType] || 'my-1 ';
   const controlHelpTheme = getElementTheme('help', props.theme);
 
   // Extract styling from schema
@@ -107,7 +105,9 @@ export const ElementWrapperControl = (props: {
   const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon ui={schema['x-ui']} icon={schema?.icon} image={schema?.image} mode={props.mode} theme={props.theme} /> : null;
   let element;
   const controlThemeStyle = getElementTheme('control-' + controlType, props.theme);
-  const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center', defaultClass, controlThemeStyle?.className);
+  // Get input container styling
+  const inputContainerClasses = getComponentPartStyling(controlType, 'input-container', props.theme, customStyling);
+  const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center', controlThemeStyle?.className);
   if (icon && (iconPosition === 'start' || iconPosition === 'end')) {
     element = (
       <StyledComponent

@@ -1,13 +1,13 @@
 import { getSelectOptions } from '../form-view/form-utils';
 import { getWatchedPaths } from '../form-view/form-utils';
-import { twMerge } from 'tailwind-merge';
 import React, { useEffect } from 'react';
 import { SelectManyList } from './select-many-list';
 import { SelectManyCombo } from './select-many-combo';
 import { SelectManyRadio } from './select-many-radio';
 import { SelectManyCheckbox } from './select-many-checkbox';
-import { getElementTheme, useFormStore } from '../context/store';
 import { isEmpty, isNotEmpty, toSentenceCase, toTitleCase } from '../utils';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema } from './styling/style-utils';
 
 const getSelectType = type => {
 
@@ -86,12 +86,35 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
 
   const onFocus = value => { };
 
-  const { classes, style } = (props.ui || {})['select-many'] || {};
-  const controlTheme = getElementTheme('select-many', props.theme);
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
 
   let variant = props.schema['x-control-variant'];
   const defaultType = getSelectType(props.schema.type === 'array' ? 'combo' : 'select');
   const Element = getSelectType(variant) || getSelectType(defaultType);
 
-  return <Element path={props.path} ui={props.ui} theme={props.theme} dataPath={props.dataPath} variant={variant} name={props.name} schema={props.schema} mode={props.mode} className={twMerge(props.className, controlTheme.className, classes?.join(' '))} options={Array.isArray(options) ? options : []} blur={onBlur} change={onChange} focus={onFocus} value={props.value} />;
+  return (
+    <StyledComponent
+      componentType="select-many"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={props.className}
+    >
+      <Element
+        path={props.path}
+        theme={props.theme}
+        dataPath={props.dataPath}
+        variant={variant}
+        name={props.name}
+        schema={props.schema}
+        mode={props.mode}
+        options={Array.isArray(options) ? options : []}
+        blur={onBlur}
+        change={onChange}
+        focus={onFocus}
+        value={props.value}
+      />
+    </StyledComponent>
+  );
 };

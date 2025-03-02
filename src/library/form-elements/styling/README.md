@@ -107,7 +107,7 @@ Is equivalent to:
 
 ### Migration Status
 
-As of the latest update, we have migrated **35 out of 42** components (83.3%) to the new styling system. The migration is ongoing, with priority given to the most commonly used components.
+As of the latest update, we have migrated **38 out of 42** components (90.5%) to the new styling system. The migration is ongoing, with priority given to the most commonly used components.
 
 Key components that have been migrated include:
 
@@ -493,6 +493,67 @@ For a complete list of migrated components and their status, see [MIGRATION_STAT
       },
       "selectedOption": {
         "classes": ["p-2", "rounded", "bg-indigo-100", "text-indigo-700", "cursor-pointer"]
+      }
+    }
+  }
+}
+```
+
+### Custom UUID Generator
+
+```javascript
+{
+  "type": "string",
+  "title": "Unique Identifier",
+  "format": "uuid",
+  "styling": {
+    "uuid-element": {
+      "container": {
+        "classes": ["bg-gray-50", "rounded-lg", "p-3", "border", "border-gray-200"]
+      },
+      "value": {
+        "classes": ["font-mono", "text-sm", "text-gray-700", "select-all"]
+      },
+      "button": {
+        "classes": ["p-1.5", "rounded-full", "bg-white", "shadow-sm", "hover:bg-gray-100", "transition-colors", "ml-2"]
+      },
+      "icon": {
+        "classes": ["w-4", "h-4", "text-blue-600"]
+      }
+    }
+  }
+}
+```
+
+### Custom Phone Input
+
+```javascript
+{
+  "type": "string",
+  "title": "Phone Number",
+  "format": "phone",
+  "styling": {
+    "phone": {
+      "container": {
+        "classes": ["bg-gray-50", "rounded-lg", "border", "border-gray-200", "overflow-hidden"]
+      },
+      "dropdownButton": {
+        "classes": ["bg-blue-50", "text-blue-700", "border-r", "border-blue-200", "hover:bg-blue-100", "transition-colors"]
+      },
+      "dropdownMenu": {
+        "classes": ["bg-white", "shadow-xl", "rounded-md", "border", "border-blue-100", "mt-1"]
+      },
+      "dropdownItem": {
+        "classes": ["hover:bg-blue-50", "transition-colors"]
+      },
+      "dropdownItemSelected": {
+        "classes": ["bg-blue-100", "text-blue-800"]
+      },
+      "input": {
+        "classes": ["border-0", "focus:ring-blue-500", "text-gray-800", "placeholder-gray-400"]
+      },
+      "flag": {
+        "classes": ["rounded-sm", "mr-2"]
       }
     }
   }

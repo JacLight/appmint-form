@@ -1,4 +1,7 @@
 import React from 'react';
+// Export styling components and utilities
+export { StyledComponent } from './styling';
+export { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { ButtonElement } from './button-element';
 import { CodeElement } from './code-element';
 import { ColorElement } from './color-element';
@@ -58,7 +61,8 @@ export * from './social-links';
 export * from './legal-concent';
 export * from './data-lookup-combo';
 
-export const elementToNameMap = {
+// Use a more generic type to avoid TypeScript errors with prop interfaces
+export const elementToNameMap: Record<string, React.ComponentType<any>> = {
   dataview: DataViewElement,
   text: TextElement,
   textarea: TextElement,

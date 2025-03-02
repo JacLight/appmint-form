@@ -187,6 +187,27 @@ These parts are available for most components:
 | `option` | A single icon option |
 | `selectedOption` | The currently selected icon option |
 
+### UUID Element (`uuid-element`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `value` | The UUID value display |
+| `button` | Button to regenerate the UUID |
+| `icon` | Icon inside the regenerate button |
+
+### Phone Element (`phone`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `dropdownButton` | Button to open the country code dropdown |
+| `dropdownMenu` | The dropdown menu for country selection |
+| `dropdownItem` | A single country option in the dropdown |
+| `dropdownItemSelected` | The currently selected country option |
+| `input` | The phone number input field |
+| `flag` | The country flag icon |
+
 ### Select Many Checkbox (`select-many-checkbox`)
 
 | Part | Description |
