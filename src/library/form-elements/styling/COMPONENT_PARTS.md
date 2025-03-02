@@ -95,6 +95,23 @@ These parts are available for most components:
 | `input` | The date input fields |
 | `calendar` | The calendar popup |
 
+### Date Time Picker (`date-time-picker`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `controls` | The controls section for mode and options |
+| `label` | Labels for controls |
+| `select` | Select dropdown for mode selection |
+| `checkbox` | Checkboxes for options |
+| `inputContainer` | Container for the input fields |
+| `input` | The date/time input fields |
+| `presetSelector` | The preset date range selector |
+| `error` | Error message display |
+| `preview` | Preview section for selected dates/times |
+| `previewTitle` | Title for the preview section |
+| `previewContent` | Content of the preview section |
+
 ### Color Element (`color`)
 
 | Part | Description |
@@ -104,6 +121,71 @@ These parts are available for most components:
 | `palette` | The color palette container |
 | `paletteItem` | A single color in the palette |
 | `input` | The color input field |
+
+### File Element (`file-element`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `dropzone` | The file drop zone area |
+| `dropzoneActive` | The drop zone when a file is being dragged over it |
+| `button` | The file selection button |
+| `fileList` | The list of uploaded files |
+| `fileItem` | A single file item in the list |
+| `filePreview` | The preview of a file (image thumbnail) |
+| `fileInfo` | Container for file information |
+| `fileName` | The name of the file |
+| `fileSize` | The size of the file |
+| `progressBar` | The upload progress bar |
+| `deleteButton` | Button to delete a file |
+| `errorMessage` | Error message display |
+
+### Code Element (`code-element`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `editor` | The code editor area |
+| `appBar` | The toolbar above the editor |
+| `button` | Generic button in the app bar |
+| `saveButton` | The save button |
+| `expandButton` | The expand/collapse button |
+| `loading` | Loading indicator when the editor is initializing |
+
+### Cron Element (`cron-element`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `expressionContainer` | Container for the cron expression display |
+| `expression` | The cron expression text |
+| `summary` | Human-readable summary of the schedule |
+| `button` | Generic button |
+| `primaryButton` | Primary action button (e.g., Copy) |
+| `secondaryButton` | Secondary action button (e.g., Clear) |
+| `tabsContainer` | Container for the tabs |
+| `tab` | A tab button |
+| `activeTab` | The currently active tab |
+| `tabContent` | The content area for the active tab |
+| `fieldContainer` | Container for a field group |
+| `label` | Label for a field |
+| `input` | Text input field |
+| `select` | Dropdown select field |
+| `dayButton` | Button for day selection |
+| `activeDayButton` | Selected day button |
+| `quickButton` | Quick preset button |
+
+### Icon Picker Element (`icon-picker-element`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `icon` | The selected icon display |
+| `button` | Button to open the icon picker |
+| `dropdown` | The dropdown container for icon selection |
+| `search` | Search input for filtering icons |
+| `option` | A single icon option |
+| `selectedOption` | The currently selected icon option |
 
 ### Select Many Checkbox (`select-many-checkbox`)
 
@@ -280,6 +362,69 @@ These parts are available for most components:
 | `rail` | The slider rail |
 | `mark` | A mark on the slider |
 | `markLabel` | A label for a mark |
+| `value` | The value display |
+| `input` | The input field for direct value entry |
+
+### Slider Range (`slider-range`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `minTrack` | The track for the minimum value slider |
+| `maxTrack` | The track for the maximum value slider |
+| `rail` | The slider rail |
+| `thumb` | The slider thumbs |
+| `value` | The value display |
+
+### Number Range Element (`number-range`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `minInputContainer` | Container for the minimum value input |
+| `maxInputContainer` | Container for the maximum value input |
+| `minInput` | The input field for the minimum value |
+| `maxInput` | The input field for the maximum value |
+| `separator` | The separator between min and max inputs |
+
+### Social Textarea (`social-textarea`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `textarea` | The textarea input |
+| `controls` | The controls container |
+| `platformSelector` | The social platform selector |
+| `iconPicker` | The icon picker |
+| `counter` | The character counter |
+| `counterWarning` | The character counter in warning state |
+| `counterError` | The character counter in error state |
+| `suggestions` | The suggestions dropdown |
+| `suggestionItem` | A single suggestion item |
+| `suggestionSelected` | A selected suggestion item |
+
+### Data View Element (`data-view`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `emptyMessage` | Message shown when no data is available |
+| `itemContainer` | Container for a data item |
+| `item` | A single data item |
+| `value` | A data value |
+| `key` | A data key |
+| `objectContainer` | Container for object data |
+| `objectItem` | A single object item |
+| `deleteButton` | Button to delete an item |
+
+### Generated Element (`generated-element`)
+
+| Part | Description |
+|------|-------------|
+| `container` | The outer container |
+| `value` | The generated value display |
+| `button` | The regenerate button |
+| `icon` | The icon in the regenerate button |
 
 ## Styling Best Practices
 

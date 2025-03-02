@@ -1,6 +1,45 @@
 import React, { useState, useEffect } from 'react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export const CronElement = () => {
+interface CronElementProps {
+  change?: (value: string) => void;
+  focus?: () => void;
+  blur?: (value: string) => void;
+  mode?: string;
+  value?: string;
+  schema?: any;
+  path?: string;
+  name?: string;
+  data?: any;
+  theme?: any;
+  className?: string;
+}
+
+export const CronElement: React.FC<CronElementProps> = (props) => {
+  // Extract styling from schema
+  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
+
+  // Get cron-element styling
+  const containerClasses = getComponentPartStyling('cron-element', 'container', props.theme, customStyling);
+  const expressionContainerClasses = getComponentPartStyling('cron-element', 'expressionContainer', props.theme, customStyling);
+  const expressionClasses = getComponentPartStyling('cron-element', 'expression', props.theme, customStyling);
+  const summaryClasses = getComponentPartStyling('cron-element', 'summary', props.theme, customStyling);
+  const buttonClasses = getComponentPartStyling('cron-element', 'button', props.theme, customStyling);
+  const primaryButtonClasses = getComponentPartStyling('cron-element', 'primaryButton', props.theme, customStyling);
+  const secondaryButtonClasses = getComponentPartStyling('cron-element', 'secondaryButton', props.theme, customStyling);
+  const tabsContainerClasses = getComponentPartStyling('cron-element', 'tabsContainer', props.theme, customStyling);
+  const tabClasses = getComponentPartStyling('cron-element', 'tab', props.theme, customStyling);
+  const activeTabClasses = getComponentPartStyling('cron-element', 'activeTab', props.theme, customStyling);
+  const fieldContainerClasses = getComponentPartStyling('cron-element', 'fieldContainer', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('cron-element', 'label', props.theme, customStyling);
+  const inputClasses = getComponentPartStyling('cron-element', 'input', props.theme, customStyling);
+  const selectClasses = getComponentPartStyling('cron-element', 'select', props.theme, customStyling);
+  const dayButtonClasses = getComponentPartStyling('cron-element', 'dayButton', props.theme, customStyling);
+  const activeDayButtonClasses = getComponentPartStyling('cron-element', 'activeDayButton', props.theme, customStyling);
+  const quickButtonClasses = getComponentPartStyling('cron-element', 'quickButton', props.theme, customStyling);
+
   // State for each part of the cron expression
   const [minutes, setMinutes] = useState('*');
   const [hours, setHours] = useState('*');
@@ -23,8 +62,50 @@ export const CronElement = () => {
     updateScheduleSummary(newCronExpression);
   }, [minutes, hours, dayOfMonth, month, dayOfWeek]);
 
+  // Initialize cron expression from props.value if provided
+  useEffect(() => {
+    if (props.value && typeof props.value === 'string') {
+      const parts = props.value.split(' ');
+      if (parts.length === 5) {
+        setMinutes(parts[0]);
+        setHours(parts[1]);
+        setDayOfMonth(parts[2]);
+        setMonth(parts[3]);
+        setDayOfWeek(parts[4]);
+
+        // Update selected days based on the day of week expression
+        if (parts[4] === '*') {
+          setSelectedDays({ 0: false, 1: false, 2: false, 3: false, 4: false, 5: false, 6: false });
+        } else {
+          const newSelectedDays = { 0: false, 1: false, 2: false, 3: false, 4: false, 5: false, 6: false };
+          const dayParts = parts[4].split(',');
+
+          dayParts.forEach(part => {
+            if (part.includes('-')) {
+              const [start, end] = part.split('-').map(Number);
+              for (let i = start; i <= end; i++) {
+                newSelectedDays[i] = true;
+              }
+            } else {
+              newSelectedDays[parseInt(part)] = true;
+            }
+          });
+
+          setSelectedDays(newSelectedDays);
+        }
+      }
+    }
+  }, [props.value]);
+
+  // Notify parent component of changes
+  useEffect(() => {
+    if (props.change) {
+      props.change(cronExpression);
+    }
+  }, [cronExpression, props.change]);
+
   // Handle day of week selection
-  const handleDaySelect = (day) => {
+  const handleDaySelect = (day: number) => {
     const newSelectedDays = { ...selectedDays, [day]: !selectedDays[day] };
     setSelectedDays(newSelectedDays);
 
@@ -43,12 +124,12 @@ export const CronElement = () => {
   };
 
   // Handle hour selection (single or range)
-  const handleHourSelect = (hour) => {
+  const handleHourSelect = (hour: string) => {
     setHours(hour);
   };
 
   // Handle applying a preset
-  const applyPreset = (preset) => {
+  const applyPreset = (preset: { label: string; expression: string }) => {
     const parts = preset.expression.split(' ');
     setMinutes(parts[0]);
     setHours(parts[1]);
@@ -79,7 +160,7 @@ export const CronElement = () => {
   };
 
   // Generate human-readable summary of the schedule
-  const updateScheduleSummary = (cron) => {
+  const updateScheduleSummary = (cron: string) => {
     const parts = cron.split(' ');
     let summary = '';
 
@@ -116,6 +197,13 @@ export const CronElement = () => {
       });
   };
 
+  // When blur is called, pass the current cron expression
+  const handleBlur = () => {
+    if (props.blur) {
+      props.blur(cronExpression);
+    }
+  };
+
   const presets = [
     { label: 'Every minute', expression: '* * * * *' },
     { label: 'Every hour', expression: '0 * * * *' },
@@ -126,15 +214,40 @@ export const CronElement = () => {
   ];
 
   const renderSimpleTab = () => (
-    <div className="space-y-4">
+    <StyledComponent
+      componentType="cron-element"
+      part="tabContent"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge("space-y-4", props.className)}
+    >
       {/* Time selection */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Time</label>
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Time
+        </StyledComponent>
         <div className="flex space-x-2">
-          <select
+          <StyledComponent
+            componentType="cron-element"
+            part="select"
+            schema={props.schema}
+            theme={props.theme}
+            as="select"
             value={hours}
             onChange={(e) => setHours(e.target.value)}
             className="p-1 text-sm border border-gray-300 rounded"
+            aria-label="Hour"
           >
             <option value="*">Every hour</option>
             <option value="0">12am</option>
@@ -144,12 +257,18 @@ export const CronElement = () => {
             <option value="15">3pm</option>
             <option value="18">6pm</option>
             <option value="21">9pm</option>
-          </select>
+          </StyledComponent>
           <span className="flex items-center">:</span>
-          <select
+          <StyledComponent
+            componentType="cron-element"
+            part="select"
+            schema={props.schema}
+            theme={props.theme}
+            as="select"
             value={minutes}
             onChange={(e) => setMinutes(e.target.value)}
             className="p-1 text-sm border border-gray-300 rounded"
+            aria-label="Minute"
           >
             <option value="*">Every minute</option>
             <option value="0">00</option>
@@ -159,167 +278,386 @@ export const CronElement = () => {
             <option value="*/5">Every 5m</option>
             <option value="*/15">Every 15m</option>
             <option value="*/30">Every 30m</option>
-          </select>
+          </StyledComponent>
         </div>
-      </div>
+      </StyledComponent>
 
       {/* Day selection */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Days</label>
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Days
+        </StyledComponent>
         <div className="flex flex-wrap gap-1">
           {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
-            <button
+            <StyledComponent
               key={index}
+              componentType="cron-element"
+              part={selectedDays[index] ? "activeDayButton" : "dayButton"}
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
+              type="button"
+              onClick={() => handleDaySelect(index)}
               className={`w-6 h-6 text-xs flex items-center justify-center rounded-full 
                 ${selectedDays[index] ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
-              onClick={() => handleDaySelect(index)}
+              aria-label={`${selectedDays[index] ? 'Deselect' : 'Select'} ${index === 0 ? 'Sunday' :
+                  index === 1 ? 'Monday' :
+                    index === 2 ? 'Tuesday' :
+                      index === 3 ? 'Wednesday' :
+                        index === 4 ? 'Thursday' :
+                          index === 5 ? 'Friday' : 'Saturday'
+                }`}
+              aria-pressed={selectedDays[index]}
             >
               {day}
-            </button>
+            </StyledComponent>
           ))}
         </div>
-      </div>
+      </StyledComponent>
 
       {/* Quick presets */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Quick Presets</label>
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Quick Presets
+        </StyledComponent>
         <div className="flex flex-wrap gap-1">
-          <button
-            className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded"
-            onClick={() => applyPreset(presets[0])}
-          >
-            Every minute
-          </button>
-          <button
-            className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded"
-            onClick={() => applyPreset(presets[1])}
-          >
-            Hourly
-          </button>
-          <button
-            className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded"
-            onClick={() => applyPreset(presets[2])}
-          >
-            Daily
-          </button>
-          <button
-            className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded"
-            onClick={() => applyPreset(presets[4])}
-          >
-            Weekdays
-          </button>
-          <button
-            className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded"
-            onClick={() => applyPreset(presets[5])}
-          >
-            Weekends
-          </button>
+          {presets.map((preset, index) => (
+            <StyledComponent
+              key={index}
+              componentType="cron-element"
+              part="quickButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
+              type="button"
+              onClick={() => applyPreset(preset)}
+              className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded"
+            >
+              {preset.label}
+            </StyledComponent>
+          ))}
         </div>
-      </div>
-    </div>
+      </StyledComponent>
+    </StyledComponent>
   );
 
   const renderAdvancedTab = () => (
-    <div className="space-y-4">
+    <StyledComponent
+      componentType="cron-element"
+      part="tabContent"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge("space-y-4", props.className)}
+    >
       {/* Minutes */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Minutes</label>
-        <input
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Minutes
+        </StyledComponent>
+        <StyledComponent
+          componentType="cron-element"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
           type="text"
           value={minutes}
           onChange={(e) => setMinutes(e.target.value)}
           className="w-full p-1 text-sm border border-gray-300 rounded"
           placeholder="* or */15 or 0,30"
+          aria-label="Minutes"
         />
         <div className="flex flex-wrap gap-1 mt-1">
-          <button onClick={() => setMinutes('*')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">*</button>
-          <button onClick={() => setMinutes('*/5')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">*/5</button>
-          <button onClick={() => setMinutes('*/15')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">*/15</button>
-          <button onClick={() => setMinutes('0')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">0</button>
+          {['*', '*/5', '*/15', '0'].map((value, index) => (
+            <StyledComponent
+              key={index}
+              componentType="cron-element"
+              part="quickButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
+              type="button"
+              onClick={() => setMinutes(value)}
+              className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded"
+            >
+              {value}
+            </StyledComponent>
+          ))}
         </div>
-      </div>
+      </StyledComponent>
 
       {/* Hours */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Hours</label>
-        <input
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Hours
+        </StyledComponent>
+        <StyledComponent
+          componentType="cron-element"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
           type="text"
           value={hours}
           onChange={(e) => setHours(e.target.value)}
           className="w-full p-1 text-sm border border-gray-300 rounded"
           placeholder="* or */2 or 9-17"
+          aria-label="Hours"
         />
         <div className="flex flex-wrap gap-1 mt-1">
-          <button onClick={() => handleHourSelect('*')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">*</button>
-          <button onClick={() => handleHourSelect('9-17')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">9-17</button>
-          <button onClick={() => handleHourSelect('0')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">0</button>
-          <button onClick={() => handleHourSelect('12')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">12</button>
+          {['*', '9-17', '0', '12'].map((value, index) => (
+            <StyledComponent
+              key={index}
+              componentType="cron-element"
+              part="quickButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
+              type="button"
+              onClick={() => handleHourSelect(value)}
+              className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded"
+            >
+              {value}
+            </StyledComponent>
+          ))}
         </div>
-      </div>
+      </StyledComponent>
 
       {/* Day of Month */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Day of Month</label>
-        <input
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Day of Month
+        </StyledComponent>
+        <StyledComponent
+          componentType="cron-element"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
           type="text"
           value={dayOfMonth}
           onChange={(e) => setDayOfMonth(e.target.value)}
           className="w-full p-1 text-sm border border-gray-300 rounded"
           placeholder="* or 1,15 or 1-5"
+          aria-label="Day of Month"
         />
         <div className="flex flex-wrap gap-1 mt-1">
-          <button onClick={() => setDayOfMonth('*')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">*</button>
-          <button onClick={() => setDayOfMonth('1')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">1</button>
-          <button onClick={() => setDayOfMonth('L')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">L</button>
+          {['*', '1', 'L'].map((value, index) => (
+            <StyledComponent
+              key={index}
+              componentType="cron-element"
+              part="quickButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
+              type="button"
+              onClick={() => setDayOfMonth(value)}
+              className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded"
+            >
+              {value}
+            </StyledComponent>
+          ))}
         </div>
-      </div>
+      </StyledComponent>
 
       {/* Month */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Month</label>
-        <input
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Month
+        </StyledComponent>
+        <StyledComponent
+          componentType="cron-element"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
           type="text"
           value={month}
           onChange={(e) => setMonth(e.target.value)}
           className="w-full p-1 text-sm border border-gray-300 rounded"
           placeholder="* or 1,6,12"
+          aria-label="Month"
         />
         <div className="flex flex-wrap gap-1 mt-1">
-          <button onClick={() => setMonth('*')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">*</button>
-          <button onClick={() => setMonth('1-3')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">1-3</button>
-          <button onClick={() => setMonth('6-8')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">6-8</button>
+          {['*', '1-3', '6-8'].map((value, index) => (
+            <StyledComponent
+              key={index}
+              componentType="cron-element"
+              part="quickButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
+              type="button"
+              onClick={() => setMonth(value)}
+              className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded"
+            >
+              {value}
+            </StyledComponent>
+          ))}
         </div>
-      </div>
+      </StyledComponent>
 
       {/* Day of Week */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Day of Week (0=Sun, 1=Mon, ...)</label>
-        <input
+      <StyledComponent
+        componentType="cron-element"
+        part="fieldContainer"
+        schema={props.schema}
+        theme={props.theme}
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part="label"
+          schema={props.schema}
+          theme={props.theme}
+          className="block text-xs font-medium text-gray-700 mb-1"
+        >
+          Day of Week (0=Sun, 1=Mon, ...)
+        </StyledComponent>
+        <StyledComponent
+          componentType="cron-element"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
           type="text"
           value={dayOfWeek}
           onChange={(e) => setDayOfWeek(e.target.value)}
           className="w-full p-1 text-sm border border-gray-300 rounded"
           placeholder="* or 1-5 or 0,6"
+          aria-label="Day of Week"
         />
         <div className="flex flex-wrap gap-1 mt-1">
-          <button onClick={() => setDayOfWeek('*')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">*</button>
-          <button onClick={() => setDayOfWeek('1-5')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">1-5</button>
-          <button onClick={() => setDayOfWeek('0,6')} className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded">0,6</button>
+          {['*', '1-5', '0,6'].map((value, index) => (
+            <StyledComponent
+              key={index}
+              componentType="cron-element"
+              part="quickButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
+              type="button"
+              onClick={() => setDayOfWeek(value)}
+              className="px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200 rounded"
+            >
+              {value}
+            </StyledComponent>
+          ))}
         </div>
-      </div>
-    </div>
+      </StyledComponent>
+    </StyledComponent>
   );
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow p-4">
+    <StyledComponent
+      componentType="cron-element"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge("w-full max-w-md mx-auto bg-white rounded-lg shadow p-4", props.className)}
+      onBlur={handleBlur}
+    >
       {/* Cron Expression Display */}
-      <div className="flex justify-between items-center mb-3 p-2 bg-gray-50 rounded">
+      <StyledComponent
+        componentType="cron-element"
+        part="expressionContainer"
+        schema={props.schema}
+        theme={props.theme}
+        className="flex justify-between items-center mb-3 p-2 bg-gray-50 rounded"
+      >
         <div>
-          <div className="font-mono text-sm">{cronExpression}</div>
-          <div className="text-xs text-gray-500">{scheduleSummary}</div>
+          <StyledComponent
+            componentType="cron-element"
+            part="expression"
+            schema={props.schema}
+            theme={props.theme}
+            className="font-mono text-sm"
+          >
+            {cronExpression}
+          </StyledComponent>
+          <StyledComponent
+            componentType="cron-element"
+            part="summary"
+            schema={props.schema}
+            theme={props.theme}
+            className="text-xs text-gray-500"
+          >
+            {scheduleSummary}
+          </StyledComponent>
         </div>
         <div className="flex space-x-1">
-          <button
+          <StyledComponent
+            componentType="cron-element"
+            part="secondaryButton"
+            schema={props.schema}
+            theme={props.theme}
+            as="button"
+            type="button"
             onClick={() => {
               setMinutes('*');
               setHours('*');
@@ -331,34 +669,62 @@ export const CronElement = () => {
             className="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded"
           >
             Clear
-          </button>
-          <button
+          </StyledComponent>
+          <StyledComponent
+            componentType="cron-element"
+            part="primaryButton"
+            schema={props.schema}
+            theme={props.theme}
+            as="button"
+            type="button"
             onClick={copyToClipboard}
             className="text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded"
           >
             Copy
-          </button>
+          </StyledComponent>
         </div>
-      </div>
+      </StyledComponent>
 
       {/* Tabs */}
-      <div className="flex border-b mb-3">
-        <button
-          className={`px-3 py-1 text-sm font-medium ${activeTab === 'simple' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+      <StyledComponent
+        componentType="cron-element"
+        part="tabsContainer"
+        schema={props.schema}
+        theme={props.theme}
+        className="flex border-b mb-3"
+      >
+        <StyledComponent
+          componentType="cron-element"
+          part={activeTab === 'simple' ? 'activeTab' : 'tab'}
+          schema={props.schema}
+          theme={props.theme}
+          as="button"
+          type="button"
           onClick={() => setActiveTab('simple')}
+          className={`px-3 py-1 text-sm font-medium ${activeTab === 'simple' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+          aria-selected={activeTab === 'simple'}
+          role="tab"
         >
           Simple
-        </button>
-        <button
-          className={`px-3 py-1 text-sm font-medium ${activeTab === 'advanced' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+        </StyledComponent>
+        <StyledComponent
+          componentType="cron-element"
+          part={activeTab === 'advanced' ? 'activeTab' : 'tab'}
+          schema={props.schema}
+          theme={props.theme}
+          as="button"
+          type="button"
           onClick={() => setActiveTab('advanced')}
+          className={`px-3 py-1 text-sm font-medium ${activeTab === 'advanced' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+          aria-selected={activeTab === 'advanced'}
+          role="tab"
         >
           Advanced
-        </button>
-      </div>
+        </StyledComponent>
+      </StyledComponent>
 
       {/* Tab Content */}
       {activeTab === 'simple' ? renderSimpleTab() : renderAdvancedTab()}
-    </div>
+    </StyledComponent>
   );
 };

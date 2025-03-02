@@ -1,47 +1,85 @@
-import { classNames } from '../utils';
 import React, { useEffect, useRef, useState } from 'react';
 import { SelectManyList } from './select-many-list';
 import { IconPickerElement } from './icon-picker-element';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export const SocialTextArea = (props: { readOnly?; change?; keyPress?; focus?; blur?; mode?; value?; disabled?; id?; schema?; path?; name?; data?; platform?; className?}) => {
-  const [message, setMessage] = useState('');
-  const [charCount, setCharCount] = useState(0);
+interface SocialTextAreaProps {
+  readOnly?: boolean;
+  change?: (value: string) => void;
+  keyPress?: (e: React.KeyboardEvent) => boolean | void;
+  focus?: (value: string) => void;
+  blur?: (value: string) => void;
+  mode?: string;
+  value?: string;
+  disabled?: boolean;
+  id?: string;
+  schema?: any;
+  path?: string;
+  name?: string;
+  data?: any;
+  platform?: string;
+  className?: string;
+  theme?: any;
+}
+
+export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
+  // Extract styling from schema
+  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
+
+  // Get social textarea styling
+  const containerClasses = getComponentPartStyling('social-textarea', 'container', props.theme, customStyling);
+  const textareaClasses = getComponentPartStyling('social-textarea', 'textarea', props.theme, customStyling);
+  const controlsClasses = getComponentPartStyling('social-textarea', 'controls', props.theme, customStyling);
+  const platformSelectorClasses = getComponentPartStyling('social-textarea', 'platformSelector', props.theme, customStyling);
+  const iconPickerClasses = getComponentPartStyling('social-textarea', 'iconPicker', props.theme, customStyling);
+  const counterClasses = getComponentPartStyling('social-textarea', 'counter', props.theme, customStyling);
+  const counterWarningClasses = getComponentPartStyling('social-textarea', 'counterWarning', props.theme, customStyling);
+  const counterErrorClasses = getComponentPartStyling('social-textarea', 'counterError', props.theme, customStyling);
+  const suggestionsClasses = getComponentPartStyling('social-textarea', 'suggestions', props.theme, customStyling);
+  const suggestionItemClasses = getComponentPartStyling('social-textarea', 'suggestionItem', props.theme, customStyling);
+  const suggestionSelectedClasses = getComponentPartStyling('social-textarea', 'suggestionSelected', props.theme, customStyling);
+
+  const [message, setMessage] = useState<string>('');
+  const [charCount, setCharCount] = useState<number>(0);
   const [socialPlatform, setSocialPlatform] = useState<any>(null);
-  const [suggestions, setSuggestions] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const inputRef = useRef(null);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMessage(props.value);
+    setMessage(props.value || '');
     if (props.platform) {
       setSocialPlatform(socialCharacterCounts.find(x => x.key === props.platform));
     }
 
-    const handleClickOutside = (e) => {
-      if (inputRef.current && !inputRef.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
 
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [props.value, props.platform]);
 
   useEffect(() => {
     setCharCount(message?.length || 0);
   }, [message]);
 
-  const filterSuggestions = (value) => {
+  const filterSuggestions = (value: string): string[] => {
     if (value.length < 2) return [];
 
     const data = props.schema?.suggestions || [];
-    return data.filter(item =>
+    return data.filter((item: string) =>
       item.toLowerCase().includes(value.toLowerCase())
     );
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (props.keyPress) {
       if (props.keyPress(e) === true) {
         e.preventDefault();
@@ -49,55 +87,63 @@ export const SocialTextArea = (props: { readOnly?; change?; keyPress?; focus?; b
       }
     }
 
-    // if (!isOpen) return;
-
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setSelectedIndex(prev =>
-          prev < suggestions.length - 1 ? prev + 1 : prev
-        );
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setSelectedIndex(prev => prev > 0 ? prev - 1 : -1);
-        break;
-      case 'Enter':
-        if (selectedIndex >= 0) {
-          setMessage(suggestions[selectedIndex]);
+    if (isOpen) {
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setSelectedIndex(prev =>
+            prev < suggestions.length - 1 ? prev + 1 : prev
+          );
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setSelectedIndex(prev => prev > 0 ? prev - 1 : -1);
+          break;
+        case 'Enter':
+          if (selectedIndex >= 0) {
+            e.preventDefault();
+            setMessage(suggestions[selectedIndex]);
+            setIsOpen(false);
+            setSuggestions([]);
+          }
+          break;
+        case 'Escape':
+          e.preventDefault();
           setIsOpen(false);
-          setSuggestions([]);
-        }
-        break;
-      case 'Escape':
-        setIsOpen(false);
-        setSelectedIndex(-1);
-        break;
-      default:
-        break;
+          setSelectedIndex(-1);
+          break;
+        default:
+          break;
+      }
     }
   };
 
-  const handleSuggestionClick = (suggestion) => {
+  const handleSuggestionClick = (suggestion: string) => {
     setMessage(suggestion);
     setIsOpen(false);
     setSuggestions([]);
     inputRef.current?.focus();
+
+    if (props.change) {
+      props.change(suggestion);
+    }
   };
 
-
-  const handleBlur = e => {
+  const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     if (props.blur) {
       props.blur(e.target.value);
     }
   };
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     const value = e.target.value;
     setMessage(value);
-    // props.change(e.target.value)
+
+    if (props.change) {
+      props.change(value);
+    }
 
     if (props.schema?.suggestions) {
       const filtered = filterSuggestions(value);
@@ -107,73 +153,146 @@ export const SocialTextArea = (props: { readOnly?; change?; keyPress?; focus?; b
     }
   };
 
-  const handleFocus = e => {
-    // e.preventDefault()
-    // props.focus(e.target.value)
+  const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    if (props.focus) {
+      props.focus(e.target.value);
+    }
   };
 
-  const iconPicked = (icon) => {
-    setMessage(message + icon);
+  const iconPicked = (icon: string) => {
+    const newMessage = message + icon;
+    setMessage(newMessage);
+
+    if (props.change) {
+      props.change(newMessage);
+    }
   };
 
   const rows = props.schema?.rows || 4;
   const showSocialInput = props.schema?.hideSocialInput !== true;
+
+  // Determine counter color class based on character count
+  const getCounterClass = () => {
+    if (!socialPlatform?.character_limit) return '';
+
+    if (charCount > socialPlatform.character_limit) {
+      return counterErrorClasses || 'text-red-500';
+    } else if (charCount > socialPlatform.character_limit - 10) {
+      return counterWarningClasses || 'text-yellow-500';
+    } else {
+      return counterClasses || 'text-green-500';
+    }
+  };
+
   return (
-    <div className={props.className}>
-      <textarea
-        disabled={props.schema?.disabled}
+    <StyledComponent
+      componentType="social-textarea"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge("relative", props.className)}
+      ref={containerRef}
+    >
+      <StyledComponent
+        componentType="social-textarea"
+        part="textarea"
+        schema={props.schema}
+        theme={props.theme}
+        as="textarea"
+        disabled={props.disabled || props.schema?.disabled}
         readOnly={props.readOnly || props.schema?.readOnly}
-        value={message || ''}
+        value={message}
         onChange={handleChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
         name={props.name}
-        id={props.path}
+        id={props.id || props.path}
         rows={rows}
         placeholder={props.schema?.placeholder || 'Type your message here'}
         onKeyDown={handleKeyDown}
-        className={classNames(
-          'block w-full rounded border-0 py-1.5 text-gray-900 bg-white/20 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:rin  placeholder:text-xs focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-5',
-        )}
+        className="block w-full rounded border-0 py-1.5 text-gray-900 bg-white/20 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-5"
+        ref={inputRef}
+        aria-label={props.schema?.title || props.name || "Social media message"}
       />
+
       {showSocialInput && (
-        <>
-          <div className=" text-sm flex gap-4 justify-between items-center border-b border-b-gray-200 mt-1 mb-2 px-1">
+        <StyledComponent
+          componentType="social-textarea"
+          part="controls"
+          schema={props.schema}
+          theme={props.theme}
+          className="text-sm flex gap-4 justify-between items-center border-b border-b-gray-200 mt-1 mb-2 px-1"
+        >
+          <StyledComponent
+            componentType="social-textarea"
+            part="platformSelector"
+            schema={props.schema}
+            theme={props.theme}
+            className="flex-grow"
+          >
             <SelectManyList
               value={socialPlatform?.key}
               theme={'minimal'}
               options={socialCharacterCounts.filter(p => p.popular).map(x => ({ label: x.platform + ' - ' + x.type, value: x.key, ...x }))}
               change={(value, item) => setSocialPlatform(item)}
+              schema={props.schema}
             />
-            <IconPickerElement blur={iconPicked} schema={{ noSvg: true }} />
-            <div
-              className={classNames(
-                socialPlatform?.character_limit && charCount <= socialPlatform.character_limit - 10 && 'text-green-500',
-                socialPlatform?.character_limit && charCount > socialPlatform.character_limit - 10 && charCount <= socialPlatform.character_limit && 'text-yellow-500',
-                socialPlatform?.character_limit && charCount > socialPlatform.character_limit && 'text-red-500',
-                ' whitespace-nowrap ',
+          </StyledComponent>
+
+          <StyledComponent
+            componentType="social-textarea"
+            part="iconPicker"
+            schema={props.schema}
+            theme={props.theme}
+          >
+            <IconPickerElement
+              blur={iconPicked}
+              schema={{ noSvg: true }}
+            />
+          </StyledComponent>
+
+          <StyledComponent
+            componentType="social-textarea"
+            part="counter"
+            schema={props.schema}
+            theme={props.theme}
+            className={twMerge("whitespace-nowrap", getCounterClass())}
+          >
+            <span>{charCount}</span>
+            {socialPlatform && <span> / {socialPlatform.character_limit}</span>}
+          </StyledComponent>
+        </StyledComponent>
+      )}
+
+      {isOpen && (
+        <StyledComponent
+          componentType="social-textarea"
+          part="suggestions"
+          schema={props.schema}
+          theme={props.theme}
+          as="ul"
+          className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-auto"
+        >
+          {suggestions.map((suggestion, index) => (
+            <StyledComponent
+              key={suggestion}
+              componentType="social-textarea"
+              part={index === selectedIndex ? "suggestionSelected" : "suggestionItem"}
+              schema={props.schema}
+              theme={props.theme}
+              as="li"
+              onClick={() => handleSuggestionClick(suggestion)}
+              className={twMerge(
+                "px-4 py-2 cursor-pointer hover:bg-gray-100",
+                index === selectedIndex ? "bg-blue-50 text-blue-700" : ""
               )}
             >
-              <span>{charCount}</span>
-              {socialPlatform && <span> / {socialPlatform.character_limit}</span>}
-            </div>
-          </div>
-        </>)}
-      {isOpen && (
-        <ul className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-auto">
-          {suggestions.map((suggestion, index) => (
-            <li
-              key={suggestion}
-              onClick={() => handleSuggestionClick(suggestion)}
-              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${index === selectedIndex ? 'bg-blue-50 text-blue-700' : ''
-                }`}
-            >
               {suggestion}
-            </li>
+            </StyledComponent>
           ))}
-        </ul>
+        </StyledComponent>
       )}
-    </div>
+    </StyledComponent>
   );
 };
 

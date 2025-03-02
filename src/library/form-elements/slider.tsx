@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getElementTheme } from '../context/store';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { twMerge } from 'tailwind-merge';
 
 interface SliderProps {
@@ -7,89 +8,172 @@ interface SliderProps {
   name?: string;
   schema?: any;
   value?: number;
-  change: (event: any) => void;
-  blur: (event: any) => void;
-  focus: (event: any) => void;
+  change: (value: number) => void;
+  blur?: (value: number) => void;
+  focus?: (value: number) => void;
   showInput?: boolean;
   showValue?: boolean;
   ui?: any;
-  theme?: string;
+  theme?: any;
   className?: string;
+  path?: string;
 }
 
-export const SliderElement: React.FC<SliderProps> = ({ schema, name, storeId, value, change, blur, focus, showInput, showValue = true, className, ui, theme }) => {
-  const [_value, setValue] = useState<number>(value);
+export const SliderElement: React.FC<SliderProps> = ({
+  schema,
+  name,
+  storeId,
+  value,
+  change,
+  blur,
+  focus,
+  showInput,
+  showValue = true,
+  className,
+  ui,
+  theme,
+  path
+}) => {
+  // Extract styling from schema
+  const customStyling = schema ? extractStylingFromSchema(schema) : undefined;
+
+  // Get slider styling
+  const containerClasses = getComponentPartStyling('slider', 'container', theme, customStyling);
+  const trackClasses = getComponentPartStyling('slider', 'track', theme, customStyling);
+  const thumbClasses = getComponentPartStyling('slider', 'thumb', theme, customStyling);
+  const railClasses = getComponentPartStyling('slider', 'rail', theme, customStyling);
+  const valueClasses = getComponentPartStyling('slider', 'value', theme, customStyling);
+  const inputClasses = getComponentPartStyling('slider', 'input', theme, customStyling);
+
+  const [sliderValue, setSliderValue] = useState<number>(value || 0);
 
   useEffect(() => {
-    setValue(value);
-  }, [storeId, name]);
+    if (value !== undefined) {
+      setSliderValue(value);
+    }
+  }, [value, storeId, name]);
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseFloat(event.target.value);
-    setValue(newValue);
+    setSliderValue(newValue);
     if (blur) {
-      blur(newValue * 1);
+      blur(newValue);
     }
   };
 
   const handleFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseFloat(event.target.value);
-    setValue(newValue);
+    setSliderValue(newValue);
     if (focus) {
-      focus(newValue * 1);
+      focus(newValue);
     }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseFloat(event.target.value);
-    setValue(newValue);
+    setSliderValue(newValue);
     if (change) {
-      change(newValue * 1);
+      change(newValue);
     }
   };
 
+  // Parse schema values
   let max = (schema?.max && typeof schema?.max === 'string' ? parseFloat(schema?.max) : schema?.max) || 100;
   let min = (schema?.min && typeof schema?.min === 'string' ? parseFloat(schema?.min) : schema?.min) || 0;
   let step = (schema?.step && typeof schema?.step === 'string' ? parseFloat(schema?.step) : schema?.step) || 1;
 
-  const { classes, style } = (ui || {})['slider'] || {};
-  const controlTheme = getElementTheme('slider', theme);
+  // Calculate percentage for the gradient background
+  const percentage = ((sliderValue - min) / (max - min)) * 100;
+
+  // Format the displayed value
+  const formattedValue = isNaN(sliderValue) ? '0' :
+    Number.isInteger(sliderValue) ? sliderValue.toString() : sliderValue.toFixed(1);
 
   return (
-    <div className='relative flex gap-4 items-center justify-between'>
-      <input
-        key={`${storeId}-${name}`}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={_value}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        title={schema?.title || name || "Slider"}
-        aria-label={schema?.title || name || "Slider"}
-        className={twMerge("w-full h-2 bg-sky-200 rounded-full outline-none appearance-none cursor-pointer transition duration-200 ease-in hover:bg-blue-400 focus:bg-blue-500", className, controlTheme.className, classes?.join(' '))}
-        style={{
-          background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${((_value - min) / (max - min)) * 100}%, #e5e7eb ${((_value - min) / (max - min)) * 100}%, #e5e7eb 100%)`,
-        }}
-      />
+    <StyledComponent
+      componentType="slider"
+      part="container"
+      schema={schema}
+      theme={theme}
+      className="relative flex gap-4 items-center justify-between w-full"
+    >
+      <StyledComponent
+        componentType="slider"
+        part="track"
+        schema={schema}
+        theme={theme}
+        className="relative w-full"
+      >
+        <StyledComponent
+          componentType="slider"
+          part="rail"
+          schema={schema}
+          theme={theme}
+          as="div"
+          className="w-full h-2 bg-gray-200 rounded-full"
+        />
+
+        <StyledComponent
+          as="input"
+          componentType="slider"
+          part="thumb"
+          schema={schema}
+          theme={theme}
+          key={`${storeId}-${name}`}
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={sliderValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          title={schema?.title || name || "Slider"}
+          aria-label={schema?.title || name || "Slider"}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={sliderValue}
+          className="w-full h-2 absolute top-0 left-0 appearance-none cursor-pointer bg-transparent outline-none"
+          style={{
+            background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, transparent ${percentage}%, transparent 100%)`,
+            WebkitAppearance: 'none',
+          }}
+        />
+      </StyledComponent>
+
       {showInput ? (
-        <input
+        <StyledComponent
+          componentType="slider"
+          part="input"
+          schema={schema}
+          theme={theme}
+          as="input"
           type="number"
           min={min}
           max={max}
           step={step}
-          value={_value}
+          value={sliderValue}
           onChange={handleChange}
           onBlur={handleBlur}
           onFocus={handleFocus}
           title={schema?.title || name || "Value input"}
           aria-label={schema?.title || name || "Value input"}
-          className={twMerge("w-full max-w-16 bg-sky-50 rounded outline-none text-sm border-sky-500 p-1 transition duration-200 ease-in text-right", className, controlTheme.className, classes?.join(' '))}
-        />) : (
-        showValue && <div className="text-xs font-semibold text-gray-600">{isNaN(_value) ? 0 : _value?.toFixed(1)}</div>
+          className="w-full max-w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+        />
+      ) : (
+        showValue && (
+          <StyledComponent
+            componentType="slider"
+            part="value"
+            schema={schema}
+            theme={theme}
+            as="div"
+            className="text-xs font-semibold text-gray-600 min-w-8 text-right"
+          >
+            {formattedValue}
+          </StyledComponent>
+        )
       )}
-    </div>
+    </StyledComponent>
   );
 };

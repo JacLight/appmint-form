@@ -1,44 +1,82 @@
 import React, { useState, useEffect } from 'react';
 import { SelectManyList } from './select-many-list';
 import { toTitleCase } from '../utils';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export const DateTimePicker = (props: { onChange?; placeholder?; isRange?; showPreset?; className?; mode?; min?; max?; startDate?; endDate?; readOnly?; disabled?}) => {
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [isRange, setIsRange] = useState(props.isRange || false);
-  const [isInline, setIsInline] = useState(true);
-  const [showControls, setShowControls] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-  const [mode, setMode] = useState(props.mode || 'date-time');
-  const [error, setError] = useState('');
-  const [preset, setPreset] = useState('today');
+interface DateTimePickerProps {
+  onChange?: (value: any) => void;
+  placeholder?: string;
+  isRange?: boolean;
+  showPreset?: boolean;
+  className?: string;
+  mode?: 'date-time' | 'date' | 'time';
+  min?: string;
+  max?: string;
+  startDate?: string;
+  endDate?: string;
+  readOnly?: boolean;
+  disabled?: boolean;
+  schema?: any;
+  theme?: any;
+}
+
+export const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
+  // Extract styling from schema
+  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
+
+  // Get date-time-picker styling
+  const containerClasses = getComponentPartStyling('date-time-picker', 'container', props.theme, customStyling);
+  const controlsClasses = getComponentPartStyling('date-time-picker', 'controls', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('date-time-picker', 'label', props.theme, customStyling);
+  const selectClasses = getComponentPartStyling('date-time-picker', 'select', props.theme, customStyling);
+  const checkboxClasses = getComponentPartStyling('date-time-picker', 'checkbox', props.theme, customStyling);
+  const inputContainerClasses = getComponentPartStyling('date-time-picker', 'inputContainer', props.theme, customStyling);
+  const inputClasses = getComponentPartStyling('date-time-picker', 'input', props.theme, customStyling);
+  const presetSelectorClasses = getComponentPartStyling('date-time-picker', 'presetSelector', props.theme, customStyling);
+  const errorClasses = getComponentPartStyling('date-time-picker', 'error', props.theme, customStyling);
+  const previewClasses = getComponentPartStyling('date-time-picker', 'preview', props.theme, customStyling);
+  const previewTitleClasses = getComponentPartStyling('date-time-picker', 'previewTitle', props.theme, customStyling);
+  const previewContentClasses = getComponentPartStyling('date-time-picker', 'previewContent', props.theme, customStyling);
+
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [isRange, setIsRange] = useState<boolean>(props.isRange || false);
+  const [isInline, setIsInline] = useState<boolean>(true);
+  const [showControls, setShowControls] = useState<boolean>(false);
+  const [showPreview, setShowPreview] = useState<boolean>(false);
+  const [mode, setMode] = useState<'date-time' | 'date' | 'time'>(props.mode || 'date-time');
+  const [error, setError] = useState<string>('');
+  const [preset, setPreset] = useState<string>('today');
 
   useEffect(() => {
     let { startDate, endDate } = props;
     if (props.mode === 'time') {
-      setStartDate(startDate);
-      setEndDate(endDate);
+      setStartDate(startDate || '');
+      setEndDate(endDate || '');
     } else {
       const dateLength = props.mode === 'date' ? 10 : 16;
       try {
-        startDate = new Date(startDate);
+        const startDateObj = new Date(startDate || '');
+        if (startDateObj && startDateObj.toString() !== 'Invalid Date') {
+          setStartDate(startDateObj.toISOString().slice(0, dateLength));
+        }
       } catch (e) {
-        startDate = null;
+        // Invalid date, keep current state
       }
-      if (startDate && startDate.toString() !== 'Invalid Date') {
-        setStartDate(startDate.toISOString().slice(0, dateLength));
-      }
+
       try {
-        endDate = new Date(endDate);
+        const endDateObj = new Date(endDate || '');
+        if (endDateObj && endDateObj.toString() !== 'Invalid Date') {
+          setEndDate(endDateObj.toISOString().slice(0, dateLength));
+        }
       } catch (e) {
-        endDate = null;
-      }
-      if (endDate && endDate.toString() !== 'Invalid Date') {
-        setEndDate(endDate.toISOString().slice(0, dateLength));
+        // Invalid date, keep current state
       }
     }
     setMode(props.mode || 'date-time');
-  }, [props.startDate, props.endDate]);
+  }, [props.startDate, props.endDate, props.mode]);
 
   useEffect(() => {
     if (isRange && startDate && endDate) {
@@ -50,27 +88,28 @@ export const DateTimePicker = (props: { onChange?; placeholder?; isRange?; showP
       }
     }
 
-    let output: any = {};
-    if (mode === 'time') {
-      output = isRange ? { startDate, endDate } : { startDate };
-    } else if (mode === 'date') {
-      output = isRange ? { startDate, endDate } : { startDate };
-    } else {
-      output = isRange ? { startDate, endDate } : { startDate };
+    if (props.onChange) {
+      let output: any = {};
+      if (mode === 'time') {
+        output = isRange ? { startDate, endDate } : { startDate };
+      } else if (mode === 'date') {
+        output = isRange ? { startDate, endDate } : { startDate };
+      } else {
+        output = isRange ? { startDate, endDate } : { startDate };
+      }
+      props.onChange(output);
     }
-    props.onChange(output);
-  }, [isRange, startDate, endDate]);
+  }, [isRange, startDate, endDate, mode, props.onChange]);
 
-  const handleDateChange = (e, isStart) => {
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>, isStart: boolean) => {
     const newDate = e.target.value;
-    console.log('newDate', newDate);
-    console.log('newDate', newDate);
+
     if (mode === 'time') {
       if (isStart) {
-        setStartDate(e.target.value);
+        setStartDate(newDate);
       } else {
         if (newDate >= startDate) {
-          setEndDate(e.target.value);
+          setEndDate(newDate);
           setError('');
         } else {
           setError('End date cannot be earlier than start date.');
@@ -90,16 +129,17 @@ export const DateTimePicker = (props: { onChange?; placeholder?; isRange?; showP
     }
   };
 
-  const handlePresetChange = newPreset => {
+  const handlePresetChange = (newPreset: string) => {
     setPreset(newPreset);
     const { startDate, endDate } = getDateRange(newPreset);
     setStartDate(startDate.toISOString().split('T')[0]);
     setEndDate(endDate.toISOString().split('T')[0]);
   };
 
-  const renderInputs = isStart => {
-    let value;
-    let min;
+  const renderInputs = (isStart: boolean) => {
+    let value: string;
+    let min: string | undefined;
+
     if (mode === 'time') {
       value = isStart ? startDate : endDate;
       min = isStart ? undefined : startDate;
@@ -108,57 +148,136 @@ export const DateTimePicker = (props: { onChange?; placeholder?; isRange?; showP
       min = isStart ? undefined : startDate;
     } else {
       value = isStart ? `${startDate}` : `${endDate}`;
-      min = isStart ? startDate : undefined;
+      min = isStart ? undefined : startDate;
     }
+
     const inputType = mode === 'date-time' ? 'datetime-local' : mode;
+
     return (
-      <div className={`${isInline ? 'flex space-x-2' : 'space-y-2'}`}>
-        <input
+      <StyledComponent
+        componentType="date-time-picker"
+        part="inputContainer"
+        schema={props.schema}
+        theme={props.theme}
+        className={`${isInline ? 'flex space-x-2' : 'space-y-2'}`}
+      >
+        <StyledComponent
+          componentType="date-time-picker"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
           type={inputType}
           readOnly={props.readOnly}
           disabled={props.disabled}
           value={value}
-          onChange={e => handleDateChange(e, isStart)}
+          onChange={(e) => handleDateChange(e, isStart)}
           min={min}
+          max={props.max}
           className="w-full p-2 border text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          aria-label={isStart ? "Start date" : "End date"}
+          placeholder={props.placeholder}
         />
-      </div>
+      </StyledComponent>
     );
   };
 
-  const className = props.className || 'p-4 bg-white rounded-lg shadow-lg';
   return (
-    <div className={className}>
+    <StyledComponent
+      componentType="date-time-picker"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge("p-4 bg-white rounded-lg shadow-lg", props.className)}
+    >
       {showControls && (
-        <div className="space-y-4 mb-4">
+        <StyledComponent
+          componentType="date-time-picker"
+          part="controls"
+          schema={props.schema}
+          theme={props.theme}
+          className="space-y-4 mb-4"
+        >
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Mode</label>
-            <select value={mode} onChange={e => setMode(e.target.value)} className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <StyledComponent
+              componentType="date-time-picker"
+              part="label"
+              schema={props.schema}
+              theme={props.theme}
+              as="label"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Mode
+            </StyledComponent>
+            <StyledComponent
+              componentType="date-time-picker"
+              part="select"
+              schema={props.schema}
+              theme={props.theme}
+              as="select"
+              value={mode}
+              onChange={(e) => setMode(e.target.value as 'date-time' | 'date' | 'time')}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            >
               <option value="date-time">Date and Time</option>
               <option value="date">Date only</option>
               <option value="time">Time only</option>
-            </select>
+            </StyledComponent>
           </div>
 
           <div className="flex items-center justify-between">
             <label className="flex items-center cursor-pointer">
               <span className="mr-2 text-sm font-medium text-gray-700">Range Mode</span>
-              <input type="checkbox" checked={isRange} onChange={e => setIsRange(e.target.checked)} className="form-checkbox h-5 w-5 text-blue-600" />
+              <StyledComponent
+                componentType="date-time-picker"
+                part="checkbox"
+                schema={props.schema}
+                theme={props.theme}
+                as="input"
+                type="checkbox"
+                checked={isRange}
+                onChange={(e) => setIsRange(e.target.checked)}
+                className="form-checkbox h-5 w-5 text-blue-600"
+              />
             </label>
           </div>
 
           <div className="flex items-center justify-between">
             <label className="flex items-center cursor-pointer">
               <span className="mr-2 text-sm font-medium text-gray-700">Inline Mode</span>
-              <input type="checkbox" checked={isInline} onChange={e => setIsInline(e.target.checked)} className="form-checkbox h-5 w-5 text-blue-600" />
+              <StyledComponent
+                componentType="date-time-picker"
+                part="checkbox"
+                schema={props.schema}
+                theme={props.theme}
+                as="input"
+                type="checkbox"
+                checked={isInline}
+                onChange={(e) => setIsInline(e.target.checked)}
+                className="form-checkbox h-5 w-5 text-blue-600"
+              />
             </label>
           </div>
-        </div>
+        </StyledComponent>
       )}
 
       {isRange ? (
         <div className="flex gap-2 items-center">
-          {props.showPreset && <SelectManyList change={handlePresetChange} options={rangePresets.map(p => ({ label: toTitleCase(p), value: p }))} value={preset} />}
+          {props.showPreset && (
+            <StyledComponent
+              componentType="date-time-picker"
+              part="presetSelector"
+              schema={props.schema}
+              theme={props.theme}
+            >
+              <SelectManyList
+                change={handlePresetChange}
+                options={rangePresets.map(p => ({ label: toTitleCase(p), value: p }))}
+                value={preset}
+                theme={props.theme}
+              />
+            </StyledComponent>
+          )}
           {renderInputs(true)}
           {renderInputs(false)}
         </div>
@@ -166,11 +285,46 @@ export const DateTimePicker = (props: { onChange?; placeholder?; isRange?; showP
         renderInputs(true)
       )}
 
-      {error && <p className="mt-2 text-red-500 text-xs text-center">{error}</p>}
+      {error && (
+        <StyledComponent
+          componentType="date-time-picker"
+          part="error"
+          schema={props.schema}
+          theme={props.theme}
+          as="p"
+          className="mt-2 text-red-500 text-xs text-center"
+          role="alert"
+        >
+          {error}
+        </StyledComponent>
+      )}
+
       {showPreview && (
-        <div className="mt-6 p-4 bg-gray-100 rounded-md">
-          <h3 className="text-lg font-semibold mb-2 text-gray-700">Selected:</h3>
-          <p className="text-sm text-gray-600">
+        <StyledComponent
+          componentType="date-time-picker"
+          part="preview"
+          schema={props.schema}
+          theme={props.theme}
+          className="mt-6 p-4 bg-gray-100 rounded-md"
+        >
+          <StyledComponent
+            componentType="date-time-picker"
+            part="previewTitle"
+            schema={props.schema}
+            theme={props.theme}
+            as="h3"
+            className="text-lg font-semibold mb-2 text-gray-700"
+          >
+            Selected:
+          </StyledComponent>
+          <StyledComponent
+            componentType="date-time-picker"
+            part="previewContent"
+            schema={props.schema}
+            theme={props.theme}
+            as="p"
+            className="text-sm text-gray-600"
+          >
             {isRange ? (
               <>
                 From: {startDate}
@@ -181,12 +335,13 @@ export const DateTimePicker = (props: { onChange?; placeholder?; isRange?; showP
               <>
                 {mode === 'date' && `Date: ${startDate}`}
                 {mode === 'time' && `Time: ${startDate}`}
+                {mode === 'date-time' && `Date and Time: ${startDate}`}
               </>
             )}
-          </p>
-        </div>
+          </StyledComponent>
+        </StyledComponent>
       )}
-    </div>
+    </StyledComponent>
   );
 };
 
