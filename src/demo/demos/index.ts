@@ -21,6 +21,7 @@ import LayoutElementsDemo from './LayoutElementsDemo';
 import AdvancedElementsDemo from './AdvancedElementsDemo';
 import TableDemo from './TableDemo';
 import FormDemo from './FormDemo';
+import ThemeEditorDemo from './ThemeEditorDemo';
 
 // Text Input Elements
 import TextFieldDemo from './textInputs/TextFieldDemo';
@@ -29,18 +30,87 @@ import RichtextDemo from './textInputs/RichtextDemo';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
-    // ... Default welcome entry
+    // Theme Editor
     {
-        id: '',
-        title: '{{Element Name}}',
-        description: 'Welcome to the Appmint Form Library Demo. Use the sidebar to navigate through the available demos.',
-        category: 'Form Elements',
-        component: () => null,
-        code: `// Welcome to the Appmint Form Library Demo
-// Use the sidebar to navigate through the available demos.`
-    },
+        id: 'theme-editor',
+        title: 'Theme Editor',
+        description: 'Create and customize themes for form elements with a live preview.',
+        category: 'Tools',
+        component: ThemeEditorDemo,
+        code: `// Theme Editor Demo Code
+import React from 'react';
+import ThemeEditor from './theme-editor';
 
-    // Element Groups
+// The ThemeEditor component is split into multiple modular components:
+// - ThemeSelector: For selecting pre-made themes and component types
+// - StyleEditor: For editing individual component styles
+// - StyleList: For managing the list of applied styles
+// - FormPreview: For previewing the form with applied styles
+// - ThemePanel: Container for StyleEditor and StyleList
+
+const ThemeEditorDemo: React.FC = () => {
+    return <ThemeEditor />;
+};
+
+export default ThemeEditorDemo;
+
+// Main ThemeEditor component (in theme-editor/index.tsx)
+// Manages state and coordinates between components
+import React, { useState, useEffect } from 'react';
+import { ThemeStyling } from '../../../library/form-elements/styling/style-utils';
+import { componentParts } from './component-definitions';
+import { elementThemes } from './theme-definitions';
+import { defaultFormSchema, defaultFormData } from './form-data';
+import { StyleItem, ComponentSelectionState, StyleEditorState } from './types';
+import ThemeSelector from './ThemeSelector';
+import ThemePanel from './ThemePanel';
+import FormPreview from './FormPreview';
+
+const ThemeEditor: React.FC = () => {
+    // State management for theme, styles, and UI
+    const [theme, setTheme] = useState<ThemeStyling>({});
+    const [styleItems, setStyleItems] = useState<StyleItem[]>([]);
+    const [selectedTheme, setSelectedTheme] = useState('');
+    
+    // Apply a theme to selected components
+    const applyTheme = (themeName: string) => {
+        if (!elementThemes[themeName]) return;
+        
+        setSelectedTheme(themeName);
+        const theme = elementThemes[themeName];
+        // Apply theme to selected components...
+    };
+    
+    return (
+        <div className="grid grid-cols-1 gap-6">
+            <h2 className="text-lg font-semibold mb-4">Theme Editor</h2>
+            
+            {/* Theme Selector Component */}
+            <ThemeSelector
+                selectedTheme={selectedTheme}
+                onThemeSelect={applyTheme}
+                // Other props...
+            />
+            
+            <div className="grid grid-cols-3 gap-6">
+                {/* Theme Panel Component */}
+                <ThemePanel
+                    styleItems={styleItems}
+                    // Other props...
+                />
+                
+                {/* Form Preview Component */}
+                <FormPreview
+                    schema={defaultFormSchema}
+                    formData={defaultFormData}
+                    theme={theme}
+                    // Other props...
+                />
+            </div>
+        </div>
+    );
+};`
+    },
     {
         id: 'text-inputs',
         title: 'Text Inputs',

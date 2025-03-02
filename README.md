@@ -75,16 +75,21 @@ const MyForm = () => {
 };
 ```
 
-## 🤝 Contributing
+## 🎨 Demo Examples
 
-We welcome contributions from the community! To contribute to AppmintForm:
+The library includes several demo examples that showcase different features and capabilities:
 
-1. Fork the repository
-2. Create a new branch for your feature or bug fix
-3. Write your code, making sure to follow the existing code style
-4. Add or update tests if necessary
-5. Update documentation for any new features
-6. Submit a pull request
+- **Theme Editor**: Customize the appearance of your forms with a powerful theme editor
+- **Text Inputs**: Various text input types including regular fields, textarea, rich text editor
+- **Number Inputs**: Different number input options including sliders and ranges
+- **Selection Inputs**: Various selection controls like dropdowns, checkboxes, and radio buttons
+- **Date/Time Inputs**: Date pickers, date range pickers, and cron expression editors
+- **Special Inputs**: Color pickers, file uploads, map location pickers, and more
+- **Layout Elements**: Different layout options including tabs, accordions, and collapsible sections
+- **Advanced Elements**: Complex form elements like data views, lookups, and ratings
+- **Table Demo**: Table component with sorting, filtering, and pagination
+
+Check out the [documentation](./DOCUMENTATION.md#demo-examples) for more details on these demos.
 
 ## 📄 License
 

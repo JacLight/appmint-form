@@ -106,7 +106,7 @@ const baseTheme: ThemeStyling = {
     select: {
         container: 'relative my-2',
         label: 'block text-sm font-medium text-gray-700 mb-1',
-        select: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+        dropdown: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
         option: 'py-2 px-3 cursor-pointer hover:bg-gray-100',
         placeholder: 'text-gray-400',
         description: 'mt-1 text-xs text-gray-500',
@@ -114,6 +114,10 @@ const baseTheme: ThemeStyling = {
     },
     // Select single styling (from element-style-class.ts)
     selectsingle: {
+        container: 'flex items-center justify-center',
+    },
+    // Select many styling
+    selectmany: {
         container: 'flex items-center justify-center',
     },
     // Listbox styling
@@ -226,6 +230,14 @@ const primaryTheme: ThemeStyling = {
         select: 'block w-full rounded-md border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm',
         option: 'py-2 px-3 cursor-pointer hover:bg-blue-50',
     },
+    selectsingle: {
+        dropdown: 'block w-full rounded-md border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm',
+        option: 'py-2 px-3 cursor-pointer hover:bg-blue-50',
+    },
+    selectmany: {
+        dropdown: 'block w-full rounded-md border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm',
+        option: 'py-2 px-3 cursor-pointer hover:bg-blue-50',
+    },
     checkbox: {
         input: 'h-4 w-4 rounded border-blue-300 text-blue-600 focus:ring-blue-500',
     },
@@ -259,6 +271,14 @@ const secondaryTheme: ThemeStyling = {
         select: 'block w-full rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm',
         option: 'py-2 px-3 cursor-pointer hover:bg-green-50',
     },
+    selectsingle: {
+        dropdown: 'block w-full rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm',
+        option: 'py-2 px-3 cursor-pointer hover:bg-green-50',
+    },
+    selectmany: {
+        dropdown: 'block w-full rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm',
+        option: 'py-2 px-3 cursor-pointer hover:bg-green-50',
+    },
     checkbox: {
         input: 'h-4 w-4 rounded border-green-300 text-green-600 focus:ring-green-500',
     },
@@ -290,6 +310,14 @@ const minimalTheme: ThemeStyling = {
     },
     select: {
         select: 'block w-full rounded-md border-gray-200 shadow-sm focus:border-gray-300 focus:ring-gray-300 sm:text-sm',
+        option: 'py-1 px-2 cursor-pointer hover:bg-gray-50 text-sm',
+    },
+    selectsingle: {
+        dropdown: 'block w-full rounded-md border-gray-200 shadow-sm focus:border-gray-300 focus:ring-gray-300 sm:text-sm',
+        option: 'py-1 px-2 cursor-pointer hover:bg-gray-50 text-sm',
+    },
+    selectmany: {
+        dropdown: 'block w-full rounded-md border-gray-200 shadow-sm focus:border-gray-300 focus:ring-gray-300 sm:text-sm',
         option: 'py-1 px-2 cursor-pointer hover:bg-gray-50 text-sm',
     },
     checkbox: {
@@ -430,11 +458,17 @@ export function getNestedComponentPartStyling(
         themeObj = themes.default;
     }
 
+    // Get common styling for all components
+    const commonStyling = themeObj.common || {};
+
     // Get component-specific styling
     const componentStyling = themeObj[componentType] || {};
 
-    // Get parent styling
-    const parentStyling = componentStyling[parent] as ComponentStyling || {};
+    // Get parent styling from common
+    const commonParentStyling = commonStyling[parent] as ComponentStyling || {};
+
+    // Get parent styling from component
+    const componentParentStyling = componentStyling[parent] as ComponentStyling || {};
 
     // Get custom parent styling
     const customParentStyling = customStyling && customStyling[parent] as ComponentStyling;
@@ -442,9 +476,14 @@ export function getNestedComponentPartStyling(
     // Combine parent and custom parent styling
     let styling = '';
 
-    // Add parent styling for the part if it exists
-    if (typeof parentStyling[part] === 'string') {
-        styling = parentStyling[part] as string;
+    // Add common parent styling for the part if it exists
+    if (typeof commonParentStyling[part] === 'string') {
+        styling = commonParentStyling[part] as string;
+    }
+
+    // Add component parent styling for the part if it exists
+    if (typeof componentParentStyling[part] === 'string') {
+        styling = twMerge(styling, componentParentStyling[part] as string);
     }
 
     // Add custom parent styling for the part if it exists
@@ -457,6 +496,11 @@ export function getNestedComponentPartStyling(
     const specificKey = `${componentType}.${parent}.${part}`;
     if (customStyling && typeof customStyling[specificKey] === 'string') {
         styling = twMerge(styling, customStyling[specificKey] as string);
+    }
+
+    // If no styling was found, try to get styling for the part directly
+    if (!styling) {
+        styling = getComponentPartStyling(componentType, part, theme, customStyling);
     }
 
     return styling;

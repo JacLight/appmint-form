@@ -6,6 +6,17 @@ AppmintForm is a powerful, lightweight, and flexible form builder library for Re
 [![npm downloads](https://img.shields.io/npm/dm/@appmint/form.svg)](https://www.npmjs.com/package/@appmint/form)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
+## ✨ Features
+
+- **JSON Schema Configuration**: Define forms using a declarative JSON schema
+- **Rich Component Library**: Support for 30+ input types and controls
+- **Conditional Rendering**: Show/hide fields based on form data
+- **Built-in Validation**: Comprehensive validation using Zod
+- **Customizable Layouts**: Multiple layout options including tabs, accordions, and more
+- **Theming Support**: Easily customize the appearance of your forms
+- **Performance Optimized**: Only updates what has changed, ensuring efficient rendering
+- **Extensible**: Add custom input components and layouts
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -418,20 +429,20 @@ AppmintForm supports theming to customize the appearance of your forms.
 
 ```jsx
 const theme = {
-  form: {
-    className: 'bg-gray-50 p-4 rounded-lg shadow-sm'
+  // Component-specific styling
+  text: {
+    container: 'bg-gray-50 p-4 rounded-lg shadow-sm',
+    label: 'text-sm font-medium text-gray-700 mb-1',
+    input: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm',
+    description: 'mt-1 text-xs text-gray-500',
+    error: 'mt-1 text-xs text-red-500'
   },
-  title: {
-    className: 'text-xl font-bold text-blue-600'
-  },
-  control: {
-    className: 'mb-4'
-  },
-  label: {
-    className: 'text-sm font-medium text-gray-700'
-  },
-  input: {
-    className: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500'
+  number: {
+    container: 'bg-gray-50 p-4 rounded-lg shadow-sm',
+    label: 'text-sm font-medium text-gray-700 mb-1',
+    input: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm',
+    description: 'mt-1 text-xs text-gray-500',
+    error: 'mt-1 text-xs text-red-500'
   }
 };
 
@@ -443,10 +454,14 @@ const theme = {
 ```jsx
 const theme = {
   text: {
-    className: 'border-blue-300 focus:ring-blue-500'
+    input: 'block w-full rounded-md border-blue-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
   },
   number: {
-    className: 'border-green-300 focus:ring-green-500'
+    input: 'block w-full rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm'
+  },
+  selectsingle: {
+    dropdown: 'block w-full rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm',
+    option: 'py-2 px-3 cursor-pointer hover:bg-purple-50'
   }
 };
 ```
@@ -518,107 +533,6 @@ const theme = {
 | `cellRenderers` | object | Custom cell renderers |
 | `itemRenderer` | function | Custom item renderer |
 | `options` | object | Table options |
-
-## Common Threads
-
-### Build Checks
-
-AppmintForm uses several tools to ensure code quality and consistency:
-
-#### ESLint
-
-The project uses ESLint for static code analysis with the following configuration:
-
-```json
-{
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "@typescript-eslint/recommended"
-  ],
-  "plugins": ["react", "@typescript-eslint"],
-  "rules": {
-    // Custom rules
-  }
-}
-```
-
-To run ESLint:
-
-```bash
-npm run lint
-```
-
-#### TypeScript
-
-The project uses TypeScript for type checking with the following configuration:
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
-}
-```
-
-#### Vitest
-
-The project uses Vitest for unit testing:
-
-```bash
-npm test
-```
-
-#### Size Limit
-
-The project uses Size Limit to control the size of the library:
-
-```bash
-npm run size
-```
-
-Current size limits:
-
-- CJS bundle: 10 KB
-- ES module: 10 KB
-
-To analyze the bundle size:
-
-```bash
-npm run analyze
-```
-
-### Download Graphs
-
-[![NPM Downloads](https://img.shields.io/npm/dm/@appmint/form.svg)](https://www.npmjs.com/package/@appmint/form)
-
-You can view the download statistics for AppmintForm on [npm-stat.com](https://npm-stat.com/charts.html?package=%40appmint%2Fform).
-
-### Contributors
-
-AppmintForm is maintained by [Jac Light](https://github.com/jaclight) and the AppmintForm team.
-
-To view all contributors:
-
-```bash
-git shortlog -sn
-```
 
 ## Examples
 
@@ -834,64 +748,93 @@ This will log additional information to the console, including:
 - Form state changes
 - Layout rendering
 
-## Contributing
+## Demo Examples
 
-We welcome contributions from the community! To contribute to AppmintForm:
+The library includes several demo examples that showcase different features and capabilities:
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Write your code, making sure to follow the existing code style and conventions.
-4. Add or update tests, if necessary.
-5. Update documentation if you're introducing new features or making changes to the API.
-6. Commit your changes and create a pull request.
+### Basic Form Demo
 
-### Development Setup
+A simple form with various input types to demonstrate the basic functionality.
 
-```bash
-# Clone the repository
-git clone https://github.com/durubata/appmint-form.git
-cd appmint-form
+### Theme Editor Demo
 
-# Install dependencies
-yarn install
+A powerful theme editor that allows you to customize the appearance of your forms. You can:
 
-# Start the development server
-yarn dev
+- Select from pre-made themes
+- Create custom styles for each component type
+- Preview changes in real-time
+- Export your theme for use in your application
 
-# Run tests
-yarn test
+### Text Inputs Demo
 
-# Build the library
-yarn build
-```
+Demonstrates various text input types including:
 
-### Code Style
+- Regular text fields
+- Textarea
+- Rich text editor
+- Markdown editor
 
-The project uses ESLint and Prettier for code formatting. Make sure your code passes the linting checks:
+### Number Inputs Demo
 
-```bash
-yarn lint
-```
+Shows different number input options:
 
-### Testing
+- Basic number input
+- Slider
+- Number range
 
-Write tests for your changes using Vitest:
+### Selection Inputs Demo
 
-```bash
-yarn test
-```
+Displays various selection controls:
 
-### Documentation
+- Dropdown select
+- Checkbox group
+- Radio buttons
+- Switch toggle
 
-Update the documentation to reflect your changes. If you're adding new features, make sure to include examples of how to use them.
+### Date/Time Inputs Demo
 
-### Pull Request Process
+Showcases date and time related inputs:
 
-1. Update the README.md or documentation with details of changes, if appropriate.
-2. Update the CHANGELOG.md with details of changes.
-3. The PR will be merged once it has been reviewed and approved by a maintainer.
+- Date picker
+- Date range picker
+- Date-time picker
+- Cron expression editor
 
----
+### Special Inputs Demo
+
+Demonstrates specialized input types:
+
+- Color picker
+- File upload
+- Map location picker
+- Icon picker
+
+### Layout Elements Demo
+
+Shows different layout options:
+
+- Tabs
+- Accordion
+- Slider
+- Collapsible sections
+
+### Advanced Elements Demo
+
+Displays more complex form elements:
+
+- Data view
+- Data lookup
+- Generated content
+- Rating and ranking
+
+### Table Demo
+
+Demonstrates the table component with features like:
+
+- Sorting
+- Filtering
+- Pagination
+- Custom cell rendering
 
 ## License
 
