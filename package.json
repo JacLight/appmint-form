@@ -1,5 +1,5 @@
 {
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "main": "dist/appmint-form.cjs.js",
   "module": "dist/appmint-form.es.js",
