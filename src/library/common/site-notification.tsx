@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Transition } from '@headlessui/react'
+import { Transition } from './headless-replacements'
 import { IconRenderer } from './icons/icon-renderer';
 
 export function SiteNotification() {

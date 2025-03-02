@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition } from '../common/headless-replacements';
 import { IconRenderer } from '../common/icons/icon-renderer';
 
 export const CollectionTableCardPopup = (props: { component?; isOpen; close }) => {
@@ -16,7 +16,7 @@ export const CollectionTableCardPopup = (props: { component?; isOpen; close }) =
   return (
     <Transition.Root show={props.isOpen || false} as={Fragment}>
       <Dialog as="div" className="relative" onClose={close}>
-        <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
+        <Transition.Child show={props.isOpen || false} as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
           <div className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" />
         </Transition.Child>
 
@@ -27,6 +27,7 @@ export const CollectionTableCardPopup = (props: { component?; isOpen; close }) =
               &#8203;
             </span>
             <Transition.Child
+              show={props.isOpen || false}
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"

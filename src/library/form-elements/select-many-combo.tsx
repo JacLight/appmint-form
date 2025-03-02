@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions, ComboboxButton } from '@headlessui/react';
+import { ChevronsUpDown } from 'lucide-react';
+import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions, ComboboxButton } from '../common/headless-replacements';
 import { classNames, isEmpty, isNotEmpty } from '../utils';
 import { ElementIcon } from './element-icon';
 import { twMerge } from 'tailwind-merge';
@@ -194,7 +194,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
             <IconRenderer icon="Plus" className="h-4 w-4 text-gray-400" aria-hidden="true" />
           </ComboboxButton>
           <ComboboxButton className=" inset-y-0  flex rounded-r-md focus:outline-none">
-            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+            <ChevronsUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
           </ComboboxButton>
         </div>
       </div>

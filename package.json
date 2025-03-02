@@ -90,8 +90,6 @@
   },
   "homepage": "https://github.com/durubata/appmint-form",
   "dependencies": {
-    "@headlessui/react": "^2.1.2",
-    "@heroicons/react": "^2.2.0",
     "@tanstack/match-sorter-utils": "^8.15.1",
     "@tanstack/react-table": "^8.19.2",
     "@uiw/react-md-editor": "^4.0.4",

@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import { Transition } from '@headlessui/react';
-import { InboxIcon } from '@heroicons/react/24/outline';
-import { XMarkIcon } from '@heroicons/react/20/solid';
+import { Transition } from '../common/headless-replacements';
+import { Inbox, X } from 'lucide-react';
 
 export default function Example() {
   const [show, setShow] = useState(true);
@@ -26,7 +25,7 @@ export default function Example() {
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <InboxIcon className="h-6 w-6 text-gray-400" aria-hidden="true" />
+                    <Inbox className="h-6 w-6 text-gray-400" aria-hidden="true" />
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">Discussion moved</p>
@@ -49,7 +48,7 @@ export default function Example() {
                       }}
                     >
                       <span className="sr-only">Close</span>
-                      <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                      <X className="h-5 w-5" aria-hidden="true" />
                     </button>
                   </div>
                 </div>

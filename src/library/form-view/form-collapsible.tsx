@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { Transition } from '@headlessui/react';
+import { Transition } from '../common/headless-replacements';
 import { getElementTheme } from '../context/store';
 import { classNames } from '../utils';
 import { localStorageUtils } from '../utils/localstorage';

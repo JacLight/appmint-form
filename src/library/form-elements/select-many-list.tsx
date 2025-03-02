@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Listbox, ListboxOptions, ListboxOption, ListboxButton } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Listbox, ListboxOptions, ListboxOption, ListboxButton } from '../common/headless-replacements';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { classNames } from '../utils';
 import { ElementIcon } from './element-icon';
 
@@ -40,7 +40,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
             )}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 ml-1 flex items-center pr-px">
-            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+            <ChevronsUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
           </span>
         </ListboxButton>
         <ListboxOptions anchor="bottom start" className={classNames('z-[1110] max-w-96', props.className, themeClass.options)}>
@@ -58,7 +58,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
                     </div>
                     {selected ? (
                       <span className={classNames(active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4')}>
-                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                        <Check className="h-5 w-5" aria-hidden="true" />
                       </span>
                     ) : null}
                   </>
