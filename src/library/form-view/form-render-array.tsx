@@ -13,6 +13,7 @@ import { getWatchedPaths } from './form-utils';
 import { runElementRules } from './form-rules';
 import { getTemplateValue } from './form-validator';
 import { useShallow } from 'zustand/shallow';
+import { iconButtonClass } from '../common/constants';
 
 const defaultTypeValues = type => ({ string: '', number: 0, boolean: false, array: [], object: {} }[type]);
 
@@ -77,8 +78,8 @@ export const FormRenderArray = (props: { storeId; path; dataPath; parentDataPath
   }
   const items = getItemValue(valuePath) || [''];
   const addButton = (
-    <div className="w-full flex my-2 justify-center">
-      <ButtonAdd handler={e => addArrayItem(e, valuePath, schema?.items?.type)} className={'w-5 h-5'} />
+    <div className="flex my-2 justify-center">
+      <ButtonAdd handler={e => addArrayItem(e, valuePath, schema?.items?.type)} className={iconButtonClass} />
     </div>
   );
   const arrayTheme = getElementTheme('array', theme);
@@ -125,8 +126,10 @@ export const FormRenderArray = (props: { storeId; path; dataPath; parentDataPath
           return render;
           // }
         })}
-        {addButton}
-        {schema.operations?.includes('pick') && <FormPicker dataPath={dataPath} parentDataPath={dataPath} schema={schema} storeId={props.storeId} />}
+        <div className='flex items-center justify-center gap-4'>
+          {addButton}
+          {schema.operations?.includes('pick') && <FormPicker dataPath={dataPath} parentDataPath={dataPath} schema={schema} storeId={props.storeId} />}
+        </div>
       </ElementWrapperLayout>
     </>
   );

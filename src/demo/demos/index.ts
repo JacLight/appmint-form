@@ -27,10 +27,21 @@ import ThemeEditorDemo from './ThemeEditorDemo';
 import TextFieldDemo from './textInputs/TextFieldDemo';
 import TextareaDemo from './textInputs/TextareaDemo';
 import RichtextDemo from './textInputs/RichtextDemo';
+import { Bus } from 'lucide-react';
+import BusinessMadeDemo from './business-nade';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
     // Theme Editor
+    {
+        id: 'business-made',
+        title: 'Business Made',
+        description: 'Create and customize themes for form elements with a live preview.',
+        category: 'Tools',
+        component: BusinessMadeDemo,
+        code: `// Theme Editor Demo Code`
+    },
+
     {
         id: 'theme-editor',
         title: 'Theme Editor',

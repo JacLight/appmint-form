@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Listbox, ListboxOptions, ListboxOption, ListboxButton } from '../common/headless-replacements';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import { classNames } from '../utils';
 import { ElementIcon } from './element-icon';
-import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { twMerge } from 'tailwind-merge';
 
@@ -114,23 +112,4 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
       </div>
     </Listbox>
   );
-};
-
-const themeClasses = {
-  default: {
-    button: 'relative w-full cursor-default rounded bg-white pl-3 min-h-9 pr-8 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-5',
-    options: 'mt-1 max-h-80 min-w-48 overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
-  },
-  minimal: {
-    button: 'relative flex h-10 gap-2  items-center text-sm justify-start whitespace-nowrap rounded-full text-gray-400 hover:text-gray-500 pr-8',
-    options: 'bottom-10 z-10 -ml-6 w-60 rounded-lg bg-white py-3 text-base shadow ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm',
-  },
-  settings: {
-    button: 'relative w-full cursor-default rounded bg-white pl-3 min-h-8 pr-8 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-5',
-    options: 'mt-1 max-h-80 overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
-  },
-  mintflow: {
-    button: 'relative w-full cursor-default rounded bg-white pl-2 min-h-6 pr-4 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xm',
-    options: 'mt-1 max-h-80 overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm',
-  },
 };

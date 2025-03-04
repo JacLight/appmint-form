@@ -6,7 +6,7 @@ import { useShallow } from 'zustand/shallow';
 import { colorUtils } from '../color-utils';
 import { IconRenderer } from '../icons/icon-renderer';
 
-export const CommonColorPicker = (props: { color; updateColor; type; toggle?; useFloatBox?; floatBoxPos?; style?; icon?; className?}) => {
+export const CommonColorPicker = (props: { color; updateColor; type; toggle?; style?; icon?; className?}) => {
   const [colorTemp, setColorTemp] = useState('#000000');
   const [gradient, setGradient] = useState('rgba(255, 255, 255, 1)');
   const { color, setColor } = useColorPickerStore(useShallow(state => ({ color: state.color, setColor: state.setColor })));

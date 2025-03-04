@@ -57,9 +57,9 @@ const baseTheme: ThemeStyling = {
     },
     // Text input styling
     text: {
-        container: 'relative my-2',
+        container: 'relative my-2 w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
-        input: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+        input: 'block w-full rounded-md border-gray-300 border shadow-sm focus:border-indigo-500 p-2 focus:ring-indigo-500 sm:text-sm',
         description: 'mt-1 text-xs text-gray-500',
         error: 'mt-1 text-xs text-red-500',
         icon: 'h-5 w-5 text-gray-400',
@@ -69,9 +69,9 @@ const baseTheme: ThemeStyling = {
     },
     // Number input styling
     number: {
-        container: 'relative my-2',
+        container: 'relative my-2  w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
-        input: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+        input: 'block w-full rounded-md border-gray-300 shadow-sm border  p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
         description: 'mt-1 text-xs text-gray-500',
         error: 'mt-1 text-xs text-red-500',
         prefix: 'flex select-none items-center pl-3 text-gray-500 sm:text-sm',
@@ -82,7 +82,7 @@ const baseTheme: ThemeStyling = {
     },
     // Textarea styling
     textarea: {
-        container: 'relative my-2',
+        container: 'relative my-2  w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
         textarea: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
         description: 'mt-1 text-xs text-gray-500',
@@ -90,7 +90,7 @@ const baseTheme: ThemeStyling = {
     },
     // Date range styling
     'date-range': {
-        container: 'relative my-2',
+        container: 'relative my-2  w-full',
         input: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
         prefix: 'flex select-none items-center pl-3 text-gray-500 sm:text-sm',
         suffix: 'flex select-none items-center pr-3 text-gray-500 sm:text-sm',
@@ -104,7 +104,7 @@ const baseTheme: ThemeStyling = {
     },
     // Select styling
     select: {
-        container: 'relative my-2',
+        container: 'relative my-2  w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
         dropdown: 'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
         option: 'py-2 px-3 cursor-pointer hover:bg-gray-100',
@@ -114,11 +114,11 @@ const baseTheme: ThemeStyling = {
     },
     // Select single styling (from element-style-class.ts)
     selectsingle: {
-        container: 'flex items-center justify-center',
+        container: 'items-center justify-center ',
     },
     // Select many styling
     selectmany: {
-        container: 'flex items-center justify-center',
+        container: 'items-center justify-center  w-full',
     },
     // Listbox styling
     listbox: {
@@ -306,9 +306,11 @@ const minimalTheme: ThemeStyling = {
         error: 'mt-1 text-xs text-red-400',
     },
     text: {
+        container: 'w-full',
         input: 'block w-full rounded-md border-gray-200 shadow-sm focus:border-gray-300 focus:ring-gray-300 sm:text-sm',
     },
     select: {
+        container: 'w-full',
         select: 'block w-full rounded-md border-gray-200 shadow-sm focus:border-gray-300 focus:ring-gray-300 sm:text-sm',
         option: 'py-1 px-2 cursor-pointer hover:bg-gray-50 text-sm',
     },

@@ -1,7 +1,6 @@
 import { useFormStore } from '../context/store';
 import { validateFormValue } from './form-validator';
-import { classNames, isNotEmpty } from '../utils';
-import { DataPicker } from '../common/data-picker';
+import { isNotEmpty } from '../utils';
 import { applyFunction } from './form-transforms';
 import React, { useEffect, useState } from 'react';
 import { showNotice } from '../context/store';
@@ -15,6 +14,9 @@ const restAPI = {
 };
 import { useShallow } from 'zustand/shallow';
 import { IconRenderer } from '../common/icons/icon-renderer';
+import { Popover } from '../common/popover';
+import { iconButtonClass } from '../common/constants';
+import DataGalleryView from '../display-view/data-gallery-view';
 
 export const FormPicker = (props: { storeId; dataPath; parentDataPath, schema }) => {
   const { dataPath, schema } = props;
@@ -154,22 +156,12 @@ export const FormPicker = (props: { storeId; dataPath; parentDataPath, schema })
   };
 
   return (
-    <div className=" flex justify-end gap-2 p-2 mx-auto w-fit">
-      {dataPickerProp && <DataPicker dataPickerState={dataPickerProp} closeButton={closeButton} selectButton={selectButton} selectedIds={selectedItems?.map(item => item.id)} />}
-      <button
-        onClick={clearAll}
-        title={pendingConfirm ? "Confirm Clear" : "Clear Selection"}
-        className={classNames(pendingConfirm ? 'bg-red-400' : '', 'button-remove shadow-[2px_1px_5px_1px_#ccc] m-2 rounded-lg p-2 hover:scale-125 duration-200 transition-all hover:bg-red-200')}
-      >
-        <IconRenderer icon={pendingConfirm ? 'Check' : 'Trash'} size={12} color="currentColor" />
-      </button>
-      <button
-        onClick={pickData}
-        title="Add Item"
-        className="button-add shadow-[2px_1px_5px_1px_#ccc] m-2 rounded-lg p-2 hover:scale-125 duration-200 transition-all hover:bg-cyan-200"
-      >
-        <IconRenderer icon="Plus" size={12} color="currentColor" />
-      </button>
-    </div>
+    <button
+      onClick={pickData}
+      title="Add Item"
+      className={iconButtonClass}
+    >
+      <IconRenderer icon="TextSearch" size={12} color="currentColor" />
+    </button>
   );
 };

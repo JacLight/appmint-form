@@ -1,5 +1,4 @@
 import { CommonColorPicker } from '../common/color-picker';
-import { getElementTheme } from '../context/store';
 import { twMerge } from 'tailwind-merge';
 import React from 'react';
 import { StyledComponent } from './styling';
@@ -39,8 +38,6 @@ export const ColorElement = (props: { path; name; value; blur, schema, theme, cl
         type={variant}
         icon={icon || 'MdFormatColorFill'}
         toggle={toggle}
-        floatBoxPos={position}
-        useFloatBox={displayStyle === 'button'}
         updateColor={handleUpdate}
         color={props.value}
         // Pass styling through the style prop since the component doesn't accept the specific class props

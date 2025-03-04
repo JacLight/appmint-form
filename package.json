@@ -90,6 +90,7 @@
   },
   "homepage": "https://github.com/durubata/appmint-form",
   "dependencies": {
+    "@radix-ui/react-select": "^2.1.6",
     "@tailwindcss/vite": "^4.0.9",
     "@tanstack/match-sorter-utils": "^8.15.1",
     "@tanstack/react-table": "^8.19.2",

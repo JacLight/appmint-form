@@ -8,13 +8,10 @@ import CollectionTable from '../table-view';
 import { iconButtonClass } from '../common/constants';
 import { JSONViewer } from '../common/json-viewer';
 import CollectionForm from '../form-view';
-import { FloatBox } from '../common/float-box';
 import { CollectionHelper } from '../form-view/form-utils';
 
 
-const style = { left: 'calc(30% / 2)', top: 'calc(30% / 4)', width: '70%', height: '70%' };
-
-export const DataGalleryView = (props: { datatype; data, filter }) => {
+export const DataGalleryView = (props: { datatype?; data?, filter?}) => {
   const { dataViewProps } = useFormStore(useShallow(state => ({ dataViewProps: state.dataViewProps })));
   const [activeTab, setActiveTab] = React.useState('list');
   const [activeRecord, setActiveRecord] = React.useState(null);
@@ -83,45 +80,43 @@ export const DataGalleryView = (props: { datatype; data, filter }) => {
   if (dataViewProps?.viewType !== 'gallery') return null;
 
   return (
-    <FloatBox style={style} key="data-gallery-view" name="data-gallery-view" title="Data Gallery View" close={closeHandler}>
-      <div className="h-full w-full relative">
-        <div className="flex gap-1 w-full bg-gray-100 px-3">
-          <button onClick={e => setActiveTab('list')} className={classNames(activeTab === 'list' ? 'bg-cyan-100' : 'bg-gray-50', 'text-sm px-6 py-2')}>
-            List
-          </button>
-          <button onClick={e => setActiveTab('detail')} className={classNames(activeTab === 'detail' ? 'bg-cyan-100' : 'bg-gray-50', 'text-sm px-6 py-2')}>
-            Data View
-          </button>
-        </div>
-        {error && <div className=" max-w-screen-md mx-auto bg-red-100 p-2 text-sm text-center">{error}</div>}
-        {(!collection || isLoading) ? <LoadingIndicator /> :
-          (
-            <>
-              <div className="text-sm flex items-center w-fit gap-5 absolute top-0 right-0 h-9 px-4">
-                <div className='bg-purple-700 h-full text-white px-2 py-1'>{collection?.data?.name}</div>
-                <div>{activeRecord?.sk}</div>
-                {dataDTO?.total && (<div>
-                  {currentIndex + 1} of {dataDTO?.total}
-                </div>
-                )}
-              </div>
-              <div className="h-[calc(100%-100px)] w-full mt-4">
-                <ItemList isActive={activeTab === 'list'} setDataDTO={setDataDTO} schema={collection?.data?.schema} datatype={collection?.data?.name} data={dataDTO?.data} openRecord={openRecord} changeDatatype={changeDatatype} dataViewProps={dataViewProps} />
-                <ItemDetail isActive={activeTab === 'detail'} setActiveTab={setActiveTab} schema={collection?.data?.schema} datatype={collection?.data?.name} data={activeRecord} dataViewProps={dataViewProps} />
-              </div>
-              <div className="flex items-center gap-4 justify-between absolute bottom-1 w-full px-5 bg-white py-2">
-                <button onClick={prevRecord} className="text-sm hover:bg-cyan-100 pl-2  pr-3 py-1 rounded-full flex items-center gap-2 border border-gray-200">
-                  <IconRenderer icon="ArrowLeft" className="w-5 h-5 rounded-full shadow bg-white p-1" /> <span>Previous</span>
-                </button>
-
-                <button onClick={nextRecord} className="text-sm hover:bg-cyan-100 pl-3  pr-2 py-1 rounded-full flex items-center gap-2 border border-gray-200">
-                  <span>Next</span>
-                  <IconRenderer icon="ArrowRight" className="w-5 h-5 rounded-full shadow bg-white p-1" />
-                </button>
-              </div>
-            </>)}
+    <div className="h-full w-full relative">
+      <div className="flex gap-1 w-full bg-gray-100 px-3">
+        <button onClick={e => setActiveTab('list')} className={classNames(activeTab === 'list' ? 'bg-cyan-100' : 'bg-gray-50', 'text-sm px-6 py-2')}>
+          List
+        </button>
+        <button onClick={e => setActiveTab('detail')} className={classNames(activeTab === 'detail' ? 'bg-cyan-100' : 'bg-gray-50', 'text-sm px-6 py-2')}>
+          Data View
+        </button>
       </div>
-    </FloatBox>
+      {error && <div className=" max-w-screen-md mx-auto bg-red-100 p-2 text-sm text-center">{error}</div>}
+      {(!collection || isLoading) ? <LoadingIndicator /> :
+        (
+          <>
+            <div className="text-sm flex items-center w-fit gap-5 absolute top-0 right-0 h-9 px-4">
+              <div className='bg-purple-700 h-full text-white px-2 py-1'>{collection?.data?.name}</div>
+              <div>{activeRecord?.sk}</div>
+              {dataDTO?.total && (<div>
+                {currentIndex + 1} of {dataDTO?.total}
+              </div>
+              )}
+            </div>
+            <div className="h-[calc(100%-100px)] w-full mt-4">
+              <ItemList isActive={activeTab === 'list'} setDataDTO={setDataDTO} schema={collection?.data?.schema} datatype={collection?.data?.name} data={dataDTO?.data} openRecord={openRecord} changeDatatype={changeDatatype} dataViewProps={dataViewProps} />
+              <ItemDetail isActive={activeTab === 'detail'} setActiveTab={setActiveTab} schema={collection?.data?.schema} datatype={collection?.data?.name} data={activeRecord} dataViewProps={dataViewProps} />
+            </div>
+            <div className="flex items-center gap-4 justify-between absolute bottom-1 w-full px-5 bg-white py-2">
+              <button onClick={prevRecord} className="text-sm hover:bg-cyan-100 pl-2  pr-3 py-1 rounded-full flex items-center gap-2 border border-gray-200">
+                <IconRenderer icon="ArrowLeft" className="w-5 h-5 rounded-full shadow bg-white p-1" /> <span>Previous</span>
+              </button>
+
+              <button onClick={nextRecord} className="text-sm hover:bg-cyan-100 pl-3  pr-2 py-1 rounded-full flex items-center gap-2 border border-gray-200">
+                <span>Next</span>
+                <IconRenderer icon="ArrowRight" className="w-5 h-5 rounded-full shadow bg-white p-1" />
+              </button>
+            </div>
+          </>)}
+    </div>
   );
 };
 

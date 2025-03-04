@@ -131,11 +131,7 @@ export const ElementWrapperControl = (props: {
     );
   }
 
-  // Get label styling
-  const labelClasses = getComponentPartStyling(controlType, 'label', props.theme, customStyling);
-
   let label;
-  const controlHelpLabel = getElementTheme('label', props.theme);
   const caption = schema.title ? schema.title : toSentenceCase(schema.name || props.name || '');
 
   if (caption && !schema.hideLabel) {
@@ -247,23 +243,6 @@ export const ElementWrapperControl = (props: {
     );
   }
 
-  if (labelPosition === 'bottom') {
-    return (
-      <StyledComponent
-        componentType={controlType}
-        part="container"
-        schema={schema}
-        theme={props.theme}
-        data-ui-name="control"
-        className={twMerge(className, 'relative')}
-      >
-        {element}
-        {label}
-        {description}
-        {error}
-      </StyledComponent>
-    );
-  }
   return (
     <StyledComponent
       componentType={controlType}
@@ -273,10 +252,11 @@ export const ElementWrapperControl = (props: {
       data-ui-name="control"
       className={twMerge(className, 'relative')}
     >
-      {label}
+      {labelPosition !== 'bottom' && label}
       {element}
+      {labelPosition === 'bottom' && label}
       {description}
       {error}
     </StyledComponent>
   );
-};
+}

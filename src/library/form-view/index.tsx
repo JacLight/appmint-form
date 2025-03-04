@@ -10,6 +10,7 @@ import { tabButtonActiveClass, tabButtonClass } from '../common/constants';
 import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { StyledComponent } from '../form-elements/styling';
+import DataGalleryView from '../display-view/data-gallery-view';
 
 export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; rules?; theme?; accessMode?; id?; datatype?; icon?; readOnly?; hash?; useAI?; collapsible?; onChange?: (path, value, data, files, error) => void }) => {
   const storeId = props.id || props.hash;
@@ -174,7 +175,7 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
     );
   }
 
-  return render;
+  return <>{render} <DataGalleryView /></>;
 };
 
 export default CollectionForm;
