@@ -2,6 +2,7 @@ import React from 'react';
 import { flexRender } from '@tanstack/react-table';
 import { classNames } from '../utils';
 import { IconRenderer } from '../common/icons/icon-renderer';
+import { useTheme } from '../../../../../contexts/theme-context';
 
 const sortIcons = {
     asc: <IconRenderer icon="ArrowUp" />,
@@ -31,17 +32,27 @@ export const ColumnHead: React.FC<any> = ({ header }) => {
     };
 
     return (
-        <thead className="sticky top-0" onDragOver={handleDragOver} onDrop={handleDrop}>
-            <div className="header-item text-gray-500 group">
+        <thead className="sticky top-0 z-0" onDragOver={handleDragOver} onDrop={handleDrop}>
+            <div className="header-item text-gray-500 dark:text-gray-300 group">
                 <div className="flex gap-1 items-center mb-1">
-                    <div className="drag-handle cursor-grabbing " draggable onDragStart={handleDragStart}>
+                    <div className="drag-handle cursor-grabbing" draggable onDragStart={handleDragStart}>
                         <IconRenderer icon="GripVertical" />
                     </div>
-                    <div onClick={header.column.getToggleSortingHandler()} className={classNames(`sort-button`, canSort ? 'sortable' : '', 'w-full whitespace-nowrap text-ellipsis text-sm')}>
+                    <div
+                        onClick={header.column.getToggleSortingHandler()}
+                        className={classNames(
+                            `sort-button`,
+                            canSort ? 'sortable' : '',
+                            'w-full whitespace-nowrap text-ellipsis text-sm dark:text-gray-300'
+                        )}
+                    >
                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </div>
                     {canSort && (
-                        <div className="sort-icon group-hover:opacity-80 opacity-30 transition-all duration-200" onClick={header.column.getToggleSortingHandler()}>
+                        <div
+                            className="sort-icon group-hover:opacity-80 opacity-30 transition-all duration-200 dark:text-gray-300"
+                            onClick={header.column.getToggleSortingHandler()}
+                        >
                             {sortDirection ? sortIcons[sortDirection] : sortIcons.none}
                         </div>
                     )}

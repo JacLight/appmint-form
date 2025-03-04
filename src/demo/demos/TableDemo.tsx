@@ -1,5 +1,5 @@
 import React from 'react';
-import CollectionTable from '../../library/table-view';
+import CollectionTable from '../../library/table-viewx';
 
 const schema = {
     type: 'object',

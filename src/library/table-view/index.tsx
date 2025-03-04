@@ -13,6 +13,7 @@ import { TablePresetFilter } from './table-preset-filter';
 import { TableButtons } from './table-buttons';
 import { CollectionTableView } from './view-table';
 import { CollectionTableCardView } from './view-cards';
+import { useTheme } from '../../../../../contexts/theme-context';
 
 // Stubs for missing dependencies
 const GenerateSchema = {
@@ -196,10 +197,12 @@ export const CollectionTable = (props: {
         }
 
         if (props.onTableEvent) {
-            const selected = table.getSelectedRowModel().rows.map(row => row.original) || [];
+            const selected: any[] = table.getSelectedRowModel().rows.map(row => row.original) || [];
             selectedRows.forEach(row => {
                 const record = data[row];
-                selected.push(record);
+                if (record) {
+                    selected.push(record);
+                }
             });
             if (await props.onTableEvent(name, option, selected)) {
                 return;
@@ -209,10 +212,12 @@ export const CollectionTable = (props: {
         if (name === 'select') {
 
         } else if (name === 'export') {
-            const selected = table.getSelectedRowModel().rows.map(row => row.original) || [];
+            const selected: any[] = table.getSelectedRowModel().rows.map(row => row.original) || [];
             selectedRows.forEach(row => {
                 const record = data[row];
-                selected.push(record);
+                if (record) {
+                    selected.push(record);
+                }
             });
 
             if (!Array.isArray(selected)) return;
@@ -230,7 +235,7 @@ export const CollectionTable = (props: {
             const tableSelRows = table.getSelectedRowModel().rows;
             console.log('tableSelRows', tableSelRows);
 
-            const ids = [];
+            const ids: string[] = [];
             selectedRows.forEach(row => {
                 const record = data[row];
                 if (record && record.sk) {
@@ -268,12 +273,12 @@ export const CollectionTable = (props: {
 
     const title = typeof props.title === 'undefined' && props.datatype ? toTitleCase(props.datatype) : props.title;
     return (
-        <div className="h-full w-full overflow-hidden min-w-[600px]">
+        <div className="h-full w-full overflow-hidden min-w-[600px] dark:bg-gray-900/80 bg-white/80 p-4 rounded-xl shadow-lg">
             {canSearch && (
                 <div className="lg:flex items-center">
                     {(title || props.description) && <div className="lg:flex gap-3">
-                        <h1 className="text-base font-semibold leading-6 text-gray-900">{title || ''}</h1>
-                        <p className="mt-2 text-sm text-gray-700">{props.description}</p>
+                        <h1 className="text-base font-semibold leading-6 text-gray-900 dark:text-white">{title || ''}</h1>
+                        <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{props.description}</p>
                     </div>
                     }
                     <div className="flex justify-between items-center gap-5 w-full">
@@ -283,7 +288,7 @@ export const CollectionTable = (props: {
                 </div>
             )}
             {(showGroup || props.filterPreset) && (
-                <div className="lg:flex justify-between items-center gap-5 mt-4">
+                <div className="lg:flex justify-between items-center gap-10 mt-4">
                     {props.filterPreset && <TablePresetFilter filterPreset={props.filterPreset} />}
                     {showGroup && <TableGroup />}
                 </div>
@@ -294,7 +299,7 @@ export const CollectionTable = (props: {
                     'mt-8 flow-root w-full overflow-auto',
                 )}
             >
-                <div className="-mx-4 -my-2  sm:-mx-6 lg:-mx-8">
+                <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                     {cardView ? (
                         <CollectionTableCardView
                             table={table}

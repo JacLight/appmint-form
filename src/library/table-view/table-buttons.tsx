@@ -3,10 +3,11 @@ import { classNames, toTitleCase } from '../utils';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { iconButtonClass, iconClass } from '../common/constants';
 import { withTooltip } from '../common/tooltip';
+import { useTheme } from '../../../../../contexts/theme-context';
 
 export const tableButtonNames = [
   { name: 'refresh', icon: 'RefreshCcw' },
-  { name: 'delete', icon: 'Trash', className: 'text-red-500', confirm: true },
+  { name: 'delete', icon: 'Trash', className: 'text-red-500 dark:text-red-400', confirm: true },
   { name: 'add', icon: 'Plus' },
   { name: 'select', icon: 'Check' },
   // { name: 'Edit', icon: 'Edit' },
@@ -39,11 +40,21 @@ export const TableButtons: React.FC<any> = ({ onTableEvent, options, selectedRow
 
   const isReadOnly = options?.readOnly === true;
   return (
-    <div className="flex gap-2 items-center mr-2">
+    <div className="flex gap-2 items-center">
       {tableButtonNames.map(button => {
         if (button.name !== 'refresh' && isReadOnly) return null;
         return (
-          <ButtonTP onClick={onClick} title={toTitleCase(button.name)} key={button.name} name={button.name} type="button" className={classNames(iconButtonClass, button.className, 'relative')}>
+          <ButtonTP
+            onClick={onClick}
+            title={toTitleCase(button.name)}
+            key={button.name}
+            name={button.name}
+            type="button"
+            className={classNames(
+              iconButtonClass,
+              button.className,
+            )}
+          >
             <IconRenderer icon={(buttonStates[button.name] ? 'Check' : button.icon) as any} className={iconClass} />
             {button.name === 'select' && selectedRows.length > 0 && <span className='absolute -top-2 w-4 h-4 -right-2 flex items-center justify-center rounded-full text-xs bg-purple-700 text-white'>{selectedRows.length}</span>}
           </ButtonTP>

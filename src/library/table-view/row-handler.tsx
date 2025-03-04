@@ -1,21 +1,24 @@
 import React from 'react';
 import { showNotice } from '../context/store';
 import { IconRenderer } from '../common/icons/icon-renderer';
+import { classNames } from '@/lib/utils';
 
-// Stubs for missing components
-const IconButtonDelete = (props) => (
-    <button {...props} onClick={props.deleteHandler} title="Delete">
-        <span style={{ color: 'red', fontSize: props.size }}>🗑️</span>
-    </button>
-);
 
-const DataJSONView = (props) => (
-    <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000, boxShadow: '0 0 10px rgba(0,0,0,0.5)' }}>
-        <h3>JSON Data</h3>
-        <pre>{JSON.stringify(props.data, null, 2)}</pre>
-        <button onClick={props.onClose}>Close</button>
-    </div>
-);
+const DataJSONView = (props) => {
+    return (
+        <div className=' dark:bg-[#1f2937]   bg-white text-black  rounded-lg shadow-lg dark:text-gray-100 transform-[translate(-50%,-50%)] fixed top-1/2 left-1/2 p-4 z-10 dark:shadow-[]'
+        >
+            <h3>JSON Data</h3>
+            <pre>{JSON.stringify(props.data, null, 2)}</pre>
+            <button
+                onClick={props.onClose}
+                className='dark:bg-[#374151] bg-[#f3f4f6] text-black dark:text-white p-2 rounded-md'
+            >
+                Close
+            </button>
+        </div >
+    );
+};
 
 const BusyIcon = ({ isLoading }) => isLoading ? <span>⌛</span> : null;
 
@@ -45,8 +48,19 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
     const { row, onRowEvent } = props;
     const [showJSON, setShowJSON] = React.useState<any>(false);
     const [isLoading, setIsLoading] = React.useState<any>(false);
+    const [deleteActive, setDeleteActive] = React.useState<any>(false);
 
-    const deleteHandler = async () => {
+    const deleteHandler = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!deleteActive) {
+            setDeleteActive(true);
+            setTimeout(() => {
+                setDeleteActive(false);
+            }, 3000);
+            return;
+        }
         if (onRowEvent) {
             const rt = await onRowEvent('delete', row.id, row);
             if (rt === true) {
@@ -128,6 +142,9 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
     const canEdit = props.options?.rowEdit !== false && props.options?.readOnly !== true;
     const canDelete = props.options?.rowDelete !== false && props.options?.readOnly !== true;
     const canClone = props.options?.rowClone !== false && props.options?.readOnly !== true;
+
+    const buttonClass = "p-1 bg-gray-100 dark:bg-gray-700 border-2 border-white dark:border-gray-800 rounded-full shadow hover:scale-125 block transition-all duration-200";
+
     return (
         <div className="flex gap-0 mr-2 items-center">
             <div className="">
@@ -137,20 +154,36 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
                 <button
                     onClick={rowEditHandler}
                     title="Edit"
-                    className="p-1 bg-gray-100  border-white border-2 rounded-full  hover:scale-125 block transition-all duration-200 shadow "
+                    className={buttonClass}
                 >
-                    <IconRenderer icon="Edit" color="blue" size={iconSize} />
+                    <IconRenderer icon="Edit" size={iconSize} className=' stroke-sky-500' />
                 </button>
             )}
-            <button title="View JSON" onClick={rowJSONViewHandler} className="p-1 bg-gray-100 border-2  border-white rounded-full shadow hover:scale-125 block transition-all duration-200">
-                <IconRenderer icon="Eye" color="orange" size={iconSize} />
+            <button
+                title="View JSON"
+                onClick={rowJSONViewHandler}
+                className={buttonClass}
+            >
+                <IconRenderer icon="Eye" size={iconSize} className=' stroke-sky-500' />
             </button>
             {canClone && (
-                <button title="Clone" onClick={rowCloneHandler} className="p-1 bg-gray-100 border-2  border-white rounded-full shadow hover:scale-125 block transition-all duration-200">
-                    <IconRenderer icon="Copy" color="green" size={iconSize} />
+                <button
+                    title="Clone"
+                    onClick={rowCloneHandler}
+                    className={buttonClass}
+                >
+                    <IconRenderer icon="Copy" size={iconSize} className=' stroke-sky-500' />
                 </button>
             )}
-            {canDelete && <IconButtonDelete size={iconSize} deleteHandler={deleteHandler} className="p-1 bg-gray-100 border-2  border-white rounded-full shadow hover:scale-125 block transition-all duration-200" />}
+            {canDelete &&
+                <button
+                    onClick={deleteHandler}
+                    title="Delete"
+                    className={buttonClass}
+                >
+                    <IconRenderer icon={deleteActive ? 'Check' : "Trash"} size={iconSize} className={classNames(deleteActive ? 'stroke-red-600' : ' stroke-sky-500')} color={deleteActive ? 'red' : undefined} />
+                </button>
+            }
 
             {showJSON && <DataJSONView key={row.id} datatype={row.original.datatype} uid={row.original.sk} data={row.original} onClose={e => setShowJSON(false)} />}
         </div>

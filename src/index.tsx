@@ -1,6 +1,6 @@
 import React from 'react';
 import { CollectionForm } from './library/form-view';
-import { CollectionTable } from './library/table-view';
+import { CollectionTable } from './library/table-viewx';
 
 export const AppmintForm = (props: { initData, rules?, schema, theme?, datatype?, id, onChange?: (path, value, data, files, error) => void }) => {
   const { initData, schema, theme, datatype, rules, id, onChange } = props;

@@ -11,7 +11,11 @@ export const TableCardRenderer = ({ row, selected, onSelect, slimRow }) => {
     <div
       key={row.id}
       id={row.id}
-      className={classNames(selected ? 'bg-cyan-100' : '', 'p-6 border rounded-lg shadow-md cursor-pointer hover:bg-cyan-50 transition-colors duration-200')}
+      className={classNames(
+        selected ? 'bg-cyan-100 dark:bg-cyan-900' : '',
+        'p-6 border rounded-lg shadow-md cursor-pointer hover:bg-cyan-50 dark:hover:bg-cyan-800 transition-colors duration-200',
+        'dark:bg-gray-800 dark:border-gray-700 dark:text-white'
+      )}
       onClick={() => onSelect(row)}
       role="button"
       tabIndex={0}
@@ -34,18 +38,18 @@ export const TableCardRenderer = ({ row, selected, onSelect, slimRow }) => {
           if (headerStr.toLowerCase().includes('file') || headerStr.toLowerCase().includes('attachment')) {
             return (
               <div key={cell.id} className="flex">
-                <div className="font-semibold w-1/3">{header}:</div>
+                <div className="font-semibold w-1/3 dark:text-gray-200">{header}:</div>
                 <div className="w-2/3">
                   {/* Assuming files are URLs */}
                   {isValidUrl(value) ? (
                     <div className="flex items-center">
-                      <a href={value} download className="text-blue-500 hover:underline flex items-center">
+                      <a href={value} download className="text-blue-500 dark:text-blue-400 hover:underline flex items-center">
                         Download
                         <IconRenderer icon='Download' className="ml-1" />
                       </a>
                     </div>
                   ) : (
-                    <span className="text-gray-500">Invalid File</span>
+                    <span className="text-gray-500 dark:text-gray-400">Invalid File</span>
                   )}
                 </div>
               </div>
@@ -54,7 +58,7 @@ export const TableCardRenderer = ({ row, selected, onSelect, slimRow }) => {
 
           return (
             <div key={cell.id} className="flex">
-              <div className="font-semibold w-1/3">{header}:</div>
+              <div className="font-semibold w-1/3 dark:text-gray-200">{header}:</div>
               <div className="w-2/3">
                 <RecursiveRenderer value={value} />
               </div>
@@ -64,7 +68,7 @@ export const TableCardRenderer = ({ row, selected, onSelect, slimRow }) => {
       </div>
       {/* Expandable Section */}
       <button
-        className="mt-4 text-blue-500 hover:underline"
+        className="mt-4 text-blue-500 dark:text-blue-400 hover:underline"
         onClick={e => {
           e.stopPropagation(); // Prevent card click
           setIsExpanded(!isExpanded);
@@ -75,13 +79,13 @@ export const TableCardRenderer = ({ row, selected, onSelect, slimRow }) => {
       {isExpanded && (
         <div className="mt-2">
           {/* Render additional details here */}
-          <pre className="text-sm text-gray-700">{JSON.stringify(row.original, null, 2)}</pre>
+          <pre className="text-sm text-gray-700 dark:text-gray-300">{JSON.stringify(row.original, null, 2)}</pre>
         </div>
       )}
       {/* Action Buttons */}
       <div className="flex justify-end gap-2 mt-4">
         <button
-          className="text-green-500 hover:text-green-700"
+          className="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
           onClick={e => {
             e.stopPropagation();
             // Handle Edit action
@@ -92,7 +96,7 @@ export const TableCardRenderer = ({ row, selected, onSelect, slimRow }) => {
           <IconRenderer icon='Edit' />
         </button>
         <button
-          className="text-red-500 hover:text-red-700"
+          className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
           onClick={e => {
             e.stopPropagation();
             // Handle Delete action
@@ -141,7 +145,7 @@ const RecursiveRenderer = ({ value }) => {
   }
 
   if (value === null || value === undefined) {
-    return <span className="text-gray-500">N/A</span>;
+    return <span className="text-gray-500 dark:text-gray-400">N/A</span>;
   }
 
   if (Array.isArray(value)) {
@@ -158,7 +162,7 @@ const RecursiveRenderer = ({ value }) => {
 
   if (typeof value === 'object') {
     return (
-      <div className="text-sm text-gray-600">
+      <div className="text-sm text-gray-600 dark:text-gray-300">
         {Object.entries(value).map(([key, val]) => (
           <div key={key} className="mb-1">
             <strong>{capitalizeFirstLetter(key)}:</strong> <RecursiveRenderer value={val} />
@@ -171,7 +175,9 @@ const RecursiveRenderer = ({ value }) => {
   // Handle primitive types
   switch (typeof value) {
     case 'boolean':
-      return value ? <IconRenderer icon='CircleCheck' className="text-green-500 inline-block" /> : <IconRenderer icon='CircleX' className="text-red-500 inline-block" />;
+      return value ?
+        <IconRenderer icon='CircleCheck' className="text-green-500 dark:text-green-400 inline-block" /> :
+        <IconRenderer icon='CircleX' className="text-red-500 dark:text-red-400 inline-block" />;
     case 'number':
       return <span className="text-right">{value}</span>;
 
@@ -181,7 +187,7 @@ const RecursiveRenderer = ({ value }) => {
           return <img src={value} alt="Image" className="w-16 h-16 object-cover rounded" />;
         }
         return (
-          <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+          <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-500 dark:text-blue-400 hover:underline">
             Link
           </a>
         );

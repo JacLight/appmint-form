@@ -4,6 +4,7 @@ import { IconRenderer } from '../common/icons/icon-renderer';
 import { buttonClass, buttonHoverClass } from '../common/constants';
 import { DebouncedInput } from '../common/debounced-input';
 import { Popover } from '../common/popover';
+import { useTheme } from '../../../../../contexts/theme-context';
 
 export const ColumnFilters: React.FC<any> = ({ table }) => {
   const [filter, setFilter] = React.useState<any>({});
@@ -30,18 +31,31 @@ export const ColumnFilters: React.FC<any> = ({ table }) => {
 
   const content = (
     // <div className="inline-block border border-gray-100 shadow rounded text-xs text-gray-600">
-    <div className="inline-block">
-      <div className="px-2 py-1  mb-2">
-        <button className={classNames(buttonClass, buttonHoverClass)} onClick={clearAllFilters}>
+    <div className="inline-block dark:bg-gray-800">
+      <div className="px-2 py-1 mb-2">
+        <button
+          className={classNames(
+            buttonClass,
+            buttonHoverClass,
+            'dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600'
+          )}
+          onClick={clearAllFilters}
+        >
           <IconRenderer icon="X" /> <span>Clear All</span>
         </button>
       </div>
       {table.getAllLeafColumns().map(column => {
         return (
-          <div key={column.id} className="px-2 py-1 even:bg-slate-100">
-            <label className="text-gray-600 text-xs flex items-center gap-2">
-              <span className=" text-ellipsis w-24 whitespace-nowrap ">{column.id}:</span>
-              <DebouncedInput className="filter-input  border rounded  border-gray-300 text-xs  px-2 py-1 " onChange={value => setColumnFilter(column, value)} placeholder={`Search...`} type="text" value={filter[column.id] || ''} />
+          <div key={column.id} className="px-2 py-1 even:bg-slate-100 dark:even:bg-gray-700">
+            <label className="text-gray-600 dark:text-gray-300 text-xs flex items-center gap-2">
+              <span className="text-ellipsis w-24 whitespace-nowrap">{column.id}:</span>
+              <DebouncedInput
+                className="filter-input border rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 text-xs px-2 py-1"
+                onChange={value => setColumnFilter(column, value)}
+                placeholder={`Search...`}
+                type="text"
+                value={filter[column.id] || ''}
+              />
             </label>
           </div>
         );
@@ -51,7 +65,7 @@ export const ColumnFilters: React.FC<any> = ({ table }) => {
 
   return (
     <Popover content={content} position="context" offsetX={-20} offsetY={15}>
-      <button className="">
+      <button className="dark:text-gray-200">
         <IconRenderer icon="Filter" />
       </button>
     </Popover>
