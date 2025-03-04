@@ -39,7 +39,7 @@ export const TableFilter: React.FC<any> = ({ globalFilter, setGlobalFilter, data
   };
 
   return (
-    <div className="shadow border border-block rounded-lg text-sm border-gray-200 flex gap-2 items-center mr-2">
+    <div className="shadow w-full lg:max-w-80  bg-white border border-block  text-sm border-gray-200 flex gap-2 items-center mr-2  rounded overflow-hidden">
       <button onClick={changeSearchMode} className={classNames(searchOnServer ? 'bg-green-100' : 'bg-sky-100', 'px-2 py-2 hover:bg-orange-200')}>
         {searchOnServer ? 'server' : 'local'}{' '}
       </button>
