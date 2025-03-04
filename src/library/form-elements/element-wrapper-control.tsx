@@ -1,7 +1,7 @@
 import { classNames } from '../utils';
 import { isEmpty } from '../utils';
 import { toSentenceCase, toTitleCase } from '../utils';
-import { getElementTheme } from '../context/store';
+import { getElementTheme } from './styling/style-utils';
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ElementIcon } from './element-icon';

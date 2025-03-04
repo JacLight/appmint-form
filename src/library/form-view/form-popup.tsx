@@ -1,6 +1,6 @@
 import { Popover } from '../common/popover';
 import { classNames } from '../utils';
-import { getElementTheme } from '../context/store';
+import { getElementTheme } from '../form-elements/styling/style-utils';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { IconRenderer } from '../common/icons/icon-renderer';

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ButtonElement, elementToNameMap } from './all-elements';
 import { ElementWrapperControl } from './element-wrapper-control';
-import { getElementTheme, useFormStore, showNotice } from '../context/store';
+import { useFormStore, showNotice } from '../context/store';
+import { getElementTheme } from './styling/style-utils';
 import { ControlType, deepCopy, isNotEmpty, toSentenceCase, toTitleCase } from '../utils';
 import { FormCollapsible } from '../form-view/form-collapsible';
 import { FormPopup } from '../form-view/form-popup';
