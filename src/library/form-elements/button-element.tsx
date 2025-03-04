@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { isEmpty, toTitleCase, toSentenceCase } from '../utils';
 import { getElementTheme, useFormStore } from '../context/store';
 import { classNames } from '../utils';
-import { ElementCommonView } from './element-common-view';
 import { buttonsActions } from '../form-view/button-actions';
 import { ElementIcon } from './element-icon';
 import { StyledComponent } from './styling';
@@ -41,8 +40,6 @@ export const ButtonElement = (props: {
   const inlineControls = ['checkbox', 'radio', 'switch', 'button', 'icon-button'];
   const isInline = inlineControls.includes(schema['x-control-variant']);
   const iconStarEnd = !(schema.iconPosition === 'beforeLabel' || schema.iconPosition === 'afterLabel');
-
-  const Wrapper: any = ElementCommonView;
 
   let info = '';
   if (schema?.validations?.length > 0) {

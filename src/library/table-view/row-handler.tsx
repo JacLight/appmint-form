@@ -1,7 +1,7 @@
 import React from 'react';
 import { showNotice } from '../context/store';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { classNames } from '@/lib/utils';
+import { classNames } from '../utils';
 
 
 const DataJSONView = (props) => {

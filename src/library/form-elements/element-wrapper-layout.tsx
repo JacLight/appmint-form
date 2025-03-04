@@ -2,7 +2,6 @@ import React from 'react';
 import { classNames } from '../utils';
 import { isEmpty } from '../utils';
 import { toSentenceCase, toTitleCase } from '../utils';
-import { ElementCommonView } from './element-common-view';
 import { getElementTheme } from '../context/store';
 import { twMerge } from 'tailwind-merge';
 import { FormCollapsible } from '../form-view/form-collapsible';
@@ -27,7 +26,6 @@ export const ElementWrapperLayout = (props: {
 
   const iconPosition = schema.iconPosition || 'start';
   const labelPosition = schema.labelPosition || 'top';
-  const Wrapper = ElementCommonView;
 
   // Extract styling from schema
   const customStyling = extractStylingFromSchema(schema);

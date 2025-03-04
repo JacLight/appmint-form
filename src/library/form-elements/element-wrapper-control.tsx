@@ -1,13 +1,12 @@
 import { classNames } from '../utils';
 import { isEmpty } from '../utils';
 import { toSentenceCase, toTitleCase } from '../utils';
-import { ElementCommonView } from './element-common-view';
 import { getElementTheme } from '../context/store';
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ElementIcon } from './element-icon';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
-import { StyledComponent } from './styling';
+import { StyledComponent, StyledContainer } from './styling';
 
 const fixedLabel = ['checkbox', 'radio', 'switch', 'button', 'color', 'icon-button', 'date', 'date-time', 'date-range', 'lookup'];
 
@@ -44,8 +43,6 @@ export const ElementWrapperControl = (props: {
   const inlineControls = ['checkbox', 'radio', 'switch', 'button', 'icon-button'];
   const isInline = inlineControls.includes(schema['x-control-variant']);
   const iconStarEnd = !(schema.iconPosition === 'beforeLabel' || schema.iconPosition === 'afterLabel');
-
-  const Wrapper: any = ElementCommonView;
 
   let info = '';
   if (schema?.validations?.length > 0) {
@@ -192,52 +189,94 @@ export const ElementWrapperControl = (props: {
 
   if (labelStartEnd && isInline) {
     return (
-      <Wrapper ui={schema['x-ui']} path={path} theme={props.theme} use={controlType} name={'control'} className={twMerge(className, 'relative')}>
-        <Wrapper ui={schema['x-ui']} path={path} theme={props.theme} name={'control-inner'} className={'w-full cb-control-input items-center flex gap-4'}>
+      <StyledComponent
+        componentType={controlType}
+        part="container"
+        schema={schema}
+        theme={props.theme}
+        className={twMerge(className, 'relative')}
+        data-ui-name="control"
+      >
+        <StyledComponent
+          componentType={controlType}
+          part="inner"
+          schema={schema}
+          theme={props.theme}
+          data-ui-name="control-inner"
+          className={'w-full cb-control-input items-center flex gap-4'}
+        >
           {labelPosition === 'end' && element}
           <div className="w-full">
             {label}
             {description}
           </div>
           {labelPosition === 'start' && element}
-        </Wrapper>
+        </StyledComponent>
         {error}
-      </Wrapper>
+      </StyledComponent>
     );
   }
 
   if (labelStartEnd) {
     return (
-      <Wrapper ui={schema['x-ui']} path={path} theme={props.theme} use={controlType} name={'control'} className={twMerge(className, 'relative')}>
+      <StyledComponent
+        componentType={controlType}
+        part="container"
+        schema={schema}
+        theme={props.theme}
+        data-ui-name="control"
+        className={twMerge(className, 'relative')}
+      >
         <div className="flex gap-4 items-center">
           {labelPosition === 'start' && label}
-          <Wrapper ui={schema['x-ui']} theme={props.theme} path={path} name={'control-inner'} className={'w-full'}>
+          <StyledComponent
+            componentType={controlType}
+            part="inner"
+            schema={schema}
+            theme={props.theme}
+            data-ui-name="control-inner"
+            className={'w-full'}
+          >
             {element}
             {description}
-          </Wrapper>
+          </StyledComponent>
           {labelPosition === 'end' && label}
         </div>
         {error}
-      </Wrapper>
+      </StyledComponent>
     );
   }
 
   if (labelPosition === 'bottom') {
     return (
-      <Wrapper ui={schema['x-ui']} theme={props.theme} path={path} use={controlType} name={'control'} className={twMerge(className, 'relative')} >
+      <StyledComponent
+        componentType={controlType}
+        part="container"
+        schema={schema}
+        theme={props.theme}
+        data-ui-name="control"
+        className={twMerge(className, 'relative')}
+      >
         {element}
         {label}
         {description}
         {error}
-      </Wrapper>
+      </StyledComponent>
     );
   }
   return (
-    <Wrapper ui={schema['x-ui']} theme={props.theme} path={path} use={controlType} name={'control'} className={twMerge(className, 'relative')} >
+    <StyledComponent
+      componentType={controlType}
+      part="container"
+      schema={schema}
+      theme={props.theme}
+      data-ui-name="control"
+      className={twMerge(className, 'relative')}
+    >
       {label}
       {element}
       {description}
       {error}
-    </Wrapper>
+    </StyledComponent>
   );
 };

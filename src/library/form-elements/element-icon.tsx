@@ -1,5 +1,4 @@
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { ElementCommonView } from './element-common-view';
 import { classNames } from '../utils';
 import { twMerge } from 'tailwind-merge';
 import React from 'react';

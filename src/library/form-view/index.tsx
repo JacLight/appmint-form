@@ -1,7 +1,6 @@
 import { getElementTheme } from '../context/store';
 import { useFormStore } from '../context/store';
 import { LoadingIndicator } from '../common/loading-indicator';
-import { ElementCommonView } from '../form-elements/element-common-view';
 import { FormRender } from './form-render';
 import { classNames } from '../utils';
 import { deepCopy } from '../utils';
@@ -10,6 +9,7 @@ import { FormCollapsible } from './form-collapsible';
 import { tabButtonActiveClass, tabButtonClass } from '../common/constants';
 import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
+import { StyledComponent } from '../form-elements/styling';
 
 export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; rules?; theme?; accessMode?; id?; datatype?; icon?; readOnly?; hash?; useAI?; collapsible?; onChange?: (path, value, data, files, error) => void }) => {
   const storeId = props.id || props.hash;
@@ -125,22 +125,43 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
     <div className="w-full mt-2" data-theme={props.theme}>
       {tabHeaders}
       {!collapsible && title && (
-        <ElementCommonView path="" theme={props.theme} name="cb-form-title" ui={schema['x-ui']} className={classNames('text-base font-semibold text-center', titleTheme.className)}>
+        <StyledComponent
+          componentType="form"
+          part="title"
+          schema={schema}
+          theme={props.theme}
+          data-ui-name="cb-form-title"
+          className={classNames('text-base font-semibold text-center', titleTheme.className)}
+        >
           {title}
-        </ElementCommonView>
+        </StyledComponent>
       )}
-      <ElementCommonView id={props.datatype} path="" name="cb-form" ui={schema['x-ui']} theme={props.theme} className={classNames(formTheme.className, ' cb-form ')}>
+      <StyledComponent
+        componentType="form"
+        part="container"
+        schema={schema}
+        theme={props.theme}
+        id={props.datatype}
+        data-ui-name="cb-form"
+        className={classNames(formTheme.className, 'cb-form')}
+      >
         {errorMsg && (
-          <ElementCommonView ui={schema['x-ui']} path="" name="cb-form-error" className="cb-control-help text-xs text-red-400 max-w-screen-sm mx-auto">
+          <StyledComponent
+            componentType="form"
+            part="error"
+            schema={schema}
+            data-ui-name="cb-form-error"
+            className="cb-control-help text-xs text-red-400 max-w-screen-sm mx-auto"
+          >
             <ul>
               {errorMsg.split('\n').map(line => (
                 <li>{line}</li>
               ))}
             </ul>
-          </ElementCommonView>
+          </StyledComponent>
         )}
         <FormRender path={props.path || path} className="h-full w-full" name={''} dataPath={''} storeId={storeId} />
-      </ElementCommonView>
+      </StyledComponent>
       {pager}
     </div>
   );

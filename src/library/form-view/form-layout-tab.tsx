@@ -2,9 +2,9 @@ import { useShallow } from 'zustand/shallow';
 import { classNames } from '../utils';
 import { FormLayoutRender } from './form-layout-render';
 import { useFormStore } from '../context/store';
-import { ElementCommonView } from '../form-elements/element-common-view';
 import { tabButtonActiveClass, tabButtonClass } from '../common/constants';
 import React from 'react';
+import { StyledComponent } from '../form-elements/styling';
 
 export const FormLayoutTab = ({ storeId, layoutPath, path, dataPath, theme }) => {
   const { getSchemaItem } = useFormStore(useShallow(state => ({ getSchemaItem: state.getSchemaItem })));
@@ -25,9 +25,13 @@ export const FormLayoutTab = ({ storeId, layoutPath, path, dataPath, theme }) =>
           );
         })}
       </div>
-      <ElementCommonView path={layoutPath} name={null} ui={layout['x-ui']} className={''}>
+      <StyledComponent
+        componentType="tab"
+        part="container"
+        schema={layout}
+      >
         {value && activeLayout ? <FormLayoutRender path={path} layoutPath={value} dataPath={dataPath} storeId={storeId} /> : <div className="text-xs w-full text-center text-red-400">empty layout</div>}
-      </ElementCommonView>
+      </StyledComponent>
     </div>
   );
 };
@@ -51,9 +55,13 @@ export const FormLayoutTab2 = ({ storeId, layoutPath, path, dataPath, theme }) =
           );
         })}
       </div>
-      <ElementCommonView path={layoutPath} name={null} ui={layout['x-ui']} className={''}>
+      <StyledComponent
+        componentType="tab"
+        part="container"
+        schema={layout}
+      >
         {value && activeLayout ? <FormLayoutRender path={path} layoutPath={value} dataPath={dataPath} storeId={storeId} /> : <div className="text-xs w-full text-center text-red-400">empty layout</div>}
-      </ElementCommonView>
+      </StyledComponent>
     </div>
   );
 };

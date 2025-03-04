@@ -4,9 +4,9 @@ import { FormElementRender } from '../form-elements';
 import { ElementWrapperLayout } from '../form-elements/element-wrapper-layout';
 import { FormRender } from './form-render';
 import { FormRenderArray } from './form-render-array';
-import { ElementCommonView } from '../form-elements/element-common-view';
 import { deepCopy } from '../utils';
 import React from 'react';
+import { StyledComponent } from '../form-elements/styling';
 
 export const FormLayoutRender = ({ storeId, path, dataPath, layoutPath, className = '', arrayIndex = undefined }) => {
   const { setStateItem, setItemValue, getItemValue, getSchemaItem, theme } = useFormStore(useShallow(state => ({
@@ -34,7 +34,11 @@ export const FormLayoutRender = ({ storeId, path, dataPath, layoutPath, classNam
   const layoutSchema = getSchemaItem(layoutPath);
   const fieldNames = deepCopy(Object.keys(properties));
   return (
-    <ElementCommonView path={layoutPath} name={null} ui={layoutSchema['x-ui']} className={''}>
+    <StyledComponent
+      componentType="layout"
+      part="container"
+      schema={layoutSchema}
+    >
       <div id={path} data-path={path} onClick={e => onEditItem(e, layoutPath)} className={className}>
         {Object.keys(properties).map(fieldName => {
           const fieldPath = path + '.' + fieldName;
@@ -61,14 +65,20 @@ export const FormLayoutRender = ({ storeId, path, dataPath, layoutPath, classNam
                 .map(key => ({ key, field: properties[key] }));
               const groupPath = path + '.' + field.group;
               return (
-                <ElementCommonView path={groupPath} name={null} ui={layoutSchema['x-ui']} className={'flex gap-3 w-full'}>
+                <StyledComponent
+                  componentType="layout"
+                  part="group"
+                  schema={layoutSchema}
+                  className="flex gap-3 w-full"
+                  key={groupPath}
+                >
                   {groupFields.map(({ key, field }) => {
                     fieldNames.splice(fieldNames.indexOf(key), 1);
                     const valuePath = dataPath ? dataPath + '.' + key : key;
                     const groupFieldPath = path + '.' + key;
                     return <FormElementRender mode="view" name={key} path={groupFieldPath} schema={getSchemaItem(groupFieldPath) || {}} dataPath={valuePath} parentDataPath={dataPath} storeId={storeId} />;
                   })}
-                </ElementCommonView>
+                </StyledComponent>
               );
             } else {
               return <FormElementRender mode="view" name={fieldName} path={fieldPath} schema={getSchemaItem(fieldPath) || {}} dataPath={valuePath} parentDataPath={dataPath} storeId={storeId} />;
@@ -76,6 +86,6 @@ export const FormLayoutRender = ({ storeId, path, dataPath, layoutPath, classNam
           }
         })}
       </div>
-    </ElementCommonView>
+    </StyledComponent>
   );
 };

@@ -4,7 +4,7 @@ import { useShallow } from 'zustand/shallow';
 import { useFormStore } from '../context/store';
 import { LoadingIndicator } from '../common/loading-indicator';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import CollectionTable from '../table-viewx';
+import CollectionTable from '../table-view';
 import { iconButtonClass } from '../common/constants';
 import { JSONViewer } from '../common/json-viewer';
 import CollectionForm from '../form-view';

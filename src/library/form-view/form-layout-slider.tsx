@@ -3,11 +3,11 @@ import { classNames } from '../utils';
 import { isNotEmpty } from '../utils';
 import { useFormStore } from '../context/store';
 import { validateFormValue } from './form-validator';
-import { ElementCommonView } from '../form-elements/element-common-view';
 import React, { useEffect } from 'react';
 import FormLayoutSliderAnimation from './form-layout-slider-animation';
 import { shallow, useShallow } from 'zustand/shallow';
 import { IconRenderer } from '../common/icons/icon-renderer';
+import { StyledComponent } from '../form-elements/styling';
 
 export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }) => {
   const { getSchemaItem, getError, getItemValue, updateError, timestamp } = useFormStore(useShallow(state => ({
@@ -127,9 +127,13 @@ export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }
     <div className=" w-full">
       {error && <div className="text-xs w-full text-center text-red-400">{error}</div>}
       {/* {getView(slideIndex)} */}
-      <ElementCommonView path={layoutPath} name={null} ui={layout['x-ui']} className={''}>
+      <StyledComponent
+        componentType="slider"
+        part="container"
+        schema={layout}
+      >
         <FormLayoutSliderAnimation direction="horizontal" items={layout?.items} getView={getView} slideIndex={slideIndex} />
-      </ElementCommonView>
+      </StyledComponent>
       <div className="text-xs flex flex-wrap gap-2 w-full mt-2 px-2">
         <button title="Slide" onClick={e => makeActiveSlide(e, -1)} className={classNames(slideIndex < 0 && 'bg-yellow-200', ' h-5 w-5 flex items-center justify-center  border-cyan-400 border rounded p-0 hover:bg-cyan-300')}>
           <IconRenderer icon="GrPlay" />

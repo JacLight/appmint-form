@@ -2,8 +2,9 @@ import { shallow, useShallow } from 'zustand/shallow';
 import { classNames } from '../utils';
 import { FormLayoutRender } from './form-layout-render';
 import { useFormStore } from '../context/store';
-import { ElementCommonView } from '../form-elements/element-common-view';
 import React from 'react';
+import { StyledComponent } from '../form-elements/styling';
+
 export const FormLayoutAccordion = ({ storeId, layoutPath, path, dataPath }) => {
   const { getSchemaItem } = useFormStore(useShallow(state => ({ getSchemaItem: state.getSchemaItem })));
   const [accordionState, setAccordionState] = React.useState([]);
@@ -18,7 +19,12 @@ export const FormLayoutAccordion = ({ storeId, layoutPath, path, dataPath }) => 
 
   const layout = getSchemaItem(layoutPath);
   return (
-    <ElementCommonView path={layoutPath} name={null} ui={layout['x-ui']} className={' w-full'}>
+    <StyledComponent
+      componentType="accordion"
+      part="container"
+      schema={layout}
+      className="w-full"
+    >
       {layout?.items?.map((item, idx) => {
         const itemPath = layoutPath + '.items.' + idx;
         const itemLayout = getSchemaItem(itemPath);
@@ -37,6 +43,6 @@ export const FormLayoutAccordion = ({ storeId, layoutPath, path, dataPath }) => 
           </div>
         );
       })}
-    </ElementCommonView>
+    </StyledComponent>
   );
 };
