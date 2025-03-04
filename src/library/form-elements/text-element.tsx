@@ -2,7 +2,7 @@ import { classNames } from '../utils';
 import React, { useEffect, useState } from 'react';
 import { SocialTextArea } from './social-textarea';
 import { twMerge } from 'tailwind-merge';
-import { getElementTheme } from './styling/style-utils';
+import { getElementTheme } from '../context/store';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 

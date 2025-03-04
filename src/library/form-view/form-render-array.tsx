@@ -1,5 +1,5 @@
+import { getElementTheme } from '../context/store';
 import { useFormStore } from '../context/store';
-import { getElementTheme } from '../form-elements/styling/style-utils';
 import { ElementWrapperLayout } from '../form-elements/element-wrapper-layout';
 import { ButtonAdd } from '../common/button-add';
 import { getRandomString } from '../utils';

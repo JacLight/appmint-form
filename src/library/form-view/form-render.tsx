@@ -1,7 +1,7 @@
 import { LoadingIndicator } from '../common/loading-indicator';
 import { formLayouts } from '../context/store';
+import { getElementTheme } from '../context/store';
 import { useFormStore } from '../context/store';
-import { getElementTheme } from '../form-elements/styling/style-utils';
 import { FormElementRender } from '../form-elements';
 import { ElementWrapperLayout } from '../form-elements/element-wrapper-layout';
 import { classNames } from '../utils';

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { isEmpty, toTitleCase, toSentenceCase } from '../utils';
-import { useFormStore } from '../context/store';
-import { getElementTheme } from './styling/style-utils';
+import { getElementTheme, useFormStore } from '../context/store';
 import { classNames } from '../utils';
 import { buttonsActions } from '../form-view/button-actions';
 import { ElementIcon } from './element-icon';

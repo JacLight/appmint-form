@@ -1,5 +1,5 @@
 import { CommonColorPicker } from '../common/color-picker';
-import { getElementTheme } from './styling/style-utils';
+import { getElementTheme } from '../context/store';
 import { twMerge } from 'tailwind-merge';
 import React from 'react';
 import { StyledComponent } from './styling';

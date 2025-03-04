@@ -34,10 +34,6 @@
     "noEmit": true,
 
     "noImplicitAny": false,
-    "allowJs": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "allowJs": true
   }
 }

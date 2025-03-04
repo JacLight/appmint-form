@@ -2,7 +2,7 @@ import React from 'react';
 import { classNames } from '../utils';
 import { isEmpty } from '../utils';
 import { toSentenceCase, toTitleCase } from '../utils';
-import { getElementTheme } from './styling/style-utils';
+import { getElementTheme } from '../context/store';
 import { twMerge } from 'tailwind-merge';
 import { FormCollapsible } from '../form-view/form-collapsible';
 import { FormPopup } from '../form-view/form-popup';

@@ -1,5 +1,5 @@
 import { classNames } from '../utils';
-import { getElementTheme } from './styling/style-utils';
+import { getElementTheme } from '../context/store';
 import { twMerge } from 'tailwind-merge';
 import React, { useState } from 'react';
 import { SliderElement } from './slider';

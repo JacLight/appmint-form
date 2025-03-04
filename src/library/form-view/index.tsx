@@ -1,5 +1,5 @@
+import { getElementTheme } from '../context/store';
 import { useFormStore } from '../context/store';
-import { getElementTheme } from '../form-elements/styling/style-utils';
 import { LoadingIndicator } from '../common/loading-indicator';
 import { FormRender } from './form-render';
 import { classNames } from '../utils';

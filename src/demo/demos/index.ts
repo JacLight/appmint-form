@@ -27,18 +27,9 @@ import ThemeEditorDemo from './ThemeEditorDemo';
 import TextFieldDemo from './textInputs/TextFieldDemo';
 import TextareaDemo from './textInputs/TextareaDemo';
 import RichtextDemo from './textInputs/RichtextDemo';
-import BusinessMade from './business-made';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
-    {
-        id: 'business-made',
-        title: 'Business Made',
-        description: 'Create and customize themes for form elements with a live preview.',
-        category: 'Tools',
-        component: BusinessMade,
-        code: ''
-    },
     // Theme Editor
     {
         id: 'theme-editor',
