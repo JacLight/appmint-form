@@ -13,8 +13,8 @@ const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
     return (
         <div>
             <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">{demo.title}</h1>
-                <p className="text-lg text-gray-600">{demo.description}</p>
+                <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">{demo.title}</h1>
+                <p className="text-lg text-gray-600 dark:text-gray-400">{demo.description}</p>
             </div>
 
             {/* Tabs */}
@@ -22,8 +22,8 @@ const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
                 <div className="flex">
                     <button
                         className={`py-2 px-4 font-medium text-sm focus:outline-none ${activeTab === 'demo'
-                            ? 'text-blue-600 border-b-2 border-blue-600'
-                            : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
                             }`}
                         onClick={() => setActiveTab('demo')}
                     >
@@ -31,8 +31,8 @@ const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
                     </button>
                     <button
                         className={`py-2 px-4 font-medium text-sm focus:outline-none ${activeTab === 'code'
-                            ? 'text-blue-600 border-b-2 border-blue-600'
-                            : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
                             }`}
                         onClick={() => setActiveTab('code')}
                     >
@@ -44,7 +44,7 @@ const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
             {/* Content */}
             <div>
                 {activeTab === 'demo' ? (
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
                         <DemoComponent />
                     </div>
                 ) : (

@@ -198,7 +198,7 @@ const schema = {
 
 const FormDemo: React.FC = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='form-demo'

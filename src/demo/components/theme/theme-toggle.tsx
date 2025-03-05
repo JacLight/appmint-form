@@ -64,7 +64,8 @@ export const ThemeToggle: React.FC<any> = ({ children }) => {
 
 
     useEffect(() => {
-        setDarkMode(darkMode);
+        // Apply dark mode on component mount and when darkMode changes
+        changeDarkMode(darkMode);
     }, [darkMode]);
 
     const changeTheme = (theme: Theme | string) => {
@@ -74,31 +75,36 @@ export const ThemeToggle: React.FC<any> = ({ children }) => {
 
     const changeDarkMode = (mode?: string) => {
         const root = document.documentElement;
-        if (!mode) {
-            mode = getDarkMode() === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('darkMode', mode);
+        let newMode = mode;
+
+        if (!newMode) {
+            newMode = darkMode === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('darkMode', newMode);
         }
 
-        if (mode === 'dark') {
+        if (newMode === 'dark') {
             root.classList.add('dark');
         } else {
             root.classList.remove('dark');
         }
 
-        setDarkMode(mode);
-        // const colorsToApply = darkMode === 'dark' ? generateDarkModeColors(theme.colors) : theme.colors;
-        // Object.keys(colorsToApply).forEach((key) => {
-        //     root.style.setProperty(`--tw-${key}`, colorsToApply[key]);
-        // });
+        if (newMode !== darkMode) {
+            setDarkMode(newMode);
+        }
+
+        const colorsToApply = newMode === 'dark' ? generateDarkModeColors(theme.colors) : theme.colors;
+        Object.keys(colorsToApply).forEach((key) => {
+            root.style.setProperty(`--tw-${key}`, colorsToApply[key]);
+        });
     };
 
-    const icon = theme === 'light' ? 'Sun' : 'Moon'
+    const icon = darkMode === 'light' ? 'Sun' : 'Moon'
     return (
         <div>
             {/* <button onClick={() => setTheme('default')} className="p-2 hover:bg-gray-100 rounded-md">
                 <IconRenderer icon={icon} className="w-5 h-5" />
             </button> */}
-            <button onClick={e => changeDarkMode()} className="p-2 hover:bg-gray-100 rounded-md dark:hover:bg-gray-800">
+            <button onClick={e => changeDarkMode()} aria-label="Toggle dark mode" className="p-2 hover:bg-gray-100 rounded-md dark:hover:bg-gray-800">
                 <IconRenderer icon={icon} className="w-5 h-5 dark:stroke-slate-400" />
             </button>
         </div>

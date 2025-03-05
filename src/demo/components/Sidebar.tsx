@@ -20,16 +20,16 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, currentRoute, onNavigate }) =
 
     return (
         <aside
-            className={`fixed inset-y-0 left-0 bg-white shadow-md transition-all duration-300 z-10 ${isOpen ? 'w-64' : 'w-16'
+            className={`fixed inset-y-0 left-0 bg-white dark:bg-gray-800 shadow-md transition-all duration-300 z-10 ${isOpen ? 'w-64' : 'w-16'
                 }`}
         >
             <div className="flex flex-col h-full">
                 {/* Logo/Header */}
-                <div className="p-4 border-b flex items-center justify-center">
+                <div className="p-4 border-b dark:border-gray-700 flex items-center justify-center">
                     {isOpen ? (
-                        <h2 className="text-lg font-semibold text-gray-800">AppMint Form</h2>
+                        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">AppMint Form</h2>
                     ) : (
-                        <span className="text-lg font-bold">AF</span>
+                        <span className="text-lg font-bold dark:text-gray-200">AF</span>
                     )}
                 </div>
 
@@ -41,8 +41,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, currentRoute, onNavigate }) =
                             <button
                                 onClick={() => onNavigate('home')}
                                 className={`w-full text-left px-4 py-2 flex items-center ${currentRoute === 'home'
-                                        ? 'bg-blue-50 text-blue-600'
-                                        : 'text-gray-700 hover:bg-gray-100'
+                                    ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300'
+                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                                     }`}
                                 aria-label="Home"
                             >
@@ -57,7 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, currentRoute, onNavigate }) =
                         {Object.entries(demosByCategory).map(([category, demos]) => (
                             <li key={category} className="mt-4">
                                 {isOpen && (
-                                    <h3 className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                    <h3 className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                                         {category}
                                     </h3>
                                 )}
@@ -67,8 +67,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, currentRoute, onNavigate }) =
                                             <button
                                                 onClick={() => onNavigate(demo.id)}
                                                 className={`w-full text-left px-4 py-2 flex items-center ${currentRoute === demo.id
-                                                        ? 'bg-blue-50 text-blue-600'
-                                                        : 'text-gray-700 hover:bg-gray-100'
+                                                    ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300'
+                                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                                                     }`}
                                                 aria-label={demo.title}
                                             >
@@ -86,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, currentRoute, onNavigate }) =
                 </nav>
 
                 {/* Footer */}
-                <div className="p-4 border-t text-center text-xs text-gray-500">
+                <div className="p-4 border-t dark:border-gray-700 text-center text-xs text-gray-500 dark:text-gray-400">
                     {isOpen && <span>AppMint Form Library Demo</span>}
                 </div>
             </div>

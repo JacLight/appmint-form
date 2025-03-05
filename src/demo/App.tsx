@@ -40,7 +40,7 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
             {/* Sidebar */}
             <Sidebar
                 isOpen={sidebarOpen}
@@ -51,17 +51,18 @@ const App: React.FC = () => {
 
             {/* Main Content */}
             <div className={`flex-1 overflow-auto transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
-                <header className="bg-white shadow-sm flex justify-between items-center pr-4">
+                <header className="bg-white dark:bg-gray-800 shadow-sm flex justify-between items-center pr-4">
                     <div className="px-4 py-3 flex items-center">
                         <button
                             onClick={toggleSidebar}
-                            className="mr-4 p-2 rounded-md hover:bg-gray-100"
+                            aria-label="Toggle sidebar"
+                            className="mr-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:stroke-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
-                        <h1 className="text-xl font-semibold text-gray-800">
+                        <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
                             {currentRoute === 'home' ? 'AppMint Form Library Demo' : demoRegistry.find(d => d.id === currentRoute)?.title}
                         </h1>
                     </div>
