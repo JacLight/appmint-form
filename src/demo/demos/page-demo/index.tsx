@@ -4,13 +4,11 @@ import { pagedSchema } from './schema';
 
 const PageDemo: React.FC = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
-            <CollectionForm
-                schema={pagedSchema}
-                id='advanced-elements-demo'
-                data={{}}
-            />
-        </div>
+        <CollectionForm
+            schema={pagedSchema}
+            id='advanced-elements-demo'
+            data={{}}
+        />
     );
 };
 

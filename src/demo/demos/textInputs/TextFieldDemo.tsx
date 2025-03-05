@@ -118,13 +118,11 @@ const schema = {
 
 const TextFieldDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
-            <CollectionForm
-                schema={schema}
-                id='text-field-demo'
-                data={{}}
-            />
-        </div>
+        <CollectionForm
+            schema={schema}
+            id='text-field-demo'
+            data={{}}
+        />
     );
 };
 

@@ -4,13 +4,11 @@ import { employee } from './employee';
 
 const BusinessMadeDemo: React.FC = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
-            <CollectionForm
-                schema={employee}
-                id='advanced-elements-demo'
-                data={{}}
-            />
-        </div>
+        <CollectionForm
+            schema={employee}
+            id='advanced-elements-demo'
+            data={{}}
+        />
     );
 };
 

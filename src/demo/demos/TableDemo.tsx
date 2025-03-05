@@ -48,25 +48,23 @@ const schema = {
 
 const TableDemo: React.FC = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
-            <div className="h-[600px]">
-                <CollectionTable
-                    title="User Information Table"
-                    description="A table displaying user information with various data types"
-                    schema={schema}
-                    isDemo={true}
-                    data={[]} // The isDemo flag will generate fake data, but we need to provide an empty array
-                    path="users" // Path for the data (required prop)
-                    filterPreset={[]} // Empty filter preset (required prop)
-                    options={{
-                        search: true,
-                        pagination: true,
-                        grouping: true,
-                        slimRow: false,
-                        cardView: false
-                    }}
-                />
-            </div>
+        <div className="h-[600px]">
+            <CollectionTable
+                title="User Information Table"
+                description="A table displaying user information with various data types"
+                schema={schema}
+                isDemo={true}
+                data={[]} // The isDemo flag will generate fake data, but we need to provide an empty array
+                path="users" // Path for the data (required prop)
+                filterPreset={[]} // Empty filter preset (required prop)
+                options={{
+                    search: true,
+                    pagination: true,
+                    grouping: true,
+                    slimRow: false,
+                    cardView: false
+                }}
+            />
         </div>
     );
 };

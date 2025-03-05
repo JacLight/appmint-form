@@ -209,13 +209,11 @@ const schema = {
 
 const TextInputsDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='text-inputs-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -290,13 +288,11 @@ const schema = {
 
 const NumberInputsDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='number-inputs-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -406,13 +402,11 @@ const schema = {
 
 const SelectionInputsDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='selection-inputs-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -487,13 +481,11 @@ const schema = {
 
 const DateTimeInputsDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='date-time-inputs-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -600,13 +592,11 @@ const schema = {
 
 const SpecialInputsDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='special-inputs-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -673,13 +663,11 @@ const schema = {
 
 const LayoutElementsDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='layout-elements-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -821,13 +809,11 @@ const schema = {
 
 const AdvancedElementsDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='advanced-elements-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -892,7 +878,6 @@ const schema = {
 
 const TableDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <div className="h-[600px]">
                 <CollectionTable
                     title="User Information Table"
@@ -911,7 +896,6 @@ const TableDemo = () => {
                     }}
                 />
             </div>
-        </div>
     );
 };
 
@@ -1124,13 +1108,11 @@ const schema = {
 
 const FormDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='form-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -1265,13 +1247,11 @@ const schema = {
 
 const TextFieldDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='text-field-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -1379,13 +1359,11 @@ const schema = {
 
 const TextareaDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='textarea-demo'
                 data={{}}
             />
-        </div>
     );
 };
 
@@ -1456,13 +1434,11 @@ const schema = {
 
 const RichtextDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
             <CollectionForm
                 schema={schema}
                 id='richtext-demo'
                 data={{}}
             />
-        </div>
     );
 };
 

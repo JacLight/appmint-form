@@ -88,13 +88,11 @@ const schema = {
 
 const SpecialInputsDemo: React.FC = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
-            <CollectionForm
-                schema={schema}
-                id='special-inputs-demo'
-                data={{}}
-            />
-        </div>
+        <CollectionForm
+            schema={schema}
+            id='special-inputs-demo'
+            data={{}}
+        />
     );
 };
 

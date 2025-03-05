@@ -29,16 +29,23 @@ export const FormLayoutAccordion = ({ storeId, layoutPath, path, dataPath }) => 
         const itemPath = layoutPath + '.items.' + idx;
         const itemLayout = getSchemaItem(itemPath);
         return (
-          <div className="mb-px">
-            <div
-              key={item.id}
-              className={classNames('px-4 py-2 mb-px items-center border border-gray-100  flex justify-between bg-white gap-4 text-xs shadow cursor-pointer hover:bg-cyan-50', accordionState.includes(itemPath) ? 'bg-cyan-100' : '')}
+          <div key={item.id} className="mb-px">
+            <StyledComponent
+              componentType="accordion"
+              part={accordionState.includes(itemPath) ? "headerActive" : "header"}
+              schema={layout}
               onClick={e => toggleAccordion(itemPath)}
             >
               {item.title}
-            </div>
+            </StyledComponent>
             {accordionState.includes(itemPath) && (
-              <>{itemLayout ? <FormLayoutRender path={path} layoutPath={itemPath} dataPath={dataPath} storeId={storeId} /> : <div className="text-xs w-full text-center text-red-400">empty layout</div>}</>
+              <StyledComponent
+                componentType="accordion"
+                part="content"
+                schema={layout}
+              >
+                {itemLayout ? <FormLayoutRender path={path} layoutPath={itemPath} dataPath={dataPath} storeId={storeId} /> : <div className="text-xs w-full text-center text-red-400">empty layout</div>}
+              </StyledComponent>
             )}
           </div>
         );

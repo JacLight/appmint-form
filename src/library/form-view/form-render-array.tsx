@@ -88,7 +88,7 @@ export const FormRenderArray = (props: { storeId; path; dataPath; parentDataPath
   const showIndex = typeof schema.showIndex === 'undefined' ? true : schema.showIndex;
 
   const arrayControl = (index) => ({
-    delete: <ButtonDelete deleteHandler={e => removeArrayItem(e, valuePath, index)} className="shrink-0 w-4 h-4" iconColor='red' unStyled={true} />,
+    delete: <ButtonDelete deleteHandler={e => removeArrayItem(e, valuePath, index)} className="shrink-0 w-4 h-4 dark:text-gray-300" iconColor='red' unStyled={true} />,
     index: showIndex ? index + 1 : ''
   })
 
@@ -104,16 +104,16 @@ export const FormRenderArray = (props: { storeId; path; dataPath; parentDataPath
           const itemName = schema.hideItemLabel === 'false' ? fieldName + ' ' + index + 1 : '';
           const render =
             itemsSchema?.layout === 'horizontal' ? (
-              <StyledComponent componentType='form-array' part='array-item' schema={itemsSchema} className="">
-                {showIndex && <div className="text-xs">{index + 1}</div>}
+              <StyledComponent componentType='form-array' part='array-item' schema={itemsSchema} className="px-1">
+                {showIndex && <div className="text-xs dark:text-gray-400">{index + 1}</div>}
                 <FormRender key={itemKey} path={itemPath} className="" name={itemName} dataPath={arrayDataPath} parentDataPath={dataPath} arrayIndex={index} storeId={props.storeId} arrayControl={arrayControl(index)} />
                 {arrayControl(index).delete}
               </StyledComponent>
             ) : (
-              <StyledComponent componentType='form-array' part='array-item' schema={itemsSchema} className="relative mb-1 even:bg-cyan-50">
+              <StyledComponent componentType='form-array' part='array-item' schema={itemsSchema} className="relative mb-1 even:bg-cyan-50 px-1">
                 {!itemsSchema?.collapsible && (
                   <div className={classNames(schema.items?.collapsible && "", "text-xs flex gap-2 items-center justify-between")}>
-                    <span>{showIndex ? index + 1 : ''}</span>
+                    <span className='dark:text-gray-400'>{showIndex ? index + 1 : ''}</span>
                     {arrayControl(index).delete}
                   </div>)}
                 <FormRender key={itemKey} path={itemPath} className="" name={itemName} dataPath={arrayDataPath} parentDataPath={dataPath} arrayIndex={index} storeId={props.storeId} arrayControl={arrayControl(index)} />

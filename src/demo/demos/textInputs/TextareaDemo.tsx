@@ -132,13 +132,11 @@ const schema = {
 
 const TextareaDemo = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
-            <CollectionForm
-                schema={schema}
-                id='textarea-demo'
-                data={{}}
-            />
-        </div>
+        <CollectionForm
+            schema={schema}
+            id='textarea-demo'
+            data={{}}
+        />
     );
 };
 

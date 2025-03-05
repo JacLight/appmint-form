@@ -135,23 +135,48 @@ export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }
         <FormLayoutSliderAnimation direction="horizontal" items={layout?.items} getView={getView} slideIndex={slideIndex} />
       </StyledComponent>
       <div className="text-xs flex flex-wrap gap-2 w-full mt-2 px-2">
-        <button title="Slide" onClick={e => makeActiveSlide(e, -1)} className={classNames(slideIndex < 0 && 'bg-yellow-200', ' h-5 w-5 flex items-center justify-center  border-cyan-400 border rounded p-0 hover:bg-cyan-300')}>
-          <IconRenderer icon="GrPlay" />
-        </button>
-        <button title="Previous" onClick={skipPrev} className={classNames(' h-5 w-5 flex items-center justify-center  border-cyan-400 border rounded p-0 hover:bg-cyan-300')}>
-          <IconRenderer icon="PiSkipBack" />
-        </button>
-        <button title="Next" onClick={skipNext} className={classNames(' h-5 w-5 flex items-center justify-center  border-cyan-400 border rounded p-0 hover:bg-cyan-300')}>
-          <IconRenderer icon="PiSkipForward" />
-        </button>
-        {layout?.items?.map((_, idx) => (
-          <button
-            title={'Slide ' + 1}
-            onClick={e => makeActiveSlide(e, idx)}
-            className={classNames(slideIndex === idx && 'bg-yellow-200', ' h-5 w-5 flex items-center justify-center border-cyan-400 border rounded p-0 text-[11px] hover:bg-cyan-300')}
-          >
-            {idx + 1}
+        <StyledComponent
+          componentType="slider"
+          part={slideIndex < 0 ? "buttonActive" : "button"}
+          schema={layout}
+        >
+          <button title="Slide" onClick={e => makeActiveSlide(e, -1)}>
+            <IconRenderer icon="GrPlay" />
           </button>
+        </StyledComponent>
+        <StyledComponent
+          componentType="slider"
+          part="button"
+          schema={layout}
+        >
+          <button title="Previous" onClick={skipPrev}>
+            <IconRenderer icon="PiSkipBack" />
+          </button>
+        </StyledComponent>
+        <StyledComponent
+          componentType="slider"
+          part="button"
+          schema={layout}
+        >
+          <button title="Next" onClick={skipNext}>
+            <IconRenderer icon="PiSkipForward" />
+          </button>
+        </StyledComponent>
+        {layout?.items?.map((_, idx) => (
+          <StyledComponent
+            key={idx}
+            componentType="slider"
+            part={slideIndex === idx ? "buttonActive" : "button"}
+            schema={layout}
+          >
+            <button
+              title={'Slide ' + (idx + 1)}
+              onClick={e => makeActiveSlide(e, idx)}
+              className="text-[11px]"
+            >
+              {idx + 1}
+            </button>
+          </StyledComponent>
         ))}
       </div>
     </div>

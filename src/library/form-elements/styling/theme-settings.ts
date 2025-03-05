@@ -19,6 +19,37 @@ export interface ThemeStyling {
  * Note: Styles from element-style-class.ts have been migrated here
  */
 export const baseTheme: ThemeStyling = {
+    // Layout components
+    'appmint-form': {
+        root: 'relative my-2  dark:bg-gray-900 bg-white p-4 rounded-xl shadow-lg',
+        container: 'relative my-2',
+        title: 'block text-sm font-medium text-gray-700 mb-1',
+        description: 'mt-1 text-xs text-gray-500',
+        error: 'mt-1 text-xs text-red-500',
+    },
+    tab: {
+        container: 'w-full border-b border-gray-200 dark:border-gray-700',
+        button: 'text-sm flex gap-2 items-center whitespace-nowrap border-b hover:border-b-blue-400 dark:hover:border-b-blue-300 border-b-gray-200 dark:border-b-gray-700 p-1 text-gray-600 dark:text-gray-300',
+        buttonActive: 'border-b-orange-400 dark:border-b-orange-300 text-gray-800 dark:text-gray-100',
+        content: 'p-4 dark:bg-gray-800',
+    },
+    accordion: {
+        container: 'w-full',
+        header: 'px-4 py-2 mb-px items-center border border-gray-100 dark:border-gray-700 flex justify-between bg-white dark:bg-gray-800 gap-4 text-xs shadow cursor-pointer hover:bg-cyan-50 dark:hover:bg-cyan-900',
+        headerActive: 'bg-cyan-100 dark:bg-cyan-800',
+        content: 'p-4 dark:bg-gray-800',
+    },
+    slider: {
+        container: 'w-full',
+        content: 'dark:bg-gray-800',
+        button: 'h-5 w-5 flex items-center justify-center border-cyan-400 dark:border-cyan-600 border rounded p-0 hover:bg-cyan-300 dark:hover:bg-cyan-700',
+        buttonActive: 'bg-yellow-200 dark:bg-yellow-700',
+    },
+    collapsible: {
+        container: 'w-full',
+        header: 'p-2 flex justify-between items-center cursor-pointer border-b-1 border-gray-300 dark:border-gray-600 gap-2 bg-gray-50 dark:bg-gray-700',
+        content: 'p-2 dark:bg-gray-800',
+    },
     // Common styling for all components
     common: {
         container: 'relative my-2',
@@ -57,7 +88,7 @@ export const baseTheme: ThemeStyling = {
         group: 'gap-3',
     },
     'form-array': {
-        'array-item': 'relative mb-0 even:bg-cyan-50 dark:even:bg-cyan-900 flex gap-2 items-center',
+        'array-item': 'relative mb-0 even:bg-gray-50  dark:even:bg-gray-600  dark:bg-gray-700 flex gap-2 items-center',
         'array-item-horizontal': 'bg-white dark:bg-gray-800 shadow rounded-lg p-4',
     },
     'social-textarea': {
@@ -244,6 +275,18 @@ export const baseTheme: ThemeStyling = {
     map: {
         container: 'h-96 w-full dark:bg-gray-800 dark:text-gray-200',
     },
+    // Data gallery view styling
+    'data-gallery-view': {
+        container: 'h-full w-full relative',
+        tabs: 'flex gap-1 w-full bg-gray-100 dark:bg-gray-700 px-3',
+        tab: 'text-sm px-6 py-2 bg-gray-50 dark:bg-gray-600 dark:text-gray-200',
+        tabActive: 'bg-cyan-100 dark:bg-cyan-800',
+        header: 'bg-purple-700 h-full text-white px-2 py-1',
+        content: 'h-[calc(100%-100px)] w-full mt-4 dark:bg-gray-800',
+        footer: 'flex items-center gap-4 justify-between absolute bottom-1 w-full px-5 bg-white dark:bg-gray-800 py-2',
+        button: 'text-sm hover:bg-cyan-100 dark:hover:bg-cyan-900 pl-2 pr-3 py-1 rounded-full flex items-center gap-2 border border-gray-200 dark:border-gray-700 dark:text-gray-200',
+        icon: 'w-5 h-5 rounded-full shadow bg-white dark:bg-gray-700 p-1',
+    },
 };
 
 /**
@@ -332,6 +375,41 @@ export const secondaryTheme: ThemeStyling = {
  * Minimal theme with subtle styling
  */
 export const minimalTheme: ThemeStyling = {
+    // Layout components
+    tab: {
+        container: 'w-full border-b border-gray-100 dark:border-gray-800',
+        button: 'text-xs flex gap-1 items-center whitespace-nowrap border-b hover:border-b-gray-400 dark:hover:border-b-gray-500 border-b-gray-100 dark:border-b-gray-800 p-1 text-gray-500 dark:text-gray-400',
+        buttonActive: 'border-b-gray-500 dark:border-b-gray-400 text-gray-700 dark:text-gray-300',
+        content: 'p-2 dark:bg-gray-800',
+    },
+    accordion: {
+        container: 'w-full',
+        header: 'px-3 py-1 mb-px items-center border border-gray-50 dark:border-gray-800 flex justify-between bg-white dark:bg-gray-800 gap-2 text-xs shadow-sm cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700',
+        headerActive: 'bg-gray-100 dark:bg-gray-700',
+        content: 'p-2 dark:bg-gray-800',
+    },
+    slider: {
+        container: 'w-full',
+        content: 'dark:bg-gray-800',
+        button: 'h-4 w-4 flex items-center justify-center border-gray-300 dark:border-gray-600 border rounded p-0 hover:bg-gray-200 dark:hover:bg-gray-700',
+        buttonActive: 'bg-gray-200 dark:bg-gray-600',
+    },
+    collapsible: {
+        container: 'w-full',
+        header: 'p-1 flex justify-between items-center cursor-pointer border-b-1 border-gray-200 dark:border-gray-700 gap-1 bg-gray-50 dark:bg-gray-700',
+        content: 'p-1 dark:bg-gray-800',
+    },
+    'data-gallery-view': {
+        container: 'h-full w-full relative',
+        tabs: 'flex gap-1 w-full bg-gray-50 dark:bg-gray-800 px-2',
+        tab: 'text-xs px-4 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300',
+        tabActive: 'bg-gray-200 dark:bg-gray-600',
+        header: 'bg-gray-500 h-full text-white px-2 py-1',
+        content: 'h-[calc(100%-80px)] w-full mt-2 dark:bg-gray-800',
+        footer: 'flex items-center gap-4 justify-between absolute bottom-1 w-full px-4 bg-white dark:bg-gray-800 py-1',
+        button: 'text-xs hover:bg-gray-100 dark:hover:bg-gray-700 pl-2 pr-2 py-1 rounded-full flex items-center gap-1 border border-gray-100 dark:border-gray-700 dark:text-gray-300',
+        icon: 'w-4 h-4 rounded-full shadow bg-white dark:bg-gray-700 p-1',
+    },
     common: {
         container: 'relative my-1',
         label: 'block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1',

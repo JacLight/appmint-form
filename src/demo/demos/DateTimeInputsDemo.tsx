@@ -60,13 +60,11 @@ const schema = {
 
 const DateTimeInputsDemo: React.FC = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6">
-            <CollectionForm
-                schema={schema}
-                id='date-time-inputs-demo'
-                data={{}}
-            />
-        </div>
+        <CollectionForm
+            schema={schema}
+            id='date-time-inputs-demo'
+            data={{}}
+        />
     );
 };
 

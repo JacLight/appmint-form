@@ -5,6 +5,7 @@ import { classNames } from '../utils';
 import { localStorageUtils } from '../utils/localstorage';
 import React, { useEffect, useState } from 'react';
 import { IconRenderer } from '../common/icons/icon-renderer';
+import { StyledComponent } from '../form-elements/styling';
 
 export const FormCollapsible = (props: { id?; icon?; title?; children; theme?; defaultState?; className?, ui?, arrayControl?}) => {
   const [isOpen, setOpen] = useState(props.defaultState === 'open' ? true : false);
@@ -26,28 +27,51 @@ export const FormCollapsible = (props: { id?; icon?; title?; children; theme?; d
     }
   };
 
-  let openClassName = isOpen ? ' w-full  ' : ' w-full shadow pt-1 p-2 lg:p-4 ';
   const { classes, style } = (props.ui || {})['collapsible'] || {};
   const controlTheme = getElementTheme('collapsible', props.theme);
+
   return (
     <div className={twMerge(classNames('cb-collapsible', props.className, controlTheme.className, classes?.join(' ')))}>
-      <div onClick={toggle} className="p-2 flex justify-between items-center cursor-pointer  border-b-1 border-gray-300 gap-2 bg-gray-50 ">
-        <div className='flex gap-2 items-center'>
-          {typeof props.icon === 'string' ? <IconRenderer icon={props.icon as any} /> : props.icon}
-          {typeof props.arrayControl?.index === 'number' && props.arrayControl.index}
-          {props.title && <span>{props.title}</span>}
+      <StyledComponent
+        componentType="collapsible"
+        part="header"
+        onClick={toggle}
+      >
+        <div className="flex justify-between items-center w-full">
+          <div className="flex gap-2 items-center">
+            {typeof props.icon === 'string' ? <IconRenderer icon={props.icon as any} /> : props.icon}
+            {typeof props.arrayControl?.index === 'number' && props.arrayControl.index}
+            {props.title && <span>{props.title}</span>}
+          </div>
+          <div className="flex gap-2 items-center">
+            {props.arrayControl?.delete && props.arrayControl.delete}
+            <div className="flex items-center gap-2">
+              {isOpen ?
+                <IconRenderer icon={'ChevronDown'} aria-hidden="true" size={10} /> :
+                <IconRenderer icon={'ChevronRight'} aria-hidden="true" size={10} />
+              }
+            </div>
+          </div>
         </div>
-        <div className='flex gap-2 items-center'>
-          {props.arrayControl?.delete && props.arrayControl.delete}
-          <div className="flex items-center gap-2 ">{isOpen ? <IconRenderer icon={'ChevronDown'} aria-hidden="true" className="" size={10} /> : <IconRenderer icon={'ChevronRight'} aria-hidden="true" className="" size={10} />}</div>
-        </div>
-      </div>
+      </StyledComponent>
+
       {isOpen && (
-        <div className=" p-2 ">
-          <Transition show={isOpen} enter="transition-opacity duration-75" enterFrom="opacity-0" enterTo="opacity-100" leave="transition-opacity duration-150" leaveFrom="opacity-100" leaveTo="opacity-0" >
+        <StyledComponent
+          componentType="collapsible"
+          part="content"
+        >
+          <Transition
+            show={isOpen}
+            enter="transition-opacity duration-75"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
             <div className="mt-1">{props.children}</div>
           </Transition>
-        </div>
+        </StyledComponent>
       )}
     </div>
   );
