@@ -42,14 +42,8 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
 
   // Handle blur
   const handleBlur = (emoji) => {
-    console.log('emoji', emoji);
-    // Extract the emoji character if it's an object
     const emojiValue = emoji && typeof emoji === 'object' ? emoji.emoji : emoji;
-
-    // Set the emoji state
     setEmoji(emojiValue);
-
-    // Call the blur prop with the emoji value
     if (props.blur && emojiValue !== undefined) {
       props.blur(emojiValue);
     }

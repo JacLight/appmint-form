@@ -45,7 +45,6 @@ const EmojiPicker = ({ value = '', onSelect = undefined }) => {
     const handleEmojiClick = (e, emoji) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('emoji', emoji);
         setSelectedEmoji(emoji);
 
         if (onSelect) {

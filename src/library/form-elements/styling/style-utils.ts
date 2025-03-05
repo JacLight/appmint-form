@@ -63,6 +63,19 @@ const baseTheme: ThemeStyling = {
         'array-item': 'relative mb-0 even:bg-cyan-50 flex gap-2 items-center',
         'array-item-horizontal': 'bg-white shadow rounded-lg p-4',
     },
+    'social-textarea': {
+        container: 'relative my-2 w-full',
+        'container-array': 'relative my-0 w-full',
+        label: 'block text-sm font-medium text-gray-700 mb-1',
+        textarea: 'block w-full p-2',
+        description: 'mt-1 text-xs text-gray-500',
+        error: 'mt-1 text-xs text-red-500',
+        icon: 'h-5 w-5 text-gray-400',
+        iconContainer: 'absolute inset-y-0 right-0 flex items-center pr-3',
+        prefix: 'flex select-none items-center pl-3 text-gray-500 sm:text-sm',
+        suffix: 'flex select-none items-center pr-3 text-gray-500 sm:text-sm',
+    },
+
     // Text input styling
     text: {
         container: 'relative my-2 w-full',

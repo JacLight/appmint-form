@@ -233,7 +233,7 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
             part="platformSelector"
             schema={props.schema}
             theme={props.theme}
-            className="flex-grow"
+            className='w-64'
           >
             <SelectManyList
               value={socialPlatform?.key}
@@ -241,8 +241,10 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
               options={socialCharacterCounts.filter(p => p.popular).map(x => ({ label: x.platform + ' - ' + x.type, value: x.key, ...x }))}
               change={(value, item) => setSocialPlatform(item)}
               schema={props.schema}
+              className={'bg-white w-64 p-2 [&>*]:p-2'}
             />
           </StyledComponent>
+          <div className="flex-grow "></div>
 
           <StyledComponent
             componentType="social-textarea"
