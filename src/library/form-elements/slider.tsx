@@ -12,8 +12,6 @@ interface SliderProps {
   change: (value: number) => void;
   blur?: (value: number) => void;
   focus?: (value: number) => void;
-  showInput?: boolean;
-  showValue?: boolean;
   ui?: any;
   theme?: any;
   className?: string;
@@ -28,8 +26,6 @@ export const SliderElement: React.FC<SliderProps> = ({
   change,
   blur,
   focus,
-  showInput,
-  showValue = true,
   className,
   ui,
   theme,
@@ -90,6 +86,9 @@ export const SliderElement: React.FC<SliderProps> = ({
   const formattedValue = isNaN(sliderValue) ? '0' :
     Number.isInteger(sliderValue) ? sliderValue.toString() : sliderValue.toFixed(1);
   const variant = schema?.['x-control-variant'] || 'horizontal';
+
+  const showInput = schema['x-show-input'];
+  const showValue = schema['x-show-value'] || true;
 
   return (
     <StyledComponent

@@ -23,23 +23,21 @@ export const NumberElement = (props: { change; blur; focus; mode; storeId; schem
   };
 
   const variant = props.schema['x-control-variant'] || 'number';
-  const showInput = props.schema['x-show-input'];
-  const showValue = props.schema['x-show-value'];
 
   // Extract styling from schema
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get number styling
-  const containerClasses = getComponentPartStyling('number',  'container', '',  props.theme,  customStyling);
-  const inputClasses = getComponentPartStyling('number',  'input', '',  props.theme,  customStyling);
-  const prefixClasses = getComponentPartStyling('number',  'prefix', '',  props.theme,  customStyling);
-  const suffixClasses = getComponentPartStyling('number',  'suffix', '',  props.theme,  customStyling);
-  const stepperClasses = getComponentPartStyling('number',  'stepper', '',  props.theme,  customStyling);
-  const stepperUpClasses = getComponentPartStyling('number',  'stepperUp', '',  props.theme,  customStyling);
-  const stepperDownClasses = getComponentPartStyling('number',  'stepperDown', '',  props.theme,  customStyling);
+  const containerClasses = getComponentPartStyling('number', 'container', '', props.theme, customStyling);
+  const inputClasses = getComponentPartStyling('number', 'input', '', props.theme, customStyling);
+  const prefixClasses = getComponentPartStyling('number', 'prefix', '', props.theme, customStyling);
+  const suffixClasses = getComponentPartStyling('number', 'suffix', '', props.theme, customStyling);
+  const stepperClasses = getComponentPartStyling('number', 'stepper', '', props.theme, customStyling);
+  const stepperUpClasses = getComponentPartStyling('number', 'stepperUp', '', props.theme, customStyling);
+  const stepperDownClasses = getComponentPartStyling('number', 'stepperDown', '', props.theme, customStyling);
 
   if (variant === 'vertical' || variant === 'horizontal' || variant === 'slider') {
-    return <SliderElement name={props.name} storeId={props.storeId} showInput={showInput} showValue={showValue} change={props.change} blur={props.blur} focus={props.focus} value={props.value} schema={props.schema} className={props.className} ui={props.ui} theme={props.theme} />;
+    return <SliderElement name={props.name} storeId={props.storeId} change={props.change} blur={props.blur} focus={props.focus} value={props.value} schema={props.schema} className={props.className} ui={props.ui} theme={props.theme} />;
   }
 
   const { schema } = props;

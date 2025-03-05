@@ -13,11 +13,9 @@ interface SliderRangeProps {
   change?: (minValue: number, maxValue: number) => void;
   schema?: any;
   theme?: any;
-  showInput?: boolean;
   path?: string;
   name?: string;
   storeId?: string;
-  showLabels?: boolean;
 }
 
 export const SliderRangeElement: React.FC<SliderRangeProps> = ({
@@ -32,7 +30,6 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   path,
   name,
   storeId,
-  showLabels = true
 }) => {
   // Extract styling from schema
   const customStyling = schema ? extractStylingFromSchema(schema) : undefined;
@@ -43,6 +40,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   const thumbClasses = getComponentPartStyling('slider-range', 'thumb', '', theme, customStyling);
   const railClasses = getComponentPartStyling('slider-range', 'rail', '', theme, customStyling);
   const valueClasses = getComponentPartStyling('slider-range', 'value', '', theme, customStyling);
+  const inputClasses = getComponentPartStyling('slider-range', 'input', '', theme, customStyling);
 
   // Parse schema values if provided
   const schemaMin = schema?.min !== undefined ?
@@ -76,10 +74,6 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
       if (change) {
         change(newValue, maxValue);
       }
-
-      if (blur) {
-        blur(newValue, maxValue);
-      }
     }
   };
 
@@ -91,10 +85,18 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
       if (change) {
         change(minValue, newValue);
       }
+    }
+  };
 
-      if (blur) {
-        blur(minValue, newValue);
-      }
+  const handleMinBlur = () => {
+    if (blur) {
+      blur(minValue, maxValue);
+    }
+  };
+
+  const handleMaxBlur = () => {
+    if (blur) {
+      blur(minValue, maxValue);
     }
   };
 
@@ -103,13 +105,20 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   const maxPercentage = ((maxValue - actualMin) / (actualMax - actualMin)) * 100;
   const variant = schema?.['x-control-variant'] || 'horizontal';
 
+  // Format the displayed values
+  const formattedMinValue = Number.isInteger(minValue) ? minValue.toString() : minValue.toFixed(1);
+  const formattedMaxValue = Number.isInteger(maxValue) ? maxValue.toString() : maxValue.toFixed(1);
+
+  const showInput = schema['x-show-input'];
+  const showValue = schema['x-show-value'] || true;
+
   return (
     <StyledComponent
       componentType="slider-range"
       part="container"
       schema={schema}
       theme={theme}
-      className={classNames("relative flex gap-4 items-center justify-between", variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}
+      className={classNames("flex items-center gap-4", variant === 'vertical' ? 'rotate-90 w-fit min-w-24' : 'w-full')}
     >
       <StyledComponent
         componentType="slider-range"
@@ -215,57 +224,70 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
         </div>
       </StyledComponent>
 
+      {/* Value display options */}
       {showInput ? (
-        <StyledComponent
-          componentType="slider"
-          part="input"
-          schema={schema}
-          theme={theme}
-          as="input"
-          type="number"
-          min={min}
-          max={max}
-          step={step}
-          value={sliderValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          title={schema?.title || name || "Value input"}
-          aria-label={schema?.title || name || "Value input"}
-          className="w-full max-w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
-        />
-        :
-        <StyledComponent
-          componentType="slider"
-          part="input"
-          schema={schema}
-          theme={theme}
-          as="input"
-          type="number"
-          min={min}
-          max={max}
-          step={step}
-          value={sliderValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          title={schema?.title || name || "Value input"}
-          aria-label={schema?.title || name || "Value input"}
-          className="w-full max-w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
-        />
+        <div className="flex justify-between items-center gap-2">
+          <StyledComponent
+            componentType="slider-range"
+            part="input"
+            schema={schema}
+            theme={theme}
+            as="input"
+            type="number"
+            min={actualMin}
+            max={maxValue}
+            step={actualStep}
+            value={minValue}
+            onChange={handleMinChange}
+            onBlur={handleMinBlur}
+            title={`Minimum ${schema?.title || name || "value"}`}
+            aria-label={`Minimum ${schema?.title || name || "value"}`}
+            className="w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+          />
+          <span className="text-xs font-semibold text-gray-600">to</span>
+          <StyledComponent
+            componentType="slider-range"
+            part="input"
+            schema={schema}
+            theme={theme}
+            as="input"
+            type="number"
+            min={minValue}
+            max={actualMax}
+            step={actualStep}
+            value={maxValue}
+            onChange={handleMaxChange}
+            onBlur={handleMaxBlur}
+            title={`Maximum ${schema?.title || name || "value"}`}
+            aria-label={`Maximum ${schema?.title || name || "value"}`}
+            className="w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+          />
+        </div>
       ) : (
-      showValue && (
-      <StyledComponent
-        componentType="slider"
-        part="value"
-        schema={schema}
-        theme={theme}
-        as="div"
-        className="text-xs font-semibold text-gray-600 min-w-8 text-right"
-      >
-        {minValue} :  {maxValue}
-      </StyledComponent>
-      )
+        showValue && (
+          <div className="flex gap-4 items-center min-w-8">
+            <StyledComponent
+              componentType="slider-range"
+              part="value"
+              schema={schema}
+              theme={theme}
+              as="div"
+              className="text-xs font-semibold text-gray-600  text-right"
+            >
+              {formattedMinValue}
+            </StyledComponent>
+            <StyledComponent
+              componentType="slider-range"
+              part="value"
+              schema={schema}
+              theme={theme}
+              as="div"
+              className="text-xs font-semibold text-gray-600  text-right"
+            >
+              {formattedMaxValue}
+            </StyledComponent>
+          </div>
+        )
       )}
     </StyledComponent>
   );

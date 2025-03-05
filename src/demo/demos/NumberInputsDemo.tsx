@@ -60,6 +60,8 @@ const schema = {
             description: 'Range input for selecting a range of numbers',
             'x-control': 'numberrange',
             'x-control-variant': 'horizontal',
+            'x-show-input': false,
+            showInput: true,
             properties: {
                 min: {
                     type: 'number',
