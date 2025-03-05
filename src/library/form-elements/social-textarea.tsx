@@ -160,9 +160,14 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
   };
 
   const iconPicked = (icon: string) => {
+    // Make sure icon is a string
+    if (icon === undefined || icon === null) return;
+
+    // Add the icon to the message
     const newMessage = message + icon;
     setMessage(newMessage);
 
+    // Notify parent component of the change
     if (props.change) {
       props.change(newMessage);
     }

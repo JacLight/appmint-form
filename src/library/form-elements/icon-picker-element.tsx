@@ -43,10 +43,16 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
   // Handle blur
   const handleBlur = (emoji) => {
     console.log('emoji', emoji);
-    if (props.blur) {
-      props.blur(emoji.emoji);
+    // Extract the emoji character if it's an object
+    const emojiValue = emoji && typeof emoji === 'object' ? emoji.emoji : emoji;
+
+    // Set the emoji state
+    setEmoji(emojiValue);
+
+    // Call the blur prop with the emoji value
+    if (props.blur && emojiValue !== undefined) {
+      props.blur(emojiValue);
     }
-    // setEmoji(emoji);
   };
 
   // Handle focus
@@ -68,7 +74,12 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
         <button ref={ref} className={iconButtonClass} onClick={() => setShowPicker(!showPicker)}>
           {emoji?.length === 2 ? <span>{emoji}</span> : <IconRenderer icon={emoji || 'Smile'} className={iconClasses} />}
         </button>
-        {emoji && <ButtonDelete deleteHandler={() => handleBlur('')} />}
+        {emoji && <ButtonDelete deleteHandler={() => {
+          setEmoji('');
+          if (props.blur) {
+            props.blur('');
+          }
+        }} />}
       </div>
       {showPicker && (
         <ViewManager id='icon-picker' placement={{ ref: ref }} className={dropdownClasses} onClose={() => setShowPicker(false)}>

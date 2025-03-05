@@ -46,7 +46,8 @@ const EmojiPicker = ({ value = '', onSelect = undefined }) => {
         setSelectedEmoji(emoji);
 
         if (onSelect) {
-            onSelect(emoji);
+            // Pass only the emoji character, not the entire object
+            onSelect(emoji.type === 'emoji' ? emoji.emoji : emoji);
         }
 
         // Add to recently used
