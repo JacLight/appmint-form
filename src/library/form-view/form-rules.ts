@@ -1,5 +1,5 @@
-import { getTemplateValue, validateValue } from './form-validator.js';
-import { isEmpty, isNotEmpty } from '../utils/helpers.js';
+import { getTemplateValue, validateValue } from './form-validator';
+import { isEmpty, isNotEmpty } from '../utils/helpers';
 
 interface Rule {
   actions: any[];

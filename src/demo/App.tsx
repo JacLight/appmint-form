@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import DemoPage from './pages/DemoPage';
 import { demoRegistry } from './demos';
+import { ThemeToggle } from './components/theme/theme-toggle';
 
 // Define the types for our app
 type Route = 'home' | string;
@@ -50,7 +51,7 @@ const App: React.FC = () => {
 
             {/* Main Content */}
             <div className={`flex-1 overflow-auto transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
-                <header className="bg-white shadow-sm">
+                <header className="bg-white shadow-sm flex justify-between items-center pr-4">
                     <div className="px-4 py-3 flex items-center">
                         <button
                             onClick={toggleSidebar}
@@ -64,6 +65,7 @@ const App: React.FC = () => {
                             {currentRoute === 'home' ? 'AppMint Form Library Demo' : demoRegistry.find(d => d.id === currentRoute)?.title}
                         </h1>
                     </div>
+                    <ThemeToggle />
                 </header>
                 <main className="p-6">
                     {renderContent()}

@@ -6,7 +6,7 @@ import { convertSchemaToColumns } from './generate.colums';
 import { TableGroup } from './table-group';
 import { classNames, getRandomString, toTitleCase } from '../utils';
 import { useReactTable, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, PaginationState, FilterFn, SortingFn, sortingFns } from '@tanstack/react-table';
-import { rankItem, compareItems } from '@tanstack/match-sorter-utils';
+import { compareItems } from '@tanstack/match-sorter-utils';
 import { TableFilter } from './table-filter';
 import { TablePagination } from './table-pagination';
 import { TablePresetFilter } from './table-preset-filter';
@@ -123,25 +123,16 @@ export const CollectionTable = (props: {
         }
     }, [datatype, props.filters, props.hash, currentPage]);
 
-    const loadData = async (page = 1, refresh = false) => {
-        
-        await response.then((data: any) => {
-            setData(data?.data);
-            // table.getState().pagination.pageSize
-            // table.setp
-            if (props.onTableEvent) {
-                props.onTableEvent('data-loaded', data?.data, [])
-            }
-        })
-            .catch(e => {
-                console.error(e);
-            });
-    };
-
     const onRowDataEvent = (eventType, id, row) => {
         if (eventType === 'delete') {
             setData(data.filter(item => item.sk !== id));
         }
+    };
+
+    const loadData = async (page = 1, refresh = false) => {
+        const data = await onTableEvent('data-request', { page, refresh });
+        setData(data);
+        onTableEvent('data-loaded', { page, refresh });
     };
 
     const onTableEvent = async (e, option) => {
@@ -166,7 +157,11 @@ export const CollectionTable = (props: {
             }
         }
 
-        if (name === 'select') {
+        if (name === 'data-request') {
+
+        } else if (name === 'data-loaded') {
+
+        } else if (name === 'select') {
 
         } else if (name === 'export') {
             const selected: any[] = table.getSelectedRowModel().rows.map(row => row.original) || [];
@@ -178,7 +173,7 @@ export const CollectionTable = (props: {
             });
 
             if (!Array.isArray(selected)) return;
-            const exportDTO = { length: selected.length, datatype, create_date: new Date().toISOString(), author: activeSession.getUser().data.email, data: selected };
+            const exportDTO = { length: selected.length, datatype, create_date: new Date().toISOString(), author: ' activeSession.getUser().data.email', data: selected };
             const blob = new Blob([JSON.stringify(exportDTO, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -199,14 +194,9 @@ export const CollectionTable = (props: {
                     ids.push(record.sk);
                 }
             });
-            await requestQueueInstance.deleteBulkData(props.datatype, ids).catch(e => {
-                console.error(e);
-            });
             await loadData(1, true);
             setSelectedRows([]);
         } else if (name === 'add') {
-            const data = genericService.createBaseData(props.datatype, '');
-            // useSiteStore.getState().setStateItem({ dataFormProps: { data, datatype: props.datatype } });
         } else if (name === 'datatype') {
             setDatatype(option);
         }

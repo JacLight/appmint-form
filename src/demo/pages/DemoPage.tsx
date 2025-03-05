@@ -22,8 +22,8 @@ const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
                 <div className="flex">
                     <button
                         className={`py-2 px-4 font-medium text-sm focus:outline-none ${activeTab === 'demo'
-                                ? 'text-blue-600 border-b-2 border-blue-600'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-blue-600 border-b-2 border-blue-600'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                         onClick={() => setActiveTab('demo')}
                     >
@@ -31,8 +31,8 @@ const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
                     </button>
                     <button
                         className={`py-2 px-4 font-medium text-sm focus:outline-none ${activeTab === 'code'
-                                ? 'text-blue-600 border-b-2 border-blue-600'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-blue-600 border-b-2 border-blue-600'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                         onClick={() => setActiveTab('code')}
                     >

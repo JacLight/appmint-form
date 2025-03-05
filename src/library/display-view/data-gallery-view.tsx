@@ -5,11 +5,11 @@ import { useFormStore } from '../context/store';
 import { LoadingIndicator } from '../common/loading-indicator';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import CollectionTable from '../table-view';
-import { iconButtonClass } from '../common/constants';
 import { JSONViewer } from '../common/json-viewer';
 import CollectionForm from '../form-view';
 import { CollectionHelper } from '../form-view/form-utils';
 import ViewManager from '../common/view-manager/view-manager';
+import { iconButtonClass } from '../utils/constants';
 
 export const DataGalleryView = (props: { datatype?; data?, popup?, filter?, openRecord?}) => {
   const { dataViewProps } = useFormStore(useShallow(state => ({ dataViewProps: state.dataViewProps })));

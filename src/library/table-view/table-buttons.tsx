@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { classNames, toTitleCase } from '../utils';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { iconButtonClass, iconClass } from '../common/constants';
+import { iconButtonClass, iconClass } from '../utils/constants';
 import { withTooltip } from '../common/tooltip';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const tableButtonNames = [
   { name: 'refresh', icon: 'RefreshCcw' },

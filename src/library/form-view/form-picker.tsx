@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { iconButtonClass } from '../common/constants';
+import { iconButtonClass } from '../utils/constants';
 import { useFormStore } from '../context/store';
 
 export const FormPicker = ({ datatype, filter }) => {

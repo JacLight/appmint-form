@@ -2,7 +2,7 @@ import React from 'react';
 import { PageSort } from './page-sort';
 import { IconRenderer } from './icons/icon-renderer';
 import BusyIcon from './icons/svg';
-import { iconButtonClass } from './constants';
+import { iconButtonClass } from '../utils/constants';
 
 export const usePageSearch = ({ loadNext, isLoading }) => {
   const [filter, setFilter] = React.useState('');

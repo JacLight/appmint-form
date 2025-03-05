@@ -4,14 +4,12 @@ import { LoadingIndicator } from '../common/loading-indicator';
 import { FormRender } from './form-render';
 import { classNames } from '../utils';
 import { deepCopy } from '../utils';
-import { validateForm } from './form-validator';
 import { FormCollapsible } from './form-collapsible';
-import { tabButtonActiveClass, tabButtonClass } from '../common/constants';
+import { tabButtonActiveClass, tabButtonClass } from '../utils/constants';
 import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { StyledComponent } from '../form-elements/styling';
 import DataGalleryView from '../display-view/data-gallery-view';
-import ViewManager from '../common/view-manager/view-manager';
 
 export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; rules?; theme?; accessMode?; id?; datatype?; icon?; readOnly?; hash?; useAI?; collapsible?; onChange?: (path, value, data, files, error) => void }) => {
   const storeId = props.id || props.hash;
@@ -58,13 +56,13 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
     }
     // const validationResult = validateForm(getItemValue(''), thisSchema);
     // if (validationResult.valid) {
-      if (activePage === schema?.pages?.length - 1) {
-        console.log('submit');
-        return;
-      } else {
-        const _activePage = activePage + 1;
-        setStateItem({ activePage: _activePage });
-      }
+    if (activePage === schema?.pages?.length - 1) {
+      console.log('submit');
+      return;
+    } else {
+      const _activePage = activePage + 1;
+      setStateItem({ activePage: _activePage });
+    }
     // } else {
     //   updateError('root', validationResult.message);
     // }
@@ -124,11 +122,15 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
   }
 
   const render = (
-    <div className="w-full mt-2" data-theme={props.theme}>
+    <StyledComponent
+      className="w-full"
+      componentType="appmint-form"
+      part="root"
+      data-theme={props.theme}>
       {tabHeaders}
       {!collapsible && title && (
         <StyledComponent
-          componentType="form"
+          componentType="appmint-form"
           part="title"
           schema={schema}
           theme={props.theme}
@@ -139,7 +141,7 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
         </StyledComponent>
       )}
       <StyledComponent
-        componentType="form"
+        componentType="appmint-form"
         part="container"
         schema={schema}
         theme={props.theme}
@@ -149,7 +151,7 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
       >
         {errorMsg && (
           <StyledComponent
-            componentType="form"
+            componentType="appmint-form"
             part="error"
             schema={schema}
             data-ui-name="cb-form-error"
@@ -165,7 +167,7 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
         <FormRender path={props.path || path} className="h-full w-full" name={''} dataPath={''} storeId={storeId} />
       </StyledComponent>
       {pager}
-    </div>
+    </StyledComponent>
   );
 
   if (collapsible) {

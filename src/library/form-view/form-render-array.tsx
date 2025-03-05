@@ -13,7 +13,7 @@ import { getWatchedPaths } from './form-utils';
 import { runElementRules } from './form-rules';
 import { getTemplateValue } from './form-validator';
 import { useShallow } from 'zustand/shallow';
-import { iconButtonClass } from '../common/constants';
+import { iconButtonClass } from '../utils/constants';
 import { StyledComponent } from '../form-elements/styling';
 
 const defaultTypeValues = type => ({ string: '', number: 0, boolean: false, array: [], object: {} }[type]);

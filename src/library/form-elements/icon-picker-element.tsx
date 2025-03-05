@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import EmojiPicker from '../common/icons/icon-picker';
 import ViewManager from '../common/view-manager/view-manager';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { iconButtonClass } from '../common/constants';
+import { iconButtonClass } from '../utils/constants';
 import { ButtonDelete } from '../common/button-delete';
 import { set } from 'zod';
 

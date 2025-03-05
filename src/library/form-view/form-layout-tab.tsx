@@ -2,7 +2,7 @@ import { useShallow } from 'zustand/shallow';
 import { classNames } from '../utils';
 import { FormLayoutRender } from './form-layout-render';
 import { useFormStore } from '../context/store';
-import { tabButtonActiveClass, tabButtonClass } from '../common/constants';
+import { tabButtonActiveClass, tabButtonClass } from '../utils/constants';
 import React from 'react';
 import { StyledComponent } from '../form-elements/styling';
 

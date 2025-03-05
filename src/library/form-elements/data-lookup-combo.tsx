@@ -4,7 +4,7 @@ import { isNotEmpty } from '../utils';
 import React, { useState, useRef, useEffect } from 'react';
 import { SelectManyList } from './select-many-list';
 import { ButtonCancel } from '../common/button-cancel';
-import { slimButtonClass } from '../common/constants';
+import { slimButtonClass } from '../utils/constants';
 import { BusyIcon } from '../common/icons/svg';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { StyledComponent } from './styling';

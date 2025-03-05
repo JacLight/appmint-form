@@ -1,4 +1,4 @@
-import { getRandomString, niceURI, toTitleCase } from "../utils/helpers.js";
+import { getRandomString, niceURI, toTitleCase } from "../utils/helpers";
 
 interface ApplyFunctionResult {
   status: string;

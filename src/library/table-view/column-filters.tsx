@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../utils';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { buttonClass, buttonHoverClass } from '../common/constants';
+import { buttonClass, buttonHoverClass } from '../utils/constants';
 import { DebouncedInput } from '../common/debounced-input';
 import { Popover } from '../common/popover';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const ColumnFilters: React.FC<any> = ({ table }) => {
   const [filter, setFilter] = React.useState<any>({});
