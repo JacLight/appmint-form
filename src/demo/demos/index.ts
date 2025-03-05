@@ -29,6 +29,7 @@ import TextareaDemo from './textInputs/TextareaDemo';
 import RichtextDemo from './textInputs/RichtextDemo';
 import { Bus } from 'lucide-react';
 import BusinessMadeDemo from './business-nade';
+import PageDemo from './page-demo';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
@@ -42,6 +43,14 @@ export const demoRegistry: Demo[] = [
         code: `// Theme Editor Demo Code`
     },
 
+    {
+        id: 'paged-schema',
+        title: 'Multi Page Form',
+        description: 'Create a multi-page form with navigation and validation.',
+        category: 'Tools',
+        component: PageDemo,
+        code: `// Theme Editor Demo Code`
+    },
     {
         id: 'theme-editor',
         title: 'Theme Editor',

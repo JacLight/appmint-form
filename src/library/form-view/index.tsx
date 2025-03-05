@@ -46,7 +46,7 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
       updateError('root', allErrors);
       return;
     }
-    const targetSchema = getSchemaItem('');
+    const targetSchema = getSchemaItem(path);
     const thisSchema: any = { type: targetSchema.type };
     if (targetSchema.type === 'object') {
       thisSchema.properties = deepCopy(targetSchema.properties);
@@ -56,8 +56,8 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
       thisSchema.items = deepCopy(targetSchema.items);
       thisSchema.items.required = targetSchema.items.inputRequired ? [targetSchema.items.name] : [];
     }
-    const validationResult = validateForm(getItemValue(''), thisSchema);
-    if (validationResult.valid) {
+    // const validationResult = validateForm(getItemValue(''), thisSchema);
+    // if (validationResult.valid) {
       if (activePage === schema?.pages?.length - 1) {
         console.log('submit');
         return;
@@ -65,9 +65,9 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
         const _activePage = activePage + 1;
         setStateItem({ activePage: _activePage });
       }
-    } else {
-      updateError('root', validationResult.message);
-    }
+    // } else {
+    //   updateError('root', validationResult.message);
+    // }
   };
 
   const aiUpdate = data => {
