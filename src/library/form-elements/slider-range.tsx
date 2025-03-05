@@ -13,6 +13,7 @@ interface SliderRangeProps {
   change?: (minValue: number, maxValue: number) => void;
   schema?: any;
   theme?: any;
+  showInput?: boolean;
   path?: string;
   name?: string;
   storeId?: string;
@@ -38,8 +39,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
 
   // Get slider range styling
   const containerClasses = getComponentPartStyling('slider-range', 'container', '', theme, customStyling);
-  const minTrackClasses = getComponentPartStyling('slider-range', 'minTrack', '', theme, customStyling);
-  const maxTrackClasses = getComponentPartStyling('slider-range', 'maxTrack', '', theme, customStyling);
+  const trackClasses = getComponentPartStyling('slider-range', 'track', '', theme, customStyling);
   const thumbClasses = getComponentPartStyling('slider-range', 'thumb', '', theme, customStyling);
   const railClasses = getComponentPartStyling('slider-range', 'rail', '', theme, customStyling);
   const valueClasses = getComponentPartStyling('slider-range', 'value', '', theme, customStyling);
@@ -109,103 +109,163 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
       part="container"
       schema={schema}
       theme={theme}
-      className={classNames("flex flex-col  space-y-2", variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}
+      className={classNames("relative flex gap-4 items-center justify-between", variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}
     >
       <StyledComponent
         componentType="slider-range"
-        part="minTrack"
+        part="track"
         schema={schema}
         theme={theme}
-        className="relative w-full"
+        className="relative w-full h-2"
       >
+        {/* Rail background */}
         <StyledComponent
           componentType="slider-range"
           part="rail"
           schema={schema}
           theme={theme}
           as="div"
-          className="w-full h-2 bg-gray-200 rounded-full"
+          className="w-full h-2 bg-gray-200 rounded-full absolute"
         />
 
-        <StyledComponent
-          as="input"
-          componentType="slider-range"
-          part="thumb"
-          schema={schema}
-          theme={theme}
-          key={`${storeId}-${name}-min`}
-          type="range"
-          min={actualMin}
-          max={actualMax}
-          step={actualStep}
-          value={minValue}
-          onChange={handleMinChange}
-          title={`Minimum ${schema?.title || name || "value"}`}
-          aria-label={`Minimum ${schema?.title || name || "value"}`}
-          aria-valuemin={actualMin}
-          aria-valuemax={actualMax}
-          aria-valuenow={minValue}
-          className="w-full h-2 absolute top-0 left-0 appearance-none cursor-pointer bg-transparent outline-none"
+        {/* Selected range indicator */}
+        <div
+          className="absolute h-2 bg-blue-500 rounded-full"
           style={{
-            background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${minPercentage}%, #e5e7eb ${minPercentage}%, #e5e7eb 100%)`,
-            WebkitAppearance: 'none',
+            left: `${minPercentage}%`,
+            width: `${maxPercentage - minPercentage}%`
           }}
         />
+
+        {/* We need a different approach to make both thumbs work */}
+        <div className="relative w-full h-2">
+          {/* Min thumb - custom implementation */}
+          <div
+            className="absolute w-4 h-4 bg-white border-2 border-blue-500 rounded-full cursor-pointer -mt-1 -ml-2 z-10"
+            style={{
+              left: `${minPercentage}%`
+            }}
+            onMouseDown={(e) => {
+              const startX = e.clientX;
+              const startValue = minValue;
+              const range = actualMax - actualMin;
+              const trackWidth = e.currentTarget.parentElement?.clientWidth || 1;
+
+              const handleMouseMove = (moveEvent: MouseEvent) => {
+                const deltaX = moveEvent.clientX - startX;
+                const deltaValue = (deltaX / trackWidth) * range;
+                const newValue = Math.max(
+                  actualMin,
+                  Math.min(maxValue, Math.round((startValue + deltaValue) / actualStep) * actualStep)
+                );
+
+                if (newValue <= maxValue) {
+                  setMinValue(newValue);
+                  if (change) change(newValue, maxValue);
+                }
+              };
+
+              const handleMouseUp = () => {
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+                if (blur) blur(minValue, maxValue);
+              };
+
+              document.addEventListener('mousemove', handleMouseMove);
+              document.addEventListener('mouseup', handleMouseUp);
+            }}
+          />
+
+          {/* Max thumb - custom implementation */}
+          <div
+            className="absolute w-4 h-4 bg-white border-2 border-blue-500 rounded-full cursor-pointer -mt-1 -ml-2 z-20"
+            style={{
+              left: `${maxPercentage}%`
+            }}
+            onMouseDown={(e) => {
+              const startX = e.clientX;
+              const startValue = maxValue;
+              const range = actualMax - actualMin;
+              const trackWidth = e.currentTarget.parentElement?.clientWidth || 1;
+
+              const handleMouseMove = (moveEvent: MouseEvent) => {
+                const deltaX = moveEvent.clientX - startX;
+                const deltaValue = (deltaX / trackWidth) * range;
+                const newValue = Math.max(
+                  minValue,
+                  Math.min(actualMax, Math.round((startValue + deltaValue) / actualStep) * actualStep)
+                );
+
+                if (newValue >= minValue) {
+                  setMaxValue(newValue);
+                  if (change) change(minValue, newValue);
+                }
+              };
+
+              const handleMouseUp = () => {
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+                if (blur) blur(minValue, maxValue);
+              };
+
+              document.addEventListener('mousemove', handleMouseMove);
+              document.addEventListener('mouseup', handleMouseUp);
+            }}
+          />
+        </div>
       </StyledComponent>
 
+      {showInput ? (
+        <StyledComponent
+          componentType="slider"
+          part="input"
+          schema={schema}
+          theme={theme}
+          as="input"
+          type="number"
+          min={min}
+          max={max}
+          step={step}
+          value={sliderValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          title={schema?.title || name || "Value input"}
+          aria-label={schema?.title || name || "Value input"}
+          className="w-full max-w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+        />
+        :
+        <StyledComponent
+          componentType="slider"
+          part="input"
+          schema={schema}
+          theme={theme}
+          as="input"
+          type="number"
+          min={min}
+          max={max}
+          step={step}
+          value={sliderValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          title={schema?.title || name || "Value input"}
+          aria-label={schema?.title || name || "Value input"}
+          className="w-full max-w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+        />
+      ) : (
+      showValue && (
       <StyledComponent
-        componentType="slider-range"
-        part="maxTrack"
+        componentType="slider"
+        part="value"
         schema={schema}
         theme={theme}
-        className="relative w-full"
+        as="div"
+        className="text-xs font-semibold text-gray-600 min-w-8 text-right"
       >
-        <StyledComponent
-          componentType="slider-range"
-          part="rail"
-          schema={schema}
-          theme={theme}
-          as="div"
-          className="w-full h-2 bg-gray-200 rounded-full"
-        />
-
-        <StyledComponent
-          as="input"
-          componentType="slider-range"
-          part="thumb"
-          schema={schema}
-          theme={theme}
-          key={`${storeId}-${name}-max`}
-          type="range"
-          min={actualMin}
-          max={actualMax}
-          step={actualStep}
-          value={maxValue}
-          onChange={handleMaxChange}
-          title={`Maximum ${schema?.title || name || "value"}`}
-          aria-label={`Maximum ${schema?.title || name || "value"}`}
-          aria-valuemin={actualMin}
-          aria-valuemax={actualMax}
-          aria-valuenow={maxValue}
-          className="w-full h-2 absolute top-0 left-0 appearance-none cursor-pointer bg-transparent outline-none"
-          style={{
-            background: `linear-gradient(to right, #e5e7eb 0%, #e5e7eb ${maxPercentage}%, #3b82f6 ${maxPercentage}%, #3b82f6 100%)`,
-            WebkitAppearance: 'none',
-          }}
-        />
+        {minValue} :  {maxValue}
       </StyledComponent>
-
-      {showLabels && (
-        <StyledComponent
-          componentType="slider-range"
-          part="value"
-          schema={schema}
-          theme={theme}
-          as="div"
-          className="text-xs font-semibold text-gray-600 mt-1"
-        >
-          {minValue} - {maxValue}
-        </StyledComponent>
+      )
       )}
     </StyledComponent>
   );
