@@ -42,7 +42,10 @@ const EmojiPicker = ({ value = '', onSelect = undefined }) => {
         }
     }, [selectedCategory, recentlyUsed]);
 
-    const handleEmojiClick = (emoji) => {
+    const handleEmojiClick = (e, emoji) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('emoji', emoji);
         setSelectedEmoji(emoji);
 
         if (onSelect) {
@@ -107,7 +110,7 @@ const EmojiPicker = ({ value = '', onSelect = undefined }) => {
                             key={index}
                             className={`text-2xl hover:bg-gray-100 rounded p-1 ${selectedEmoji?.emoji === emoji.emoji ? 'bg-blue-100' : ''
                                 }`}
-                            onClick={() => handleEmojiClick(emoji)}
+                            onClick={(e) => handleEmojiClick(e, emoji)}
                             title={emoji.name}
                         >
                             {emoji.type === 'emoji' ? (
