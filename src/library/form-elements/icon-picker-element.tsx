@@ -67,7 +67,6 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
       schema={props.schema}
       theme={props.theme}
       className={twMerge("flex gap-2 items-center", props.className)}
-      onBlur={handleBlur}
       onFocus={handleFocus}
     >
       <div className='flex gap-2 items-center'>
