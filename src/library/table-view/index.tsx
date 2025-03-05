@@ -13,7 +13,6 @@ import { TablePresetFilter } from './table-preset-filter';
 import { TableButtons } from './table-buttons';
 import { CollectionTableView } from './view-table';
 import { CollectionTableCardView } from './view-cards';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 // Stubs for missing dependencies
 const GenerateSchema = {
@@ -21,37 +20,6 @@ const GenerateSchema = {
         title,
         type: 'object',
         properties: {}
-    })
-};
-
-const requestQueueInstance = {
-    searchData: async (datatype, filter, options) => {
-        console.log(`Searching ${datatype} for ${filter}`);
-        return { data: [] };
-    },
-    findData: async (datatype, filters, options) => {
-        console.log(`Finding data in ${datatype}`);
-        return { data: [] };
-    },
-    deleteBulkData: async (datatype, ids) => {
-        console.log(`Deleting ${ids.length} items from ${datatype}`);
-        return { success: true };
-    }
-};
-
-const activeSession = {
-    getUser: () => ({
-        data: {
-            email: 'user@example.com'
-        }
-    })
-};
-
-const genericService = {
-    createBaseData: (datatype, id) => ({
-        datatype,
-        id: id || '',
-        data: {}
     })
 };
 
@@ -156,18 +124,7 @@ export const CollectionTable = (props: {
     }, [datatype, props.filters, props.hash, currentPage]);
 
     const loadData = async (page = 1, refresh = false) => {
-        if (!datatype) {
-            console.error('Datatype is required to load data');
-            return;
-        }
-
-        let response
-        if (globalFilter) {
-            response = requestQueueInstance.searchData(datatype, globalFilter, { refresh, page: page })
-        } else {
-            response = requestQueueInstance.findData(datatype, props.filters || {}, { refresh, page: page })
-        }
-
+        
         await response.then((data: any) => {
             setData(data?.data);
             // table.getState().pagination.pageSize
