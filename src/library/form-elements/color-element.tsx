@@ -20,11 +20,11 @@ export const ColorElement = (props: { path; name; value; blur, schema, theme, cl
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get color picker styling
-  const containerClasses = getComponentPartStyling('color', 'container', props.theme, customStyling);
-  const inputClasses = getComponentPartStyling('color', 'input', props.theme, customStyling);
-  const previewClasses = getComponentPartStyling('color', 'preview', props.theme, customStyling);
-  const paletteClasses = getComponentPartStyling('color', 'palette', props.theme, customStyling);
-  const paletteItemClasses = getComponentPartStyling('color', 'paletteItem', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('color',  'container', '',  props.theme,  customStyling);
+  const inputClasses = getComponentPartStyling('color',  'input', '',  props.theme,  customStyling);
+  const previewClasses = getComponentPartStyling('color',  'preview', '',  props.theme,  customStyling);
+  const paletteClasses = getComponentPartStyling('color',  'palette', '',  props.theme,  customStyling);
+  const paletteItemClasses = getComponentPartStyling('color',  'paletteItem', '',  props.theme,  customStyling);
 
   return (
     <StyledComponent

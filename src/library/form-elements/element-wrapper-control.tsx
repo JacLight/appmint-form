@@ -64,10 +64,10 @@ export const ElementWrapperControl = (props: {
   const customStyling = extractStylingFromSchema(schema);
 
   // Get help container styling
-  const helpContainerClasses = getComponentPartStyling(controlType, 'helpContainer', props.theme, customStyling);
+  const helpContainerClasses = getComponentPartStyling(controlType,  'helpContainer', '',  props.theme,  customStyling);
 
   // Get description styling
-  const descriptionClasses = getComponentPartStyling(controlType, 'description', props.theme, customStyling);
+  const descriptionClasses = getComponentPartStyling(controlType,  'description', '',  props.theme,  customStyling);
 
   const description =
     schema.description || info ? (
@@ -86,7 +86,7 @@ export const ElementWrapperControl = (props: {
     ) : null;
 
   // Get error styling
-  const errorClasses = getComponentPartStyling(controlType, 'error', props.theme, customStyling);
+  const errorClasses = getComponentPartStyling(controlType,  'error', '',  props.theme,  customStyling);
 
   const error = errorMsg ? (
     <StyledComponent
@@ -103,7 +103,7 @@ export const ElementWrapperControl = (props: {
   let element;
   const controlThemeStyle = getElementTheme('control-' + controlType, props.theme);
   // Get input container styling
-  const inputContainerClasses = getComponentPartStyling(controlType, 'input-container', props.theme, customStyling);
+  const inputContainerClasses = getComponentPartStyling(controlType,  'input-container', '',  props.theme,  customStyling);
   const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center', controlThemeStyle?.className);
   if (icon && (iconPosition === 'start' || iconPosition === 'end')) {
     element = (

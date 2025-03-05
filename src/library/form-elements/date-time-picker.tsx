@@ -27,18 +27,18 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get date-time-picker styling
-  const containerClasses = getComponentPartStyling('date-time-picker', 'container', props.theme, customStyling);
-  const controlsClasses = getComponentPartStyling('date-time-picker', 'controls', props.theme, customStyling);
-  const labelClasses = getComponentPartStyling('date-time-picker', 'label', props.theme, customStyling);
-  const selectClasses = getComponentPartStyling('date-time-picker', 'select', props.theme, customStyling);
-  const checkboxClasses = getComponentPartStyling('date-time-picker', 'checkbox', props.theme, customStyling);
-  const inputContainerClasses = getComponentPartStyling('date-time-picker', 'inputContainer', props.theme, customStyling);
-  const inputClasses = getComponentPartStyling('date-time-picker', 'input', props.theme, customStyling);
-  const presetSelectorClasses = getComponentPartStyling('date-time-picker', 'presetSelector', props.theme, customStyling);
-  const errorClasses = getComponentPartStyling('date-time-picker', 'error', props.theme, customStyling);
-  const previewClasses = getComponentPartStyling('date-time-picker', 'preview', props.theme, customStyling);
-  const previewTitleClasses = getComponentPartStyling('date-time-picker', 'previewTitle', props.theme, customStyling);
-  const previewContentClasses = getComponentPartStyling('date-time-picker', 'previewContent', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('date-time-picker',  'container', '',  props.theme,  customStyling);
+  const controlsClasses = getComponentPartStyling('date-time-picker',  'controls', '',  props.theme,  customStyling);
+  const labelClasses = getComponentPartStyling('date-time-picker',  'label', '',  props.theme,  customStyling);
+  const selectClasses = getComponentPartStyling('date-time-picker',  'select', '',  props.theme,  customStyling);
+  const checkboxClasses = getComponentPartStyling('date-time-picker',  'checkbox', '',  props.theme,  customStyling);
+  const inputContainerClasses = getComponentPartStyling('date-time-picker',  'inputContainer', '',  props.theme,  customStyling);
+  const inputClasses = getComponentPartStyling('date-time-picker',  'input', '',  props.theme,  customStyling);
+  const presetSelectorClasses = getComponentPartStyling('date-time-picker',  'presetSelector', '',  props.theme,  customStyling);
+  const errorClasses = getComponentPartStyling('date-time-picker',  'error', '',  props.theme,  customStyling);
+  const previewClasses = getComponentPartStyling('date-time-picker',  'preview', '',  props.theme,  customStyling);
+  const previewTitleClasses = getComponentPartStyling('date-time-picker',  'previewTitle', '',  props.theme,  customStyling);
+  const previewContentClasses = getComponentPartStyling('date-time-picker',  'previewContent', '',  props.theme,  customStyling);
 
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');

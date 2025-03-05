@@ -10,7 +10,7 @@ export const LabelElement = (props: { path; name; value; className; schema?; the
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get label styling
-  const containerClasses = getComponentPartStyling('label', 'container', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('label',  'container', '',  props.theme,  customStyling);
 
   // Get status color if value is a status
   const statusColor = props.value?.toLowerCase ? statusColors[props.value?.toLowerCase()] : undefined;

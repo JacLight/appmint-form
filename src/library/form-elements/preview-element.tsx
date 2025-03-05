@@ -14,8 +14,8 @@ export const PreviewElement = (props: {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get preview styling
-  const containerClasses = getComponentPartStyling('preview', 'container', props.theme, customStyling);
-  const imageClasses = getComponentPartStyling('preview', 'image', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('preview',  'container', '',  props.theme,  customStyling);
+  const imageClasses = getComponentPartStyling('preview',  'image', '',  props.theme,  customStyling);
 
   // Use props.value if available, otherwise fallback to empty string
   const imageUrl = props.value || '';

@@ -22,10 +22,10 @@ export const UuidElement: React.FC<UuidElementProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get uuid-element styling
-  const containerClasses = getComponentPartStyling('uuid-element', 'container', props.theme, customStyling);
-  const valueClasses = getComponentPartStyling('uuid-element', 'value', props.theme, customStyling);
-  const buttonClasses = getComponentPartStyling('uuid-element', 'button', props.theme, customStyling);
-  const iconClasses = getComponentPartStyling('uuid-element', 'icon', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('uuid-element',  'container', '',  props.theme,  customStyling);
+  const valueClasses = getComponentPartStyling('uuid-element',  'value', '',  props.theme,  customStyling);
+  const buttonClasses = getComponentPartStyling('uuid-element',  'button', '',  props.theme,  customStyling);
+  const iconClasses = getComponentPartStyling('uuid-element',  'icon', '',  props.theme,  customStyling);
 
   // State for UUID value
   const [value, setValue] = React.useState<string>(props.value || '');

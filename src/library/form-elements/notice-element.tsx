@@ -10,10 +10,10 @@ export const NoticeElement = ({ schema, name, value, theme, path }) => {
   const customStyling = extractStylingFromSchema(schema);
 
   // Get notice styling
-  const containerClasses = getComponentPartStyling('notice', 'container', theme, customStyling);
-  const iconClasses = getComponentPartStyling('notice', 'icon', theme, customStyling);
-  const titleClasses = getComponentPartStyling('notice', 'title', theme, customStyling);
-  const contentClasses = getComponentPartStyling('notice', 'content', theme, customStyling);
+  const containerClasses = getComponentPartStyling('notice',  'container', '',  theme,  customStyling);
+  const iconClasses = getComponentPartStyling('notice',  'icon', '',  theme,  customStyling);
+  const titleClasses = getComponentPartStyling('notice',  'title', '',  theme,  customStyling);
+  const contentClasses = getComponentPartStyling('notice',  'content', '',  theme,  customStyling);
 
   // Determine notice type and icon
   const type = schema?.type || 'info';

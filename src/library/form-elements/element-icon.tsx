@@ -32,7 +32,7 @@ export const ElementIcon = (props: { icon; mode; image; className?; defaultIcon?
           src={image?.url || image}
           alt=""
           className={twMerge(
-            getComponentPartStyling('control-image', 'image', props.theme, customStyling),
+            getComponentPartStyling('control-image',  'image', '',  props.theme,  customStyling),
             props.className || 'w-10 h-10'
           )}
         />
@@ -48,7 +48,7 @@ export const ElementIcon = (props: { icon; mode; image; className?; defaultIcon?
         <IconRenderer
           icon={icon}
           className={twMerge(
-            getComponentPartStyling('control-icon', 'icon', props.theme, customStyling),
+            getComponentPartStyling('control-icon',  'icon', '',  props.theme,  customStyling),
             props.className
           )}
         />

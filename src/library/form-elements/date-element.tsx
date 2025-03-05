@@ -55,11 +55,11 @@ export const DateElement = (props: { change; focus; blur; mode; value; schema; p
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get date styling
-  const containerClasses = getComponentPartStyling('date', 'container', props.theme, customStyling);
-  const inputClasses = getComponentPartStyling('date', 'input', props.theme, customStyling);
-  const prefixClasses = getComponentPartStyling('date', 'prefix', props.theme, customStyling);
-  const suffixClasses = getComponentPartStyling('date', 'suffix', props.theme, customStyling);
-  const calendarClasses = getComponentPartStyling('date', 'calendar', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('date',  'container', '',  props.theme,  customStyling);
+  const inputClasses = getComponentPartStyling('date',  'input', '',  props.theme,  customStyling);
+  const prefixClasses = getComponentPartStyling('date',  'prefix', '',  props.theme,  customStyling);
+  const suffixClasses = getComponentPartStyling('date',  'suffix', '',  props.theme,  customStyling);
+  const calendarClasses = getComponentPartStyling('date',  'calendar', '',  props.theme,  customStyling);
 
   return (
     <StyledComponent

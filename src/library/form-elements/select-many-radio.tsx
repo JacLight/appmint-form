@@ -29,14 +29,14 @@ export const SelectManyRadio = (props: { blur?; change?; focus?; mode?; schema?;
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get radio styling
-  const optionClasses = getComponentPartStyling('radio', 'option', props.theme, customStyling);
-  const optionSelectedClasses = getComponentPartStyling('radio', 'optionSelected', props.theme, customStyling);
-  const optionUnselectedClasses = getComponentPartStyling('radio', 'optionUnselected', props.theme, customStyling);
-  const labelClasses = getComponentPartStyling('radio', 'label', props.theme, customStyling);
-  const labelSelectedClasses = getComponentPartStyling('radio', 'labelSelected', props.theme, customStyling);
-  const labelUnselectedClasses = getComponentPartStyling('radio', 'labelUnselected', props.theme, customStyling);
-  const iconClasses = getComponentPartStyling('radio', 'icon', props.theme, customStyling);
-  const checkmarkClasses = getComponentPartStyling('radio', 'checkmark', props.theme, customStyling);
+  const optionClasses = getComponentPartStyling('radio',  'option', '',  props.theme,  customStyling);
+  const optionSelectedClasses = getComponentPartStyling('radio',  'optionSelected', '',  props.theme,  customStyling);
+  const optionUnselectedClasses = getComponentPartStyling('radio',  'optionUnselected', '',  props.theme,  customStyling);
+  const labelClasses = getComponentPartStyling('radio',  'label', '',  props.theme,  customStyling);
+  const labelSelectedClasses = getComponentPartStyling('radio',  'labelSelected', '',  props.theme,  customStyling);
+  const labelUnselectedClasses = getComponentPartStyling('radio',  'labelUnselected', '',  props.theme,  customStyling);
+  const iconClasses = getComponentPartStyling('radio',  'icon', '',  props.theme,  customStyling);
+  const checkmarkClasses = getComponentPartStyling('radio',  'checkmark', '',  props.theme,  customStyling);
 
   return (
     <StyledComponent

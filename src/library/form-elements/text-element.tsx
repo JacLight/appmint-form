@@ -37,11 +37,11 @@ export const TextElement = (props: { readOnly?; change; dataPath, focus; blur; m
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get text styling
-  const containerClasses = getComponentPartStyling('text', 'container', props.theme, customStyling);
-  const inputClasses = getComponentPartStyling('text', 'input', props.theme, customStyling);
-  const textareaClasses = getComponentPartStyling('textarea', 'textarea', props.theme, customStyling);
-  const prefixClasses = getComponentPartStyling('text', 'prefix', props.theme, customStyling);
-  const suffixClasses = getComponentPartStyling('text', 'suffix', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('text',  'container', '',  props.theme,  customStyling);
+  const inputClasses = getComponentPartStyling('text',  'input', '',  props.theme,  customStyling);
+  const textareaClasses = getComponentPartStyling('textarea',  'textarea', '',  props.theme,  customStyling);
+  const prefixClasses = getComponentPartStyling('text',  'prefix', '',  props.theme,  customStyling);
+  const suffixClasses = getComponentPartStyling('text',  'suffix', '',  props.theme,  customStyling);
 
   if (variant === 'textarea') {
     return <SocialTextArea change={props.change} blur={props.blur} focus={props.focus} value={props.value} name={props.name} id={props.path} schema={props.schema} />;

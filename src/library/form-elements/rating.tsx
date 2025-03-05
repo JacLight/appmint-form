@@ -23,12 +23,12 @@ export const RatingInput = (props: {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get rating styling
-  const containerClasses = getComponentPartStyling('rating', 'container', props.theme, customStyling);
-  const starsContainerClasses = getComponentPartStyling('rating', 'starsContainer', props.theme, customStyling);
-  const starClasses = getComponentPartStyling('rating', 'star', props.theme, customStyling);
-  const starFilledClasses = getComponentPartStyling('rating', 'starFilled', props.theme, customStyling);
-  const starEmptyClasses = getComponentPartStyling('rating', 'starEmpty', props.theme, customStyling);
-  const totalClasses = getComponentPartStyling('rating', 'total', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('rating',  'container', '',  props.theme,  customStyling);
+  const starsContainerClasses = getComponentPartStyling('rating',  'starsContainer', '',  props.theme,  customStyling);
+  const starClasses = getComponentPartStyling('rating',  'star', '',  props.theme,  customStyling);
+  const starFilledClasses = getComponentPartStyling('rating',  'starFilled', '',  props.theme,  customStyling);
+  const starEmptyClasses = getComponentPartStyling('rating',  'starEmpty', '',  props.theme,  customStyling);
+  const totalClasses = getComponentPartStyling('rating',  'total', '',  props.theme,  customStyling);
 
   const [rating, setRating] = useState<number>(props.value || 0);
   const [hover, setHover] = useState<number>(0);

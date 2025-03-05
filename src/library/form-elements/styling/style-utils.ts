@@ -503,7 +503,7 @@ export function getNestedComponentPartStyling(
 
     // If no styling was found, try to get styling for the part directly
     if (!styling) {
-        styling = getComponentPartStyling(componentType, part, theme, customStyling);
+        styling = getComponentPartStyling(componentType,  part, '',  theme,  customStyling);
     }
 
     return styling;

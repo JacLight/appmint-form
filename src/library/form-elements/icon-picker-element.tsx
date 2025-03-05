@@ -23,13 +23,13 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get icon-picker-element styling
-  const containerClasses = getComponentPartStyling('icon-picker-element', 'container', props.theme, customStyling);
-  const iconClasses = getComponentPartStyling('icon-picker-element', 'icon', props.theme, customStyling);
-  const buttonClasses = getComponentPartStyling('icon-picker-element', 'button', props.theme, customStyling);
-  const dropdownClasses = getComponentPartStyling('icon-picker-element', 'dropdown', props.theme, customStyling);
-  const searchClasses = getComponentPartStyling('icon-picker-element', 'search', props.theme, customStyling);
-  const optionClasses = getComponentPartStyling('icon-picker-element', 'option', props.theme, customStyling);
-  const selectedOptionClasses = getComponentPartStyling('icon-picker-element', 'selectedOption', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('icon-picker-element',  'container', '',  props.theme,  customStyling);
+  const iconClasses = getComponentPartStyling('icon-picker-element',  'icon', '',  props.theme,  customStyling);
+  const buttonClasses = getComponentPartStyling('icon-picker-element',  'button', '',  props.theme,  customStyling);
+  const dropdownClasses = getComponentPartStyling('icon-picker-element',  'dropdown', '',  props.theme,  customStyling);
+  const searchClasses = getComponentPartStyling('icon-picker-element',  'search', '',  props.theme,  customStyling);
+  const optionClasses = getComponentPartStyling('icon-picker-element',  'option', '',  props.theme,  customStyling);
+  const selectedOptionClasses = getComponentPartStyling('icon-picker-element',  'selectedOption', '',  props.theme,  customStyling);
 
   // Handle change
   const handleChange = (value: string) => {

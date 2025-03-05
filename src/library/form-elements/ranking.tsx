@@ -30,16 +30,16 @@ export const RankingInput = (props: {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get ranking styling
-  const containerClasses = getComponentPartStyling('ranking', 'container', props.theme, customStyling);
-  const gridClasses = getComponentPartStyling('ranking', 'grid', props.theme, customStyling);
-  const headerClasses = getComponentPartStyling('ranking', 'header', props.theme, customStyling);
-  const headerLabelClasses = getComponentPartStyling('ranking', 'headerLabel', props.theme, customStyling);
-  const rowClasses = getComponentPartStyling('ranking', 'row', props.theme, customStyling);
-  const optionLabelClasses = getComponentPartStyling('ranking', 'optionLabel', props.theme, customStyling);
-  const cellClasses = getComponentPartStyling('ranking', 'cell', props.theme, customStyling);
-  const inputClasses = getComponentPartStyling('ranking', 'input', props.theme, customStyling);
-  const selectClasses = getComponentPartStyling('ranking', 'select', props.theme, customStyling);
-  const optionClasses = getComponentPartStyling('ranking', 'option', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('ranking',  'container', '',  props.theme,  customStyling);
+  const gridClasses = getComponentPartStyling('ranking',  'grid', '',  props.theme,  customStyling);
+  const headerClasses = getComponentPartStyling('ranking',  'header', '',  props.theme,  customStyling);
+  const headerLabelClasses = getComponentPartStyling('ranking',  'headerLabel', '',  props.theme,  customStyling);
+  const rowClasses = getComponentPartStyling('ranking',  'row', '',  props.theme,  customStyling);
+  const optionLabelClasses = getComponentPartStyling('ranking',  'optionLabel', '',  props.theme,  customStyling);
+  const cellClasses = getComponentPartStyling('ranking',  'cell', '',  props.theme,  customStyling);
+  const inputClasses = getComponentPartStyling('ranking',  'input', '',  props.theme,  customStyling);
+  const selectClasses = getComponentPartStyling('ranking',  'select', '',  props.theme,  customStyling);
+  const optionClasses = getComponentPartStyling('ranking',  'option', '',  props.theme,  customStyling);
 
   const [rankings, setRankings] = useState<Record<string, number>>({});
 

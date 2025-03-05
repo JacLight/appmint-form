@@ -21,8 +21,8 @@ export const MarkdownElement = (props: {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get markdown styling
-  const containerClasses = getComponentPartStyling('markdown', 'container', props.theme, customStyling);
-  const editorClasses = getComponentPartStyling('markdown', 'editor', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('markdown',  'container', '',  props.theme,  customStyling);
+  const editorClasses = getComponentPartStyling('markdown',  'editor', '',  props.theme,  customStyling);
 
   const handleChange = (value: string) => {
     if (props.change) {

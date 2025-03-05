@@ -29,19 +29,19 @@ export const FileElement: React.FC<FileElementProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get file-element styling
-  const containerClasses = getComponentPartStyling('file-element', 'container', props.theme, customStyling);
-  const dropzoneClasses = getComponentPartStyling('file-element', 'dropzone', props.theme, customStyling);
-  const dropzoneActiveClasses = getComponentPartStyling('file-element', 'dropzoneActive', props.theme, customStyling);
-  const buttonClasses = getComponentPartStyling('file-element', 'button', props.theme, customStyling);
-  const fileListClasses = getComponentPartStyling('file-element', 'fileList', props.theme, customStyling);
-  const fileItemClasses = getComponentPartStyling('file-element', 'fileItem', props.theme, customStyling);
-  const filePreviewClasses = getComponentPartStyling('file-element', 'filePreview', props.theme, customStyling);
-  const fileInfoClasses = getComponentPartStyling('file-element', 'fileInfo', props.theme, customStyling);
-  const fileNameClasses = getComponentPartStyling('file-element', 'fileName', props.theme, customStyling);
-  const fileSizeClasses = getComponentPartStyling('file-element', 'fileSize', props.theme, customStyling);
-  const progressBarClasses = getComponentPartStyling('file-element', 'progressBar', props.theme, customStyling);
-  const deleteButtonClasses = getComponentPartStyling('file-element', 'deleteButton', props.theme, customStyling);
-  const errorMessageClasses = getComponentPartStyling('file-element', 'errorMessage', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('file-element',  'container', '',  props.theme,  customStyling);
+  const dropzoneClasses = getComponentPartStyling('file-element',  'dropzone', '',  props.theme,  customStyling);
+  const dropzoneActiveClasses = getComponentPartStyling('file-element',  'dropzoneActive', '',  props.theme,  customStyling);
+  const buttonClasses = getComponentPartStyling('file-element',  'button', '',  props.theme,  customStyling);
+  const fileListClasses = getComponentPartStyling('file-element',  'fileList', '',  props.theme,  customStyling);
+  const fileItemClasses = getComponentPartStyling('file-element',  'fileItem', '',  props.theme,  customStyling);
+  const filePreviewClasses = getComponentPartStyling('file-element',  'filePreview', '',  props.theme,  customStyling);
+  const fileInfoClasses = getComponentPartStyling('file-element',  'fileInfo', '',  props.theme,  customStyling);
+  const fileNameClasses = getComponentPartStyling('file-element',  'fileName', '',  props.theme,  customStyling);
+  const fileSizeClasses = getComponentPartStyling('file-element',  'fileSize', '',  props.theme,  customStyling);
+  const progressBarClasses = getComponentPartStyling('file-element',  'progressBar', '',  props.theme,  customStyling);
+  const deleteButtonClasses = getComponentPartStyling('file-element',  'deleteButton', '',  props.theme,  customStyling);
+  const errorMessageClasses = getComponentPartStyling('file-element',  'errorMessage', '',  props.theme,  customStyling);
 
   const [eValue, setEValue] = useState<FileData[]>([]);
 

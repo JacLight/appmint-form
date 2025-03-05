@@ -22,12 +22,12 @@ export const NumberRangeElement: React.FC<NumberRangeElementProps> = (props) => 
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get number range styling
-  const containerClasses = getComponentPartStyling('number-range', 'container', props.theme, customStyling);
-  const minInputContainerClasses = getComponentPartStyling('number-range', 'minInputContainer', props.theme, customStyling);
-  const maxInputContainerClasses = getComponentPartStyling('number-range', 'maxInputContainer', props.theme, customStyling);
-  const minInputClasses = getComponentPartStyling('number-range', 'minInput', props.theme, customStyling);
-  const maxInputClasses = getComponentPartStyling('number-range', 'maxInput', props.theme, customStyling);
-  const separatorClasses = getComponentPartStyling('number-range', 'separator', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('number-range',  'container', '',  props.theme,  customStyling);
+  const minInputContainerClasses = getComponentPartStyling('number-range',  'minInputContainer', '',  props.theme,  customStyling);
+  const maxInputContainerClasses = getComponentPartStyling('number-range',  'maxInputContainer', '',  props.theme,  customStyling);
+  const minInputClasses = getComponentPartStyling('number-range',  'minInput', '',  props.theme,  customStyling);
+  const maxInputClasses = getComponentPartStyling('number-range',  'maxInput', '',  props.theme,  customStyling);
+  const separatorClasses = getComponentPartStyling('number-range',  'separator', '',  props.theme,  customStyling);
 
   const [minMax, setMinMax] = useState<[number, number]>(props.value || [0, 0]);
 

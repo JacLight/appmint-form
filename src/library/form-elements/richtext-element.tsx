@@ -21,8 +21,8 @@ export const RichtextElement = (props: {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get richtext styling
-  const containerClasses = getComponentPartStyling('richtext', 'container', props.theme, customStyling);
-  const editorClasses = getComponentPartStyling('richtext', 'editor', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('richtext',  'container', '',  props.theme,  customStyling);
+  const editorClasses = getComponentPartStyling('richtext',  'editor', '',  props.theme,  customStyling);
 
   const handleChange = (content: string) => {
     if (props.change) {

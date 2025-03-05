@@ -7,7 +7,7 @@ export const ParagraphElement = ({ schema, name, value, theme, path }) => {
   const customStyling = extractStylingFromSchema(schema);
 
   // Get paragraph styling
-  const containerClasses = getComponentPartStyling('paragraph', 'container', theme, customStyling);
+  const containerClasses = getComponentPartStyling('paragraph',  'container', '',  theme,  customStyling);
 
   return (
     <StyledComponent

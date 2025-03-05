@@ -22,23 +22,23 @@ export const CronElement: React.FC<CronElementProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get cron-element styling
-  const containerClasses = getComponentPartStyling('cron-element', 'container', props.theme, customStyling);
-  const expressionContainerClasses = getComponentPartStyling('cron-element', 'expressionContainer', props.theme, customStyling);
-  const expressionClasses = getComponentPartStyling('cron-element', 'expression', props.theme, customStyling);
-  const summaryClasses = getComponentPartStyling('cron-element', 'summary', props.theme, customStyling);
-  const buttonClasses = getComponentPartStyling('cron-element', 'button', props.theme, customStyling);
-  const primaryButtonClasses = getComponentPartStyling('cron-element', 'primaryButton', props.theme, customStyling);
-  const secondaryButtonClasses = getComponentPartStyling('cron-element', 'secondaryButton', props.theme, customStyling);
-  const tabsContainerClasses = getComponentPartStyling('cron-element', 'tabsContainer', props.theme, customStyling);
-  const tabClasses = getComponentPartStyling('cron-element', 'tab', props.theme, customStyling);
-  const activeTabClasses = getComponentPartStyling('cron-element', 'activeTab', props.theme, customStyling);
-  const fieldContainerClasses = getComponentPartStyling('cron-element', 'fieldContainer', props.theme, customStyling);
-  const labelClasses = getComponentPartStyling('cron-element', 'label', props.theme, customStyling);
-  const inputClasses = getComponentPartStyling('cron-element', 'input', props.theme, customStyling);
-  const selectClasses = getComponentPartStyling('cron-element', 'select', props.theme, customStyling);
-  const dayButtonClasses = getComponentPartStyling('cron-element', 'dayButton', props.theme, customStyling);
-  const activeDayButtonClasses = getComponentPartStyling('cron-element', 'activeDayButton', props.theme, customStyling);
-  const quickButtonClasses = getComponentPartStyling('cron-element', 'quickButton', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('cron-element',  'container', '',  props.theme,  customStyling);
+  const expressionContainerClasses = getComponentPartStyling('cron-element',  'expressionContainer', '',  props.theme,  customStyling);
+  const expressionClasses = getComponentPartStyling('cron-element',  'expression', '',  props.theme,  customStyling);
+  const summaryClasses = getComponentPartStyling('cron-element',  'summary', '',  props.theme,  customStyling);
+  const buttonClasses = getComponentPartStyling('cron-element',  'button', '',  props.theme,  customStyling);
+  const primaryButtonClasses = getComponentPartStyling('cron-element',  'primaryButton', '',  props.theme,  customStyling);
+  const secondaryButtonClasses = getComponentPartStyling('cron-element',  'secondaryButton', '',  props.theme,  customStyling);
+  const tabsContainerClasses = getComponentPartStyling('cron-element',  'tabsContainer', '',  props.theme,  customStyling);
+  const tabClasses = getComponentPartStyling('cron-element',  'tab', '',  props.theme,  customStyling);
+  const activeTabClasses = getComponentPartStyling('cron-element',  'activeTab', '',  props.theme,  customStyling);
+  const fieldContainerClasses = getComponentPartStyling('cron-element',  'fieldContainer', '',  props.theme,  customStyling);
+  const labelClasses = getComponentPartStyling('cron-element',  'label', '',  props.theme,  customStyling);
+  const inputClasses = getComponentPartStyling('cron-element',  'input', '',  props.theme,  customStyling);
+  const selectClasses = getComponentPartStyling('cron-element',  'select', '',  props.theme,  customStyling);
+  const dayButtonClasses = getComponentPartStyling('cron-element',  'dayButton', '',  props.theme,  customStyling);
+  const activeDayButtonClasses = getComponentPartStyling('cron-element',  'activeDayButton', '',  props.theme,  customStyling);
+  const quickButtonClasses = getComponentPartStyling('cron-element',  'quickButton', '',  props.theme,  customStyling);
 
   // State for each part of the cron expression
   const [minutes, setMinutes] = useState('*');
