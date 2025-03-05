@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { IconRenderer } from '../icons/icon-renderer';
 
 const placementRef = ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'center', 'top-center', 'bottom-center', 'left-center', 'right-center'];
-// placement = { width: 400, height: 300, x: 20, y: 20, ref: 'top-left' },
+// placement = { width: 400, height: 300, x: 20, y: 20, ref: 'top-left' } or { width: 400, height: 300, ref: reactRef } or { width: 400, height: 300, ref: 'context' }
 const ViewManager = ({
     id,
     children,
@@ -17,11 +17,11 @@ const ViewManager = ({
     className = '',
     closeOnOutsideClick = false
 }) => {
-    const [position, setPosition] = useState(getStoredValue('position', { x: placement.x, y: placement.y }));
+    const [position, setPosition] = useState(getStoredValue('position', { x: placement.x || 0, y: placement.y || 0 }));
     const [size, setSize] = useState(getStoredValue('size', { width: placement.width, height: placement.height }));
     const [windowState, setWindowState] = useState('normal');
     const [stateHistory, setStateHistory] = useState({
-        normal: { position: { x: placement.x, y: placement.y }, size: { width: placement.width, height: placement.height } }
+        normal: { position: { x: placement.x || 0, y: placement.y || 0 }, size: { width: placement.width, height: placement.height } }
     });
     const [isDragging, setIsDragging] = useState(false);
     const [isResizing, setIsResizing] = useState(false);
@@ -82,17 +82,81 @@ const ViewManager = ({
         };
     };
 
+    // Position relative to ref element if provided
+    useEffect(() => {
+        if (placement.ref && windowState === 'normal' && !isModal) {
+            const positionRelativeToRef = () => {
+                let refElement = null;
+
+                // Handle React ref object
+                if (typeof placement.ref === 'object' && placement.ref.current) {
+                    refElement = placement.ref.current;
+                }
+                // Handle 'context' string - position relative to the trigger element
+                else if (placement.ref === 'context' && boxRef.current) {
+                    // Find the parent element that triggered this view
+                    const parentElement = boxRef.current.parentElement;
+                    if (parentElement) {
+                        refElement = parentElement;
+                    }
+                }
+
+                if (refElement) {
+                    const refRect = refElement.getBoundingClientRect();
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+
+                    // Default to positioning below the element
+                    let newX = refRect.left;
+                    let newY = refRect.bottom + 5; // 5px gap
+
+                    // Check if it would go off the right edge
+                    if (newX + size.width > viewportWidth) {
+                        newX = viewportWidth - size.width - 5;
+                    }
+
+                    // Check if it would go off the bottom edge
+                    if (newY + size.height > viewportHeight) {
+                        // Position above the element instead
+                        newY = refRect.top - size.height - 5;
+                    }
+
+                    // Ensure it's not positioned off-screen
+                    newX = Math.max(5, newX);
+                    newY = Math.max(5, newY);
+
+                    setPosition({ x: newX, y: newY });
+                    setStateHistory(prev => ({
+                        ...prev,
+                        normal: {
+                            position: { x: newX, y: newY },
+                            size
+                        }
+                    }));
+                }
+            };
+
+            positionRelativeToRef();
+        }
+    }, [placement.ref, windowState, isModal, size]);
+
     // Handle window resize
     useEffect(() => {
         const handleResize = () => {
             if (windowState === 'normal') {
-                setPosition(prev => constrainToViewport(prev, size));
+                if (placement.ref) {
+                    // Reposition relative to ref when window resizes
+                    const event = new Event('resize');
+                    window.dispatchEvent(event);
+                } else {
+                    setPosition(prev => constrainToViewport(prev, size));
+                }
             }
         };
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [size, windowState]);
+    }, [size, windowState, placement.ref]);
 
     // Dragging and resizing logic
     useEffect(() => {

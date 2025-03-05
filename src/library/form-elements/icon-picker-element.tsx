@@ -6,6 +6,8 @@ import EmojiPicker from '../common/icons/icon-picker';
 import ViewManager from '../common/view-manager/view-manager';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { iconButtonClass } from '../common/constants';
+import { ButtonDelete } from '../common/button-delete';
+import { set } from 'zod';
 
 interface IconPickerElementProps {
   blur?: (value: string) => void;
@@ -34,21 +36,17 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
   const optionClasses = getComponentPartStyling('icon-picker-element', 'option', '', props.theme, customStyling);
   const selectedOptionClasses = getComponentPartStyling('icon-picker-element', 'selectedOption', '', props.theme, customStyling);
 
+  const [emoji, setEmoji] = useState<any>();
   const [showPicker, setShowPicker] = useState(false);
   const ref = useRef(null);
 
-  // Handle change
-  const handleChange = (value: string) => {
-    if (props.change) {
-      props.change(value);
-    }
-  };
-
   // Handle blur
-  const handleBlur = () => {
-    if (props.blur && props.value) {
-      props.blur(props.value);
+  const handleBlur = (emoji) => {
+    console.log('emoji', emoji);
+    if (props.blur) {
+      props.blur(emoji.emoji);
     }
+    // setEmoji(emoji);
   };
 
   // Handle focus
@@ -66,12 +64,15 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
       onBlur={handleBlur}
       onFocus={handleFocus}
     >
-      <button ref={ref} className={iconButtonClass} onClick={() => setShowPicker(!showPicker)}>
-        <IconRenderer icon={props.value} className={iconClasses} />
-      </button>
+      <div className='flex gap-2 items-center'>
+        <button ref={ref} className={iconButtonClass} onClick={() => setShowPicker(!showPicker)}>
+          {emoji?.length === 2 ? <span>{emoji}</span> : <IconRenderer icon={emoji || 'Smile'} className={iconClasses} />}
+        </button>
+        {emoji && <ButtonDelete deleteHandler={() => handleBlur('')} />}
+      </div>
       {showPicker && (
-        <ViewManager id='icon-picker' placement={{ ref: ref }} className={dropdownClasses}>
-          <EmojiPicker />
+        <ViewManager id='icon-picker' placement={{ ref: ref }} className={dropdownClasses} onClose={() => setShowPicker(false)}>
+          <EmojiPicker value={emoji} onSelect={handleBlur} />
         </ViewManager>
       )}
     </StyledComponent>

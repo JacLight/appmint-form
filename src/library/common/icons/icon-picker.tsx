@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { emojiData } from './emoji-data';
 
-const EmojiPicker = () => {
+const EmojiPicker = ({ value = '', onSelect = undefined }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [emojis, setEmojis] = useState([]);
-    const [selectedEmoji, setSelectedEmoji] = useState(null);
+    const [selectedEmoji, setSelectedEmoji] = useState<any>(value || null);
     const [recentlyUsed, setRecentlyUsed] = useState([]);
-    const searchInputRef = useRef(null);
 
     // Filter emojis based on search term and selected category
     useEffect(() => {
@@ -45,6 +44,10 @@ const EmojiPicker = () => {
 
     const handleEmojiClick = (emoji) => {
         setSelectedEmoji(emoji);
+
+        if (onSelect) {
+            onSelect(emoji);
+        }
 
         // Add to recently used
         if (!recentlyUsed.some(item => item.emoji === emoji.emoji)) {
