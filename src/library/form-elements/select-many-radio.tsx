@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RadioGroup } from '../common/headless-replacements';
+import { RadioGroup } from '../common/select-components';
 import { CheckCircle } from 'lucide-react';
 import { classNames } from '../utils';
 import { ElementIcon } from './element-icon';

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Transition } from '../common/headless-replacements';
+import { Transition } from '../common/select-components';
 import { AlertCircle, CheckCircle, Info, X, AlertTriangle } from 'lucide-react';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';

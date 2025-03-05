@@ -378,6 +378,7 @@ export const themes: Record<string, ThemeStyling> = {
 export function getComponentPartStyling(
     componentType: string,
     part: string,
+    layout: string,
     theme: string | ThemeStyling = 'default',
     customStyling?: ComponentStyling
 ): string {

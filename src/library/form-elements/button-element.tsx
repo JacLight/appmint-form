@@ -58,11 +58,11 @@ export const ButtonElement = (props: {
   const customStyling = extractStylingFromSchema(schema);
 
   // Get button styling
-  const containerClasses = getComponentPartStyling('button', 'container', props.theme, customStyling);
-  const buttonClasses = getComponentPartStyling('button', 'button', props.theme, customStyling);
-  const labelClasses = getComponentPartStyling('button', 'label', props.theme, customStyling);
-  const descriptionClasses = getComponentPartStyling('button', 'description', props.theme, customStyling);
-  const errorClasses = getComponentPartStyling('button', 'error', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('button', 'container', '', props.theme, customStyling);
+  const buttonClasses = getComponentPartStyling('button', 'button', '', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('button', 'label', '', props.theme, customStyling);
+  const descriptionClasses = getComponentPartStyling('button', '', 'description', props.theme, customStyling);
+  const errorClasses = getComponentPartStyling('button', 'error', '', props.theme, customStyling);
 
   const description =
     schema.description || info ? (

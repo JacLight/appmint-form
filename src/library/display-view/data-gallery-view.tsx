@@ -9,9 +9,9 @@ import { iconButtonClass } from '../common/constants';
 import { JSONViewer } from '../common/json-viewer';
 import CollectionForm from '../form-view';
 import { CollectionHelper } from '../form-view/form-utils';
+import ViewManager from '../common/view-manager/view-manager';
 
-
-export const DataGalleryView = (props: { datatype?; data?, filter?}) => {
+export const DataGalleryView = (props: { datatype?; data?, popup?, filter?, openRecord?}) => {
   const { dataViewProps } = useFormStore(useShallow(state => ({ dataViewProps: state.dataViewProps })));
   const [activeTab, setActiveTab] = React.useState('list');
   const [activeRecord, setActiveRecord] = React.useState(null);
@@ -22,7 +22,7 @@ export const DataGalleryView = (props: { datatype?; data?, filter?}) => {
   const [datatype, setDatatype] = React.useState(props.datatype || dataViewProps?.datatype);
 
   useEffect(() => {
-    if (dataViewProps?.viewType === 'gallery') {
+    if (dataViewProps?.type === 'gallery') {
       changeDatatype(dataViewProps.datatype);
     }
 
@@ -55,9 +55,6 @@ export const DataGalleryView = (props: { datatype?; data?, filter?}) => {
       setActiveRecord(dataDTO?.data[currentIndex + 1]);
       setCurrentIndex(currentIndex + 1);
     }
-    // else if (dataDTO?.hasNext) {
-    //   loadNextPage();
-    // }
   };
 
   const prevRecord = () => {
@@ -69,17 +66,21 @@ export const DataGalleryView = (props: { datatype?; data?, filter?}) => {
     }
   };
 
-  const openRecord = record => {
+  const openRecord = (record) => {
     const currentIndex = dataDTO?.data.findIndex(item => item.sk === record.sk);
+    if (props.openRecord) {
+      props.openRecord(record);
+      return;
+    }
     setActiveRecord(record);
     setCurrentIndex(currentIndex);
     setActiveTab('detail');
   };
 
   const collection: any = datatype ? CollectionHelper.getInstance().getCollection(datatype) : "";
-  if (dataViewProps?.viewType !== 'gallery') return null;
+  if (dataViewProps?.type !== 'gallery') return null;
 
-  return (
+  const table = (
     <div className="h-full w-full relative">
       <div className="flex gap-1 w-full bg-gray-100 px-3">
         <button onClick={e => setActiveTab('list')} className={classNames(activeTab === 'list' ? 'bg-cyan-100' : 'bg-gray-50', 'text-sm px-6 py-2')}>
@@ -118,10 +119,20 @@ export const DataGalleryView = (props: { datatype?; data?, filter?}) => {
           </>)}
     </div>
   );
+
+
+  const popup = props.popup || dataViewProps?.datatype
+  if (popup) {
+    return (<ViewManager id='data-gallery-view' title='Data Gallery' placement={{ width: 1000, height: 600, x: 0, y: 0, ref: 'center' }} onClose={closeHandler}>
+      {table}
+    </ViewManager>)
+  }
+  return table;
+
+
 };
 
 const ItemList = ({ schema, datatype, data, openRecord, setDataDTO, isActive, changeDatatype, dataViewProps }) => {
-
   const onTableEvent = async (eventName, option, selected, ...others) => {
     if (dataViewProps.onTableEvent) {
       const rt = await dataViewProps.onTableEvent(eventName, option, selected, ...others);
@@ -149,9 +160,10 @@ const ItemList = ({ schema, datatype, data, openRecord, setDataDTO, isActive, ch
     return false;
   };
 
-  return <div className={classNames(isActive ? 'flex' : 'hidden', 'h-full')}>
+
+  return (<div className={classNames(isActive ? 'flex' : 'hidden', 'h-full')}>
     <CollectionTable datatype={datatype} schema={schema} data={data} filters={dataViewProps.filter} onTableEvent={onTableEvent} onRowEvent={onRowEvent} />
-  </div>
+  </div>);
 };
 
 const ItemDetail = ({ schema, datatype, data, isActive, setActiveTab, dataViewProps }) => {

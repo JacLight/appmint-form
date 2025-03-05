@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronsUpDown } from 'lucide-react';
-import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions, ComboboxButton } from '../common/headless-replacements';
+import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions, ComboboxButton } from '../common/select-components';
 import { classNames, isEmpty, isNotEmpty } from '../utils';
 import { ElementIcon } from './element-icon';
 import { IconRenderer } from '../common/icons/icon-renderer';

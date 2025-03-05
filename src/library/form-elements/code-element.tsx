@@ -26,13 +26,13 @@ export const CodeElement: React.FC<CodeElementProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get code-element styling
-  const containerClasses = getComponentPartStyling('code-element', 'container', props.theme, customStyling);
-  const editorClasses = getComponentPartStyling('code-element', 'editor', props.theme, customStyling);
-  const appBarClasses = getComponentPartStyling('code-element', 'appBar', props.theme, customStyling);
-  const buttonClasses = getComponentPartStyling('code-element', 'button', props.theme, customStyling);
-  const saveButtonClasses = getComponentPartStyling('code-element', 'saveButton', props.theme, customStyling);
-  const expandButtonClasses = getComponentPartStyling('code-element', 'expandButton', props.theme, customStyling);
-  const loadingClasses = getComponentPartStyling('code-element', 'loading', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('code-element', 'container', '', props.theme, customStyling);
+  const editorClasses = getComponentPartStyling('code-element', 'editor', '', props.theme, customStyling);
+  const appBarClasses = getComponentPartStyling('code-element', 'appBar', '', props.theme, customStyling);
+  const buttonClasses = getComponentPartStyling('code-element', 'button', '', props.theme, customStyling);
+  const saveButtonClasses = getComponentPartStyling('code-element', 'saveButton', '', props.theme, customStyling);
+  const expandButtonClasses = getComponentPartStyling('code-element', 'expandButton', '', props.theme, customStyling);
+  const loadingClasses = getComponentPartStyling('code-element', 'loading', '', props.theme, customStyling);
 
   const saveChanges = (name: string, data: string) => {
     if (props.blur) {

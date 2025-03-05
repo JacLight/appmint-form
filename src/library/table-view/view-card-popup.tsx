@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { Dialog, Transition } from '../common/headless-replacements';
+import { Dialog, Transition } from '../common/select-components';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { useTheme } from '../../../../../contexts/theme-context';
 

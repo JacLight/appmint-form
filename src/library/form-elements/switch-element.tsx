@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch } from '../common/headless-replacements';
+import { Switch } from '../common/select-components';
 import { classNames } from '../utils';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
@@ -17,19 +17,19 @@ export const SwitchElement = (props: { change?; blur?; focus?; mode?; value?; sc
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get track styling
-  const trackClasses = getComponentPartStyling('switch', 'track', props.theme, customStyling);
-  const trackOnClasses = getComponentPartStyling('switch', 'trackOn', props.theme, customStyling);
-  const trackOffClasses = getComponentPartStyling('switch', 'trackOff', props.theme, customStyling);
+  const trackClasses = getComponentPartStyling('switch', 'track', '', props.theme, customStyling);
+  const trackOnClasses = getComponentPartStyling('switch', 'trackOn', '', props.theme, customStyling);
+  const trackOffClasses = getComponentPartStyling('switch', 'trackOff', '', props.theme, customStyling);
 
   // Get thumb styling
-  const thumbClasses = getComponentPartStyling('switch', 'thumb', props.theme, customStyling);
-  const thumbOnClasses = getComponentPartStyling('switch', 'thumbOn', props.theme, customStyling);
-  const thumbOffClasses = getComponentPartStyling('switch', 'thumbOff', props.theme, customStyling);
+  const thumbClasses = getComponentPartStyling('switch', 'thumb', '', props.theme, customStyling);
+  const thumbOnClasses = getComponentPartStyling('switch', 'thumbOn', '', props.theme, customStyling);
+  const thumbOffClasses = getComponentPartStyling('switch', 'thumbOff', '', props.theme, customStyling);
 
   // Get icon styling
-  const iconClasses = getComponentPartStyling('switch', 'icon', props.theme, customStyling);
-  const iconOffClasses = getComponentPartStyling('switch', 'iconOff', props.theme, customStyling);
-  const iconOnClasses = getComponentPartStyling('switch', 'iconOn', props.theme, customStyling);
+  const iconClasses = getComponentPartStyling('switch', 'icon', '', props.theme, customStyling);
+  const iconOffClasses = getComponentPartStyling('switch', 'iconOff', '', props.theme, customStyling);
+  const iconOnClasses = getComponentPartStyling('switch', 'iconOn', '', props.theme, customStyling);
 
   return (
     <StyledComponent

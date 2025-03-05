@@ -115,20 +115,11 @@ export const FormRenderArray = (props: { storeId; path; dataPath; parentDataPath
                 <FormRender key={itemKey} path={itemPath} className="" name={itemName} dataPath={arrayDataPath} parentDataPath={dataPath} arrayIndex={index} storeId={props.storeId} arrayControl={arrayControl(index)} />
               </div>
             );
-          // if (schema.items?.collapsible && !['string', 'number', 'boolean'].includes(schema?.items?.type)) {
-          //   const itemName = schema.hideItemLabel === 'false' ? index + 1 : '';
-          //   return (
-          //     <ElementWrapperLayout mode="view" path={itemPath} name={itemName} schema={schema.items} theme={theme}>
-          //       {render}
-          //     </ElementWrapperLayout>
-          //   );
-          // } else {
           return render;
-          // }
         })}
         <div className='flex items-center justify-center gap-4'>
           {addButton}
-          {schema.operations?.includes('pick') && <FormPicker dataPath={dataPath} parentDataPath={dataPath} schema={schema} storeId={props.storeId} />}
+          {schema.operations?.includes('pick') && <FormPicker datatype={'datatype'} filter={'filter'} />}
         </div>
       </ElementWrapperLayout>
     </>

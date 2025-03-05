@@ -36,12 +36,12 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   const customStyling = schema ? extractStylingFromSchema(schema) : undefined;
 
   // Get slider range styling
-  const containerClasses = getComponentPartStyling('slider-range', 'container', theme, customStyling);
-  const minTrackClasses = getComponentPartStyling('slider-range', 'minTrack', theme, customStyling);
-  const maxTrackClasses = getComponentPartStyling('slider-range', 'maxTrack', theme, customStyling);
-  const thumbClasses = getComponentPartStyling('slider-range', 'thumb', theme, customStyling);
-  const railClasses = getComponentPartStyling('slider-range', 'rail', theme, customStyling);
-  const valueClasses = getComponentPartStyling('slider-range', 'value', theme, customStyling);
+  const containerClasses = getComponentPartStyling('slider-range', 'container', '', theme, customStyling);
+  const minTrackClasses = getComponentPartStyling('slider-range', 'minTrack', '', theme, customStyling);
+  const maxTrackClasses = getComponentPartStyling('slider-range', 'maxTrack', '', theme, customStyling);
+  const thumbClasses = getComponentPartStyling('slider-range', 'thumb', '', theme, customStyling);
+  const railClasses = getComponentPartStyling('slider-range', 'rail', '', theme, customStyling);
+  const valueClasses = getComponentPartStyling('slider-range', 'value', '', theme, customStyling);
 
   // Parse schema values if provided
   const schemaMin = schema?.min !== undefined ?

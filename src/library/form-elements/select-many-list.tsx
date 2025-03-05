@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Listbox, ListboxOptions, ListboxOption, ListboxButton } from '../common/headless-replacements';
+import { Listbox, ListboxOptions, ListboxOption, ListboxButton } from '../common/select-components';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { ElementIcon } from './element-icon';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
@@ -27,21 +27,21 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get listbox styling
-  const containerClasses = getComponentPartStyling('listbox', 'container', props.theme, customStyling);
-  const buttonClasses = getComponentPartStyling('listbox', 'button', props.theme, customStyling);
-  const optionsClasses = getComponentPartStyling('listbox', 'options', props.theme, customStyling);
-  const optionClasses = getComponentPartStyling('listbox', 'option', props.theme, customStyling);
-  const optionActiveClasses = getComponentPartStyling('listbox', 'optionActive', props.theme, customStyling);
-  const optionInactiveClasses = getComponentPartStyling('listbox', 'optionInactive', props.theme, customStyling);
-  const iconClasses = getComponentPartStyling('listbox', 'icon', props.theme, customStyling);
-  const selectedIconClasses = getComponentPartStyling('listbox', 'selectedIcon', props.theme, customStyling);
-  const selectedIconActiveClasses = getComponentPartStyling('listbox', 'selectedIconActive', props.theme, customStyling);
-  const selectedIconInactiveClasses = getComponentPartStyling('listbox', 'selectedIconInactive', props.theme, customStyling);
-  const labelClasses = getComponentPartStyling('listbox', 'label', props.theme, customStyling);
-  const labelSelectedClasses = getComponentPartStyling('listbox', 'labelSelected', props.theme, customStyling);
-  const labelUnselectedClasses = getComponentPartStyling('listbox', 'labelUnselected', props.theme, customStyling);
-  const placeholderClasses = getComponentPartStyling('listbox', 'placeholder', props.theme, customStyling);
-  const chevronClasses = getComponentPartStyling('listbox', 'chevron', props.theme, customStyling);
+  const containerClasses = getComponentPartStyling('listbox', 'container', '', props.theme, customStyling);
+  const buttonClasses = getComponentPartStyling('listbox', 'button', '', props.theme, customStyling);
+  const optionsClasses = getComponentPartStyling('listbox', 'options', '', props.theme, customStyling);
+  const optionClasses = getComponentPartStyling('listbox', 'option', '', props.theme, customStyling);
+  const optionActiveClasses = getComponentPartStyling('listbox', 'optionActive', '', props.theme, customStyling);
+  const optionInactiveClasses = getComponentPartStyling('listbox', 'optionInactive', '', props.theme, customStyling);
+  const iconClasses = getComponentPartStyling('listbox', 'icon', '', props.theme, customStyling);
+  const selectedIconClasses = getComponentPartStyling('listbox', 'selectedIcon', '', props.theme, customStyling);
+  const selectedIconActiveClasses = getComponentPartStyling('listbox', 'selectedIconActive', '', props.theme, customStyling);
+  const selectedIconInactiveClasses = getComponentPartStyling('listbox', 'selectedIconInactive', '', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('listbox', 'label', '', props.theme, customStyling);
+  const labelSelectedClasses = getComponentPartStyling('listbox', 'labelSelected', '', props.theme, customStyling);
+  const labelUnselectedClasses = getComponentPartStyling('listbox', 'labelUnselected', '', props.theme, customStyling);
+  const placeholderClasses = getComponentPartStyling('listbox', 'placeholder', '', props.theme, customStyling);
+  const chevronClasses = getComponentPartStyling('listbox', 'chevron', '', props.theme, customStyling);
 
   return (
     <Listbox value={selected} onChange={handleChange}>
