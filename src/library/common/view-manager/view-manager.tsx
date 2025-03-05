@@ -4,15 +4,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { IconRenderer } from '../icons/icon-renderer';
 
 const placementRef = ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'center', 'top-center', 'bottom-center', 'left-center', 'right-center'];
+// placement = { width: 400, height: 300, x: 20, y: 20, ref: 'top-left' },
 const ViewManager = ({
     id,
     children,
     title = '',
-    placement = { width: 400, height: 300, x: 20, y: 20, ref: 'top-left' },
+    placement,
     onClose = () => { },
     isResizable = true,
     compact = false,
     isModal = false,
+    className = '',
     closeOnOutsideClick = false
 }) => {
     const [position, setPosition] = useState(getStoredValue('position', { x: placement.x, y: placement.y }));

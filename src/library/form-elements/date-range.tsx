@@ -50,18 +50,7 @@ export const DateRangeElement = (props: {
   const [startDate, endDate] = dateTime || [null, null];
   // Extract styling from schema
   const customStyling = extractStylingFromSchema(props.schema);
-
-  // Get container styling
-  const containerClasses = getComponentPartStyling('date-range',  'container', '',  props.theme,  customStyling);
-
-  // Get prefix styling
-  const prefixClasses = getComponentPartStyling('date-range',  'prefix', '',  props.theme,  customStyling);
-
-  // Get suffix styling
-  const suffixClasses = getComponentPartStyling('date-range',  'suffix', '',  props.theme,  customStyling);
-
-  // Get input styling
-  const inputClasses = getComponentPartStyling('date-range',  'input', '',  props.theme,  customStyling);
+  const inputClasses = getComponentPartStyling('date-range', 'input', '', props.theme, customStyling);
 
   return (
     <StyledComponent

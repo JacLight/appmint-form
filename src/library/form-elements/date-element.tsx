@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { DateTimePicker } from './date-time-picker';
+import { twMerge } from 'tailwind-merge';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
-import { twMerge } from 'tailwind-merge';
 
-export const DateElement = (props: { change; focus; blur; mode; value; schema; path; name; data; reloadValue; theme?}) => {
+export const DateElement = (props: { readOnly?; change; dataPath, focus; blur; mode; value; schema; path; name; data, className, theme?, ui?}) => {
   const [dateTime, setDateTime] = useState<any>();
   let variant = props.schema['format'] || props.schema['x-control-variant'] || 'date';
   variant = (variant === 'datetime' || variant === 'date-time') ? 'date-time' : variant;
@@ -49,18 +48,12 @@ export const DateElement = (props: { change; focus; blur; mode; value; schema; p
     props.focus(e.target.value);
   };
 
-  const { min, max, disabled, readOnly, prefix, suffix, placeholder } = props.schema;
+  const { min, max, placeholder } = props.schema;
 
   // Extract styling from schema
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get date styling
-  const containerClasses = getComponentPartStyling('date',  'container', '',  props.theme,  customStyling);
-  const inputClasses = getComponentPartStyling('date',  'input', '',  props.theme,  customStyling);
-  const prefixClasses = getComponentPartStyling('date',  'prefix', '',  props.theme,  customStyling);
-  const suffixClasses = getComponentPartStyling('date',  'suffix', '',  props.theme,  customStyling);
-  const calendarClasses = getComponentPartStyling('date',  'calendar', '',  props.theme,  customStyling);
-
   return (
     <StyledComponent
       componentType="date"
@@ -69,36 +62,47 @@ export const DateElement = (props: { change; focus; blur; mode; value; schema; p
       theme={props.theme}
       className="flex items-center"
     >
-      {prefix && (
+      {props.schema.prefix && (
         <StyledComponent
           componentType="date"
           part="prefix"
           schema={props.schema}
           theme={props.theme}
         >
-          {prefix}
+          {props.schema.prefix}
         </StyledComponent>
       )}
-      <DateTimePicker
+      <StyledComponent
+        componentType="text"
+        part="input"
+        schema={props.schema}
+        theme={props.theme}
+        as="input"
         onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        value={props.value}
+        disabled={props.schema.disabled}
+        readOnly={props.readOnly || props.schema.readOnly}
+        type={variant}
+        name={props.name}
+        id={props.path}
+        className={props.className}
         startDate={dateTime}
-        disabled={disabled}
-        readOnly={readOnly}
         min={min}
         max={max}
         mode={variant}
         isRange={false}
-        className={twMerge(inputClasses, 'flex-1')}
         placeholder={placeholder}
       />
-      {suffix && (
+      {props.schema.suffix && (
         <StyledComponent
           componentType="date"
           part="suffix"
           schema={props.schema}
           theme={props.theme}
         >
-          {suffix}
+          {props.schema.suffix}
         </StyledComponent>
       )}
     </StyledComponent>

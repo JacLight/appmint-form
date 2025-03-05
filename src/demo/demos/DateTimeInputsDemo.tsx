@@ -29,7 +29,7 @@ const schema = {
             default: '12:30:00'
         },
         dateRange: {
-            type: 'object',
+            type: 'array',
             title: 'Date Range',
             description: 'Date range selection input',
             'x-control': 'daterange',

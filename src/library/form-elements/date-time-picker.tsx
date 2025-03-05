@@ -26,20 +26,6 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
   // Extract styling from schema
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
-  // Get date-time-picker styling
-  const containerClasses = getComponentPartStyling('date-time-picker',  'container', '',  props.theme,  customStyling);
-  const controlsClasses = getComponentPartStyling('date-time-picker',  'controls', '',  props.theme,  customStyling);
-  const labelClasses = getComponentPartStyling('date-time-picker',  'label', '',  props.theme,  customStyling);
-  const selectClasses = getComponentPartStyling('date-time-picker',  'select', '',  props.theme,  customStyling);
-  const checkboxClasses = getComponentPartStyling('date-time-picker',  'checkbox', '',  props.theme,  customStyling);
-  const inputContainerClasses = getComponentPartStyling('date-time-picker',  'inputContainer', '',  props.theme,  customStyling);
-  const inputClasses = getComponentPartStyling('date-time-picker',  'input', '',  props.theme,  customStyling);
-  const presetSelectorClasses = getComponentPartStyling('date-time-picker',  'presetSelector', '',  props.theme,  customStyling);
-  const errorClasses = getComponentPartStyling('date-time-picker',  'error', '',  props.theme,  customStyling);
-  const previewClasses = getComponentPartStyling('date-time-picker',  'preview', '',  props.theme,  customStyling);
-  const previewTitleClasses = getComponentPartStyling('date-time-picker',  'previewTitle', '',  props.theme,  customStyling);
-  const previewContentClasses = getComponentPartStyling('date-time-picker',  'previewContent', '',  props.theme,  customStyling);
-
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [isRange, setIsRange] = useState<boolean>(props.isRange || false);
@@ -155,30 +141,22 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
 
     return (
       <StyledComponent
-        componentType="date-time-picker"
-        part="inputContainer"
+        componentType="text"
+        part="input"
         schema={props.schema}
         theme={props.theme}
-        className={`${isInline ? 'flex space-x-2' : 'space-y-2'}`}
-      >
-        <StyledComponent
-          componentType="date-time-picker"
-          part="input"
-          schema={props.schema}
-          theme={props.theme}
-          as="input"
-          type={inputType}
-          readOnly={props.readOnly}
-          disabled={props.disabled}
-          value={value}
-          onChange={(e) => handleDateChange(e, isStart)}
-          min={min}
-          max={props.max}
-          className="w-full p-2 border text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-          aria-label={isStart ? "Start date" : "End date"}
-          placeholder={props.placeholder}
-        />
-      </StyledComponent>
+        as="input"
+        type={inputType}
+        readOnly={props.readOnly}
+        disabled={props.disabled}
+        value={value}
+        onChange={(e) => handleDateChange(e, isStart)}
+        min={min}
+        max={props.max}
+        className="w-full p-2 border text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+        aria-label={isStart ? "Start date" : "End date"}
+        placeholder={props.placeholder}
+      />
     );
   };
 
@@ -188,7 +166,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
       part="container"
       schema={props.schema}
       theme={props.theme}
-      className={twMerge("p-4 bg-white rounded-lg shadow-lg", props.className)}
+      className={twMerge(props.className)}
     >
       {showControls && (
         <StyledComponent
