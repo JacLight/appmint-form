@@ -1,3 +1,4 @@
+import { group } from '@uiw/react-md-editor';
 import { twMerge } from 'tailwind-merge';
 
 /**
@@ -54,12 +55,13 @@ const baseTheme: ThemeStyling = {
         section: 'bg-white shadow rounded-lg p-4',
         header: 'text-lg font-medium text-gray-900 mb-4',
         footer: 'mt-4 flex justify-end space-x-3',
+        group: 'gap-3',
     },
     // Text input styling
     text: {
         container: 'relative my-2 w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
-        input: 'block w-full rounded-md border-gray-300 border shadow-sm focus:border-indigo-500 p-2 focus:ring-indigo-500 sm:text-sm',
+        input: 'block w-full rounded-md border-gray-300 border shadow-sm focus:border-indigo-500 px-2 py-1 focus:ring-indigo-500 sm:text-sm',
         description: 'mt-1 text-xs text-gray-500',
         error: 'mt-1 text-xs text-red-500',
         icon: 'h-5 w-5 text-gray-400',
@@ -71,7 +73,20 @@ const baseTheme: ThemeStyling = {
     number: {
         container: 'relative my-2  w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
-        input: 'block w-full rounded-md border-gray-300 shadow-sm border  p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+        input: 'block w-full rounded-md border-gray-300 shadow-sm border py-1 px-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+        description: 'mt-1 text-xs text-gray-500',
+        error: 'mt-1 text-xs text-red-500',
+        prefix: 'flex select-none items-center pl-3 text-gray-500 sm:text-sm',
+        suffix: 'flex select-none items-center pr-3 text-gray-500 sm:text-sm',
+        stepper: 'absolute inset-y-0 right-0 flex flex-col',
+        stepperUp: 'flex-1 px-2 cursor-pointer hover:bg-gray-100',
+        stepperDown: 'flex-1 px-2 cursor-pointer hover:bg-gray-100',
+    },
+    'number-range': {
+        container: 'relative my-2  w-full',
+        label: 'block text-sm font-medium text-gray-700 mb-1',
+        maxInput: 'block w-full rounded-md border-gray-300 shadow-sm border py-1 px-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+        minInput: 'block w-full rounded-md border-gray-300 shadow-sm border py-1 px-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
         description: 'mt-1 text-xs text-gray-500',
         error: 'mt-1 text-xs text-red-500',
         prefix: 'flex select-none items-center pl-3 text-gray-500 sm:text-sm',
@@ -123,7 +138,7 @@ const baseTheme: ThemeStyling = {
     // Listbox styling
     listbox: {
         container: 'relative w-full',
-        button: 'relative w-full cursor-default rounded bg-white pl-3 min-h-9 pr-8 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-5',
+        button: 'relative w-full cursor-default rounded bg-white pl-2 py-1 pr-8 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm',
         options: 'mt-1 max-h-80 min-w-48 overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
         option: 'relative cursor-default select-none py-2 pl-3 pr-9',
         optionActive: 'bg-indigo-600 text-white',
@@ -503,7 +518,7 @@ export function getNestedComponentPartStyling(
 
     // If no styling was found, try to get styling for the part directly
     if (!styling) {
-        styling = getComponentPartStyling(componentType,  part, '',  theme,  customStyling);
+        styling = getComponentPartStyling(componentType, part, '', theme, customStyling);
     }
 
     return styling;

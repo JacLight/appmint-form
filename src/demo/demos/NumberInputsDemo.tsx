@@ -53,6 +53,25 @@ const schema = {
                     default: 80
                 }
             }
+        },
+        sliderRange: {
+            type: 'object',
+            title: 'Number Range',
+            description: 'Range input for selecting a range of numbers',
+            'x-control': 'numberrange',
+            'x-control-variant': 'horizontal',
+            properties: {
+                min: {
+                    type: 'number',
+                    title: 'Min',
+                    default: 20
+                },
+                max: {
+                    type: 'number',
+                    title: 'Max',
+                    default: 80
+                }
+            }
         }
     }
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { twMerge } from 'tailwind-merge';
+import { classNames } from '../utils';
 
 interface SliderRangeProps {
   min?: number;
@@ -100,6 +101,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   // Calculate percentages for the gradient backgrounds
   const minPercentage = ((minValue - actualMin) / (actualMax - actualMin)) * 100;
   const maxPercentage = ((maxValue - actualMin) / (actualMax - actualMin)) * 100;
+  const variant = schema?.['x-control-variant'] || 'horizontal';
 
   return (
     <StyledComponent
@@ -107,7 +109,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
       part="container"
       schema={schema}
       theme={theme}
-      className="flex flex-col w-full space-y-2"
+      className={classNames("flex flex-col  space-y-2", variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}
     >
       <StyledComponent
         componentType="slider-range"

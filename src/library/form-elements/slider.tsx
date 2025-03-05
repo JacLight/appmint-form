@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { twMerge } from 'tailwind-merge';
+import { classNames } from '../utils';
 
 interface SliderProps {
   storeId?: string;
@@ -88,6 +89,7 @@ export const SliderElement: React.FC<SliderProps> = ({
   // Format the displayed value
   const formattedValue = isNaN(sliderValue) ? '0' :
     Number.isInteger(sliderValue) ? sliderValue.toString() : sliderValue.toFixed(1);
+  const variant = schema?.['x-control-variant'] || 'horizontal';
 
   return (
     <StyledComponent
@@ -95,7 +97,7 @@ export const SliderElement: React.FC<SliderProps> = ({
       part="container"
       schema={schema}
       theme={theme}
-      className="relative flex gap-4 items-center justify-between w-full"
+      className={classNames("relative flex gap-4 items-center justify-between", variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}
     >
       <StyledComponent
         componentType="slider"

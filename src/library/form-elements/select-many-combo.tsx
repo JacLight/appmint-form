@@ -223,7 +223,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
           </StyledComponent>
         )}
         <ComboboxInput
-          className="border-0 px-2 py-px text-gray-900 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-5 placeholder:text-sm flex-grow min-w-6"
+          className="border-0 px-2 py-1 text-gray-900 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-5 placeholder:text-sm flex-grow min-w-6"
           onChange={onChange}
           displayValue={(item: any) => item?.value}
           placeholder={props.schema?.placeholder || 'Select or add options...'}
