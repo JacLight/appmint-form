@@ -1,12 +1,12 @@
 import { classNames } from '../utils';
 import { isEmpty } from '../utils';
-import { toSentenceCase, toTitleCase } from '../utils';
+import { toSentenceCase } from '../utils';
 import { getElementTheme } from '../context/store';
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ElementIcon } from './element-icon';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
-import { StyledComponent, StyledContainer } from './styling';
+import { StyledComponent } from './styling';
 
 const fixedLabel = ['checkbox', 'radio', 'switch', 'button', 'color', 'icon-button', 'date', 'date-time', 'date-range', 'lookup'];
 
@@ -21,6 +21,7 @@ export const ElementWrapperControl = (props: {
   error?;
   name;
   theme?;
+  arrayIndex?;
   schema?: { validations; hidden; name; title; hideLabel; position; children; image?; icon?; labelPosition; iconPosition?; error?; description };
 }) => {
   const { path, name, schema, controlType, isActive, hasValue, activeDataPath } = props;
@@ -64,10 +65,10 @@ export const ElementWrapperControl = (props: {
   const customStyling = extractStylingFromSchema(schema);
 
   // Get help container styling
-  const helpContainerClasses = getComponentPartStyling(controlType,  'helpContainer', '',  props.theme,  customStyling);
+  const helpContainerClasses = getComponentPartStyling(controlType, 'helpContainer', '', props.theme, customStyling);
 
   // Get description styling
-  const descriptionClasses = getComponentPartStyling(controlType,  'description', '',  props.theme,  customStyling);
+  const descriptionClasses = getComponentPartStyling(controlType, 'description', '', props.theme, customStyling);
 
   const description =
     schema.description || info ? (
@@ -86,7 +87,7 @@ export const ElementWrapperControl = (props: {
     ) : null;
 
   // Get error styling
-  const errorClasses = getComponentPartStyling(controlType,  'error', '',  props.theme,  customStyling);
+  const errorClasses = getComponentPartStyling(controlType, 'error', '', props.theme, customStyling);
 
   const error = errorMsg ? (
     <StyledComponent
@@ -103,7 +104,7 @@ export const ElementWrapperControl = (props: {
   let element;
   const controlThemeStyle = getElementTheme('control-' + controlType, props.theme);
   // Get input container styling
-  const inputContainerClasses = getComponentPartStyling(controlType,  'input-container', '',  props.theme,  customStyling);
+  const inputContainerClasses = getComponentPartStyling(controlType, 'input-container', '', props.theme, customStyling);
   const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center', controlThemeStyle?.className);
   if (icon && (iconPosition === 'start' || iconPosition === 'end')) {
     element = (
@@ -246,7 +247,7 @@ export const ElementWrapperControl = (props: {
   return (
     <StyledComponent
       componentType={controlType}
-      part="container"
+      part={props.arrayIndex > -1 ? 'container-array' : 'container'}
       schema={schema}
       theme={props.theme}
       data-ui-name="control"

@@ -220,6 +220,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
       path={path}
       error={getError(dataPath)}
       theme={theme}
+      arrayIndex={arrayIndex}
     >
       <Element
         storeId={props.storeId}

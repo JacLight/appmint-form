@@ -44,10 +44,12 @@ const baseTheme: ThemeStyling = {
     // Layout components
     layout: {
         container: 'w-full mx-auto my-2',
+        'container-array': 'w-full mx-auto my-0',
         section: 'mb-4',
         row: 'flex flex-wrap -mx-2',
         column: 'px-2',
         divider: 'border-t border-gray-200 my-4',
+        'control-input': 'w-full',
     },
     // Form components
     form: {
@@ -57,9 +59,14 @@ const baseTheme: ThemeStyling = {
         footer: 'mt-4 flex justify-end space-x-3',
         group: 'gap-3',
     },
+    'form-array': {
+        'array-item': 'relative mb-0 even:bg-cyan-50 flex gap-2 items-center',
+        'array-item-horizontal': 'bg-white shadow rounded-lg p-4',
+    },
     // Text input styling
     text: {
         container: 'relative my-2 w-full',
+        'container-array': 'relative my-0 w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
         input: 'block w-full rounded-md border-gray-300 border shadow-sm focus:border-indigo-500 px-2 py-1 focus:ring-indigo-500 sm:text-sm',
         description: 'mt-1 text-xs text-gray-500',
@@ -71,7 +78,8 @@ const baseTheme: ThemeStyling = {
     },
     // Number input styling
     number: {
-        container: 'relative my-2  w-full',
+        container: 'relative my-2 w-full',
+        'container-array': 'relative my-0 w-full',
         label: 'block text-sm font-medium text-gray-700 mb-1',
         input: 'block w-full rounded-md border-gray-300 shadow-sm border py-1 px-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
         description: 'mt-1 text-xs text-gray-500',

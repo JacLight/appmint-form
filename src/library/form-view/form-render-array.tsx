@@ -14,6 +14,7 @@ import { runElementRules } from './form-rules';
 import { getTemplateValue } from './form-validator';
 import { useShallow } from 'zustand/shallow';
 import { iconButtonClass } from '../common/constants';
+import { StyledComponent } from '../form-elements/styling';
 
 const defaultTypeValues = type => ({ string: '', number: 0, boolean: false, array: [], object: {} }[type]);
 
@@ -90,6 +91,9 @@ export const FormRenderArray = (props: { storeId; path; dataPath; parentDataPath
     delete: <ButtonDelete deleteHandler={e => removeArrayItem(e, valuePath, index)} className="shrink-0 w-4 h-4" iconColor='red' unStyled={true} />,
     index: showIndex ? index + 1 : ''
   })
+
+
+
   return (
     <>
       <ElementWrapperLayout mode="view" key={fieldName} path={path} name={fieldName} schema={schema} theme={theme}>
@@ -100,20 +104,20 @@ export const FormRenderArray = (props: { storeId; path; dataPath; parentDataPath
           const itemName = schema.hideItemLabel === 'false' ? fieldName + ' ' + index + 1 : '';
           const render =
             itemsSchema?.layout === 'horizontal' ? (
-              <div className="relative mb-1 even:bg-cyan-50 flex gap-2 items-center">
+              <StyledComponent componentType='form-array' part='array-item' schema={itemsSchema} className="">
                 {showIndex && <div className="text-xs">{index + 1}</div>}
                 <FormRender key={itemKey} path={itemPath} className="" name={itemName} dataPath={arrayDataPath} parentDataPath={dataPath} arrayIndex={index} storeId={props.storeId} arrayControl={arrayControl(index)} />
                 {arrayControl(index).delete}
-              </div>
+              </StyledComponent>
             ) : (
-              <div className="relative mb-1 even:bg-cyan-50">
+              <StyledComponent componentType='form-array' part='array-item' schema={itemsSchema} className="relative mb-1 even:bg-cyan-50">
                 {!itemsSchema?.collapsible && (
                   <div className={classNames(schema.items?.collapsible && "", "text-xs flex gap-2 items-center justify-between")}>
                     <span>{showIndex ? index + 1 : ''}</span>
                     {arrayControl(index).delete}
                   </div>)}
                 <FormRender key={itemKey} path={itemPath} className="" name={itemName} dataPath={arrayDataPath} parentDataPath={dataPath} arrayIndex={index} storeId={props.storeId} arrayControl={arrayControl(index)} />
-              </div>
+              </StyledComponent>
             );
           return render;
         })}

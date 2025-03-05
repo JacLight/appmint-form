@@ -41,39 +41,18 @@ const schema = {
             title: 'Number Range',
             description: 'Range input for selecting a range of numbers',
             'x-control': 'numberrange',
-            properties: {
-                min: {
-                    type: 'number',
-                    title: 'Min',
-                    default: 20
-                },
-                max: {
-                    type: 'number',
-                    title: 'Max',
-                    default: 80
-                }
-            }
+            default: [30, 80]
         },
         sliderRange: {
-            type: 'object',
+            type: 'array',
             title: 'Number Range',
             description: 'Range input for selecting a range of numbers',
             'x-control': 'numberrange',
             'x-control-variant': 'horizontal',
             'x-show-input': false,
+            max: 200,
+            min: 30,
             showInput: true,
-            properties: {
-                min: {
-                    type: 'number',
-                    title: 'Min',
-                    default: 20
-                },
-                max: {
-                    type: 'number',
-                    title: 'Max',
-                    default: 80
-                }
-            }
         }
     }
 };

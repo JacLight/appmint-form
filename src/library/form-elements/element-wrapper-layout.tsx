@@ -157,7 +157,7 @@ export const ElementWrapperLayout = (props: {
   return (
     <StyledComponent
       componentType="layout"
-      part="container"
+      part={props.arrayControl ? 'container-array' : 'container'}
       schema={schema}
       theme={props.theme}
       className={`cb-layout ${labelPosition || 'top'} ${schema.hideLabel ? 'hide-label' : ''}`}

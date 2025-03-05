@@ -55,12 +55,18 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   const actualMax = schemaMax !== undefined ? schemaMax : max;
   const actualStep = schemaStep !== undefined ? schemaStep : step;
 
+  console.log('actualMin', actualMin);
   const [minValue, setMinValue] = useState(data[0] || actualMin);
   const [maxValue, setMaxValue] = useState(data[1] || actualMax);
+  const [initDone, setInitDone] = useState(false);
 
   // Update state when data prop changes
   useEffect(() => {
-    if (data && Array.isArray(data) && data.length === 2) {
+    setInitDone(true);
+  }, []);
+
+  useEffect(() => {
+    if (initDone && data && Array.isArray(data) && data.length === 2) {
       setMinValue(data[0]);
       setMaxValue(data[1]);
     }
@@ -155,20 +161,39 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
               left: `${minPercentage}%`
             }}
             onMouseDown={(e) => {
-              const startX = e.clientX;
-              const startValue = minValue;
+              e.preventDefault(); // Prevent text selection during drag
+
+              // Get initial position and track dimensions
+              const trackElement = e.currentTarget.parentElement;
+              if (!trackElement) return;
+
+              const trackRect = trackElement.getBoundingClientRect();
+              const trackWidth = trackRect.width;
+              const trackLeft = trackRect.left;
               const range = actualMax - actualMin;
-              const trackWidth = e.currentTarget.parentElement?.clientWidth || 1;
+
+              // Store the current value for the blur callback
+              let currentMinValue = minValue;
 
               const handleMouseMove = (moveEvent: MouseEvent) => {
-                const deltaX = moveEvent.clientX - startX;
-                const deltaValue = (deltaX / trackWidth) * range;
-                const newValue = Math.max(
-                  actualMin,
-                  Math.min(maxValue, Math.round((startValue + deltaValue) / actualStep) * actualStep)
-                );
+                // Calculate position as percentage of track width
+                const mouseX = Math.max(trackLeft, Math.min(trackLeft + trackWidth, moveEvent.clientX));
+                const positionPercentage = (mouseX - trackLeft) / trackWidth;
 
-                if (newValue <= maxValue) {
+                // Calculate new value based on position percentage
+                let newValue = actualMin + (positionPercentage * range);
+
+                // Apply step if needed
+                if (actualStep > 0) {
+                  newValue = Math.round(newValue / actualStep) * actualStep;
+                }
+
+                // Constrain to min/max and ensure it doesn't exceed maxValue
+                newValue = Math.max(actualMin, Math.min(maxValue, newValue));
+
+                // Only update if value changed
+                if (newValue !== currentMinValue) {
+                  currentMinValue = newValue;
                   setMinValue(newValue);
                   if (change) change(newValue, maxValue);
                 }
@@ -177,7 +202,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
               const handleMouseUp = () => {
                 document.removeEventListener('mousemove', handleMouseMove);
                 document.removeEventListener('mouseup', handleMouseUp);
-                if (blur) blur(minValue, maxValue);
+                if (blur) blur(currentMinValue, maxValue);
               };
 
               document.addEventListener('mousemove', handleMouseMove);
@@ -192,20 +217,39 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
               left: `${maxPercentage}%`
             }}
             onMouseDown={(e) => {
-              const startX = e.clientX;
-              const startValue = maxValue;
+              e.preventDefault(); // Prevent text selection during drag
+
+              // Get initial position and track dimensions
+              const trackElement = e.currentTarget.parentElement;
+              if (!trackElement) return;
+
+              const trackRect = trackElement.getBoundingClientRect();
+              const trackWidth = trackRect.width;
+              const trackLeft = trackRect.left;
               const range = actualMax - actualMin;
-              const trackWidth = e.currentTarget.parentElement?.clientWidth || 1;
+
+              // Store the current value for the blur callback
+              let currentMaxValue = maxValue;
 
               const handleMouseMove = (moveEvent: MouseEvent) => {
-                const deltaX = moveEvent.clientX - startX;
-                const deltaValue = (deltaX / trackWidth) * range;
-                const newValue = Math.max(
-                  minValue,
-                  Math.min(actualMax, Math.round((startValue + deltaValue) / actualStep) * actualStep)
-                );
+                // Calculate position as percentage of track width
+                const mouseX = Math.max(trackLeft, Math.min(trackLeft + trackWidth, moveEvent.clientX));
+                const positionPercentage = (mouseX - trackLeft) / trackWidth;
 
-                if (newValue >= minValue) {
+                // Calculate new value based on position percentage
+                let newValue = actualMin + (positionPercentage * range);
+
+                // Apply step if needed
+                if (actualStep > 0) {
+                  newValue = Math.round(newValue / actualStep) * actualStep;
+                }
+
+                // Constrain to min/max and ensure it doesn't go below minValue
+                newValue = Math.max(minValue, Math.min(actualMax, newValue));
+
+                // Only update if value changed
+                if (newValue !== currentMaxValue) {
+                  currentMaxValue = newValue;
                   setMaxValue(newValue);
                   if (change) change(minValue, newValue);
                 }
@@ -214,7 +258,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
               const handleMouseUp = () => {
                 document.removeEventListener('mousemove', handleMouseMove);
                 document.removeEventListener('mouseup', handleMouseUp);
-                if (blur) blur(minValue, maxValue);
+                if (blur) blur(minValue, currentMaxValue);
               };
 
               document.addEventListener('mousemove', handleMouseMove);
