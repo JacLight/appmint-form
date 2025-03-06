@@ -5,7 +5,7 @@ import { FormLayoutTab } from '../form-view/form-layout-tab';
 import { FormLayoutSlider } from '../form-view/form-layout-slider';
 import { produce } from 'immer';
 import { deepCopy, getRandomString, isEmpty, isNotEmpty } from '../utils';
-import { runFormRules } from '../form-view/form-rules';
+// import { runFormRules } from '../form-view/form-rules';
 import { getTemplateValue } from '../form-view/form-validator';
 
 const accessModes = { full: 1, read: 2, create: 3, update: 4, delete: 5 };
@@ -32,7 +32,7 @@ interface FormStoreProps {
   error: any;
   rules?: any;
   accessMode: string;
-  watchedPaths?: { [key: string]: string[] };
+  watchedPaths: { [key: string]: string[] };
   ruleResults?: { [key: string]: any[] };
   activePage?: number;
   collectionForm?: boolean;
@@ -40,27 +40,27 @@ interface FormStoreProps {
   files: any;
   readOnly?: boolean;
   dataBindValue?: any;
-  repository?: { [key: string]: any };
+  repository: { [key: string]: any };
   notifications?: any[];
   dataViewProps?: any;
-  refreshPath?(path: string): void;
+  refreshPath(path: string): void;
   setStateItem: (item: { [key: string]: any }) => void;
   getStateItem: (key: string) => any;
-  getSchemaItem?: (path: string) => any;
-  getItemValue?: (path?: string) => any;
-  getDefaultValue?: (path: string, schema?: any, schemaPath?: string, data?: any) => any;
+  getSchemaItem: (path?: string) => any;
+  getItemValue: (path?: string) => any;
+  getDefaultValue: (path: string, schema?: any, schemaPath?: string, data?: any) => any;
   getError: (path?: string, startsWith?: boolean) => any;
   updateError: (path: string, message?: string) => void;
-  clearError?: () => void;
-  updateBulkError?: (validation: { valid; errors: any[]; message; validationResults: { path; error; message }[] }) => void;
+  clearError: () => void;
+  updateBulkError: (validation: { valid; errors: any[]; message; validationResults: { path; error; message }[] }) => void;
   clearData?: () => void;
-  setItemValue?: (path: string, value: any, arrayIndex?, silent?: boolean, isFile?: boolean) => void;
+  setItemValue: (path: string, value: any, arrayIndex?, silent?: boolean, isFile?: boolean) => void;
   initForm: (formConfig: { data?, readOnly?, path?, schema, rules?, theme?, accessMode?, storeId, datatype?, onChangeCallback?}) => void;
-  removeArrayValue?: (path: string, index) => void;
-  updateWatchedPath?: (watcher: string, paths: string[]) => void;
-  applyRuleResult?: (path?, schema?) => any;
+  removeArrayValue: (path: string, index) => void;
+  updateWatchedPath: (watcher: string, paths: string[]) => void;
+  applyRuleResult: (path?, schema?) => any;
   onChangeCallback?: (path: string, value: any, data: any, files: any, error: any) => void;
-  updateRepository?: (path: string, value?: any) => void;
+  updateRepository: (path: string, value?: any) => void;
 }
 
 export const showNotice = (message, type: string) => {
@@ -80,10 +80,10 @@ export const useFormStore = create<FormStoreProps>((set, get) => ({
   timestamp: {},
   repository: {},
   initForm: ({ data, readOnly, path, schema, rules, theme, accessMode, storeId, datatype, onChangeCallback }) => {
-    set({ readOnly: false, data: {}, activePath: null, storeId: null, ref: null, rules: null, schema: null, datatype: null, accessMode: '', timestamp: {}, error: {}, page: 0, onChangeCallback: null });
+    set({ readOnly: false, data: {}, activePath: '', storeId: '', ref: '', rules: null, schema: null, datatype: undefined, accessMode: '', timestamp: {}, error: {}, page: 0, onChangeCallback: undefined });
     set({ readOnly, data, schema, activePath: path, rules, theme, accessMode, storeId, datatype, timestamp: {}, onChangeCallback });
-    const ruleResults = runFormRules('', '', '', null, schema, schema?.rules, data, null);
-    set({ ruleResults });
+    // const ruleResults = runFormRules('', '', '', null, schema, schema?.rules, data, null);
+    // set({ ruleResults });
   },
   clearData: () => {
     set({ data: {}, timestamp: {}, error: {}, page: 0, activePath: '' });
@@ -200,7 +200,8 @@ export const useFormStore = create<FormStoreProps>((set, get) => ({
     }
 
     if (get().onChangeCallback) {
-      get().onChangeCallback(dataPath, value, data, files, get().getError(dataPath));
+      const callback: any = get().onChangeCallback;
+      callback(dataPath, value, data, files, get().getError(dataPath));
     }
   },
   getSchemaItem: path => {
@@ -251,7 +252,8 @@ export const useFormStore = create<FormStoreProps>((set, get) => ({
       timestamp: { ...get().timestamp, [path]: Date.now() },
     });
     if (get().onChangeCallback) {
-      get().onChangeCallback(path, undefined, data, undefined, get().getError(path));
+      const callback: any = get().onChangeCallback;
+      callback(path, undefined, data, undefined, get().getError(path));
     }
   },
   refreshPath: path => {
