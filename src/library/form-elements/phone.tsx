@@ -19,17 +19,6 @@ interface PhoneElementProps {
 }
 
 export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get phone styling
-  const containerClasses = getComponentPartStyling('phone',  'container', '',  props.theme,  customStyling);
-  const dropdownButtonClasses = getComponentPartStyling('phone',  'dropdownButton', '',  props.theme,  customStyling);
-  const dropdownMenuClasses = getComponentPartStyling('phone',  'dropdownMenu', '',  props.theme,  customStyling);
-  const dropdownItemClasses = getComponentPartStyling('phone',  'dropdownItem', '',  props.theme,  customStyling);
-  const dropdownItemSelectedClasses = getComponentPartStyling('phone',  'dropdownItemSelected', '',  props.theme,  customStyling);
-  const inputClasses = getComponentPartStyling('phone',  'input', '',  props.theme,  customStyling);
-  const flagClasses = getComponentPartStyling('phone',  'flag', '',  props.theme,  customStyling);
 
   // State for phone value and country code
   const [phoneValue, setPhoneValue] = useState<string>(props.data || props.value || '');

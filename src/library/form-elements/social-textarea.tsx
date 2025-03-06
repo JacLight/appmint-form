@@ -29,17 +29,9 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get social textarea styling
-  const containerClasses = getComponentPartStyling('social-textarea', 'container', '', props.theme, customStyling);
-  const textareaClasses = getComponentPartStyling('social-textarea', 'textarea', '', props.theme, customStyling);
-  const controlsClasses = getComponentPartStyling('social-textarea', 'controls', '', props.theme, customStyling);
-  const platformSelectorClasses = getComponentPartStyling('social-textarea', 'platformSelector', '', props.theme, customStyling);
-  const iconPickerClasses = getComponentPartStyling('social-textarea', 'iconPicker', '', props.theme, customStyling);
   const counterClasses = getComponentPartStyling('social-textarea', 'counter', '', props.theme, customStyling);
   const counterWarningClasses = getComponentPartStyling('social-textarea', 'counterWarning', '', props.theme, customStyling);
   const counterErrorClasses = getComponentPartStyling('social-textarea', 'counterError', '', props.theme, customStyling);
-  const suggestionsClasses = getComponentPartStyling('social-textarea', 'suggestions', '', props.theme, customStyling);
-  const suggestionItemClasses = getComponentPartStyling('social-textarea', 'suggestionItem', '', props.theme, customStyling);
-  const suggestionSelectedClasses = getComponentPartStyling('social-textarea', 'suggestionSelected', '', props.theme, customStyling);
 
   const [message, setMessage] = useState<string>('');
   const [charCount, setCharCount] = useState<number>(0);

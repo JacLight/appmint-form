@@ -9,20 +9,6 @@ export const LegalConsentElement = (props: {
   change?;
   value?;
 }) => {
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get legal consent styling
-  const containerClasses = getComponentPartStyling('legal-consent', 'container', '', props.theme, customStyling);
-  const formClasses = getComponentPartStyling('legal-consent', 'form', '', props.theme, customStyling);
-  const labelClasses = getComponentPartStyling('legal-consent', 'label', '', props.theme, customStyling);
-  const inputClasses = getComponentPartStyling('legal-consent', 'input', '', props.theme, customStyling);
-  const errorClasses = getComponentPartStyling('legal-consent', 'error', '', props.theme, customStyling);
-  const buttonContainerClasses = getComponentPartStyling('legal-consent', 'buttonContainer', '', props.theme, customStyling);
-  const acceptButtonClasses = getComponentPartStyling('legal-consent', 'acceptButton', '', props.theme, customStyling);
-  const rejectButtonClasses = getComponentPartStyling('legal-consent', 'rejectButton', '', props.theme, customStyling);
-  const resultClasses = getComponentPartStyling('legal-consent', 'result', '', props.theme, customStyling);
-  const modifyButtonClasses = getComponentPartStyling('legal-consent', 'modifyButton', '', props.theme, customStyling);
 
   // Initialize state from props.value if available
   const initialValue = props.value || { fullName: '', consentGiven: null };

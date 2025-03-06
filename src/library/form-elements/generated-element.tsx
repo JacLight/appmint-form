@@ -17,14 +17,6 @@ interface GeneratedElementProps {
 }
 
 export const GeneratedElement: React.FC<GeneratedElementProps> = (props) => {
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get generated element styling
-  const containerClasses = getComponentPartStyling('generated-element',  'container', '',  props.theme,  customStyling);
-  const valueClasses = getComponentPartStyling('generated-element',  'value', '',  props.theme,  customStyling);
-  const buttonClasses = getComponentPartStyling('generated-element',  'button', '',  props.theme,  customStyling);
-  const iconClasses = getComponentPartStyling('generated-element',  'icon', '',  props.theme,  customStyling);
 
   const [value, setValue] = useState<string | undefined>(props.value);
 

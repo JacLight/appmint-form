@@ -18,27 +18,6 @@ interface CronElementProps {
 }
 
 export const CronElement: React.FC<CronElementProps> = (props) => {
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get cron-element styling
-  const containerClasses = getComponentPartStyling('cron-element',  'container', '',  props.theme,  customStyling);
-  const expressionContainerClasses = getComponentPartStyling('cron-element',  'expressionContainer', '',  props.theme,  customStyling);
-  const expressionClasses = getComponentPartStyling('cron-element',  'expression', '',  props.theme,  customStyling);
-  const summaryClasses = getComponentPartStyling('cron-element',  'summary', '',  props.theme,  customStyling);
-  const buttonClasses = getComponentPartStyling('cron-element',  'button', '',  props.theme,  customStyling);
-  const primaryButtonClasses = getComponentPartStyling('cron-element',  'primaryButton', '',  props.theme,  customStyling);
-  const secondaryButtonClasses = getComponentPartStyling('cron-element',  'secondaryButton', '',  props.theme,  customStyling);
-  const tabsContainerClasses = getComponentPartStyling('cron-element',  'tabsContainer', '',  props.theme,  customStyling);
-  const tabClasses = getComponentPartStyling('cron-element',  'tab', '',  props.theme,  customStyling);
-  const activeTabClasses = getComponentPartStyling('cron-element',  'activeTab', '',  props.theme,  customStyling);
-  const fieldContainerClasses = getComponentPartStyling('cron-element',  'fieldContainer', '',  props.theme,  customStyling);
-  const labelClasses = getComponentPartStyling('cron-element',  'label', '',  props.theme,  customStyling);
-  const inputClasses = getComponentPartStyling('cron-element',  'input', '',  props.theme,  customStyling);
-  const selectClasses = getComponentPartStyling('cron-element',  'select', '',  props.theme,  customStyling);
-  const dayButtonClasses = getComponentPartStyling('cron-element',  'dayButton', '',  props.theme,  customStyling);
-  const activeDayButtonClasses = getComponentPartStyling('cron-element',  'activeDayButton', '',  props.theme,  customStyling);
-  const quickButtonClasses = getComponentPartStyling('cron-element',  'quickButton', '',  props.theme,  customStyling);
 
   // State for each part of the cron expression
   const [minutes, setMinutes] = useState('*');
@@ -312,11 +291,11 @@ export const CronElement: React.FC<CronElementProps> = (props) => {
               className={`w-6 h-6 text-xs flex items-center justify-center rounded-full 
                 ${selectedDays[index] ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
               aria-label={`${selectedDays[index] ? 'Deselect' : 'Select'} ${index === 0 ? 'Sunday' :
-                  index === 1 ? 'Monday' :
-                    index === 2 ? 'Tuesday' :
-                      index === 3 ? 'Wednesday' :
-                        index === 4 ? 'Thursday' :
-                          index === 5 ? 'Friday' : 'Saturday'
+                index === 1 ? 'Monday' :
+                  index === 2 ? 'Tuesday' :
+                    index === 3 ? 'Wednesday' :
+                      index === 4 ? 'Thursday' :
+                        index === 5 ? 'Friday' : 'Saturday'
                 }`}
               aria-pressed={selectedDays[index]}
             >

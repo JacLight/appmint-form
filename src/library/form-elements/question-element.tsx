@@ -6,14 +6,6 @@ import { twMerge } from 'tailwind-merge';
 export const QuestionElement = (props: { update; mode; schema; path; name; data; theme }) => {
   const [minMax, setMinMax] = useState(props.data || [0, 0]);
 
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get question styling
-  const containerClasses = getComponentPartStyling('question',  'container', '',  props.theme,  customStyling);
-  const labelClasses = getComponentPartStyling('question',  'label', '',  props.theme,  customStyling);
-  const inputClasses = getComponentPartStyling('question',  'input', '',  props.theme,  customStyling);
-  const rangeClasses = getComponentPartStyling('question',  'range', '',  props.theme,  customStyling);
 
   const handleUpdate = (e, minOrMax) => {
     e.preventDefault();

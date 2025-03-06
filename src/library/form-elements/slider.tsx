@@ -32,16 +32,6 @@ export const SliderElement: React.FC<SliderProps> = ({
   path
 }) => {
   // Extract styling from schema
-  const customStyling = schema ? extractStylingFromSchema(schema) : undefined;
-
-  // Get slider styling
-  const containerClasses = getComponentPartStyling('slider', 'container', '', theme, customStyling);
-  const trackClasses = getComponentPartStyling('slider', 'track', '', theme, customStyling);
-  const thumbClasses = getComponentPartStyling('slider', 'thumb', '', theme, customStyling);
-  const railClasses = getComponentPartStyling('slider', 'rail', '', theme, customStyling);
-  const valueClasses = getComponentPartStyling('slider', 'value', '', theme, customStyling);
-  const inputClasses = getComponentPartStyling('slider', 'input', '', theme, customStyling);
-
   const [sliderValue, setSliderValue] = useState<number>(value || 0);
 
   useEffect(() => {

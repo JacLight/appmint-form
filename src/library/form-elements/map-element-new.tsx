@@ -15,15 +15,6 @@ export const MapElementNew = (props: {
   schema?;
   theme?;
 }) => {
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get map styling
-  const containerClasses = getComponentPartStyling('map',  'container', '',  props.theme,  customStyling);
-  const mapClasses = getComponentPartStyling('map',  'map', '',  props.theme,  customStyling);
-  const controlsClasses = getComponentPartStyling('map',  'controls', '',  props.theme,  customStyling);
-  const markerClasses = getComponentPartStyling('map',  'marker', '',  props.theme,  customStyling);
-  const infoWindowClasses = getComponentPartStyling('map',  'infoWindow', '',  props.theme,  customStyling);
 
   return (
     <StyledComponent

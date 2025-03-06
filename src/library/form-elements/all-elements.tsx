@@ -31,6 +31,8 @@ import { DateRangeElement } from './date-range';
 import { DataViewElement } from './data-view-element';
 import { DataLookupCombo } from './data-lookup-combo';
 import { ShadowElement } from './shadow-element';
+import { CaptureElement } from './capture-element';
+import { SignatureElement } from './signature-element';
 
 export * from './color-element';
 export * from './code-element';
@@ -60,6 +62,8 @@ export * from './generated-element';
 export * from './social-links';
 export * from './legal-concent';
 export * from './data-lookup-combo';
+export * from './capture-element';
+export * from './signature-element';
 
 // Use a more generic type to avoid TypeScript errors with prop interfaces
 export const elementToNameMap: Record<string, React.ComponentType<any>> = {
@@ -94,5 +98,7 @@ export const elementToNameMap: Record<string, React.ComponentType<any>> = {
   sociallinks: SocialLinksElement,
   legalconsent: LegalConsentElement,
   lookup: DataLookupCombo,
+  capture: CaptureElement,
+  signature: SignatureElement,
   default: ({ name }) => <div>Unknown element {name}</div>,
 };

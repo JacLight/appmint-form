@@ -31,18 +31,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   name,
   storeId,
 }) => {
-  // Extract styling from schema
-  const customStyling = schema ? extractStylingFromSchema(schema) : undefined;
 
-  // Get slider range styling
-  const containerClasses = getComponentPartStyling('slider-range', 'container', '', theme, customStyling);
-  const trackClasses = getComponentPartStyling('slider-range', 'track', '', theme, customStyling);
-  const thumbClasses = getComponentPartStyling('slider-range', 'thumb', '', theme, customStyling);
-  const railClasses = getComponentPartStyling('slider-range', 'rail', '', theme, customStyling);
-  const valueClasses = getComponentPartStyling('slider-range', 'value', '', theme, customStyling);
-  const inputClasses = getComponentPartStyling('slider-range', 'input', '', theme, customStyling);
-
-  // Parse schema values if provided
   const schemaMin = schema?.min !== undefined ?
     (typeof schema.min === 'string' ? parseFloat(schema.min) : schema.min) : min;
   const schemaMax = schema?.max !== undefined ?

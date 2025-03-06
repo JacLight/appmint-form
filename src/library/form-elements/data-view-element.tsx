@@ -23,13 +23,6 @@ interface DataDisplayProps {
 }
 
 export const DataViewElement: React.FC<DataViewElementProps> = (props) => {
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get data view styling
-  const containerClasses = getComponentPartStyling('data-view',  'container', '',  props.theme,  customStyling);
-  const emptyMessageClasses = getComponentPartStyling('data-view',  'emptyMessage', '',  props.theme,  customStyling);
-  const itemContainerClasses = getComponentPartStyling('data-view',  'itemContainer', '',  props.theme,  customStyling);
 
   const [data, setData] = useState<Record<string, any>>({});
 
@@ -98,11 +91,11 @@ const DataDisplay: React.FC<DataDisplayProps> = (props) => {
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
   // Get data display styling
-  const itemClasses = getComponentPartStyling('data-view',  'item', '',  props.theme,  customStyling);
-  const valueClasses = getComponentPartStyling('data-view',  'value', '',  props.theme,  customStyling);
-  const keyClasses = getComponentPartStyling('data-view',  'key', '',  props.theme,  customStyling);
-  const objectContainerClasses = getComponentPartStyling('data-view',  'objectContainer', '',  props.theme,  customStyling);
-  const deleteButtonClasses = getComponentPartStyling('data-view',  'deleteButton', '',  props.theme,  customStyling);
+  const itemClasses = getComponentPartStyling('data-view', 'item', '', props.theme, customStyling);
+  const valueClasses = getComponentPartStyling('data-view', 'value', '', props.theme, customStyling);
+  const keyClasses = getComponentPartStyling('data-view', 'key', '', props.theme, customStyling);
+  const objectContainerClasses = getComponentPartStyling('data-view', 'objectContainer', '', props.theme, customStyling);
+  const deleteButtonClasses = getComponentPartStyling('data-view', 'deleteButton', '', props.theme, customStyling);
 
   const onDelete = () => {
     // Delete functionality would be implemented here

@@ -17,12 +17,6 @@ export const MarkdownElement = (props: {
   height?;
   schema?;
 }) => {
-  // Extract styling from schema
-  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
-
-  // Get markdown styling
-  const containerClasses = getComponentPartStyling('markdown',  'container', '',  props.theme,  customStyling);
-  const editorClasses = getComponentPartStyling('markdown',  'editor', '',  props.theme,  customStyling);
 
   const handleChange = (value: string) => {
     if (props.change) {
