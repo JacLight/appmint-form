@@ -13,60 +13,6 @@ interface RuleResult {
   message?: string;
 }
 
-export const runFormRules = (name: string, path: string, dataPath: string, newValue: any, schema: any, rules: Rule[], data: any, arrayData: any): any => {
-  // console.log('runFormRules', { name, path, dataPath, newValue, schema, rules, data })
-  if (!Array.isArray(rules)) {
-    return null;
-  }
-  const ruleResults: Rule[] = [];
-  const mergedData = { ...data, ...arrayData };
-  for (let rule of rules) {
-    if (isEmpty(rule.actions) || isEmpty(rule.operations)) {
-      console.warn('Skipping: rule incomplete, actions and operations are required', rule);
-      continue;
-    }
-
-    let ruleResult: Rule | undefined;
-    for (let operation of rule.operations) {
-      const result = executeRule(operation.operator, operation.valueA, operation.valueB, mergedData);
-      const allValid = ruleResult ? ruleResult.valid && result.valid : result.valid;
-      ruleResult = { ...rule, valid: allValid };
-      if (rule.join === 'or' && ruleResult.valid) {
-        break;
-      }
-      if (rule.join === 'and' && !ruleResult.valid) {
-        break;
-      }
-    }
-    if (ruleResult) {
-      ruleResults.push(ruleResult);
-    }
-  }
-
-  const resultByPath: any = {};
-  ruleResults.forEach(rule => {
-    rule.actions.forEach(action => {
-      if ((typeof action.when === 'undefined' || action.when === 'true') && rule.valid) {
-        const { operator, value, fields } = action;
-        fields.forEach((field: string) => {
-          resultByPath[field] = resultByPath[field] || [];
-          const pathActions = resultByPath[field];
-          pathActions.push({ operator, field, value });
-        });
-      } else if (action.when === 'false' && !rule.valid) {
-        const { operator, value, fields } = action;
-        fields.forEach((field: string) => {
-          resultByPath[field] = resultByPath[field] || [];
-          const pathActions = resultByPath[field];
-          pathActions.push({ operator, field, value });
-        });
-      }
-    });
-  });
-
-  return resultByPath;
-};
-
 export const runElementRules = (schema: any, data: any, arrayData: any): any => {
   if (!Array.isArray(schema.rules)) {
     return null;

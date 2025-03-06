@@ -8,7 +8,7 @@ import { FormPopup } from '../form-view/form-popup';
 import { cleanControlType, getControlType } from '../utils/collection-helpers';
 import { getWatchedPaths } from '../form-view/form-utils';
 import { applyFormTransform, applyFunction } from '../form-view/form-transforms';
-import { runElementRules, runFormRules } from '../form-view/form-rules';
+import { runElementRules } from '../form-view/form-rules';
 import { validateFormValue } from '../form-view/form-validator';
 import { twMerge } from 'tailwind-merge';
 import * as objectPath from 'object-path';
@@ -110,9 +110,9 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
     setItemValue(dataPath, newValue, arrayIndex);
     // setLocalValue(newValue);
 
-    const parentData = getItemValue(`${props.parentDataPath}`);
-    const ruleResults = runFormRules(name, path, dataPath, newValue, schema, rules, data, parentData);
-    setStateItem({ ruleResults });
+    // const parentData = getItemValue(`${props.parentDataPath}`);
+    // const ruleResults = runFormRules(name, path, dataPath, newValue, schema, rules, data, parentData);
+    // setStateItem({ ruleResults });
   };
 
   const handleBlur = async (newValue, isFile?) => {
@@ -150,8 +150,8 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
     setItemValue(dataPath, newValue, arrayIndex, false, isFile);
     // setLocalValue(newValue);
     const arrayData = typeof arrayIndex === 'number' ? getItemValue(`${props.parentDataPath}`) : null;
-    const ruleResults = runFormRules(name, path, dataPath, newValue, schema, rules, data, arrayData);
-    setStateItem({ ruleResults });
+    // const ruleResults = runFormRules(name, path, dataPath, newValue, schema, rules, data, arrayData);
+    // setStateItem({ ruleResults });
     applyRuleResult();
 
     if (schema.fetchData?.datatype) {

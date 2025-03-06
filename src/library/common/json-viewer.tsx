@@ -1,5 +1,10 @@
+'use client';
+
 import React from 'react';
-import ReactJson, { ThemeKeys } from 'react-json-view';
+// ReactJson is the default export
+import ReactJson from 'react-json-view';
+// ThemeKeys might be a type, let's define it ourselves
+type ThemeKeys = 'rjv-default' | 'apathy' | 'apathy:inverted' | 'ashes' | 'bespin' | 'brewer' | 'bright:inverted' | 'bright' | 'chalk' | 'codeschool' | 'colors' | 'eighties' | 'embers' | 'flat' | 'google' | 'grayscale' | 'grayscale:inverted' | 'greenscreen' | 'harmonic' | 'hopscotch' | 'isotope' | 'marrakesh' | 'mocha' | 'monokai' | 'ocean' | 'paraiso' | 'pop' | 'railscasts' | 'shapeshifter' | 'shapeshifter:inverted' | 'solarized' | 'summerfruit' | 'summerfruit:inverted' | 'threezerotwofour' | 'tomorrow' | 'tube' | 'twilight';
 
 enum iconStype {
   'circle' = 'circle',
@@ -27,6 +32,8 @@ const defaultProps = {
 };
 
 export const JSONViewer = props => {
+  if (typeof window === 'undefined') return null;
+
   const { json, allowEdit, allowAdd, allowDelete } = props;
 
   const onUpdate = update => {

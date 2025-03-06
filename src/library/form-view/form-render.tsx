@@ -9,7 +9,6 @@ import { deepCopy } from '../utils';
 import { isEmpty } from '../utils';
 import { isNotEmpty } from '../utils';
 import { FormRenderArray } from './form-render-array';
-import { runFormRules } from './form-rules';
 import React, { useEffect, useState } from 'react';
 import { runElementRules } from './form-rules';
 import { getWatchedPaths } from './form-utils';

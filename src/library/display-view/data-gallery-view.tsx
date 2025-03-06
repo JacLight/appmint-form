@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react';
 import { BaseModelDTO, classNames, getRandomString, getResponseErrorMessage } from '../utils';
 import { useShallow } from 'zustand/shallow';
@@ -17,7 +18,7 @@ export const DataGalleryView = (props: { datatype?; data?, popup?, filter?, open
   const [activeTab, setActiveTab] = React.useState('list');
   const [activeRecord, setActiveRecord] = React.useState(null);
   const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [dataDTO, setDataDTO] = React.useState<BaseModelDTO<any>>(null);
+  const [dataDTO, setDataDTO] = React.useState<BaseModelDTO<any> | null>(null);
   const [error, setError] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const [datatype, setDatatype] = React.useState(props.datatype || dataViewProps?.datatype);
@@ -52,8 +53,8 @@ export const DataGalleryView = (props: { datatype?; data?, popup?, filter?, open
   const nextRecord = () => {
     setError(null);
     const currentIndex = dataDTO?.data.findIndex(item => item.sk === activeRecord?.sk);
-    if (currentIndex < dataDTO?.data.length - 1) {
-      setActiveRecord(dataDTO?.data[currentIndex + 1]);
+    if (currentIndex !== undefined && dataDTO && currentIndex < dataDTO.data.length - 1) {
+      setActiveRecord(dataDTO.data[currentIndex + 1]);
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -61,7 +62,7 @@ export const DataGalleryView = (props: { datatype?; data?, popup?, filter?, open
   const prevRecord = () => {
     setError(null);
     const currentIndex = dataDTO?.data.findIndex(item => item.sk === activeRecord?.sk);
-    if (currentIndex > 0) {
+    if (currentIndex !== undefined && currentIndex > 0) {
       setActiveRecord(dataDTO?.data[currentIndex - 1]);
       setCurrentIndex(currentIndex - 1);
     }
@@ -74,7 +75,9 @@ export const DataGalleryView = (props: { datatype?; data?, popup?, filter?, open
       return;
     }
     setActiveRecord(record);
-    setCurrentIndex(currentIndex);
+    if (currentIndex !== undefined) {
+      setCurrentIndex(currentIndex);
+    }
     setActiveTab('detail');
   };
 
