@@ -1,7 +1,8 @@
-import { isJsonString, getCountryRegions, getCountryDropDownOptions, isNotEmpty, toSentenceCase, toTitleCase, themeSettingsList } from '../utils';
+import { isJsonString, isNotEmpty, toSentenceCase, toTitleCase, themeSettingsList } from '../utils';
 import * as objectPath from 'object-path';
 import { validateValue } from './form-validator';
 import { } from '../context/store';
+import { getCountryDropDownOptions, getCountryRegions } from '../common/countries';
 
 // Stubs for missing dependencies
 export const CollectionHelper = {

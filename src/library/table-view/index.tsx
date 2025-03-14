@@ -23,6 +23,9 @@ const GenerateSchema = {
     })
 };
 
+export type TableEvents = 'data-request' | 'data-loaded' | 'select' | 'export' | 'refresh' | 'delete' | 'add' | 'datatype';
+export type RowEvents = 'edit' | 'delete' | 'view' | 'clone' | 'select';
+
 export const CollectionTable = (props: {
     hash?;
     options?;
@@ -38,8 +41,8 @@ export const CollectionTable = (props: {
     inlineEdit?;
     datatype?;
     isDemo?;
-    onRowEvent?: (event, rowId, row) => any;
-    onTableEvent?: (event, option, selected) => any;
+    onRowEvent?: (event: RowEvents, rowId, row) => any;
+    onTableEvent?: (event: TableEvents, option, selected) => any;
     isLoading?;
     cellRenderers?;
     itemRenderer?;
@@ -205,10 +208,16 @@ export const CollectionTable = (props: {
     const selectRow = e => {
         const id = e.currentTarget.id;
         const index = selectedRows.indexOf(id);
+        let selected;
         if (index > -1) {
-            setSelectedRows(selectedRows.filter(row => row !== id));
+            selected = selectedRows.filter(row => row !== id);
         } else {
-            setSelectedRows([...selectedRows, id]);
+            selected = [...selectedRows, id];
+        }
+        setSelectedRows(selected);
+
+        if (props.onRowEvent) {
+            props.onRowEvent('select', id, selected);
         }
     };
 

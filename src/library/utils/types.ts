@@ -31,39 +31,6 @@ export interface BaseModel<T> {
     // Add other properties as needed
 }
 
-// Country data functions
-export function getCountryDropDownOptions() {
-    return [
-        { value: 'us', label: 'United States' },
-        { value: 'ca', label: 'Canada' },
-        { value: 'uk', label: 'United Kingdom' },
-        // Add more countries as needed
-    ];
-}
-
-export function getCountryRegions(countryCode: string) {
-    if (countryCode === 'us') {
-        return [
-            { value: 'al', label: 'Alabama' },
-            { value: 'ak', label: 'Alaska' },
-            // Add more US states as needed
-        ];
-    } else if (countryCode === 'ca') {
-        return [
-            { value: 'ab', label: 'Alberta' },
-            { value: 'bc', label: 'British Columbia' },
-            // Add more Canadian provinces as needed
-        ];
-    } else if (countryCode === 'uk') {
-        return [
-            { value: 'eng', label: 'England' },
-            { value: 'sct', label: 'Scotland' },
-            // Add more UK regions as needed
-        ];
-    }
-    return [];
-}
-
 export const themeSettingsList = [
     { name: 'light', description: 'Light theme' },
     { name: 'dark', description: 'Dark theme' },
