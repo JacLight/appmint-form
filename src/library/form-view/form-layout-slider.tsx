@@ -141,7 +141,7 @@ export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }
           schema={layout}
         >
           <button title="Slide" onClick={e => makeActiveSlide(e, -1)}>
-            <IconRenderer icon="GrPlay" />
+            <IconRenderer icon="Play" />
           </button>
         </StyledComponent>
         <StyledComponent
@@ -150,7 +150,7 @@ export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }
           schema={layout}
         >
           <button title="Previous" onClick={skipPrev}>
-            <IconRenderer icon="PiSkipBack" />
+            <IconRenderer icon="SkipBack" />
           </button>
         </StyledComponent>
         <StyledComponent
@@ -159,7 +159,7 @@ export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }
           schema={layout}
         >
           <button title="Next" onClick={skipNext}>
-            <IconRenderer icon="PiSkipForward" />
+            <IconRenderer icon="SkipForward" />
           </button>
         </StyledComponent>
         {layout?.items?.map((_, idx) => (

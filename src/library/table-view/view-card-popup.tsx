@@ -41,7 +41,7 @@ export const CollectionTableCardPopup = (props: { component?; isOpen; close }) =
                 {popupComponent}
                 <button type="button" className="absolute right-4 top-4 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white" onClick={close}>
                   <span className="sr-only">Close</span>
-                  <IconRenderer icon="HiOutlineXMark" className="h-6 w-6" aria-hidden="true" />
+                  <IconRenderer icon="X" className="h-6 w-6" aria-hidden="true" />
                 </button>
               </Dialog.Panel>
             </Transition.Child>
