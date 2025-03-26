@@ -149,7 +149,7 @@ export const SliderElement: React.FC<SliderProps> = ({
           onFocus={handleFocus}
           title={schema?.title || name || "Value input"}
           aria-label={schema?.title || name || "Value input"}
-          className="w-full max-w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+          className="w-full max-w-14 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-px text-right"
         />
       ) : (
         showValue && (

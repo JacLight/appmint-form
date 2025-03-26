@@ -3,7 +3,7 @@ import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { twMerge } from 'tailwind-merge';
 
-export const ShadowElement = ({ schema, theme }) => {
+export const ShadowElement = ({ change, blur, value, schema, theme }) => {
   const [shadowType, setShadowType] = useState('box-shadow');
   const [shadowColor, setShadowColor] = useState('#000000');
   const [shadowOpacity, setShadowOpacity] = useState(0.5);
@@ -19,6 +19,10 @@ export const ShadowElement = ({ schema, theme }) => {
   const customStyling = schema ? extractStylingFromSchema(schema) : undefined;
 
   useEffect(() => {
+    // setCssCode(value)
+  }, []);
+
+  useEffect(() => {
     const color = shadowColor + Math.round(shadowOpacity * 255).toString(16).padStart(2, '0');
     let shadowValue = '';
 
@@ -29,6 +33,10 @@ export const ShadowElement = ({ schema, theme }) => {
     }
 
     setCssCode(`${shadowType}: ${shadowValue};`);
+    if(blur){
+      blur(shadowValue);
+    }
+    
   }, [shadowType, shadowColor, shadowOpacity, shadowBlur, shadowSpread, shadowX, shadowY, isInset]);
 
   const handleMouseDown = (e) => {
@@ -173,7 +181,6 @@ export const ShadowElement = ({ schema, theme }) => {
           className="flex-1 flex flex-col gap-1.5 text-xs"
         >
           <div className="flex gap-1 items-center">
-            <label htmlFor="shadow-color" className="w-16">Color:</label>
             <input
               id="shadow-color"
               type="color"
@@ -189,74 +196,6 @@ export const ShadowElement = ({ schema, theme }) => {
               className="w-16 px-1 py-0.5 border border-gray-300 rounded text-xs"
               aria-label="Shadow color hex value"
             />
-            <label htmlFor="shadow-opacity" className="ml-2">Opacity:</label>
-            <input
-              id="shadow-opacity"
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={shadowOpacity}
-              onChange={(e) => setShadowOpacity(parseFloat(e.target.value))}
-              className="w-16"
-              aria-label="Shadow opacity"
-            />
-            <span className="w-8 text-right">{Math.round(shadowOpacity * 100)}%</span>
-          </div>
-
-          <div className="flex gap-1 items-center">
-            <label htmlFor="shadow-blur" className="w-16">Blur:</label>
-            <input
-              id="shadow-blur"
-              type="range"
-              min="0"
-              max="50"
-              value={shadowBlur}
-              onChange={(e) => setShadowBlur(parseInt(e.target.value))}
-              className="w-32"
-              aria-label="Shadow blur"
-            />
-            <span className="w-8 text-right">{shadowBlur}px</span>
-
-            {shadowType === 'box-shadow' && (
-              <>
-                <label htmlFor="shadow-spread" className="ml-2">Spread:</label>
-                <input
-                  id="shadow-spread"
-                  type="range"
-                  min="-25"
-                  max="25"
-                  value={shadowSpread}
-                  onChange={(e) => setShadowSpread(parseInt(e.target.value))}
-                  className="w-20"
-                  aria-label="Shadow spread"
-                />
-                <span className="w-8 text-right">{shadowSpread}px</span>
-              </>
-            )}
-          </div>
-
-          <div className="flex gap-1 items-center">
-            <label className="w-16">Offset:</label>
-            <span className="mr-1">X:</span>
-            <input
-              id="shadow-x"
-              type="number"
-              value={shadowX}
-              onChange={(e) => setShadowX(parseInt(e.target.value) || 0)}
-              className="w-12 px-1 py-0.5 border border-gray-300 rounded text-xs"
-              aria-label="Shadow X offset"
-            />
-            <span className="mx-1">Y:</span>
-            <input
-              id="shadow-y"
-              type="number"
-              value={shadowY}
-              onChange={(e) => setShadowY(parseInt(e.target.value) || 0)}
-              className="w-12 px-1 py-0.5 border border-gray-300 rounded text-xs"
-              aria-label="Shadow Y offset"
-            />
-
             {shadowType === 'box-shadow' && (
               <div className="flex items-center ml-2">
                 <input
@@ -271,19 +210,89 @@ export const ShadowElement = ({ schema, theme }) => {
               </div>
             )}
           </div>
+          <div className="flex gap-1 items-center">
+            <label htmlFor="shadow-opacity" className="text-xs  w-12 truncate">Opacity:</label>
+            <input
+              id="shadow-opacity"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={shadowOpacity}
+              onChange={(e) => setShadowOpacity(parseFloat(e.target.value))}
+              className="w-20"
+              aria-label="Shadow opacity"
+            />
+            <span className="w-8 text-[9px] text-right">{Math.round(shadowOpacity * 100)}%</span>
+          </div>
 
-          <StyledComponent
-            componentType="shadow"
-            part="code"
-            schema={schema}
-            theme={theme}
-            className="mt-1 text-xs"
-          >
-            <pre className="p-1 bg-gray-100 rounded font-mono overflow-x-auto border border-gray-200">
-              {cssCode}
-            </pre>
-          </StyledComponent>
+          <div className="flex gap-1 items-center">
+            <label htmlFor="shadow-blur" className="text-xs  w-12 truncate">Blur:</label>
+            <input
+              id="shadow-blur"
+              type="range"
+              min="0"
+              max="100"
+              value={shadowBlur}
+              onChange={(e) => setShadowBlur(parseInt(e.target.value))}
+              className="w-20"
+              aria-label="Shadow blur"
+            />
+            <span className="w-8 text-[9px] text-right">{shadowBlur}px</span>
+          </div>
+
+          {shadowType === 'box-shadow' && (
+            <div className="flex gap-1 items-center">
+              <label htmlFor="shadow-spread" className="text-xs w-12 truncate">Spread:</label>
+              <input
+                id="shadow-spread"
+                type="range"
+                min="-25"
+                max="100"
+                value={shadowSpread}
+                onChange={(e) => setShadowSpread(parseInt(e.target.value))}
+                className="w-20"
+                aria-label="Shadow spread"
+              />
+              <span className="w-8 text-[9px] text-right">{shadowSpread}px</span>
+            </div>
+          )}
+
+          <div className="">
+            <label className="text-xs">Offset:</label>
+            <div className="flex gap-1 items-center">
+              <span className="text-xs">X:</span>
+              <input
+                id="shadow-x"
+                type="number"
+                value={shadowX}
+                onChange={(e) => setShadowX(parseInt(e.target.value) || 0)}
+                className="w-14 px-1 py-0.5 border border-gray-300 rounded text-xs mr-2"
+                aria-label="Shadow X offset"
+              />
+              <span className="text-xs">Y:</span>
+              <input
+                id="shadow-y"
+                type="number"
+                value={shadowY}
+                onChange={(e) => setShadowY(parseInt(e.target.value) || 0)}
+                className="w-14 px-1 py-0.5 border border-gray-300 rounded text-xs mr-2"
+                aria-label="Shadow Y offset"
+              />
+            </div>
+          </div>
         </StyledComponent>
+      </StyledComponent>
+      <StyledComponent
+        componentType="shadow"
+        part="code"
+        schema={schema}
+        theme={theme}
+        className="mt-1 text-xs"
+      >
+        <pre className="p-1 bg-gray-100 rounded font-mono overflow-x-auto border border-gray-200">
+          {cssCode}
+        </pre>
       </StyledComponent>
     </StyledComponent>
   );

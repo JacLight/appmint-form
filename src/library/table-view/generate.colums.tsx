@@ -1,5 +1,6 @@
 import React, { HTMLProps } from 'react';
 import { toSentenceCase, toTitleCase } from '../utils';
+import { IconRenderer } from '../common/icons/icon-renderer';
 interface Column {
   header: string;
   accessorKey?: string;
@@ -20,7 +21,7 @@ const idColumn = (idField = 'sk') => {
 };
 
 // utils.js
-export const determineMetaType = field => {
+export const determineMetaType = (key, field) => {
   if (field.format) {
     switch (field.format) {
       case 'uri':
@@ -47,6 +48,18 @@ export const determineMetaType = field => {
 
   if (field.enum) {
     return 'enum';
+  }
+
+  if (key.toLowerCase().includes('email')) {
+    return 'email';
+  }
+
+  if (key.toLowerCase().includes('image') || key.toLowerCase().includes('photo') || key.toLowerCase().includes('portrait')) {
+    return 'image';
+  }
+
+  if (key.toLowerCase() === 'status' || key.toLowerCase().includes('state')) {
+    return 'status';
   }
 
   switch (field.type) {
@@ -91,7 +104,7 @@ export const convertSchemaToColumns = (idField, dataPrefix, schema, auditField =
           columns.push({
             header: toSentenceCase(`${capitalizeFirstLetter(key)}.${capitalizeFirstLetter(subKey)}`),
             accessorKey,
-            meta: determineMetaType(subValue), // Assign meta.type
+            meta: determineMetaType(subKey, subValue), // Assign meta.type
           });
         }
       } else {
@@ -100,7 +113,7 @@ export const convertSchemaToColumns = (idField, dataPrefix, schema, auditField =
         columns.push({
           header: toSentenceCase(capitalizeFirstLetter(key)),
           accessorKey,
-          meta: determineMetaType(value), // Assign meta.type
+          meta: determineMetaType(key, value), // Assign meta.type
         });
       }
     }
@@ -108,8 +121,11 @@ export const convertSchemaToColumns = (idField, dataPrefix, schema, auditField =
 
   // Assign cell renderers and other properties
   columns.forEach(column => {
-    if (cellRenderers && cellRenderers[column.accessorKey]) {
-      column.cell = cellRenderers[column.accessorKey];
+    let thisRenderer = cellRenderers ? cellRenderers[column.accessorKey] : null;
+    thisRenderer = thisRenderer || getDefaultRenderer(schema, column.meta);
+
+    if (thisRenderer) {
+      column.cell = thisRenderer;
     }
     column.filterFn = 'fuzzy';
 
@@ -185,3 +201,66 @@ function IndeterminateCheckbox({ indeterminate, className = '', ...rest }: { ind
 
   return <input type="checkbox" ref={ref} className={className + ' cursor-pointer'} {...rest} />;
 }
+
+const getDefaultRenderer = (schema, meta) => {
+  if (!meta && schema) return null;
+
+  const renderers = {
+    boolean: ({ cell, row }) => {
+      return row.original[cell.column.id] ? (
+        <div className="w-5 h-5 rounded-full bg-green-500 text-white mx-auto flex items-center justify-center p-1">
+          <IconRenderer icon="Check" />
+        </div>
+      ) : (
+        <div className="w-5 h-5 p-1 rounded-full bg-red-500 mx-auto flex items-center justify-center">
+          <IconRenderer icon="X" />
+        </div>
+      );
+    },
+    date: ({ cell }) => {
+      return cell.value ? new Date(cell.value).toLocaleDateString() : '';
+    },
+    email: ({ cell }) => {
+      return <a href={`mailto:${cell.value}`}>{cell.value}</a>;
+    },
+    file: ({ cell }) => {
+      return cell.value ? <a href={cell.value}>Download</a> : '';
+    },
+    image: ({ cell }) => {
+      return cell.value ? <img src={cell.value} alt="Image" className="w-8 h-8 rounded-full" /> : '';
+    },
+    link: ({ cell }) => {
+      return cell.value ? <a href={cell.value}>{cell.value}</a> : '';
+    },
+    enum: ({ cell }) => {
+      return cell.value ? toTitleCase(cell.value) : '';
+    },
+    number: ({ cell }) => {
+      return cell.value ? cell.value.toLocaleString() : '';
+    },
+    array: ({ cell }) => {
+      return cell.value ? cell.value.join(', ') : '';
+    },
+    object: ({ cell }) => {
+      return cell.value ? JSON.stringify(cell.value) : '';
+    },
+    string: ({ cell }) => {
+      return cell.value;
+    },
+    status: ({ cell }) => {
+      return <span className={`px-2 py-1 rounded-full ${statusColors[cell.value.toLowerCase()]}`}>{cell.value}</span>;
+    }
+  };
+
+  return renderers[meta];
+}
+
+const statusColors = {
+  active: 'bg-green-500 text-white',
+  inactive: 'bg-red-500 text-white',
+  pending: 'bg-yellow-500 text-white',
+  warning: 'bg-yellow-500 text-white',
+  error: 'bg-red-500 text-white',
+  success: 'bg-green-500 text-white',
+}
+

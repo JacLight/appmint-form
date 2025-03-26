@@ -163,7 +163,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
         part="button"
         schema={props.schema}
         theme={props.theme}
-        className="relative flex rounded gap-1 bg-white shadow-sm ring-1 ring-inset border-0 ring-gray-30 w-full items-center"
+        className="relative flex rounded gap-1 bg-white shadow-sm ring-1 ring-inset p-px border-0 ring-gray-30 w-full items-center"
       >
         {listSelected && Array.isArray(selections) && isNotEmpty(selections) && (
           <StyledComponent

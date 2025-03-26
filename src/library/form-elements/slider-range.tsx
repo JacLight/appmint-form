@@ -275,7 +275,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
             onBlur={handleMinBlur}
             title={`Minimum ${schema?.title || name || "value"}`}
             aria-label={`Minimum ${schema?.title || name || "value"}`}
-            className="w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+            className="w-14 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-px text-right"
           />
           <span className="text-xs font-semibold text-gray-600">to</span>
           <StyledComponent
@@ -293,7 +293,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
             onBlur={handleMaxBlur}
             title={`Maximum ${schema?.title || name || "value"}`}
             aria-label={`Maximum ${schema?.title || name || "value"}`}
-            className="w-16 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-1 text-right"
+            className="w-14 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-px text-right"
           />
         </div>
       ) : (

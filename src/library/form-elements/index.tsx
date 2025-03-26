@@ -110,7 +110,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
     setItemValue(dataPath, newValue, arrayIndex);
     // setLocalValue(newValue);
 
-    // const parentData = getItemValue(`${props.parentDataPath}`);
+    const parentData = getItemValue(`${props.parentDataPath}`);
     // const ruleResults = runFormRules(name, path, dataPath, newValue, schema, rules, data, parentData);
     // setStateItem({ ruleResults });
   };
@@ -149,7 +149,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
     }
     setItemValue(dataPath, newValue, arrayIndex, false, isFile);
     // setLocalValue(newValue);
-    const arrayData = typeof arrayIndex === 'number' ? getItemValue(`${props.parentDataPath}`) : null;
+    // const arrayData = typeof arrayIndex === 'number' ? getItemValue(`${props.parentDataPath}`) : null;
     // const ruleResults = runFormRules(name, path, dataPath, newValue, schema, rules, data, arrayData);
     // setStateItem({ ruleResults });
     applyRuleResult();
@@ -230,6 +230,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
         focus={handleFocus}
         value={value}
         data={data}
+        parentData={getItemValue(parentPath)}
         schema={ruleSchema}
         name={name}
         mode={props.mode}
@@ -237,6 +238,8 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
         ui={ruleSchema['x-ui']}
         dataPath={dataPath}
         theme={theme}
+        arrayIndex={arrayIndex}
+        parentDataPath={props.parentDataPath}
         // reloadValue={reloadValue}
         updateRepository={updateRepository}
         className={twMerge('placeholder:text-xs', inputTheme?.className, controlTheme?.className, uiInputStyle?.classes?.join(' '), uiControlStyle?.classes?.join(' '))}

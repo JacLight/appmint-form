@@ -180,10 +180,10 @@ export const getWatchedPaths = (schema, parentPath, arrayIndex?) => {
   if (!schema) return;
   let watchedPaths = schema?.watchedPaths || [];
   if (schema?.title?.startsWith('{{') && schema?.title?.endsWith('}}')) {
-    watchedPaths.push(schema.title.slice(2, -2));
+    watchedPaths.push(schema.title?.slice(2, -2));
   }
   if (typeof schema?.default === 'string' && schema?.default?.startsWith('{{') && schema?.default?.endsWith('}}')) {
-    watchedPaths.push(schema.title.slice(2, -2));
+    watchedPaths.push(schema.title?.slice(2, -2));
   }
   if (schema?.rules) {
     schema.rules.forEach(rule => {
