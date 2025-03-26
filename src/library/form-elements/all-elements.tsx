@@ -1,15 +1,16 @@
 import React from 'react';
+// Export styling components and utilities
+export { StyledComponent } from './styling';
+export { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { ButtonElement } from './button-element';
 import { CodeElement } from './code-element';
 import { ColorElement } from './color-element';
 import { CronElement } from './cron-element';
 import { DateElement } from './date-element';
-import { DateRangeElement } from './date-range-element';
 import { FileElement } from './file-element';
-import { HTMLElement } from './html-element';
 import { IconPickerElement } from './icon-picker-element';
 import { LabelElement } from './label-element';
-import { MapElement } from './map-element';
+import { MapElementNew } from './map-element-new';
 import { MarkdownElement } from './markdown-element';
 import { NumberElement } from './number-element';
 import { NumberRangeElement } from './number-range-element';
@@ -26,7 +27,12 @@ import { RankingInput } from './ranking';
 import { GeneratedElement } from './generated-element';
 import { SocialLinksElement } from './social-links';
 import { LegalConsentElement } from './legal-concent';
-import { PreSelectElement } from './pre-select';
+import { DateRangeElement } from './date-range';
+import { DataViewElement } from './data-view-element';
+import { DataLookupCombo } from './data-lookup-combo';
+import { ShadowElement } from './shadow-element';
+import { CaptureElement } from './capture-element';
+import { SignatureElement } from './signature-element';
 
 export * from './color-element';
 export * from './code-element';
@@ -39,47 +45,60 @@ export * from './text-element';
 export * from './file-element';
 export * from './uuid-element';
 export * from './date-element';
-export * from './map-element';
+export * from './map-element-new';
 export * from './button-element';
 export * from './label-element';
 export * from './cron-element';
 export * from './icon-picker-element';
 export * from './markdown-element';
 export * from './preview-element';
-export * from './html-element';
 export * from './number-range-element';
 export * from './phone';
+export * from './date-range';
+export * from './data-view-element';
+export * from './rating';
+export * from './ranking';
+export * from './generated-element';
+export * from './social-links';
+export * from './legal-concent';
+export * from './data-lookup-combo';
+export * from './capture-element';
+export * from './signature-element';
 
-export const elementToNameMap = {
-    'text': TextElement,
-    'number': NumberElement,
-    'file': FileElement,
-    'selectsingle': SelectSingleElement,
-    'selectmany': SelectManyElement,
-    'richtext': RichtextElement,
-    'paragraph': ParagraphElement,
-    'code': CodeElement,
-    'date': DateElement,
-    'daterange': DateRangeElement,
-    'color': ColorElement,
-    'uuid': UuidElement,
-    'map': MapElement,
-    'button': ButtonElement,
-    'label': LabelElement,
-    'cron': CronElement,
-    'phone': PhoneElement,
-    'icon': IconPickerElement,
-    'markdown': MarkdownElement,
-    'html': HTMLElement,
-    'preview': PreviewElement,
-    'numberrange': NumberRangeElement,
-    'address': NumberRangeElement,
-    'rating': RatingInput,
-    'ranking': RankingInput,
-    'generated': GeneratedElement,
-    'sociallinks': SocialLinksElement,
-    'legalconsent': LegalConsentElement,
-    'preselect': PreSelectElement,
-    'default': ({ name }) => <div>Unknown element {name}</div>,
-
-}
+// Use a more generic type to avoid TypeScript errors with prop interfaces
+export const elementToNameMap: Record<string, React.ComponentType<any>> = {
+  dataview: DataViewElement,
+  text: TextElement,
+  textarea: TextElement,
+  number: NumberElement,
+  shadow: ShadowElement,
+  file: FileElement,
+  selectsingle: SelectSingleElement,
+  selectmany: SelectManyElement,
+  richtext: RichtextElement,
+  paragraph: ParagraphElement,
+  code: CodeElement,
+  date: DateElement,
+  daterange: DateRangeElement,
+  color: ColorElement,
+  uuid: UuidElement,
+  map: MapElementNew,
+  button: ButtonElement,
+  label: LabelElement,
+  cron: CronElement,
+  phone: PhoneElement,
+  icon: IconPickerElement,
+  markdown: MarkdownElement,
+  preview: PreviewElement,
+  numberrange: NumberRangeElement,
+  address: NumberRangeElement,
+  rating: RatingInput,
+  ranking: RankingInput,
+  generated: GeneratedElement,
+  sociallinks: SocialLinksElement,
+  legalconsent: LegalConsentElement,
+  lookup: DataLookupCombo,
+  capture: CaptureElement,
+  signature: SignatureElement,
+  default: ({ name }) => <div>Unknown element {name}</div>,
+};

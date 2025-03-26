@@ -1,35 +1,105 @@
-import { Icon } from '../common/icons/list';
+import { IconRenderer } from '../common/icons/icon-renderer';
 import React, { useState } from 'react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export const RatingInput = (props: { path, update, schema: { scale, update, total, title } }) => {
-  const [rating, setRating] = useState<number>(0);
+export const RatingInput = (props: {
+  path;
+  change;
+  blur;
+  value;
+  data;
+  schema: {
+    scale;
+    update;
+    total;
+    min;
+    max
+  };
+  theme?;
+}) => {
+
+  const [rating, setRating] = useState<number>(props.value || 0);
   const [hover, setHover] = useState<number>(0);
 
   const handleRating = (newRating: number) => {
     setRating(newRating);
-    if (props.update) {
-      props.update(props.path, newRating);
+
+    // Notify parent component of change
+    if (props.change) {
+      props.change(newRating);
+    }
+
+    if (props.blur) {
+      props.blur(newRating);
     }
   };
 
-  const { scale = 5, total, title } = props.schema;
+  const { scale = 5, total } = props.schema;
+
   return (
-    <div className='flex justify-start'>
-      <div className='flex justify-start items-center gap-2 text-xs'>
+    <StyledComponent
+      componentType="rating"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className="flex items-center"
+    >
+      <StyledComponent
+        componentType="rating"
+        part="starsContainer"
+        schema={props.schema}
+        theme={props.theme}
+        className="flex justify-start items-center gap-2 text-xs"
+      >
         {[...Array(scale)].map((_, i) => {
           const ratingValue = i + 1;
+          const isFilled = ratingValue <= (hover || rating);
+
           return (
-            <span key={ratingValue} onMouseEnter={() => setHover(ratingValue)} onMouseLeave={() => setHover(0)}>
-              {ratingValue <= (hover || rating) ? (
-                <button title={title} onClick={() => handleRating(ratingValue)} > <Icon name='FaStar' className=' fill-yellow-400 stroke-yellow-500 ' /></button>
-              ) : (
-                <button title={title} onClick={() => handleRating(ratingValue)}> <Icon name='FaRegStar' className=' fill-yellow-400 stroke-yellow-500 ' /></button>
-              )}
-            </span>
+            <StyledComponent
+              key={ratingValue}
+              componentType="rating"
+              part="star"
+              schema={props.schema}
+              theme={props.theme}
+              as="span"
+              onMouseEnter={() => setHover(ratingValue)}
+              onMouseLeave={() => setHover(0)}
+            >
+              <StyledComponent
+                componentType="rating"
+                part={isFilled ? "starFilled" : "starEmpty"}
+                schema={props.schema}
+                theme={props.theme}
+                as="button"
+                onClick={() => handleRating(ratingValue)}
+                title={`Rate ${ratingValue} out of ${scale}`}
+                aria-label={`Rate ${ratingValue} out of ${scale}`}
+                className={isFilled ? "focus:outline-none" : "focus:outline-none"}
+              >
+                <IconRenderer
+                  icon="Star"
+                  className={isFilled ? "fill-yellow-400 stroke-yellow-500" : "fill-white stroke-gray-500"}
+                />
+              </StyledComponent>
+            </StyledComponent>
           );
         })}
-        {total && <span>{total}</span>}
-      </div>
-    </div>
+
+        {total && (
+          <StyledComponent
+            componentType="rating"
+            part="total"
+            schema={props.schema}
+            theme={props.theme}
+            as="span"
+          >
+            {total}
+          </StyledComponent>
+        )}
+      </StyledComponent>
+    </StyledComponent>
   );
 };

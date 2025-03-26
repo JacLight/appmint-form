@@ -1,22 +1,85 @@
-import { Icon } from '../common/icons/list';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { IconRenderer } from '../common/icons/icon-renderer';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export const GeneratedElement = (props: { path, name }) => {
-  const prop: any = {}
-  const [value, setValue] = React.useState<any>();
+interface GeneratedElementProps {
+  path?: string;
+  name?: string;
+  schema?: any;
+  theme?: any;
+  className?: string;
+  value?: string;
+  change?: (value: string) => void;
+  blur?: (value: string) => void;
+}
+
+export const GeneratedElement: React.FC<GeneratedElementProps> = (props) => {
+
+  const [value, setValue] = useState<string | undefined>(props.value);
+
+  // Update state when props.value changes
+  useEffect(() => {
+    if (props.value) {
+      setValue(props.value);
+    }
+  }, [props.value]);
 
   const handleUpdate = () => {
     const uuid = uuidv4();
     setValue(uuid);
+
+    // Notify parent components
+    if (props.change) {
+      props.change(uuid);
+    }
+
+    if (props.blur) {
+      props.blur(uuid);
+    }
   };
 
   return (
-    <div className='flex items-center justify-between page-4 text-sm'>
-      <span className=' font-serif '>
+    <StyledComponent
+      componentType="generated-element"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge("flex items-center justify-between p-4 text-sm", props.className)}
+    >
+      <StyledComponent
+        componentType="generated-element"
+        part="value"
+        schema={props.schema}
+        theme={props.theme}
+        as="span"
+        className="font-serif"
+      >
         {value}
-      </span>
-      <button title='Regenerate' className="button-refresh p-1 rounded-full shadow bg-white" onClick={handleUpdate}> <Icon name='IoRefresh' /> </button>
-    </div>
-  )
-}
+      </StyledComponent>
+
+      <StyledComponent
+        componentType="generated-element"
+        part="button"
+        schema={props.schema}
+        theme={props.theme}
+        as="button"
+        title="Regenerate"
+        className="p-1 rounded-full shadow bg-white"
+        onClick={handleUpdate}
+        aria-label="Generate new UUID"
+      >
+        <StyledComponent
+          componentType="generated-element"
+          part="icon"
+          schema={props.schema}
+          theme={props.theme}
+        >
+          <IconRenderer icon="RefreshCcw" />
+        </StyledComponent>
+      </StyledComponent>
+    </StyledComponent>
+  );
+};

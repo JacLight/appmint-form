@@ -1,18 +1,56 @@
 import React from 'react';
 import { CollectionForm } from './library/form-view';
 import { CollectionTable } from './library/table-view';
+import { RowEvents, TableEvents } from './library/table-view';
 
-// Delete me
-export const Thing = () => {
-  return <div>the snozzberries taste like snozzberries</div>;
+export type { RowEvents, TableEvents };
+export interface AppmintFormProps {
+  demo?: boolean;
+  data?: any;
+  path?: string;
+  title?: string;
+  schema?: any;
+  rules?: any;
+  theme?: any;
+  accessMode?: string;
+  id?: string;
+  datatype?: string;
+  icon?: string;
+  readOnly?: boolean;
+  hash?: string;
+  useAI?: boolean;
+  collapsible?: boolean;
+  onChange?: (path: string, value: any, data: any, files: any, error: any) => any;
+}
+
+export interface AppmintTableProps {
+  hash?: string;
+  options?: any;
+  title?: string;
+  description?: string;
+  data?: any[];
+  path?: string;
+  columns?: any[];
+  filterPreset?: any;
+  schema?: any;
+  filters?: any[];
+  accessMode?: string;
+  inlineEdit?: boolean;
+  datatype?: string;
+  isDemo?: boolean;
+  onRowEvent?: (event: RowEvents, rowId: string, row: any) => any;
+  onTableEvent?: (event: TableEvents, option: any, selected: any[]) => any;
+  isLoading?: boolean;
+  cellRenderers?: Record<string, (value: any, row: any) => React.ReactNode>;
+  itemRenderer?: (item: any) => React.ReactNode;
+}
+
+export const AppmintForm: React.FC<AppmintFormProps> = (props) => {
+  console.log('AppmintForm', props);
+  return <CollectionForm {...props} />;
 };
 
-export const AppmintForm = (props: { initData, rules, schema, theme, datatype, id }) => {
-  const { initData, schema, theme, datatype, rules, id } = props;
-  return <CollectionForm data={initData || {}} path={''} schema={schema} accessMode={''} theme={theme || {}} rules={rules} datatype={datatype} id={id} />
-}
-
-export const AppmintTable = (props: { title, rules, schema, theme, datatype, description, id }) => {
-  const { schema, theme, datatype, description, rules, title } = props;
-  return <CollectionTable theme={theme} rules={rules} title={title} description={description} data={{}} path={''} schema={schema} accessMode={''} datatype={datatype} />
-}
+export const AppmintTable: React.FC<AppmintTableProps> = (props) => {
+  console.log('AppmintTable', props);
+  return <CollectionTable {...props} />;
+};

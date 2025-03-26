@@ -1,95 +1,180 @@
-import React from 'react';
 import { LoadingIndicator } from '../common/loading-indicator';
-import { getFormLayout, useFormStore } from './form-store';
+import { formLayouts } from '../context/store';
+import { getElementTheme } from '../context/store';
+import { useFormStore } from '../context/store';
 import { FormElementRender } from '../form-elements';
 import { ElementWrapperLayout } from '../form-elements/element-wrapper-layout';
-import { ElementCommonView } from '../form-elements/element-common-view';
-import { classNames, isEmpty } from '../utils';
+import { classNames } from '../utils';
+import { deepCopy } from '../utils';
+import { isEmpty } from '../utils';
+import { isNotEmpty } from '../utils';
 import { FormRenderArray } from './form-render-array';
+import React, { useEffect, useState } from 'react';
+import { runElementRules } from './form-rules';
+import { getWatchedPaths } from './form-utils';
+import { getTemplateValue } from './form-validator';
+import { useShallow } from 'zustand/shallow';
+import { StyledComponent } from '../form-elements/styling';
 
-export const FormRender = (props: { path, dataPath, name, className, arrayIndex?}) => {
-  const { path, dataPath, className, arrayIndex } = props;
-  const shouldReload = (ov, nv) => {
-    return true;
-  }
-  const { getSchemaItem } = useFormStore(state => state, shouldReload);
-  const schema = getSchemaItem(path)
-  if (schema?.hidden) return null
+export const FormRender = (props: { storeId; path; dataPath; name; className; arrayIndex?; parentDataPath?, layoutPath?, arrayControl?}) => {
+  const { name, path, dataPath, className, arrayIndex, layoutPath } = props;
+  const { dataPathTimestamp, theme } = useFormStore(useShallow(state => ({
+    dataPathTimestamp: state.timestamp[dataPath],
+    theme: state.theme
+  })));
+  const { getItemValue, setStateItem, applyRuleResult, getSchemaItem } = useFormStore.getState();
+  const [ruleActions, setRuleActions] = useState<any>({});
 
-  console.log('FormRender', path)
+
+  useEffect(() => {
+    let schema = getSchemaItem(path);
+    let watchedPaths = getWatchedPaths(schema, props.parentDataPath, props.arrayIndex);
+    if (isNotEmpty(watchedPaths)) {
+      useFormStore.getState().updateWatchedPath(props.dataPath, watchedPaths);
+    }
+    if (schema?.rules) {
+      const arrayData = typeof arrayIndex === 'number' ? getItemValue(`${props.parentDataPath}.${arrayIndex}`) : null;
+      const _ruleActions = runElementRules(schema, getItemValue(''), arrayData);
+      setRuleActions(_ruleActions);
+    }
+  }, [path, props.parentDataPath, props.arrayIndex, props.dataPath, props.storeId, arrayIndex]);
+
+  useEffect(() => {
+    if (dataPathTimestamp) {
+      let schema = getSchemaItem(path);
+      if (schema?.rules) {
+        const arrayData = typeof arrayIndex === 'number' ? getItemValue(`${props.parentDataPath}.${arrayIndex}`) : null;
+        const _ruleActions = runElementRules(schema, getItemValue(''), arrayData);
+        setRuleActions(_ruleActions);
+      }
+    }
+  }, [dataPathTimestamp, path, props.parentDataPath, arrayIndex]);
+
+  let schema = getSchemaItem(path);
+  if (schema?.hidden || ruleActions.hide) return null;
 
   if (!schema) return <LoadingIndicator />;
+  schema = deepCopy(schema);
+  applyRuleResult(dataPath, schema);
+
   let properties;
   let childPath;
   if (schema.type === 'object') {
     properties = schema.properties;
     childPath = path ? path + '.properties' : 'properties';
-  } else if (schema.type === 'array' && schema.items?.type === 'object') {
-    properties = schema.items.properties;
-    childPath = path ? path + '.items.properties' : 'items.properties';
-  } else if (schema.type === 'array') {
-    properties = schema.items;
-    childPath = path ? path + '.items' : 'items';
+  } else {
+    properties = schema;
+    childPath = path;
   }
-  if (!properties) return <div className='text-xs w-full text-center text-red-400'>empty properties</div>
 
-  const RenderWithLayout = getFormLayout(schema)
-  if (RenderWithLayout) {
-    return <RenderWithLayout path={path + '.properties'} layoutPath={path + '.x-layout'} className={className} dataPath={dataPath} schema={schema} />
+  if (!properties) return <div className="text-xs w-full text-center text-red-400">empty properties</div>;
+
+  let layoutComponent = null;
+  if (isNotEmpty(schema['x-layout'])) {
+    const layouts = schema['x-layout'];
+    layoutComponent = Object.keys(layouts).map(layoutId => {
+      const layoutInfo = layouts[layoutId];
+      const RenderWithLayout = formLayouts[layoutInfo.type];
+      return (
+        <RenderWithLayout path={path ? path + '.properties' : 'properties'} layoutPath={path ? path + '.x-layout.' + layoutId : 'x-layout.' + layoutId} className={className} dataPath={dataPath} schema={schema} storeId={props.storeId} />
+      );
+    });
+  }
+
+
+  if (schema?.hidden || ruleActions.hide) return null;
+  if (schema.title) {
+    const data = getItemValue('');
+    const arrayData = getItemValue(dataPath);
+    schema = deepCopy(schema);
+    schema.title = getTemplateValue(schema?.title, props.parentDataPath, { ...data, ...arrayData });
   }
 
   const renderElements = (fieldName, field) => {
-    if (isEmpty(field)) return <div className='text-xs w-full text-center text-red-400'>empty field - {fieldName}</div>
+    if (isEmpty(field)) return <div className="text-xs w-full text-center text-red-400">empty field - {fieldName}</div>;
     const fieldPath = childPath + '.' + fieldName;
     const valuePath = dataPath ? dataPath + '.' + fieldName : fieldName;
-    const hasControl = field['x-control'] && field['x-control'] !== 'container'
+    const hasControl = field['x-control'] && field['x-control'] !== 'container';
     const _schema = getSchemaItem(fieldPath);
-    if ((field.type === 'array' || field.type === 'object') && hasControl) {
-      return <FormElementRender key={fieldName} mode='view' name={fieldName} path={fieldPath} dataPath={valuePath} />
+    if (field.type === 'object' && hasControl) {
+      return <FormElementRender key={fieldName} mode="view" name={fieldName} path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} storeId={props.storeId} />;
+    } else if (field.type === 'array' && hasControl) {
+      return <FormElementRender key={fieldName} mode="view" name={fieldName} path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} storeId={props.storeId} />;
     } else if (field.type === 'object') {
-      return <ElementWrapperLayout mode='view' key={fieldName} path={fieldPath} name={fieldName} schema={_schema}>
-        <FormRender path={fieldPath} className='' dataPath={valuePath} name={fieldName} />
-      </ElementWrapperLayout>
+      return <FormRender path={fieldPath} className="" dataPath={valuePath} name={fieldName} parentDataPath={dataPath} storeId={props.storeId} />;
     } else if (field.type === 'array') {
-      return <FormRenderArray path={fieldPath} dataPath={valuePath} childPath={childPath} name={fieldName} fieldName={fieldName} schema={field} className={className} hasControl={hasControl} />
+      return <FormRenderArray path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} childPath={childPath} name={fieldName} arrayIndex={arrayIndex} fieldName={fieldName} schema={field} className={className} hasControl={hasControl} storeId={props.storeId} />;
     } else {
-      return <FormElementRender key={fieldName} mode='view' name={fieldName} path={fieldPath} dataPath={valuePath} arrayIndex={arrayIndex} />
+      return <FormElementRender key={fieldName} mode="view" name={fieldName} path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} arrayIndex={arrayIndex} storeId={props.storeId} />;
     }
-  }
+  };
 
   if (['string', 'number', 'boolean'].includes(properties.type) || properties['x-control']) {
     return (
-      <ElementCommonView key="fieldName" path={path} name={null} ui={schema['x-ui']} className={classNames(className, 'flex gap-3  mx-auto')}>
-        <FormElementRender key={path} mode='view' name={props.name} path={path} dataPath={dataPath} arrayIndex={arrayIndex} />
-      </ElementCommonView>
-    )
+      <StyledComponent
+        componentType="form"
+        part="container"
+        schema={schema}
+        theme={theme}
+        className={classNames(className, 'flex gap-3 mx-auto')}
+      >
+        <FormElementRender key={path} mode="view" name={props.name} path={path} dataPath={dataPath} parentDataPath={dataPath} arrayIndex={arrayIndex} storeId={props.storeId} />
+      </StyledComponent>
+    );
   }
 
-
   const render = (
-    <ElementCommonView path={path} name={path ? null : 'cb-form-root'} ui={schema['x-ui']}>
+    <StyledComponent
+      componentType="form"
+      part="root"
+      schema={schema}
+      theme={theme}
+      id={dataPath}
+      data-ui-name={path ? null : 'cb-form-root'}
+      className="cb-form-root"
+    >
+      {layoutComponent}
       {Object.keys(properties).map(fieldName => {
         const field = properties[fieldName];
-        if (!field) return console.error('field not found', fieldName, properties);
+        if (!field) {
+          console.error('field not found', fieldName, properties);
+          return <div>`field not found ${fieldName}`</div>;
+        }
+        if (field.layoutGroup && field.layoutGroup !== layoutPath) return null;
+        if (field.hidden) return null;
         if (field.group) {
-          const groupFields = Object.keys(properties).filter(key => properties[key] && properties[key].group === field.group).map(key => ({ key, field: properties[key] }))
+          const groupFields = Object.keys(properties)
+            .filter(key => !properties[key]?.hideIn?.includes('form') && !properties[key]?.hidden && properties[key]?.group === field.group)
+            .map(key => ({ key, field: properties[key] }));
           const fieldIndex = groupFields.findIndex(f => f.key === fieldName);
           if (fieldIndex !== 0) return null;
           const groupPath = childPath + '.' + field.group;
           return (
-            <ElementCommonView key={groupPath} path={groupPath} name={null} ui={schema['x-ui']} className={'flex gap-3  mx-auto'}>
+            <StyledComponent
+              componentType="form"
+              part="group"
+              schema={schema}
+              theme={theme}
+              data-ui-name="control-group"
+              className="flex items-center"
+              key={groupPath}
+            >
               {groupFields.map(({ key, field }) => {
-                return (renderElements(key, field))
+                return renderElements(key, field);
               })}
-            </ElementCommonView>
-          )
+            </StyledComponent>
+          );
         } else {
-          return (renderElements(fieldName, field))
+          return renderElements(fieldName, field);
         }
       })}
-    </ElementCommonView>
+    </StyledComponent>
   );
 
-  return render;
+  if (path === '') return render;
+  return (
+    <ElementWrapperLayout mode="view" key={path} path={path} name={name} schema={schema} theme={theme} arrayControl={props.arrayControl}>
+      {render}
+    </ElementWrapperLayout>
+  );
 };
-

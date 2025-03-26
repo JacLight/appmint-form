@@ -55,7 +55,7 @@ export const Popover = ({ children, content, position = 'bottom-10', offsetY = 0
             const top = (screenH - clickY) > rootH;
             const bottom = !top;
 
-            let newStyle = {};
+            let newStyle: any = {};
             if (right) {
                 newStyle.left = `${clickX + offsetX + 5}px`;
             } else {

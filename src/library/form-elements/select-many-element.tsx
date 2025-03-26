@@ -1,86 +1,120 @@
+import { getSelectOptions } from '../form-view/form-utils';
+import { getWatchedPaths } from '../form-view/form-utils';
 import React, { useEffect } from 'react';
 import { SelectManyList } from './select-many-list';
 import { SelectManyCombo } from './select-many-combo';
 import { SelectManyRadio } from './select-many-radio';
 import { SelectManyCheckbox } from './select-many-checkbox';
-import { SelectManySwitch } from './select-many-switch';
-import { SelectManyImage } from './select-many-image';
-import { isEmpty, isNotEmpty } from '../utils';
-import { useFormStore } from '../form-view/form-store';
-import { getSelectOptions, getWatchedPaths } from '../form-view/form-utils';
+import { isEmpty, isNotEmpty, toSentenceCase, toTitleCase } from '../utils';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema } from './styling/style-utils';
 
-const selectList = {
-  'select': SelectManyList,
-  'combo': SelectManyCombo,
-  'radio': SelectManyRadio,
-  'checkbox': SelectManyCheckbox,
-  'switch': SelectManySwitch,
-  'image': SelectManyImage
-}
+const getSelectType = type => {
 
-export const SelectManyElement = (props: { blur, change, focus, mode, schema, path, name, data, value, dataPath }) => {
-  const [options, setOptions] = React.useState([])
+  console.log('type', type);
+  const selectTypes = {
+    select: SelectManyList,
+    combo: SelectManyCombo,
+    chip: SelectManyCombo,
+    radio: SelectManyRadio,
+    checkbox: SelectManyCheckbox,
+    switch: SelectManyCheckbox,
+    image: SelectManyCheckbox,
+  };
 
-  const dataString = JSON.stringify(props.data)
+  return selectTypes[type] || SelectManyList;
+};
+
+export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus; mode; schema; path; name; data; value; dataPath, ui?, className?, updateRepository }) => {
+  const [options, setOptions] = React.useState([]);
+
+  const dataString = JSON.stringify(props.data);
   useEffect(() => {
-    if (props.schema?.options) {
-      setOptions(checkAndFixOptions(props.schema?.options))
+    if (props.schema?.options || props.schema?.enum) {
+      let options = props.schema?.options || props.schema?.enum;
+      if (isNotEmpty(options) && typeof options[0] === 'string') {
+        options = options.map(o => ({ value: o, label: toSentenceCase(o) }));
+      }
+      setOptions(checkAndFixOptions(options));
     } else if (props.schema?.dataSource) {
       (async () => {
-        const dataOptions = await getSelectOptions(props.schema.dataSource, props.data)
-        setOptions(checkAndFixOptions(dataOptions))
-      })()
+        const dataOptions = await getSelectOptions(props.schema.dataSource, props.data);
+        setOptions(checkAndFixOptions(dataOptions));
+      })();
     }
-    const pathsToWatch = getWatchedPaths(props.schema?.dataSource)
-    if (isNotEmpty(pathsToWatch)) {
-      useFormStore.getState().updateWatchedPath(props.dataPath, pathsToWatch)
-    }
-  }, [dataString, props.schema])
+    // const pathsToWatch = getWatchedPaths(props.schema, props.parentDataPath, arrayIndex);
+    // if (isNotEmpty(pathsToWatch) && typeof useFormStore === 'function') {
+    //   useFormStore.getState().updateWatchedPath(props.dataPath, pathsToWatch);
+    // }
+  }, [dataString, props.schema]);
 
-  const checkAndFixOptions = (options) => {
-    if (!Array.isArray(options) || isEmpty(options)) return []
+  const checkAndFixOptions = options => {
+    if (!Array.isArray(options) || isEmpty(options)) return [];
     if (typeof options[0] === 'string') {
-      return options.map(o => ({ label: o, value: o }))
+      return options.map(o => ({ label: o, value: o }));
     } else {
-      return options
+      return options;
     }
-  }
+  };
 
-  const onChange = (value) => {
+  const onChange = value => {
     if (props.change) {
+      if (props.schema.fetchData && typeof value === 'string') {
+        const original = options.find(o => o.value === value).original;
+        props.updateRepository(props.dataPath, original);
+      }
       if (props.schema.type === 'string' && typeof value !== 'string') {
-        props.change(JSON.stringify(value))
+        props.change(JSON.stringify(value));
       } else {
-        props.change(value)
+        props.change(value);
       }
     }
-  }
+  };
 
-  const onBlur = (value) => {
+  const onBlur = value => {
     if (props.change) {
       if (props.schema.type === 'string' && typeof value !== 'string') {
-        props.blur(JSON.stringify(value))
-      } if (props.schema.type === 'array' && typeof value === 'string') {
-        props.blur(JSON.parse(value))
+        props.blur(JSON.stringify(value));
+      }
+      if (props.schema.type === 'array' && typeof value === 'string') {
+        props.blur(JSON.parse(value));
       } else {
-        props.blur(value)
-
+        props.blur(value);
       }
     }
-  }
+  };
 
-  const onFocus = (value) => {
-  }
+  const onFocus = value => { };
 
-  let variant = props.schema['x-control-variant']
-  const defaultElement = props.schema.type === 'array' ? selectList.combo : selectList.select
-  const Element = selectList[variant] || defaultElement
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
+
+  let variant = props.schema['x-control-variant'];
+  const defaultType = getSelectType(props.schema.type === 'array' ? 'combo' : 'select');
+  const Element = getSelectType(variant) || getSelectType(defaultType);
+
   return (
-    <Element path={props.path} dataPath={props.dataPath} name={props.name} schema={props.schema} mode={props.mode}
-      options={Array.isArray(options) ? options : []}
-      blur={onBlur}
-      change={onChange}
-      focus={onFocus}
-      value={props.value} />
+    <StyledComponent
+      componentType="select-many"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={props.className}
+    >
+      <Element
+        path={props.path}
+        theme={props.theme}
+        dataPath={props.dataPath}
+        variant={variant}
+        name={props.name}
+        schema={props.schema}
+        mode={props.mode}
+        options={Array.isArray(options) ? options : []}
+        blur={onBlur}
+        change={onChange}
+        focus={onFocus}
+        value={props.value}
+      />
+    </StyledComponent>
   );
 };

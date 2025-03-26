@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Transition } from '@headlessui/react'
-import { Icon, iconType } from './icons/list';
-import { useFormStore } from '../form-view/form-store';
+import { Transition } from './select-components'
+import { IconRenderer } from './icons/icon-renderer';
 
 export function SiteNotification() {
-    const { notice, setStateItem } = useFormStore(state => state)
+    const [notice, setNotice] = useState<any>()
     const { message, duration, type } = notice || {};
     const [visible, setVisible] = useState(false);
 
@@ -13,17 +12,17 @@ export function SiteNotification() {
             setVisible(true);
             setTimeout(() => {
                 setVisible(false);
-                setStateItem({ notice: {} })
+                setNotice({ notice: {} })
             }, 5000);
         }
     }, [notice]);
 
     let icon;
     let color;
-    if (type === 'success') { icon = <Icon name={iconType.BsCheckCircle} className="h-6 w-6  text-green-400" />; color = 'text-green-400'; }
-    if (type === 'error') { icon = <Icon name={iconType.VscError} className="h-6 w-6  text-red-400" />; color = 'text-red-400'; }
-    if (type === 'warning') { icon = <Icon name={iconType.AiOutlineWarning} className="h-6 w-6  text-yellow-400" />; color = 'text-yellow-400'; }
-    if (type === 'info') { icon = <Icon name={iconType.BsInfoCircle} className="h-6 w-6  text-blue-400" />; color = 'text-blue-400'; }
+    if (type === 'success') { icon = <IconRenderer icon={"CheckCircle"} className="h-6 w-6  text-green-400" />; color = 'text-green-400'; }
+    if (type === 'error') { icon = <IconRenderer icon={"AlertCircle"} className="h-6 w-6  text-red-400" />; color = 'text-red-400'; }
+    if (type === 'warning') { icon = <IconRenderer icon={"AlertTriangle"} className="h-6 w-6  text-yellow-400" />; color = 'text-yellow-400'; }
+    if (type === 'info') { icon = <IconRenderer icon={"InfoCircle"} className="h-6 w-6  text-blue-400" />; color = 'text-blue-400'; }
 
     return (
         <>
@@ -63,7 +62,7 @@ export function SiteNotification() {
                                             }}
                                         >
                                             <span className="sr-only">Close</span>
-                                            <Icon name={iconType.HiXMark} className="h-5 w-5" />
+                                            <IconRenderer icon={'X'} className="h-5 w-5" />
                                         </button>
                                     </div>
                                 </div>

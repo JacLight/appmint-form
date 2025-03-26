@@ -1,90 +1,168 @@
 import React from 'react';
-import { ElementIcon } from './element-icon';
-import { isEmpty, toSentenceCase, toTitleCase } from '../utils';
-import { ElementCommonView } from './element-common-view';
-import { FormPopup } from '../form-view/form-popup';
+import { classNames } from '../utils';
+import { isEmpty } from '../utils';
+import { toSentenceCase, toTitleCase } from '../utils';
+import { getElementTheme } from '../context/store';
+import { twMerge } from 'tailwind-merge';
 import { FormCollapsible } from '../form-view/form-collapsible';
+import { FormPopup } from '../form-view/form-popup';
+import { ElementIcon } from './element-icon';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
-export const ElementWrapperLayout = (props: { mode, children, path, name, schema?: { name, title, hideLabel, position, children, icon?, image?, labelPosition, iconPosition?, error?, description?, collapsible, popup, operations } }) => {
+export const ElementWrapperLayout = (props: {
+  mode;
+  children;
+  path;
+  name;
+  theme?;
+  schema?: { name; title; hideLabel; layout?; position; children; icon?; image?; labelPosition; iconPosition?; error?; description?; collapsible; popup; operations };
+  arrayControl?;
+}) => {
   const { path, name, schema } = props;
 
   if (isEmpty(schema) && isEmpty(props.children)) return null;
   if (isEmpty(schema)) return props.children;
 
   const iconPosition = schema.iconPosition || 'start';
-  const Wrapper = ElementCommonView
+  const labelPosition = schema.labelPosition || 'top';
 
-  const description = schema.description ? <Wrapper ui={schema['x-ui']} path={path} name={'control-help'} className='cb-control-error text-gray-500 text-[10px]'>{schema.description}</Wrapper> : null;
-  const error = schema.error ? <Wrapper ui={schema['x-ui']} path={path} name={'control-error'} className='cb-control-help text-xs text-red-400'>{schema.error}</Wrapper> : null;
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(schema);
+
+  const description = schema.description ? (
+    <StyledComponent
+      componentType="layout"
+      part="description"
+      schema={schema}
+      theme={props.theme}
+      className="cb-control-error"
+    >
+      {schema.description}
+    </StyledComponent>
+  ) : null;
+
+  const error = schema.error ? (
+    <StyledComponent
+      componentType="layout"
+      part="error"
+      schema={schema}
+      theme={props.theme}
+      className="cb-control-help"
+    >
+      {schema.error}
+    </StyledComponent>
+  ) : null;
   const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon icon={schema?.icon} image={schema?.image} mode={props.mode} /> : null;
-  let element;
+
+  let elements;
   if (!schema.collapsible && icon && (iconPosition === 'start' || iconPosition === 'end')) {
-    element = <Wrapper ui={schema['x-ui']} path={path} name={'input'} className='cb-input w-full flex gap-2'>{iconPosition === 'start' && icon}  {props.children} {iconPosition === 'end' && icon} </Wrapper>
+    elements = (
+      <StyledComponent
+        componentType="layout"
+        part="input"
+        schema={schema}
+        theme={props.theme}
+        className="cb-input w-full flex gap-2"
+      >
+        {iconPosition === 'start' && icon} {props.children} {iconPosition === 'end' && icon}
+      </StyledComponent>
+    );
   } else {
-    element = <Wrapper ui={schema['x-ui']} path={path} name={'input'} className='cb-input w-full'> {props.children} </Wrapper>
+    elements = (
+      <StyledComponent
+        componentType="layout"
+        part="input"
+        schema={schema}
+        theme={props.theme}
+        className="cb-input w-full"
+      >
+        {props.children}
+      </StyledComponent>
+    );
   }
 
+  const caption = schema.title ? schema.title : toSentenceCase(schema.name || props.name || '');
   let label;
-  const caption = schema.title || schema.name || props.name;
 
-  if (caption && !schema.hideLabel) {
-    if (!schema.collapsible && (iconPosition === 'beforeLabel' || iconPosition === 'afterLabel')) {
-      label = <Wrapper ui={schema['x-ui']} path={path} name={'control-label'} className=' cb-label-with-icon flex gap-2 text-xs items-center'> {iconPosition === 'beforeLabel' && icon} <Wrapper path={path} name={name} className=' cb-label' >{toTitleCase(toSentenceCase(caption))}</Wrapper>{iconPosition === 'afterLabel' && icon}  </Wrapper>
+  if (caption && !schema.collapsible && !schema.hideLabel) {
+    if ((iconPosition === 'beforeLabel' || iconPosition === 'afterLabel')) {
+      label = (
+        <StyledComponent
+          componentType="layout"
+          part="label"
+          schema={schema}
+          theme={props.theme}
+          className="cb-label-with-icon flex gap-2 text-xs items-center"
+        >
+          {iconPosition === 'beforeLabel' && icon}
+          <StyledComponent
+            componentType="layout"
+            part="label-inner"
+            schema={schema}
+            theme={props.theme}
+            className="cb-label"
+          >
+            {caption}
+          </StyledComponent>
+          {iconPosition === 'afterLabel' && icon}
+        </StyledComponent>
+      );
     } else {
-      label = <Wrapper ui={schema['x-ui']} path={path} name={'control-label'} className=' cb-label text-xs'>{toTitleCase(toSentenceCase(caption))}</Wrapper>
+      label = (
+        <StyledComponent
+          componentType="layout"
+          part="label"
+          schema={schema}
+          theme={props.theme}
+          className="cb-label text-xs"
+        >
+          {caption}
+        </StyledComponent>
+      );
     }
   }
 
-
-  const className = `cb-control w-full  mx-auto my-5 ${schema.labelPosition || 'top'}  ${schema.hideLabel ? 'hide-label' : ''}`;
   let render;
-
-  if (schema.labelPosition === 'start') {
+  if (!schema.collapsible) {
+    const hasFlex = ['start', 'end'].includes(labelPosition) || schema.layout === 'horizontal';
     render = (
-      <>
-        <Wrapper ui={schema['x-ui']} path={path} name={'control-input'} className={'cb-control-input w-full flex gap-4'}>
-          {!schema.collapsible && label}
-          {element}
-        </Wrapper>
-        <Wrapper ui={schema['x-ui']} path={path} name={'control-info'} className=' cb-control-info '>
-          {description}{error}
-        </Wrapper>
-      </>
-    );
-  } else if (schema.labelPosition === 'end') {
-    render = (
-      <>
-        <Wrapper ui={schema['x-ui']} path={path} name={'control-input'} className={'control-input w-full flex gap-4'}>
-          {element}
-          {!schema.collapsible && label}
-        </Wrapper>
-        <Wrapper ui={schema['x-ui']} path={path} name={'control-info'} className=' cb-control-info '>
-          {description}{error}
-        </Wrapper>
-      </>
-    );
-  } else if (schema.labelPosition === 'bottom') {
-    render = (
-      <>
-        {element}
-        {!schema.collapsible && label}
-        <Wrapper ui={schema['x-ui']} path={path} name={'control-info'} className=' cb-control-info '>
-          {description}{error}
-        </Wrapper>
-      </>
-    );
-  } else {
-    render = (<>
-      {!schema.collapsible && label}
-      {element}
-      <Wrapper ui={schema['x-ui']} path={path} name={'control-info'} className=' cb-control-info '>
-        {description}{error}
-      </Wrapper>
-    </>
+      <StyledComponent
+        componentType="layout"
+        part="control-input"
+        schema={schema}
+        theme={props.theme}
+        className={classNames(hasFlex && 'flex', 'gap-4 items-center', 'cb-control-input w-full')}
+      >
+        {!['end', 'bottom'].includes(labelPosition) && label}
+        {elements}
+        {['end', 'bottom'].includes(labelPosition) && label}
+      </StyledComponent>
     );
   }
 
-  if (schema.collapsible) render = <FormCollapsible title={label} icon={icon}>{render}</FormCollapsible>
-  if (schema.popup) return <FormPopup title={label} icon={icon}>{render}</FormPopup>
-  return <Wrapper ui={schema['x-ui']} path={path} name={'control'} className={className}>{render}</Wrapper>
+  if (schema.collapsible)
+    render = (
+      <FormCollapsible defaultState={schema.collapsible} theme={props.theme} title={caption} icon={icon} arrayControl={props.arrayControl}>
+        {elements}
+      </FormCollapsible>
+    );
+  if (schema.popup)
+    return (
+      <FormPopup title={label} icon={icon}>
+        {elements}
+      </FormPopup>
+    );
+
+  return (
+    <StyledComponent
+      componentType="layout"
+      part={props.arrayControl ? 'container-array' : 'container'}
+      schema={schema}
+      theme={props.theme}
+      className={`cb-layout ${labelPosition || 'top'} ${schema.hideLabel ? 'hide-label' : ''}`}
+    >
+      {render}
+    </StyledComponent>
+  );
 };

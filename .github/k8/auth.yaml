@@ -1,0 +1,18 @@
+apiVersion: v1
+clusters:
+  - cluster:
+      certificate-authority-data: {{K8_SCRETE}}
+      server: https://68931f1c-3eae-492b-9c48-030cd12c873f.k8s.ondigitalocean.com
+    name: do-sfo3-fundu-k8s-sfo3-dev
+contexts:
+  - context:
+      cluster: do-sfo3-fundu-k8s-sfo3-dev
+      user: do-sfo3-fundu-k8s-sfo3-dev-admin
+    name: do-sfo3-fundu-k8s-sfo3-dev
+current-context: do-sfo3-fundu-k8s-sfo3-dev
+kind: Config
+preferences: {}
+users:
+  - name: do-sfo3-fundu-k8s-sfo3-dev-admin
+    user:
+      token: {{DO_TOKEN}}

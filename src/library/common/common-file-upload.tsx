@@ -118,8 +118,8 @@ export const CustomFileUpload = (props: { location: string, onFileUpload: (file)
         className='w-full h-20 border-2 border-gray-300 border-dashed flex justify-center items-center p-2 text-xs'
       >
         <div> Drag and drop some files here  or </div>
-        <input type="file" onChange={handleFileSelect} directory="true" multiple className='hidden' />
-        <button className='bg-white mx-4 text-sm border-gray-300 border rounded px-4 py-1 hover:text-gray-900 hover:shadow' onClick={() => document.querySelector('input[type=file]')?.click()}>Select files</button>
+        <input type="file" onChange={handleFileSelect} multiple className='hidden' />
+        <button className='bg-white mx-4 text-sm border-gray-300 border rounded px-4 py-1 hover:text-gray-900 hover:shadow' onClick={() => (document.querySelector('input[type=file]') as HTMLInputElement)?.click()}>Select files</button>
       </div>
       <UploadedFile files={files} handleRemove={handleRemove} />
     </div>

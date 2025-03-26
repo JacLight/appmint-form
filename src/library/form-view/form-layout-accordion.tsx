@@ -1,45 +1,55 @@
-import React from 'react';
+import { shallow, useShallow } from 'zustand/shallow';
 import { classNames } from '../utils';
 import { FormLayoutRender } from './form-layout-render';
-import { useFormStore } from './form-store';
-import { ElementCommonView } from '../form-elements/element-common-view';
+import { useFormStore } from '../context/store';
+import React from 'react';
+import { StyledComponent } from '../form-elements/styling';
 
-export const FormLayoutAccordion = ({ layoutPath, path, dataPath }) => {
-  const shouldReload = (ov, nv) => {
-    return true;
-  }
-
-  const { getSchemaItem } = useFormStore(state => state, shouldReload)
+export const FormLayoutAccordion = ({ storeId, layoutPath, path, dataPath }) => {
+  const { getSchemaItem } = useFormStore(useShallow(state => ({ getSchemaItem: state.getSchemaItem })));
   const [accordionState, setAccordionState] = React.useState([]);
 
-  const toggleAccordion = (itemPath) => {
+  const toggleAccordion = itemPath => {
     if (accordionState.includes(itemPath)) {
       setAccordionState(accordionState.filter(path => path !== itemPath));
     } else {
       setAccordionState([...accordionState, itemPath]);
     }
-  }
+  };
 
   const layout = getSchemaItem(layoutPath);
   return (
-    <ElementCommonView path={layoutPath} name={null} ui={layout['x-ui']} className={' w-full'}>
+    <StyledComponent
+      componentType="accordion"
+      part="container"
+      schema={layout}
+      className="w-full"
+    >
       {layout?.items?.map((item, idx) => {
         const itemPath = layoutPath + '.items.' + idx;
         const itemLayout = getSchemaItem(itemPath);
         return (
-          <div className='mb-px'>
-            <div key={item.id} className={classNames('px-4 py-2 mb-px items-center border border-gray-100  flex justify-between bg-white gap-4 text-xs shadow cursor-pointer hover:bg-cyan-50', accordionState.includes(itemPath) ? 'bg-cyan-100' : '')} onClick={e => toggleAccordion(itemPath)}>
+          <div key={item.id} className="mb-px">
+            <StyledComponent
+              componentType="accordion"
+              part={accordionState.includes(itemPath) ? "headerActive" : "header"}
+              schema={layout}
+              onClick={e => toggleAccordion(itemPath)}
+            >
               {item.title}
-            </div>
+            </StyledComponent>
             {accordionState.includes(itemPath) && (
-              <>
-                {itemLayout ? (
-                  <FormLayoutRender path={path} layoutPath={itemPath} dataPath={dataPath} />
-                ) : <div className='text-xs w-full text-center text-red-400'>empty layout</div>}
-              </>)}
+              <StyledComponent
+                componentType="accordion"
+                part="content"
+                schema={layout}
+              >
+                {itemLayout ? <FormLayoutRender path={path} layoutPath={itemPath} dataPath={dataPath} storeId={storeId} /> : <div className="text-xs w-full text-center text-red-400">empty layout</div>}
+              </StyledComponent>
+            )}
           </div>
-        )
+        );
       })}
-    </ElementCommonView>
+    </StyledComponent>
   );
 };

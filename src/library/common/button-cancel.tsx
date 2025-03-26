@@ -1,6 +1,6 @@
 import { getRandomString } from '../utils';
 import React, { useEffect } from 'react';
-import { Icon } from './icons/list';
+import { IconRenderer } from './icons/icon-renderer';
 
 export const ButtonCancel = (props: { handler; controlRef?, className?}) => {
   useEffect(() => { });
@@ -11,7 +11,7 @@ export const ButtonCancel = (props: { handler; controlRef?, className?}) => {
 
   return (
     <button key={getRandomString()} className={"custom-button custom-button-add " + (props.className || "")} onClick={confirmClick}>
-      <Icon name='FaXmark' />
+      <IconRenderer icon='X' />
     </button>
   );
 };

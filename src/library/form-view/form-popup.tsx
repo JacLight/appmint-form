@@ -1,15 +1,32 @@
-import React from 'react';
 import { Popover } from '../common/popover';
 import { classNames } from '../utils';
-import { Icon } from '../common/icons/list';
+import { getElementTheme } from '../context/store';
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
+import { IconRenderer } from '../common/icons/icon-renderer';
 
-export const FormPopup = (props: { icon, title, children }) => {
+export const FormPopup = (props: { icon; title; children, theme?, ui?, popupStyle?}) => {
+
+  const { classes, style } = (props.ui || {})['popup'] || {};
+  const controlTheme = getElementTheme('popup', props.theme);
+
   return (
-    <Popover position='context' className='min-w-[600px] max-h-[800px] overflow-auto' offsetY={-20} content={<div>{props.children}</div>}>
-      <button className={classNames('text-sm group  rounded-full flex items-center gap-2 shadow bg-white border border-gray-100 hover:bg-cyan-100 px-4 py-1 min-w-')}>
-        {props.icon && <Icon name={props.icon} className={'group-hover:scale-120 duration-300 ease-in-out transition-all'} />}
-        <span> {props.title}</span>
-      </button>
-    </Popover>
+    <>
+      <Popover position="context" className={twMerge("min-w-[600px] max-h-[800px] overflow-auto", controlTheme.className, classes?.join(' '))} offsetY={-20} content={<div>{props.children}</div>}>
+        <div className='relative'>
+          <button className={classNames('absolute z-10 right-1 top-1 text-sm group rounded flex items-center gap-2 bg-white border border-gray-100 hover:bg-cyan-100 p-1 hover:scale-125 duration-300 ease-in-out transition-all')}>
+            <IconRenderer icon={props.icon ? props.icon: "ExternalLink"} className={''} />
+            {props.title && <span> {props.title}</span>}
+          </button>
+        </div>
+      </Popover>
+      {
+        props.popupStyle === 'mini' && (
+          <div className='max-h-24 overflow-hidden'>
+            {props.children}
+          </div>
+        )
+      }
+    </>
   );
 };

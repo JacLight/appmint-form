@@ -1,0 +1,22 @@
+name: Version Bump
+on:
+  push:
+    branches:
+      - main
+jobs:
+  bump_version_number:
+    name: Bump Version Number
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3        
+      - name: 'Automated Version Bump'
+        uses: 'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          minor-wording:  'add,Adds,new'
+          major-wording:  'MAJOR,cut-major'
+          patch-wording:  'patch,fixes'     
+                                        
+          rc-wording:     'RELEASE,alpha'

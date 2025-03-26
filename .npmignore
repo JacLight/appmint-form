@@ -1,0 +1,38 @@
+# Development and build files
+node_modules/
+.git/
+.github/
+.vscode/
+.idea/
+.DS_Store
+*.log
+*.lock
+yarn.lock
+package-lock.json
+.yarnrc.yml
+
+# Demo and example files
+src/demo/
+src/demo.tsx
+vite.demo.config.ts
+
+# Test files
+test/
+*.test.ts
+*.test.tsx
+vitest.config.ts
+
+# Configuration files
+.eslintrc.js
+.prettierrc
+tsconfig.json
+vite.config.ts
+
+# Documentation
+CONTRIBUTING.md
+CHANGELOG.md
+DOCUMENTATION.md
+
+# Other files not needed in the package
+icon-scraper.js
+.gitignore

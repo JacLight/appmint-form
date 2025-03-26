@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appmint-form-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: appmint-form
+  template:
+    metadata:
+      labels:
+        component: appmint-form
+    spec:
+      containers:
+        - name: appmint-form
+          image: ${IMAGE_NAME}
+          ports:
+            - name: http-port
+              containerPort: 80
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: dockerhubkey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appmint-form-service
+spec:
+  selector:
+    component: appmint-form
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP

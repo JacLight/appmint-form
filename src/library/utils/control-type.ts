@@ -11,6 +11,7 @@ export enum ControlType {
   selectMany = 'selectMany',
   date = 'date',
   file = 'file',
+  lookup = 'lookup',
   code = 'code',
   uuid = 'uuid',
   color = 'Color',

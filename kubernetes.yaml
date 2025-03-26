@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appmint-form-demo
+  labels:
+    component: appmint-form
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: appmint-form
+  template:
+    metadata:
+      labels:
+        component: appmint-form
+    spec:
+      containers:
+      - name: appmint-form
+        image: ${IMAGE_NAME}  # Will be replaced with jaclight/fundu:appmint-form-[version]
+        ports:
+        - name: http
+          containerPort: 80
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+          requests:
+            cpu: "0.2"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: dockerhubkey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appmint-form-service
+spec:
+  selector:
+    component: appmint-form
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: appmint-form-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - forms.appmint.app
+    secretName: appmint-form-tls
+  rules:
+  - host: forms.appmint.app
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: appmint-form-service
+            port:
+              number: 80

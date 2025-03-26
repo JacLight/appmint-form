@@ -1,4 +1,4 @@
-import { deepCopy, getRandomString, isEmpty, toTitleCase } from ".";
+import { deepCopy, getRandomString, isEmpty, toTitleCase } from "./helpers";
 import { ControlType } from "./control-type";
 
 export const dropBeforeOrAfter = (mouseY, elem) => {

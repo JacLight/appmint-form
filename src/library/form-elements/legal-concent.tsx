@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
-export const LegalConsentElement = () => {
-  const [fullName, setFullName] = useState('');
+export const LegalConsentElement = (props: {
+  schema?;
+  theme?;
+  change?;
+  value?;
+}) => {
+
+  // Initialize state from props.value if available
+  const initialValue = props.value || { fullName: '', consentGiven: null };
+  const [fullName, setFullName] = useState(initialValue.fullName || '');
   const [isFullNameValid, setIsFullNameValid] = useState(true);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [consentGiven, setConsentGiven] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(initialValue.consentGiven !== null);
+  const [consentGiven, setConsentGiven] = useState(initialValue.consentGiven);
 
   const validateFullName = (name) => {
     return name.trim().split(' ').length > 1;
@@ -24,62 +35,143 @@ export const LegalConsentElement = () => {
 
     setFormSubmitted(true);
     setConsentGiven(accept);
+
+    // Notify parent component of change
+    if (props.change) {
+      props.change({ fullName, consentGiven: accept });
+    }
   };
 
   const resetForm = () => {
     setFormSubmitted(false);
-    setFullName('');
-    setIsFullNameValid(true);
+    setConsentGiven(null);
+
+    // Don't clear the name when modifying consent
+    // Notify parent component of change
+    if (props.change) {
+      props.change({ fullName, consentGiven: null });
+    }
   };
 
   return (
-    <div className=" w-full border shadow-sm rounded">
+    <StyledComponent
+      componentType="legal-consent"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className="w-full border shadow-sm rounded p-4"
+    >
       {!formSubmitted ? (
-        <>
-          <div className="mb-4">
-            <label htmlFor="fullName" className="block text-xs font-medium text-gray-700">
+        <StyledComponent
+          componentType="legal-consent"
+          part="form"
+          schema={props.schema}
+          theme={props.theme}
+          as="div"
+          className="space-y-4"
+        >
+          <div>
+            <StyledComponent
+              componentType="legal-consent"
+              part="label"
+              schema={props.schema}
+              theme={props.theme}
+              as="label"
+              htmlFor="fullName"
+              className="block text-xs font-medium text-gray-700"
+            >
               Full Name
-            </label>
-            <input
+            </StyledComponent>
+            <StyledComponent
+              componentType="legal-consent"
+              part="input"
+              schema={props.schema}
+              theme={props.theme}
+              as="input"
               type="text"
               id="fullName"
               value={fullName}
               onChange={handleNameChange}
-              className={`mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  p-1 shadow-sm sm:text-sm border-gray-300 rounded ${!isFullNameValid && 'border-red-500'}`}
+              className={twMerge(
+                "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-1 shadow-sm sm:text-sm border-gray-300 rounded",
+                !isFullNameValid && "border-red-500"
+              )}
               placeholder="Enter your full name"
+              aria-invalid={!isFullNameValid}
+              aria-describedby={!isFullNameValid ? "fullName-error" : undefined}
             />
-            {!isFullNameValid && <p className="text-red-500 text-xs mt-1">Please enter your full name.</p>}
+            {!isFullNameValid && (
+              <StyledComponent
+                componentType="legal-consent"
+                part="error"
+                schema={props.schema}
+                theme={props.theme}
+                as="p"
+                id="fullName-error"
+                className="text-red-500 text-xs mt-1"
+              >
+                Please enter your full name.
+              </StyledComponent>
+            )}
           </div>
 
-          <div className="flex justify-between gap-4">
-            <button
+          <StyledComponent
+            componentType="legal-consent"
+            part="buttonContainer"
+            schema={props.schema}
+            theme={props.theme}
+            as="div"
+            className="flex justify-between gap-4"
+          >
+            <StyledComponent
+              componentType="legal-consent"
+              part="acceptButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
               onClick={() => handleSubmit(true)}
               className="inline-flex justify-center py-1 px-2 border border-transparent shadow-sm text-xs font-medium rounded text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
               I Accept
-            </button>
-            <button
+            </StyledComponent>
+            <StyledComponent
+              componentType="legal-consent"
+              part="rejectButton"
+              schema={props.schema}
+              theme={props.theme}
+              as="button"
               onClick={() => handleSubmit(false)}
               className="inline-flex justify-center py-1 px-2 border border-transparent shadow-sm text-xs font-medium rounded text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               I Do Not Accept
-            </button>
-          </div>
-        </>
+            </StyledComponent>
+          </StyledComponent>
+        </StyledComponent>
       ) : (
-        <div className="text-center">
+        <StyledComponent
+          componentType="legal-consent"
+          part="result"
+          schema={props.schema}
+          theme={props.theme}
+          as="div"
+          className="text-center"
+        >
           <p className="text-center">
-            You have {consentGiven ? "accepted" : "not accepted"} the terms.
+            <strong>{fullName}</strong> has {consentGiven ? 'accepted' : 'not accepted'} the terms.
           </p>
-          <button
+          <StyledComponent
+            componentType="legal-consent"
+            part="modifyButton"
+            schema={props.schema}
+            theme={props.theme}
+            as="button"
             onClick={resetForm}
             className="mt-4 inline-flex justify-center py-1 px-2 border border-transparent shadow-sm text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Modify Consent
-          </button>
-        </div>
+          </StyledComponent>
+        </StyledComponent>
       )}
-    </div>
+    </StyledComponent>
   );
 };
-

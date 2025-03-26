@@ -1,54 +1,78 @@
-import { Transition } from '@headlessui/react';
-import { iconType, Icon } from '../common/icons/list';
-import React, { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { Transition } from '../common/select-components';
+import { getElementTheme } from '../context/store';
+import { classNames } from '../utils';
+import { localStorageUtils } from '../utils/localstorage';
+import React, { useEffect, useState } from 'react';
+import { IconRenderer } from '../common/icons/icon-renderer';
+import { StyledComponent } from '../form-elements/styling';
 
-export const FormCollapsible = (props: { icon, title, children }) => {
-  const [isOpen, setOpen] = useState(false);
+export const FormCollapsible = (props: { id?; icon?; title?; children; theme?; defaultState?; className?, ui?, arrayControl?}) => {
+  const [isOpen, setOpen] = useState(props.defaultState === 'open' ? true : false);
 
-  let classes = isOpen
-    ? ' w-full  '
-    : ' w-full shadow pt-1 p-2 lg:p-4 ';
+  useEffect(() => {
+    if (props.id) {
+      const _isOpen = localStorageUtils.get('collapsible-' + props.id);
+      if (typeof _isOpen === 'boolean') {
+        setOpen(_isOpen);
+      }
+    }
+  }, []);
 
   const toggle = () => {
-    setOpen(!isOpen);
-  }
+    const newState = !isOpen;
+    setOpen(newState);
+    if (props.id) {
+      localStorageUtils.set('collapsible-' + props.id, JSON.stringify(newState));
+    }
+  };
+
+  const { classes, style } = (props.ui || {})['collapsible'] || {};
+  const controlTheme = getElementTheme('collapsible', props.theme);
 
   return (
-    <div className={`text-sm mb-4 mt-2 shadow w-full rounded`}>
-      <div onClick={toggle} className="p-3 flex justify-between items-center cursor-pointer  border-b-1 border-gray-300 gap-2 bg-gray-50 ">
-        {typeof props.icon === 'string' ? <Icon name={props.icon as any} /> : props.icon}
-        {props.title && <span>{props.title}</span>}
-        <div className='flex items-center gap-2 '>
-          {isOpen ?
-            <Icon
-              name={iconType.FaChevronDown}
-              aria-hidden="true"
-              className=""
-            />
-            :
-            <Icon
-              name={iconType.FaChevronRight}
-              aria-hidden="true"
-              className=""
-            />
-          }
+    <div className={twMerge(classNames('cb-collapsible', props.className, controlTheme.className, classes?.join(' ')))}>
+      <StyledComponent
+        componentType="collapsible"
+        part="header"
+        onClick={toggle}
+      >
+        <div className="flex justify-between items-center w-full">
+          <div className="flex gap-2 items-center">
+            {typeof props.icon === 'string' ? <IconRenderer icon={props.icon as any} /> : props.icon}
+            {typeof props.arrayControl?.index === 'number' && props.arrayControl.index}
+            {props.title && <span>{props.title}</span>}
+          </div>
+          <div className="flex gap-2 items-center">
+            {props.arrayControl?.delete && props.arrayControl.delete}
+            <div className="flex items-center gap-2">
+              {isOpen ?
+                <IconRenderer icon={'ChevronDown'} aria-hidden="true" size={10} /> :
+                <IconRenderer icon={'ChevronRight'} aria-hidden="true" size={10} />
+              }
+            </div>
+          </div>
         </div>
-      </div>
-      {isOpen && <div className=' p-4 '>
-        <Transition
-          show={isOpen}
-          enter="transition-opacity duration-75"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-150"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        // className={`${classes} `}
+      </StyledComponent>
+
+      {isOpen && (
+        <StyledComponent
+          componentType="collapsible"
+          part="content"
         >
-          <div className="mt-4">{props.children}</div>
-        </Transition>
-      </div>
-      }
+          <Transition
+            show={isOpen}
+            enter="transition-opacity duration-75"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="mt-1">{props.children}</div>
+          </Transition>
+        </StyledComponent>
+      )}
     </div>
   );
 };

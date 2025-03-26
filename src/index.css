@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "tailwindcss-aspect-ratio";
+@plugin "tailwindcss-debug-screens";
+@plugin "tailwindcss-filters";
+@plugin "tailwindcss-gradients";
+@plugin "tailwindcss-logical";
+@plugin "tailwindcss-multi-column";
+@plugin "tailwindcss-rtl";
+@plugin "tailwindcss-scroll-snap";
+@plugin "tailwindcss-typography";
+@plugin "tailwindcss-variables";
+@plugin "tailwindcss-forms";
+
+@custom-variant dark (&:is(.dark *));
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f7fa;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

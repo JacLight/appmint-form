@@ -9,15 +9,14 @@ export async function uploadWithProgress(location: string, file, onProgress) {
 
     console.debug('request -> updateData', file);
 
-    const path = getResourcePath(appEndpoints.file_upload.name);
     const formData = new FormData();
     formData.append('location', location);
     formData.append('file', file);
 
     const config = {
         headers: {
-            Authorization: activeSession.getToken(),
-            orgid: appConfig.siteId,
+            // Authorization: activeSession.getToken(),
+            // orgid: appConfig.siteId,
         },
         onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -28,11 +27,11 @@ export async function uploadWithProgress(location: string, file, onProgress) {
     };
 
     try {
-        let rt = await axios.post(path, formData, config);
-        console.debug('upload -> success', path);
+        let rt = await axios.post(location, formData, config);
+        console.debug('upload -> success', location);
         return rt.data;
     } catch (error) {
-        console.error('upload - error', path);
+        console.error('upload - error', location);
         console.error(error);
         // notificationStore.addNotification({ message: 'File Upload failed: ' + error.message, type: SiteNotificationType.Error, });
     } finally {

@@ -1,81 +1,96 @@
 # AppmintForm
 
+[![npm version](https://img.shields.io/npm/v/@appmint/form.svg)](https://www.npmjs.com/package/@appmint/form)
+[![npm downloads](https://img.shields.io/npm/dm/@appmint/form.svg)](https://www.npmjs.com/package/@appmint/form)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 AppmintForm is a powerful, lightweight, and flexible form builder library for React applications, designed to make it easy to create and manage complex forms with minimal code while maintaining excellent performance and aesthetics.
 
-## Motivation
+## 📚 Documentation
 
-The main motivation behind AppmintForm is to simplify form creation and management in React applications. We aim to provide a highly customizable and easy-to-use solution that can handle complex form structures, dynamic rendering, and validation with minimal effort from developers, all while being lightweight and performance-oriented.
+**[View the comprehensive documentation](./DOCUMENTATION.md)** for detailed information on installation, usage, API reference, examples, and more.
 
-## Features
+## ✨ Features
 
-- Intuitive form configuration using JSON schema
-- Support for various input types and controls
-- Conditional rendering based on form data
-- Built-in form validation
-- Customizable layouts and theming
-- Support for array and nested objects
-- Extensibility through custom input components and layouts
-- Performance: Only updates what has changed, ensuring efficient rendering
-- Lightweight design with a focus on aesthetics
+- **JSON Schema Configuration**: Define forms using a declarative JSON schema
+- **Rich Component Library**: Support for 30+ input types and controls
+- **Conditional Rendering**: Show/hide fields based on form data
+- **Built-in Validation**: Comprehensive validation using Zod
+- **Customizable Layouts**: Multiple layout options including tabs, accordions, and more
+- **Theming Support**: Easily customize the appearance of your forms
+- **Performance Optimized**: Only updates what has changed, ensuring efficient rendering
+- **Extensible**: Add custom input components and layouts
 
-## Installation
+## 🚀 Quick Start
 
-To install AppmintForm, run the following command in your project's root directory:
+### Installation
 
 ```bash
+# Using npm
 npm install @appmint/form
 
-or
-
+# Using yarn
 yarn add @appmint/form
 
-## Usage
-To use AppmintForm in your React application, simply import the main AppmintForm component and pass the JSON schema and initial form data as props:
+# Using pnpm
+pnpm add @appmint/form
+```
+
+### Basic Usage
 
 ```jsx
 import React from 'react';
-import AppmintForm from '@appmint/form';
-
-const schema = {
-  // Your JSON schema goes here
-};
-
-const initialData = {
-  // Your initial form data goes here
-};
+import { AppmintForm } from '@appmint/form';
 
 const MyForm = () => {
-  return <AppmintForm schema={schema} initialData={initialData} />;
+  const schema = {
+    type: 'object',
+    title: 'User Information',
+    properties: {
+      name: {
+        type: 'string',
+        title: 'Name',
+        inputRequired: true
+      },
+      email: {
+        type: 'string',
+        title: 'Email',
+        format: 'email',
+        inputRequired: true
+      }
+    }
+  };
+
+  const handleChange = (path, value, data) => {
+    console.log('Form data:', data);
+  };
+
+  return (
+    <AppmintForm 
+      schema={schema} 
+      onChange={handleChange}
+      id="user-form"
+    />
+  );
 };
-
-export default MyForm;
-
 ```
 
-## Roadmap
+## 🎨 Demo Examples
 
-Our future goals and enhancements for AppmintForm include:
+The library includes several demo examples that showcase different features and capabilities:
 
-1. Support for additional layout types (e.g., grid layout, datatable)
-2. Integration with popular form libraries (e.g., Formik, react-hook-form)
-3. Improved performance and optimization techniques
-4. Comprehensive documentation and examples
-5. A set of pre-built themes for easy customization
-6. Extending support for validation libraries
+- **Theme Editor**: Customize the appearance of your forms with a powerful theme editor
+- **Text Inputs**: Various text input types including regular fields, textarea, rich text editor
+- **Number Inputs**: Different number input options including sliders and ranges
+- **Selection Inputs**: Various selection controls like dropdowns, checkboxes, and radio buttons
+- **Date/Time Inputs**: Date pickers, date range pickers, and cron expression editors
+- **Special Inputs**: Color pickers, file uploads, map location pickers, and more
+- **Layout Elements**: Different layout options including tabs, accordions, and collapsible sections
+- **Advanced Elements**: Complex form elements like data views, lookups, and ratings
+- **Table Demo**: Table component with sorting, filtering, and pagination
 
-## Contributing
+Check out the [documentation](./DOCUMENTATION.md#demo-examples) for more details on these demos.
 
-We welcome contributions from the community! To contribute to AppmintForm:
+## 📄 License
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Write your code, making sure to follow the existing code style and conventions.
-4. Add or update tests, if necessary.
-5. Update documentation if you're introducing new features or making changes to the API.
-6. Commit your changes and create a pull request.
-
-For more detailed instructions on how to contribute, please see our [contributing guide](https://github.com/durubata/@appmint/form/blob/main/CONTRIBUTING.md).
-
-## License
-
-AppmintForm is open-source software licensed under the [MIT license](https://github.com/durubata/@appmint/form/blob/main/LICENSE).
+AppmintForm is open-source software licensed under the [MIT license](https://github.com/durubata/appmint-form/blob/main/LICENSE).

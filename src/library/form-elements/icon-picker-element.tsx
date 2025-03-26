@@ -1,70 +1,79 @@
-import React, { useState } from 'react';
-import data_icon from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
-import { Icon } from '../common/icons/list';
-import { classNames } from '../utils';
-import { emojiMartCustom } from '../common/icons/emoji-mart-custom';
-import { Popover } from '../common/popover';
+import React, { useEffect, useRef, useState } from 'react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
+import EmojiPicker from '../common/icons/icon-picker';
+import ViewManager from '../common/view-manager/view-manager';
+import { IconRenderer } from '../common/icons/icon-renderer';
+import { iconButtonClass } from '../utils/constants';
+import { ButtonDelete } from '../common/button-delete';
+import { set } from 'zod';
 
-export const IconPickerElement = (props: { blur, focus, change, path, label, name, data, schema }) => {
-  const { path, name, schema, label } = props;
-  const [value, setValue] = useState<any>(props.data);
+interface IconPickerElementProps {
+  blur?: (value: string) => void;
+  focus?: () => void;
+  change?: (value: string) => void;
+  value?: string;
+  path?: string;
+  label?: string;
+  name?: string;
+  data?: any;
+  schema?: any;
+  autoUnselect?: boolean;
+  theme?: any;
+  className?: string;
+}
 
+export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
+  // Extract styling from schema
+  const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
-  const handleEmojiSelect = (emoji: any) => {
-    if (emoji?.native) {
-      setValue(emoji.native);
-      props.blur(path, emoji.native, emoji);
-    } else {
-      setValue(emoji.id);
-      props.blur(path, emoji.id, emoji);
+  const iconClasses = getComponentPartStyling('icon-picker-element', 'icon', '', props.theme, customStyling);
+  const dropdownClasses = getComponentPartStyling('icon-picker-element', 'dropdown', '', props.theme, customStyling);
+
+  const [emoji, setEmoji] = useState<any>();
+  const [showPicker, setShowPicker] = useState(false);
+  const ref = useRef(null);
+
+  // Handle blur
+  const handleBlur = (emoji) => {
+    const emojiValue = emoji && typeof emoji === 'object' ? emoji.emoji : emoji;
+    setEmoji(emojiValue);
+    if (props.blur && emojiValue !== undefined) {
+      props.blur(emojiValue);
     }
   };
 
-  const getIcon = () => {
-    if (value?.length > 2) {
-      return <Icon name={value} />;
-    } else if (value?.length === 2) {
-      return value;
-    }
-    return null
-  }
+  // Handle focus
+  const handleFocus = () => {
 
-  const unselect = () => {
-    setValue(null);
-    props.blur(path, null);
-  }
-
-  if (schema['x-control-variant'] === 'inline') {
-    return (<div>
-      {value && <div className='flex gap-2 items-center mb-2'>
-        <div className={classNames('text-sm pl-2 group pr-3 py-1 rounded-full flex items-center gap-2 shadow bg-white border border-gray-100 hover:bg-cyan-100')}>
-          {getIcon()}
-        </div>
-        <button onClick={unselect} title="Unselect"><Icon name='FaXmark' color='red' /></button>
-      </div>}
-      <Picker
-        data={data_icon}
-        onEmojiSelect={handleEmojiSelect}
-        custom={emojiMartCustom}
-      />
-
-    </div>)
-  }
+  };
 
   return (
-    <div className='flex gap-2 items-center'>
-      <Popover position='context' content={<Picker
-        data={data_icon}
-        onEmojiSelect={handleEmojiSelect}
-        custom={emojiMartCustom}
-      />}>
-        <button onClick={unselect} className={classNames('text-sm pl-2 group pr-3 py-1 rounded-full flex items-center gap-2 shadow bg-white border border-gray-100 hover:bg-cyan-100')}>
-          {getIcon() || 'Select Icon'}
+    <StyledComponent
+      componentType="icon-picker-element"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={twMerge("flex gap-2 items-center", props.className)}
+      onFocus={handleFocus}
+    >
+      <div className='flex gap-2 items-center'>
+        <button ref={ref} className={iconButtonClass} onClick={() => setShowPicker(!showPicker)}>
+          {emoji?.length === 2 ? <span>{emoji}</span> : <IconRenderer icon={emoji || 'Smile'} className={iconClasses} />}
         </button>
-      </Popover>
-      {value && <button onClick={unselect} title="Unselect"><Icon name='FaXmark' color='red' /></button>}
-    </div>
+        {emoji && <ButtonDelete deleteHandler={() => {
+          setEmoji('');
+          if (props.blur) {
+            props.blur('');
+          }
+        }} />}
+      </div>
+      {showPicker && (
+        <ViewManager id='icon-picker' placement={{ ref: ref }} className={dropdownClasses} onClose={() => setShowPicker(false)}>
+          <EmojiPicker value={emoji} onSelect={handleBlur} />
+        </ViewManager>
+      )}
+    </StyledComponent>
   );
 };
-

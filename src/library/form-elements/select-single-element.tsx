@@ -1,32 +1,56 @@
 import React from 'react';
 import { SwitchElement } from './switch-element';
-import { classNames } from '../utils';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema } from './styling/style-utils';
 
-export const SelectSingleElement = (props: { change, blur, focus, mode, schema, path, name, data }) => {
-
-  const handleUpdate = (e) => {
-    e.preventDefault()
-    props.change(e.target.value)
+export const SelectSingleElement = (props: { change; blur; focus; value; mode; schema; path; name; data, ui?, theme?, className?}) => {
+  const handleUpdate = e => {
+    e.preventDefault();
+    props.change(e.target.value);
   };
 
-  const variant = props.schema['x-control-variant'] || 'text'
-  const prop: any = {}
+  // Extract styling from schema
+  const customStyling = extractStylingFromSchema(props.schema);
 
+  const variant = props.schema['x-control-variant'] || 'text';
   if (variant === 'checkbox' || variant === 'radio') {
     return (
-      <input
-        title="Input Field"
-        name={props.name}
-        id={props.path}
-        aria-describedby="candidates-description"
-        type={variant}
-        onChange={handleUpdate}
-        className={classNames(variant === 'radio' ? 'rounded-full' : 'rounded', "h-4 w-4  border-gray-300 text-indigo-600 focus:ring-indigo-600")}
-      />
-    )
+      <StyledComponent
+        componentType="select-single"
+        part="container"
+        schema={props.schema}
+        theme={props.theme}
+        className={props.className}
+      >
+        <StyledComponent
+          componentType="select-single"
+          part="input"
+          schema={props.schema}
+          theme={props.theme}
+          as="input"
+          name={props.name}
+          id={props.path}
+          aria-describedby="candidates-description"
+          type={variant}
+          value={props.value}
+          onChange={handleUpdate}
+          title={props.schema.title || props.name}
+          aria-label={props.schema.title || props.name}
+          className={variant === 'radio' ? 'rounded-full' : 'rounded'}
+        />
+      </StyledComponent>
+    );
   }
 
   return (
-    <SwitchElement change={props.change} />
+    <StyledComponent
+      componentType="select-single"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className={props.className}
+    >
+      <SwitchElement {...props} />
+    </StyledComponent>
   );
 };

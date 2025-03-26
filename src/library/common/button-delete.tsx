@@ -1,8 +1,8 @@
 import { getRandomString } from '../utils';
 import React, { useState, useEffect, useRef } from 'react';
-import { Icon } from './icons/list';
+import { IconRenderer } from './icons/icon-renderer';
 
-export const ButtonDelete = (props: { deleteHandler; controlRef?; className?; style?, unStyled?, reset?, size?}) => {
+export const ButtonDelete = (props: { deleteHandler; icon?; iconColor?; controlRef?; className?; style?, unStyled?, reset?, size?}) => {
   const [isActive, setActive] = useState(false);
   const { deleteHandler, controlRef, className, style, unStyled } = props;
   const ref = useRef(null);
@@ -36,7 +36,7 @@ export const ButtonDelete = (props: { deleteHandler; controlRef?; className?; st
 
   return (
     <button ref={ref} key={getRandomString()} className={buttonClass} onClick={confirmClick} onBlur={e => setActive(false)} style={style}>
-      {isActive ? <Icon name='FaCheck' size={props.size} /> : <Icon name='MdDelete' size={props.size} />}
+      {isActive ? <IconRenderer icon='Check' size={props.size} /> : <IconRenderer icon='Trash' size={props.size} />}
     </button>
   );
 };

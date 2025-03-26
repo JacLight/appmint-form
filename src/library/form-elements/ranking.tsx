@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { twMerge } from 'tailwind-merge';
 
 interface OptionType {
   value: string;
@@ -13,114 +16,239 @@ interface RankingControlProps {
   getOptionIconOrImage: (option: OptionType) => JSX.Element | null;
 }
 
-export const RankingInput = (props: { update, mode, schema, path, name, data }) => {
+export const RankingInput = (props: {
+  update;
+  mode;
+  schema;
+  path;
+  name;
+  data;
+  theme?;
+  change?;
+}) => {
+
   const [rankings, setRankings] = useState<Record<string, number>>({});
 
-  const options: any = props.schema?.options || []
-  const topics: any = props.schema?.topics || []
+  const options: any = props.schema?.options || [];
+  const topics: any = props.schema?.topics || [];
 
-
-  // useEffect(() => {
-  //   // Initialize rankings
-  //   const initialRankings = options?.reduce((acc, option, index) => {
-  //     acc[option.name] = index + 1;
-  //     return acc;
-  //   }, {} as Record<string, number>);
-  //   setRankings(initialRankings);
-  // }, [options]);
+  // Initialize rankings on component mount
+  useEffect(() => {
+    // Initialize rankings if not already set
+    if (Object.keys(rankings).length === 0 && options.length > 0) {
+      const initialRankings = options.reduce((acc, option, index) => {
+        acc[option.value] = index + 1;
+        return acc;
+      }, {} as Record<string, number>);
+      setRankings(initialRankings);
+    }
+  }, [options, rankings]);
 
   const handleSelectChange = (optionName: string, rank: number) => {
-    setRankings(prev => ({ ...prev, [optionName]: rank }));
-    // onChange({ ...rankings, [optionName]: rank });
+    const newRankings = { ...rankings, [optionName]: rank };
+    setRankings(newRankings);
+
+    // Notify parent component of change
+    if (props.change) {
+      props.change(newRankings);
+    }
+
+    if (props.update) {
+      props.update(props.path, newRankings);
+    }
   };
 
   const getInput = (option) => {
-    switch (props.schema['x-control-variant']) {
+    const variant = props.schema['x-control-variant'] || 'select';
+
+    switch (variant) {
       case 'checkbox':
         return (
-          <input
-            title={option.label}
+          <StyledComponent
+            componentType="ranking"
+            part="input"
+            schema={props.schema}
+            theme={props.theme}
+            as="input"
             type="checkbox"
-            value={rankings[option.value]}
-            onChange={(e) => handleSelectChange(option.value, parseInt(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-gray-700 h-4 w-4"
+            checked={!!rankings[option.value]}
+            onChange={(e) => handleSelectChange(option.value, e.target.checked ? 1 : 0)}
+            className="border border-gray-300 rounded h-4 w-4"
+            aria-label={`Rank ${option.label}`}
           />
         );
       case 'radio':
         return (
-          <input
+          <StyledComponent
+            componentType="ranking"
+            part="input"
+            schema={props.schema}
+            theme={props.theme}
+            as="input"
             type="radio"
-            title={option.label}
-            value={rankings[option.value]}
-            onChange={(e) => handleSelectChange(option.value, parseInt(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-gray-700 h-4 w-4"
+            checked={rankings[option.value] === 1}
+            onChange={(e) => handleSelectChange(option.value, e.target.checked ? 1 : 0)}
+            className="border border-gray-300 rounded h-4 w-4"
+            aria-label={`Rank ${option.label}`}
           />
         );
       case 'slider':
         return (
-          <input
+          <StyledComponent
+            componentType="ranking"
+            part="input"
+            schema={props.schema}
+            theme={props.theme}
+            as="input"
             type="range"
-            title={option.label}
-            value={rankings[option.value]}
+            value={rankings[option.value] || 1}
+            min={1}
+            max={options.length}
             onChange={(e) => handleSelectChange(option.value, parseInt(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-gray-700 w-full"
+            className="w-full"
+            aria-label={`Rank ${option.label}`}
           />
         );
       case 'number':
         return (
-          <input
+          <StyledComponent
+            componentType="ranking"
+            part="input"
+            schema={props.schema}
+            theme={props.theme}
+            as="input"
             type="number"
-            title={option.label}
-            value={rankings[option.value]}
+            value={rankings[option.value] || 1}
+            min={1}
+            max={options.length}
             onChange={(e) => handleSelectChange(option.value, parseInt(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-gray-700 w-full"
+            className="border border-gray-300 rounded px-2 py-1 w-full"
+            aria-label={`Rank ${option.label}`}
           />
         );
       default:
         return (
-          <select
-            title={option.label}
-            value={rankings[option.value]}
+          <StyledComponent
+            componentType="ranking"
+            part="select"
+            schema={props.schema}
+            theme={props.theme}
+            as="select"
+            value={rankings[option.value] || 1}
             onChange={(e) => handleSelectChange(option.value, parseInt(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-gray-700 w-full"
+            className="border border-gray-300 rounded px-2 py-1 w-full"
+            aria-label={`Rank ${option.label}`}
           >
             {options.map((_, i) => (
-              <option key={i} value={i + 1}>
+              <StyledComponent
+                key={i}
+                componentType="ranking"
+                part="option"
+                schema={props.schema}
+                theme={props.theme}
+                as="option"
+                value={i + 1}
+              >
                 {i + 1}
-              </option>
+              </StyledComponent>
             ))}
-          </select>
+          </StyledComponent>
         );
     }
-  }
+  };
+
+  // Calculate grid template columns based on number of topics
+  const gridTemplateColumns = `repeat(${topics.length + 1}, minmax(0, 1fr))`;
 
   return (
-    <div className="w-full">
-      <div className={`grid grid-cols-${topics.length + 1}`}>
-        {[{}, ...topics]?.map((topic, index) => {
-          return (
-            <div key={topic.value} className="flex items-center justify-center">
-              <span className="mr-2">{topic.label}</span>
-            </div>
-          )
-        })}
-        {options?.map((option, index) => {
-          return (
-            <>
-              <div key={option.value} className="flex items-center justify-between">
-                <span className="mr-2">{option.label}</span>
-              </div>
-              {topics?.map((topic, index) => {
-                return (
-                  <div className=' items-center justify-center p-2 w-full text-center'>
-                    {getInput(option)}
-                  </div>
-                )
-              })}
-            </>
-          )
-        })}
-      </div>
-    </div>
+    <StyledComponent
+      componentType="ranking"
+      part="container"
+      schema={props.schema}
+      theme={props.theme}
+      className="w-full"
+    >
+      <StyledComponent
+        componentType="ranking"
+        part="grid"
+        schema={props.schema}
+        theme={props.theme}
+        as="div"
+        className="grid"
+        style={{ gridTemplateColumns }}
+      >
+        {/* Headers */}
+        <StyledComponent
+          componentType="ranking"
+          part="header"
+          schema={props.schema}
+          theme={props.theme}
+          as="div"
+          className="flex items-center justify-center font-medium"
+        >
+          {/* Empty cell for the top-left corner */}
+        </StyledComponent>
+
+        {topics?.map((topic, index) => (
+          <StyledComponent
+            key={topic.value || index}
+            componentType="ranking"
+            part="header"
+            schema={props.schema}
+            theme={props.theme}
+            as="div"
+            className="flex items-center justify-center font-medium p-2"
+          >
+            <StyledComponent
+              componentType="ranking"
+              part="headerLabel"
+              schema={props.schema}
+              theme={props.theme}
+              as="span"
+            >
+              {topic.label}
+            </StyledComponent>
+          </StyledComponent>
+        ))}
+
+        {/* Rows */}
+        {options?.map((option, optionIndex) => (
+          <React.Fragment key={option.value || optionIndex}>
+            <StyledComponent
+              componentType="ranking"
+              part="row"
+              schema={props.schema}
+              theme={props.theme}
+              as="div"
+              className="flex items-center p-2"
+            >
+              <StyledComponent
+                componentType="ranking"
+                part="optionLabel"
+                schema={props.schema}
+                theme={props.theme}
+                as="span"
+              >
+                {option.label}
+              </StyledComponent>
+            </StyledComponent>
+
+            {topics?.map((topic, topicIndex) => (
+              <StyledComponent
+                key={`${option.value}-${topic.value || topicIndex}`}
+                componentType="ranking"
+                part="cell"
+                schema={props.schema}
+                theme={props.theme}
+                as="div"
+                className="flex items-center justify-center p-2"
+              >
+                {getInput(option)}
+              </StyledComponent>
+            ))}
+          </React.Fragment>
+        ))}
+      </StyledComponent>
+    </StyledComponent>
   );
 };

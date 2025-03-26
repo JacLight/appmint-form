@@ -1,5 +1,18 @@
 import React from 'react';
-export const ParagraphElement = ({ schema, name, value }) => {
+import { StyledComponent } from './styling';
+import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
-  return <div className='w-full p-2' id={name} dangerouslySetInnerHTML={{ __html: value || schema?.default || 'Paragraph Content Here' }}></div>
+export const ParagraphElement = ({ schema, name, value, theme, path }) => {
+
+  return (
+    <StyledComponent
+      componentType="paragraph"
+      part="container"
+      schema={schema}
+      theme={theme}
+      className="w-full p-2"
+      id={name}
+      dangerouslySetInnerHTML={{ __html: value || schema?.default || 'Paragraph Content Here' }}
+    />
+  );
 };
