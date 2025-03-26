@@ -1,7 +1,7 @@
 import { LoadingIndicator } from '../common/loading-indicator';
 import { formLayouts } from '../context/store';
 import { getElementTheme } from '../context/store';
-import { useFormStore } from '../context/store';
+import { useFormStore } from '../context/form-store-context';
 import { FormElementRender } from '../form-elements';
 import { ElementWrapperLayout } from '../form-elements/element-wrapper-layout';
 import { classNames } from '../utils';
@@ -18,11 +18,12 @@ import { StyledComponent } from '../form-elements/styling';
 
 export const FormRender = (props: { storeId; path; dataPath; name; className; arrayIndex?; parentDataPath?, layoutPath?, arrayControl?}) => {
   const { name, path, dataPath, className, arrayIndex, layoutPath } = props;
-  const { dataPathTimestamp, theme } = useFormStore(useShallow(state => ({
+  const store = useFormStore();
+  const { dataPathTimestamp, theme } = store(useShallow(state => ({
     dataPathTimestamp: state.timestamp[dataPath],
     theme: state.theme
   })));
-  const { getItemValue, setStateItem, applyRuleResult, getSchemaItem } = useFormStore.getState();
+  const { getItemValue, setStateItem, applyRuleResult, getSchemaItem } = store.getState();
   const [ruleActions, setRuleActions] = useState<any>({});
 
 
@@ -30,7 +31,7 @@ export const FormRender = (props: { storeId; path; dataPath; name; className; ar
     let schema = getSchemaItem(path);
     let watchedPaths = getWatchedPaths(schema, props.parentDataPath, props.arrayIndex);
     if (isNotEmpty(watchedPaths)) {
-      useFormStore.getState().updateWatchedPath(props.dataPath, watchedPaths);
+      store.getState().updateWatchedPath(props.dataPath, watchedPaths);
     }
     if (schema?.rules) {
       const arrayData = typeof arrayIndex === 'number' ? getItemValue(`${props.parentDataPath}.${arrayIndex}`) : null;
