@@ -1,5 +1,5 @@
 import { getElementTheme } from '../context/store';
-import { useFormStore } from '../context/store';
+import { FormStoreProvider, useFormStore } from '../context/form-store-context';
 import { LoadingIndicator } from '../common/loading-indicator';
 import { FormRender } from './form-render';
 import { classNames } from '../utils';
@@ -10,29 +10,57 @@ import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { StyledComponent } from '../form-elements/styling';
 import DataGalleryView from '../display-view/data-gallery-view';
+import {
+  registerCustomComponent,
+  registerCustomComponents,
+  clearCustomComponents
+} from '../form-elements/custom-components';
 
-export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; rules?; theme?; accessMode?; id?; datatype?; icon?; readOnly?; hash?; useAI?; collapsible?; onChange?: (path, value, data, files, error) => void }) => {
-  const storeId = props.id || props.hash;
+// Export custom component registration functions
+export {
+  registerCustomComponent,
+  registerCustomComponents,
+  clearCustomComponents
+};
 
-  const { formRef, activePage } = useFormStore(useShallow(state => ({ formRef: state.storeId, activePage: state.activePage })));
-  const { schema, initForm, getItemValue, getSchemaItem, setStateItem, getError, updateError } = useFormStore.getState();
+// Internal form component that uses the context-provided store
+const FormInternal = (props: { demo?; data?; path?; title?; schema?; rules?; theme?; accessMode?; id?; datatype?; icon?; readOnly?; hash?; useAI?; collapsible?; onChange?: (path, value, data, files, error) => void; storeId: string }) => {
+  const store = useFormStore();
+
+  const { formRef, activePage } = store(useShallow(state => ({
+    formRef: state.storeId,
+    activePage: state.activePage
+  })));
 
   useEffect(() => {
-    const { data = {}, path, schema, rules, theme, accessMode, datatype, onChange, readOnly } = props;
-    initForm({ data, path, schema, rules, theme, accessMode, storeId, datatype, onChangeCallback: onChange, readOnly });
-  }, [storeId]);
+    const { data = {}, path, schema, rules, theme, accessMode, datatype, onChange, readOnly, storeId } = props;
+    store.getState().initForm({
+      data,
+      path,
+      schema,
+      rules,
+      theme,
+      accessMode,
+      storeId,
+      datatype,
+      onChangeCallback: onChange,
+      readOnly
+    });
+  }, [props.storeId]);
 
   const setPage = page => {
-    setStateItem({ activePage: page, error: {} });
+    store.getState().setStateItem({ activePage: page, error: {} });
   };
 
   const prevPage = () => {
     if (activePage === 0) return;
     const _activePage = activePage - 1;
-    setStateItem({ activePage: _activePage, error: {} });
+    store.getState().setStateItem({ activePage: _activePage, error: {} });
   };
 
   const nextPage = () => {
+    const { getError, updateError, getSchemaItem, getItemValue, setStateItem } = store.getState();
+
     updateError('root', null);
 
     const errors = getError();
@@ -44,6 +72,8 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
       updateError('root', allErrors);
       return;
     }
+
+    const path = props.path;
     const targetSchema = getSchemaItem(path);
     const thisSchema: any = { type: targetSchema.type };
     if (targetSchema.type === 'object') {
@@ -54,8 +84,10 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
       thisSchema.items = deepCopy(targetSchema.items);
       thisSchema.items.required = targetSchema.items.inputRequired ? [targetSchema.items.name] : [];
     }
+
     // const validationResult = validateForm(getItemValue(''), thisSchema);
     // if (validationResult.valid) {
+    const schema = store(state => state.schema);
     if (activePage === schema?.pages?.length - 1) {
       console.log('submit');
       return;
@@ -69,14 +101,19 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
   };
 
   const aiUpdate = data => {
-    useFormStore
-      .getState()
-      .setStateItem({ data: data, timestamp: { ...useFormStore.getState().timestamp, ['root']: Date.now() } });
+    const storeState = store.getState();
+    storeState.setStateItem({
+      data: data,
+      timestamp: { ...storeState.timestamp, ['root']: Date.now() }
+    });
   };
 
   const aiGetContent = () => {
-    return schema;
+    return store(state => state.schema);
   };
+
+  // Get necessary state from the store
+  const schema = store(state => state.schema);
 
   if (!schema)
     return (
@@ -87,7 +124,7 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
     );
 
   const path = activePage > 0 ? 'pages.' + activePage : '';
-  const errorMsg = getError('root');
+  const errorMsg = store.getState().getError('root');
   const formTheme = getElementTheme('form', props.theme);
   const titleTheme = getElementTheme('title', props.theme);
   const title = props.title || schema.title;
@@ -159,12 +196,12 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
           >
             <ul>
               {errorMsg.split('\n').map(line => (
-                <li>{line}</li>
+                <li key={line}>{line}</li>
               ))}
             </ul>
           </StyledComponent>
         )}
-        <FormRender path={props.path || path} className="h-full w-full" name={''} dataPath={''} storeId={storeId} />
+        <FormRender path={props.path || path} className="h-full w-full" name={''} dataPath={''} storeId={props.storeId} />
       </StyledComponent>
       {pager}
     </StyledComponent>
@@ -172,7 +209,7 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
 
   if (collapsible) {
     return (
-      <FormCollapsible id={storeId} title={title} icon={props.icon}>
+      <FormCollapsible id={props.storeId} title={title} icon={props.icon}>
         {render}
       </FormCollapsible>
     );
@@ -182,6 +219,17 @@ export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; ru
     {render}
     <DataGalleryView />
   </>;
+};
+
+// Public form component that provides the store context
+export const CollectionForm = (props: { demo?; data?; path?; title?; schema?; rules?; theme?; accessMode?; id?; datatype?; icon?; readOnly?; hash?; useAI?; collapsible?; onChange?: (path, value, data, files, error) => void }) => {
+  const storeId = props.id || props.hash || 'form-' + Math.random().toString(36).substring(2, 9);
+
+  return (
+    <FormStoreProvider storeId={storeId}>
+      <FormInternal {...props} storeId={storeId} />
+    </FormStoreProvider>
+  );
 };
 
 export default CollectionForm;

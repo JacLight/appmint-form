@@ -4,6 +4,8 @@ import { CollectionTable } from './library/table-view';
 import { RowEvents, TableEvents } from './library/table-view';
 
 export type { RowEvents, TableEvents };
+
+export { registerCustomComponent, registerCustomComponents, clearCustomComponents } from './library/form-view';
 export interface AppmintFormProps {
   demo?: boolean;
   data?: any;

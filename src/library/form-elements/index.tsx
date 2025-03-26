@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonElement, elementToNameMap } from './all-elements';
+import { ButtonElement } from './all-elements';
+import { getComponentForFieldType } from './custom-components';
 import { ElementWrapperControl } from './element-wrapper-control';
-import { getElementTheme, useFormStore, showNotice } from '../context/store';
+import { getElementTheme, showNotice } from '../context/store';
+import { useFormStore } from '../context/form-store-context';
 import { ControlType, deepCopy, isNotEmpty, toSentenceCase, toTitleCase } from '../utils';
 import { FormCollapsible } from '../form-view/form-collapsible';
 import { FormPopup } from '../form-view/form-popup';
@@ -34,8 +36,17 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
   const dataPath = props.dataPath ? props.dataPath : `${props.dataPath}.${name}`;
   const parentPath = dataPath.includes('.') ? dataPath.split('.').slice(0, -1).join('.') : '';
 
-  const { dataPathTimestamp, theme: formTheme, datatype, storeId, activeDataPath, readOnly, dataBindValue } = useFormStore(useShallow(state => ({ dataPathTimestamp: state.timestamp?.[dataPath], theme: state.theme, datatype: state.datatype, storeId: state.storeId, activeDataPath: state.activeDataPath, readOnly: state.readOnly, dataBindValue: state.dataBindValue })));
-  const { rules, getItemValue, setStateItem, applyRuleResult, getDefaultValue, setItemValue, updateError, getError, getSchemaItem, updateRepository } = useFormStore.getState();
+  const store = useFormStore();
+  const { dataPathTimestamp, theme: formTheme, datatype, storeId, activeDataPath, readOnly, dataBindValue } = store(useShallow(state => ({
+    dataPathTimestamp: state.timestamp?.[dataPath],
+    theme: state.theme,
+    datatype: state.datatype,
+    storeId: state.storeId,
+    activeDataPath: state.activeDataPath,
+    readOnly: state.readOnly,
+    dataBindValue: state.dataBindValue
+  })));
+  const { rules, getItemValue, setStateItem, applyRuleResult, getDefaultValue, setItemValue, updateError, getError, getSchemaItem, updateRepository } = store.getState();
   let schema = deepCopy(props.schema || getSchemaItem(path));
 
   const theme = props.theme || formTheme;
@@ -46,7 +57,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
     let watchedPaths = getWatchedPaths(schema, props.parentDataPath, arrayIndex);
 
     if (isNotEmpty(watchedPaths)) {
-      useFormStore.getState().updateWatchedPath(props.dataPath, watchedPaths);
+      store.getState().updateWatchedPath(props.dataPath, watchedPaths);
     }
     if (schema?.rules) {
       const parentData = getItemValue(`${props.parentDataPath}`)
@@ -184,7 +195,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
 
   let controlType = ruleSchema.fieldType ? ruleSchema.fieldType : getControlType(ruleSchema);
   controlType = cleanControlType(controlType);
-  const Element = elementToNameMap[controlType] || elementToNameMap.default;
+  const Element = getComponentForFieldType(controlType);
 
   if (controlType === ControlType.button) {
     return <ButtonElement

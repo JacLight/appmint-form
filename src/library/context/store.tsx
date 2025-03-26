@@ -18,7 +18,7 @@ export const formLayouts = {
 
 const storeMap = new Map();
 
-interface FormStoreProps {
+export interface FormStoreProps {
   datatype?: string;
   schema?: any;
   theme?: any;

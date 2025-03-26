@@ -22,6 +22,8 @@ import AdvancedElementsDemo from './AdvancedElementsDemo';
 import TableDemo from './TableDemo';
 import FormDemo from './FormDemo';
 import ThemeEditorDemo from './ThemeEditorDemo';
+import MultiFormDemo from './MultiFormDemo';
+import CustomComponentsDemo from './CustomComponentsDemo';
 
 // Text Input Elements
 import TextFieldDemo from './textInputs/TextFieldDemo';
@@ -33,6 +35,26 @@ import PageDemo from './page-demo';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
+    // Multiple Form Instances Demo
+    {
+        id: 'multi-form-demo',
+        title: 'Multiple Form Instances',
+        description: 'Demonstrates multiple form instances working independently without overriding each other\'s data.',
+        category: 'Views',
+        component: MultiFormDemo,
+        code: `// Multiple Form Instances Demo Code`
+    },
+
+    // Custom Components Demo
+    {
+        id: 'custom-components-demo',
+        title: 'Custom Components',
+        description: 'Shows how to create and register custom form components.',
+        category: 'Views',
+        component: CustomComponentsDemo,
+        code: `// Custom Components Demo Code`
+    },
+
     // Theme Editor
     {
         id: 'business-made',
