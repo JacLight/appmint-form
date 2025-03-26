@@ -21,7 +21,7 @@ The project includes GitHub Actions workflows that automate the entire CI/CD pro
 
 3. **Kubernetes Deployment** (.github/workflows/deploy.yml)
    - Triggered after a successful Docker image build
-   - Deploys the application to Kubernetes
+   - Deploys the application to Kubernetes using the configuration in .github/k8/
    - Uses the same image tag as the Docker build
 
 ### Required Secrets
@@ -31,7 +31,15 @@ To use these workflows, you need to set up the following GitHub secrets:
 - `DOCKER_USERNAME`: Your Docker Hub username
 - `DOCKER_ACCESS_TOKEN`: Your Docker Hub access token
 - `NPM_ACCESS_TOKEN`: Your NPM access token (if needed)
-- `KUBE_CONFIG`: Your Kubernetes configuration file (base64 encoded)
+
+### Kubernetes Configuration
+
+The Kubernetes configuration files are stored in the `.github/k8/` directory:
+
+- `deploy.yaml`: Defines the Kubernetes Deployment, Service, and Ingress resources
+- `auth.yaml`: Contains the Kubernetes cluster authentication information
+
+The deployment is configured to use the domain `forms.appmint.app` and will automatically set up TLS using Let's Encrypt.
 
 ## Manual Deployment
 
