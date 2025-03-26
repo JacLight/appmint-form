@@ -2,7 +2,7 @@ name: Version Bump
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   bump_version_number:
     name: Bump Version Number
