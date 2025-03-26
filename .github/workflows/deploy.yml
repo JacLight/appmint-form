@@ -1,0 +1,40 @@
+name: Deploy to Kubernetes
+
+on:
+  workflow_run:
+    workflows: [Publish Docker image]
+    types:
+      - completed
+
+env:
+  SITE_NAME: "appmint-form"
+  DOCKER_HUB: "jaclight/fundu"
+
+jobs:
+  deploy:
+    name: Deploy to Kubernetes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          export IMAGE_NAME="${{ env.DOCKER_HUB }}:${{ env.SITE_NAME }}-${{ steps.package-version.outputs.current-version }}"
+          echo "Deploying image: ${IMAGE_NAME}"
+          envsubst < kubernetes.yaml | kubectl apply -f -

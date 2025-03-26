@@ -2,7 +2,42 @@
 
 This guide explains how to build a Docker image for the Appmint Form Demo, push it to a container registry, and deploy it to Kubernetes.
 
-## Prerequisites
+## Automated CI/CD with GitHub Actions
+
+The project includes GitHub Actions workflows that automate the entire CI/CD process:
+
+1. **Version Bump** (.github/workflows/version-bump.yml)
+   - Automatically bumps the version in package.json based on commit messages
+   - Triggers when pushing to the master branch
+   - Uses commit message keywords to determine version increment type:
+     - Minor: 'add', 'Adds', 'new'
+     - Major: 'MAJOR', 'cut-major'
+     - Patch: 'patch', 'fixes'
+
+2. **Docker Image Build** (.github/workflows/docker.yml)
+   - Triggered after a successful version bump
+   - Builds and pushes the Docker image to jaclight/fundu
+   - Tags the image with the version from package.json
+
+3. **Kubernetes Deployment** (.github/workflows/deploy.yml)
+   - Triggered after a successful Docker image build
+   - Deploys the application to Kubernetes
+   - Uses the same image tag as the Docker build
+
+### Required Secrets
+
+To use these workflows, you need to set up the following GitHub secrets:
+
+- `DOCKER_USERNAME`: Your Docker Hub username
+- `DOCKER_ACCESS_TOKEN`: Your Docker Hub access token
+- `NPM_ACCESS_TOKEN`: Your NPM access token (if needed)
+- `KUBE_CONFIG`: Your Kubernetes configuration file (base64 encoded)
+
+## Manual Deployment
+
+If you prefer to deploy manually, follow the instructions below.
+
+### Prerequisites
 
 - Docker installed on your machine
 - Access to Docker Hub with permissions to push to jaclight/fundu repository

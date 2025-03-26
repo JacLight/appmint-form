@@ -1,0 +1,51 @@
+name: Publish Docker image
+
+on:
+  workflow_run:
+    workflows: [Version Bump]
+    types:
+      - completed
+
+env:
+  IMAGE_NAME: "appmint-form"
+  DOCKER_HUB: "jaclight/fundu"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      # Create swap space to prevent build failures on low-memory runners
+      - name: Enable Swap Space
+        run: |
+          echo "Creating swap file..."
+          sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile
+          sudo swapon /mnt/swapfile
+          free -h  # Verify swap is enabled
+
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Get NPM package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: jaclight/fundu:appmint-form-${{ steps.package-version.outputs.current-version }}
+          secrets: |
+            npm_token=${{ secrets.NPM_ACCESS_TOKEN }}
