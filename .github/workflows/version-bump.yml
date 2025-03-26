@@ -20,4 +20,3 @@ jobs:
           patch-wording:  'patch,fixes'     
                                         
           rc-wording:     'RELEASE,alpha'
- 

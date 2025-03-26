@@ -1,4 +1,4 @@
-name: Deploy to Kubernetes
+name: Deploy Image to Kubernetes
 
 on:
   workflow_run:
@@ -7,34 +7,27 @@ on:
       - completed
 
 env:
-  SITE_NAME: "appmint-form"
+  ORG_ID: "default"
   DOCKER_HUB: "jaclight/fundu"
-
+  SITE_NAME: "appmint-form"  
+   
 jobs:
-  deploy:
-    name: Deploy to Kubernetes
+  push_to_registry:
+    name: Deploy Image To Kubernetes
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3    
 
       - name: Get NPM Version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
-
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'latest'
-
-      - name: Set up kubeconfig
+                
+      - name: Deploy Image
         run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-
-      - name: Deploy to Kubernetes
-        run: |
-          export IMAGE_NAME="${{ env.DOCKER_HUB }}:${{ env.SITE_NAME }}-${{ steps.package-version.outputs.current-version }}"
-          echo "Deploying image: ${IMAGE_NAME}"
-          envsubst < kubernetes.yaml | kubectl apply -f -
+          export IMAGE_NAME=$IMAGE_NAME
+          echo Image Name: ${IMAGE_NAME} for org ${ORG_ID}, site: ${SITE_NAME}
+          envsubst <  ./.github/k8/deploy.yaml | kubectl --kubeconfig=./.github/k8/auth.yaml apply -f -  
+        shell: bash
+        env:
+          IMAGE_NAME: jaclight/fundu:appmint-form-${{steps.package-version.outputs.current-version}}
