@@ -6,7 +6,6 @@ import { flexRender } from '@tanstack/react-table';
 import { TableColumns } from './table-columns';
 import { ColumnFilters } from './column-filters';
 import { IndeterminateCheckbox } from '../common/indeterminate-checkbox';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const CollectionTableView = (props: { table; selectRow; selectedRows; slimRow; onRowEvent; options; onRowDataEvent; datatype }) => {
   const { table, selectedRows, slimRow, selectRow } = props;

@@ -158,7 +158,7 @@ const CameraCaptureComponent = () => {
         if (!file) return;
 
         const reader = new FileReader();
-        reader.onload = (event) => {
+        reader.onload = (event: any) => {
             setCapturedImage(event.target.result);
             setHasCapture(true);
         };

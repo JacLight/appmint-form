@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { SelectManyCombo } from '../form-elements/select-many-combo';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const TablePresetFilter: React.FC<any> = ({ filterPreset }) => {
   const [filter, setFilter] = useState(filterPreset.default);

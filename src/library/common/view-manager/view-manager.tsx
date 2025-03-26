@@ -51,10 +51,13 @@ const ViewManager = ({
     useEffect(() => {
         if (isModal) {
             document.body.style.overflow = 'hidden';
-            return () => {
-                document.body.style.overflow = 'unset';
-            };
         }
+
+        return () => {
+            if (isModal) {
+                document.body.style.overflow = 'unset';
+            }
+        };
     }, [isModal]);
 
     function getStoredValue(key, defaultValue) {

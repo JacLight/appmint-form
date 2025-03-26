@@ -6,6 +6,10 @@ import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import tailwindcss from '@tailwindcss/vite';
 import { readFileSync } from 'fs';
 
+// Read package.json dependencies
+const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'));
+const dependencies = Object.keys(packageJson.dependencies || {});
+
 export default defineConfig({
     plugins: [
         react(),
@@ -28,10 +32,7 @@ export default defineConfig({
                 'react',
                 'react-dom',
                 'react/jsx-runtime',
-                // Read package.json using fs instead of require to maintain ESM compatibility
-                ...Object.keys(
-                    JSON.parse(readFileSync('./package.json', 'utf-8')).dependencies || {}
-                ),
+                ...dependencies,
             ],
             output: {
                 globals: {

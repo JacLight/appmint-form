@@ -37,7 +37,7 @@ export const MonacoCodeEditor: React.FC<MonacoCodeEditorProps> = ({
     const loadMonacoEditor = () => {
         if (window.monaco) {
             setIsLoaded(true);
-            return;
+            return () => { };
         }
 
         const script = document.createElement('script');
@@ -179,6 +179,7 @@ export const MonacoCodeEditor: React.FC<MonacoCodeEditorProps> = ({
                 }}>
                     {expandable && (
                         <button
+                            title={isExpanded ? 'Minimize' : 'Maximize'}
                             onClick={toggleExpand}
                             style={{
                                 background: 'none',
@@ -192,6 +193,7 @@ export const MonacoCodeEditor: React.FC<MonacoCodeEditorProps> = ({
                         </button>
                     )}
                     <button
+                        title="Save"
                         onClick={handleSave}
                         style={{
                             background: 'none',

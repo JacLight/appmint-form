@@ -89,13 +89,15 @@ const RichTextEditorCDN = React.lazy(() => {
                     });
 
                     // Clean up on unmount
-                    return () => {
-                        if (editorRef.current) {
-                            editorRef.current.destroy();
-                            editorRef.current = null;
-                        }
-                    };
+
                 }
+
+                return () => {
+                    if (editorRef.current) {
+                        editorRef.current.destroy();
+                        editorRef.current = null;
+                    }
+                };
             }, []);
 
             // Update editor content when props.value changes

@@ -22,11 +22,11 @@
     "node": ">=18"
   },
   "scripts": {
-    "start": "vite build --watch",
-    "build": "vite build",
+    "start": "vite build --config vite.config.mjs --watch",
+    "build": "vite build --config vite.config.mjs",
     "test": "vitest run --passWithNoTests",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "prepare": "vite build",
+    "prepare": "vite build --config vite.config.mjs",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "dev": "vite --config vite.demo.config.ts",

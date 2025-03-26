@@ -1,7 +1,6 @@
 import React from 'react';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { Popover } from '../common/popover';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const TableColumns: React.FC<any> = ({ table }) => {
     const content = (

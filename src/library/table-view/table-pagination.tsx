@@ -1,6 +1,5 @@
 import React from 'react';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const TablePagination: React.FC<any> = ({ table }) => {
     return (

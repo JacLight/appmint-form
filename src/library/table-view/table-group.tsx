@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { IconButtonDelete } from '../common/icon-button-delete';
 import { isEmpty } from '../utils';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const TableGroup: React.FC<any> = props => {
     const [columns, setColumns] = useState<any>([]);

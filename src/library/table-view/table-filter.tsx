@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { classNames } from '../utils';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 // Stubs for missing components
 const DebouncedInput = (props) => (

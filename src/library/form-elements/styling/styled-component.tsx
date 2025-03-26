@@ -1,6 +1,7 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
-import { ComponentStyling, ThemeStyling, extractStylingFromSchema, getComponentPartStyling } from './style-utils';
+import { extractStylingFromSchema, getComponentPartStyling } from './style-utils';
+import { ThemeStyling } from './theme-settings';
 
 interface StyledComponentProps {
     /**

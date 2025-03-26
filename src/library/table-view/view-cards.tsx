@@ -8,7 +8,6 @@ import { ColumnFilters } from './column-filters';
 import { TableCardRenderer } from './view-card-renderer';
 import { CollectionTableCardPopup } from './view-card-popup';
 import { IndeterminateCheckbox } from '../common/indeterminate-checkbox';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 export const CollectionTableCardView = (props: { table; selectRow; selectedRows; slimRow; onRowEvent; options; itemRenderer; onRowDataEvent; datatype }) => {
   const { table, selectedRows, slimRow, selectRow, itemRenderer } = props;

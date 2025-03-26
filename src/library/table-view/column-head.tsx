@@ -2,7 +2,6 @@ import React from 'react';
 import { flexRender } from '@tanstack/react-table';
 import { classNames } from '../utils';
 import { IconRenderer } from '../common/icons/icon-renderer';
-import { useTheme } from '../../../../../contexts/theme-context';
 
 const sortIcons = {
     asc: <IconRenderer icon="ArrowUp" />,
