@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: appmint-form
-        image: ${IMAGE_NAME}
+        image: ${IMAGE_NAME}  # Will be replaced with jaclight/fundu:appmint-form-[version]
         ports:
         - name: http
           containerPort: 80

@@ -3,8 +3,11 @@
 # Exit on error
 set -e
 
+# Get version from package.json
+PACKAGE_VERSION=$(node -p "require('./package.json').version")
+
 # Default values
-VERSION="0.2.5"
+VERSION="$PACKAGE_VERSION"
 REGISTRY="jaclight/fundu"
 IMAGE_NAME="appmint-form"
 

@@ -9,11 +9,48 @@ This guide explains how to build a Docker image for the Appmint Form Demo, push 
 - kubectl configured to connect to your Kubernetes cluster
 - Image pull secret "dockerhubkey" configured in your Kubernetes cluster
 
-## Building and Pushing the Docker Image
+## Automated Deployment (Recommended)
 
-### Option 1: Using the Automated Script (Recommended)
+We've provided a fully automated deployment script that handles everything:
 
-We've provided a convenient script that automates the build and push process:
+1. Make the script executable (if not already):
+
+```bash
+chmod +x deploy.sh
+```
+
+2. Run the script:
+
+```bash
+./deploy.sh
+```
+
+This script will:
+
+- Automatically get the version from package.json
+- Build and push the Docker image to jaclight/fundu
+- Deploy to Kubernetes with the correct image name
+
+You can customize the deployment if needed:
+
+```bash
+# Use a specific version instead of the one from package.json
+./deploy.sh --version 0.2.6
+
+# Skip building the Docker image (if it's already built)
+./deploy.sh --skip-build
+
+# See all available options
+./deploy.sh --help
+```
+
+## Manual Deployment
+
+If you prefer to handle the deployment steps manually, you can:
+
+### Building and Pushing the Docker Image
+
+#### Option 1: Using the Build Script
 
 1. Make the script executable (if not already):
 
@@ -27,7 +64,7 @@ chmod +x docker-build-push.sh
 ./docker-build-push.sh
 ```
 
-By default, the script will build and push to `jaclight/fundu:appmint-form-0.2.5`. You can customize the version if needed:
+The script automatically gets the version from package.json. You can customize the version if needed:
 
 ```bash
 ./docker-build-push.sh --version 0.2.6
@@ -35,46 +72,54 @@ By default, the script will build and push to `jaclight/fundu:appmint-form-0.2.5
 
 Run `./docker-build-push.sh --help` for more options.
 
-### Option 2: Manual Process
+#### Option 2: Manual Process
 
 If you prefer to build and push manually:
 
-1. Build the demo application:
+1. Get the current version from package.json:
+
+```bash
+VERSION=$(node -p "require('./package.json').version")
+```
+
+2. Build the demo application:
 
 ```bash
 yarn build:demo
 ```
 
-2. Build the Docker image:
+3. Build the Docker image:
 
 ```bash
-docker build -t appmint-form:0.2.5 .
+docker build -t appmint-form:$VERSION .
 ```
 
-3. Tag the image with the correct repository:
+4. Tag the image with the correct repository:
 
 ```bash
-docker tag appmint-form:0.2.5 jaclight/fundu:appmint-form-0.2.5
+docker tag appmint-form:$VERSION jaclight/fundu:appmint-form-$VERSION
 ```
 
-4. Push the image to Docker Hub:
+5. Push the image to Docker Hub:
 
 ```bash
-docker push jaclight/fundu:appmint-form-0.2.5
+docker push jaclight/fundu:appmint-form-$VERSION
 ```
 
-## Deploying to Kubernetes
+### Deploying to Kubernetes
 
-1. Edit the `kubernetes.yaml` file to replace `${IMAGE_NAME}` with the full image name:
+1. Create a temporary file with the image name substituted:
 
-```yaml
-image: jaclight/fundu:appmint-form-0.2.5
+```bash
+VERSION=$(node -p "require('./package.json').version")
+export IMAGE_NAME="jaclight/fundu:appmint-form-$VERSION"
+envsubst < kubernetes.yaml > /tmp/k8s-deploy.yaml
 ```
 
 2. Apply the Kubernetes configuration:
 
 ```bash
-kubectl apply -f kubernetes.yaml
+kubectl apply -f /tmp/k8s-deploy.yaml
 ```
 
 3. Check the status of your deployment:
