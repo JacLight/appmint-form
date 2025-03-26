@@ -27,7 +27,12 @@ jobs:
         run: |
           export IMAGE_NAME=$IMAGE_NAME
           echo Image Name: ${IMAGE_NAME} for org ${ORG_ID}, site: ${SITE_NAME}
-          envsubst <  ./.github/k8/deploy.yaml | kubectl --kubeconfig=./.github/k8/auth.yaml apply -f -  
+          
+          # Apply deployment and service
+          envsubst < ./.github/k8/deploy.yaml | kubectl --kubeconfig=./.github/k8/auth.yaml apply -f -
+          
+          # Apply ingress
+          kubectl --kubeconfig=./.github/k8/auth.yaml apply -f ./.github/k8/ingress.yml
         shell: bash
         env:
           IMAGE_NAME: jaclight/fundu:appmint-form-${{steps.package-version.outputs.current-version}}
