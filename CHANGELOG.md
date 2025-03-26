@@ -12,6 +12,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive documentation with detailed API reference
 - Improved README with badges and quick start guide
 
+## [0.2.5] - 2025-03-26
+
+### Added
+
+- Capture and Signature elements for image and signature input
+- PageDemo component and schema for multi-page form functionality
+- Number range input component with dual thumbs
+- Enhanced SliderRangeElement with dual thumbs and optional input display
+- Tailwind CSS configuration with dark mode support across components
+- Integration with Radix UI Select components
+
+### Changed
+
+- Replaced non-Lucide icons with Lucide equivalents across multiple components for standardized icon usage
+- Enhanced AppmintForm and AppmintTable components with new props and event types
+- Refactored form-utils for cleaner imports
+- Updated DateRange schema type to array for better data handling
+- Improved form element styles for consistency
+- Enhanced meta type determination logic in table view
+- Refactored IconPickerElement and SocialTextArea for improved styling and functionality
+- Updated EmojiPicker to handle value and selection events properly
+- Migrated components from headless-replacements to select-components
+- Removed unnecessary wrapper divs from demo components for cleaner structure
+- Streamlined form elements by removing unused styling logic
+
+### Fixed
+
+- Resolved ESM compatibility issue with @tailwindcss/vite package
+- Updated build configuration to properly handle ESM-only dependencies
+- Migrated Vite config to use .mjs extension for better ESM support
+- Removed unused theme context imports and improved cleanup logic in various components
+- Added missing newline at end of file in style-utils.ts
+
 ## [0.2.0] - 2025-02-26
 
 ### Added
