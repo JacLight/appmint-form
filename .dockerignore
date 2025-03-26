@@ -1,0 +1,40 @@
+# Git
+.git
+.gitignore
+
+# Node.js
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Build outputs
+dist
+demo-dist
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# Kubernetes
+kubernetes.yaml
+
+# Documentation
+*.md
+!README.md
+
+# Development and test files
+.vscode
+.idea
+.env
+.env.*
+*.log
+coverage
+test
+tests
+
+# OS specific
+.DS_Store
+Thumbs.db
