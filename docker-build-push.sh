@@ -5,8 +5,8 @@ set -e
 
 # Default values
 VERSION="0.2.5"
-REGISTRY=""
-IMAGE_NAME="appmint-form-demo"
+REGISTRY="jaclight/fundu"
+IMAGE_NAME="appmint-form"
 
 # Display help
 function show_help {
@@ -62,7 +62,7 @@ if [ -z "$REGISTRY" ]; then
 fi
 
 # Full image name with registry
-FULL_IMAGE_NAME="$REGISTRY/$IMAGE_NAME:$VERSION"
+FULL_IMAGE_NAME="$REGISTRY:$IMAGE_NAME-$VERSION"
 
 echo "Building Docker image: $FULL_IMAGE_NAME"
 echo "-----------------------------------"

@@ -5,8 +5,9 @@ This guide explains how to build a Docker image for the Appmint Form Demo, push 
 ## Prerequisites
 
 - Docker installed on your machine
-- Access to a container registry (Docker Hub, Google Container Registry, AWS ECR, etc.)
+- Access to Docker Hub with permissions to push to jaclight/fundu repository
 - kubectl configured to connect to your Kubernetes cluster
+- Image pull secret "dockerhubkey" configured in your Kubernetes cluster
 
 ## Building and Pushing the Docker Image
 
@@ -20,16 +21,16 @@ We've provided a convenient script that automates the build and push process:
 chmod +x docker-build-push.sh
 ```
 
-2. Run the script with your registry information:
+2. Run the script:
 
 ```bash
-./docker-build-push.sh --registry your-registry.com
+./docker-build-push.sh
 ```
 
-You can also specify a custom version or image name:
+By default, the script will build and push to `jaclight/fundu:appmint-form-0.2.5`. You can customize the version if needed:
 
 ```bash
-./docker-build-push.sh --registry your-registry.com --version 0.2.6 --name custom-image-name
+./docker-build-push.sh --version 0.2.6
 ```
 
 Run `./docker-build-push.sh --help` for more options.
@@ -47,48 +48,44 @@ yarn build:demo
 2. Build the Docker image:
 
 ```bash
-docker build -t appmint-form-demo:0.2.5 .
+docker build -t appmint-form:0.2.5 .
 ```
 
-3. Tag the image with your registry information:
+3. Tag the image with the correct repository:
 
 ```bash
-docker tag appmint-form-demo:0.2.5 your-registry.com/appmint-form-demo:0.2.5
+docker tag appmint-form:0.2.5 jaclight/fundu:appmint-form-0.2.5
 ```
 
-4. Push the image to your registry:
+4. Push the image to Docker Hub:
 
 ```bash
-docker push your-registry.com/appmint-form-demo:0.2.5
+docker push jaclight/fundu:appmint-form-0.2.5
 ```
 
 ## Deploying to Kubernetes
 
-1. Edit the `kubernetes.yaml` file to replace `${DOCKER_REGISTRY}` with your actual registry URL:
+1. Edit the `kubernetes.yaml` file to replace `${IMAGE_NAME}` with the full image name:
 
 ```yaml
-image: your-registry.com/appmint-form-demo:0.2.5
+image: jaclight/fundu:appmint-form-0.2.5
 ```
 
-2. Also update the Ingress host to match your domain:
-
-```yaml
-host: appmint-form-demo.your-domain.com
-```
-
-3. Apply the Kubernetes configuration:
+2. Apply the Kubernetes configuration:
 
 ```bash
 kubectl apply -f kubernetes.yaml
 ```
 
-4. Check the status of your deployment:
+3. Check the status of your deployment:
 
 ```bash
-kubectl get pods -l app=appmint-form-demo
-kubectl get service appmint-form-demo
-kubectl get ingress appmint-form-demo
+kubectl get pods -l component=appmint-form
+kubectl get service appmint-form-service
+kubectl get ingress appmint-form-ingress
 ```
+
+The application will be available at <https://forms.appmint.app> once the deployment is complete and DNS is properly configured.
 
 ## Configuration Options
 
@@ -106,8 +103,8 @@ If you need to add environment variables to the container, edit the `kubernetes.
 
 ```yaml
 containers:
-- name: appmint-form-demo
-  image: your-registry.com/appmint-form-demo:0.2.5
+- name: appmint-form
+  image: jaclight/fundu:appmint-form-0.2.5
   env:
   - name: ENV_VARIABLE_NAME
     value: "value"
@@ -129,16 +126,17 @@ If you encounter issues with the deployment:
 1. Check the pod logs:
 
 ```bash
-kubectl logs -l app=appmint-form-demo
+kubectl logs -l component=appmint-form
 ```
 
 2. Describe the pod to see events:
 
 ```bash
-kubectl describe pod -l app=appmint-form-demo
+kubectl describe pod -l component=appmint-form
 ```
 
 3. Check the Ingress configuration:
 
 ```bash
-kubectl describe ingress appmint-form-demo
+kubectl describe ingress appmint-form-ingress
+```
