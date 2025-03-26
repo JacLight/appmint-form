@@ -1,6 +1,7 @@
 {
   "version": "0.2.5",
   "license": "MIT",
+  "type": "module",
   "main": "dist/appmint-form.cjs.js",
   "module": "dist/appmint-form.es.js",
   "typings": "dist/index.d.ts",
