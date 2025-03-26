@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonElement, elementToNameMap } from './all-elements';
+import { ButtonElement } from './all-elements';
+import { getComponentForFieldType } from './custom-components';
 import { ElementWrapperControl } from './element-wrapper-control';
 import { getElementTheme, showNotice } from '../context/store';
 import { useFormStore } from '../context/form-store-context';
@@ -194,7 +195,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
 
   let controlType = ruleSchema.fieldType ? ruleSchema.fieldType : getControlType(ruleSchema);
   controlType = cleanControlType(controlType);
-  const Element = elementToNameMap[controlType] || elementToNameMap.default;
+  const Element = getComponentForFieldType(controlType);
 
   if (controlType === ControlType.button) {
     return <ButtonElement

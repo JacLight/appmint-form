@@ -10,6 +10,18 @@ import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { StyledComponent } from '../form-elements/styling';
 import DataGalleryView from '../display-view/data-gallery-view';
+import {
+  registerCustomComponent,
+  registerCustomComponents,
+  clearCustomComponents
+} from '../form-elements/custom-components';
+
+// Export custom component registration functions
+export {
+  registerCustomComponent,
+  registerCustomComponents,
+  clearCustomComponents
+};
 
 // Internal form component that uses the context-provided store
 const FormInternal = (props: { demo?; data?; path?; title?; schema?; rules?; theme?; accessMode?; id?; datatype?; icon?; readOnly?; hash?; useAI?; collapsible?; onChange?: (path, value, data, files, error) => void; storeId: string }) => {

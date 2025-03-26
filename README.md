@@ -20,6 +20,8 @@ AppmintForm is a powerful, lightweight, and flexible form builder library for Re
 - **Theming Support**: Easily customize the appearance of your forms
 - **Performance Optimized**: Only updates what has changed, ensuring efficient rendering
 - **Extensible**: Add custom input components and layouts
+- **Multiple Form Instances**: Use multiple forms on the same page without state conflicts
+- **Custom Components**: Create and register custom form elements or override existing ones
 
 ## 🚀 Quick Start
 
@@ -90,6 +92,87 @@ The library includes several demo examples that showcase different features and 
 - **Table Demo**: Table component with sorting, filtering, and pagination
 
 Check out the [documentation](./DOCUMENTATION.md#demo-examples) for more details on these demos.
+
+## 🔌 Custom Components & Multiple Forms
+
+### Multiple Form Instances
+
+You can now use multiple form instances on the same page without state conflicts:
+
+```jsx
+import React from 'react';
+import { CollectionForm } from '@appmint/form';
+
+const MultipleFormsExample = () => {
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      {/* Each form has its own independent state */}
+      <CollectionForm 
+        schema={schema1} 
+        id="form-1"
+        data={data1}
+      />
+      
+      <CollectionForm 
+        schema={schema2} 
+        id="form-2"
+        data={data2}
+      />
+    </div>
+  );
+};
+```
+
+### Custom Components
+
+Create and register custom form components to extend the library's capabilities:
+
+```jsx
+import React from 'react';
+import { CollectionForm, registerCustomComponent } from '@appmint/form';
+
+// Create a custom component
+const CustomTextInput = (props) => {
+  const { value, change, blur, focus, name, schema } = props;
+  
+  return (
+    <div className="custom-input">
+      <input
+        type="text"
+        value={value || ''}
+        onChange={(e) => change(e.target.value)}
+        onBlur={(e) => blur(e.target.value)}
+        onFocus={focus}
+        placeholder={schema.placeholder}
+        className="custom-styled-input"
+      />
+      <div className="helper-text">Custom input component</div>
+    </div>
+  );
+};
+
+// Register your custom component
+registerCustomComponent('custom-text', CustomTextInput);
+
+// Use it in your form schema
+const schema = {
+  type: 'object',
+  properties: {
+    customField: {
+      type: 'string',
+      title: 'Custom Field',
+      'x-control': 'custom-text'
+    }
+  }
+};
+```
+
+You can also override existing components to customize their appearance and behavior:
+
+```jsx
+// Override the built-in textarea component
+registerCustomComponent('textarea', CustomTextareaComponent);
+```
 
 ## 📄 License
 

@@ -23,6 +23,7 @@ import TableDemo from './TableDemo';
 import FormDemo from './FormDemo';
 import ThemeEditorDemo from './ThemeEditorDemo';
 import MultiFormDemo from './MultiFormDemo';
+import CustomComponentsDemo from './CustomComponentsDemo';
 
 // Text Input Elements
 import TextFieldDemo from './textInputs/TextFieldDemo';
@@ -42,6 +43,16 @@ export const demoRegistry: Demo[] = [
         category: 'Views',
         component: MultiFormDemo,
         code: `// Multiple Form Instances Demo Code`
+    },
+
+    // Custom Components Demo
+    {
+        id: 'custom-components-demo',
+        title: 'Custom Components',
+        description: 'Shows how to create and register custom form components.',
+        category: 'Views',
+        component: CustomComponentsDemo,
+        code: `// Custom Components Demo Code`
     },
 
     // Theme Editor

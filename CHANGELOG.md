@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Multiple form instances support allowing forms to operate independently without state conflicts
+- Custom components registry system for extending and overriding form elements
+- Public API for registering custom components (`registerCustomComponent`, `registerCustomComponents`)
+- Demo showcasing custom components and component overriding capabilities
 - Comprehensive documentation with detailed API reference
 - Improved README with badges and quick start guide
 
