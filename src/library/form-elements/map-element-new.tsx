@@ -19,7 +19,7 @@ export const MapElementNew = (props: {
   return (
     <StyledComponent
       componentType="map"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge('w-full h-full', props.className)}

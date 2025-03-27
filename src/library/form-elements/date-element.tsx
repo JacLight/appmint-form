@@ -57,7 +57,7 @@ export const DateElement = (props: { readOnly?; change; dataPath, focus; blur; m
   return (
     <StyledComponent
       componentType="date"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className="flex items-center"

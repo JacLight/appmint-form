@@ -29,10 +29,10 @@ export const SelectManyCheckbox = (props: { blur; focus; mode; schema; path; nam
   const customStyling = extractStylingFromSchema(props.schema);
 
   // Get checkbox styling
-  const containerClasses = getComponentPartStyling('checkbox',  'container', '',  props.theme,  customStyling);
-  const inputClasses = getComponentPartStyling('checkbox',  'input', '',  props.theme,  customStyling);
-  const labelClasses = getComponentPartStyling('checkbox',  'label', '',  props.theme,  customStyling);
-  const descriptionClasses = getComponentPartStyling('checkbox',  'description', '',  props.theme,  customStyling);
+  const containerClasses = getComponentPartStyling('checkbox', 'container', '', props.theme, customStyling);
+  const inputClasses = getComponentPartStyling('checkbox', 'input', '', props.theme, customStyling);
+  const labelClasses = getComponentPartStyling('checkbox', 'label', '', props.theme, customStyling);
+  const descriptionClasses = getComponentPartStyling('checkbox', 'description', '', props.theme, customStyling);
 
   const getInputType = (item, isSelected) => {
     if (props.variant === 'switch') {
@@ -60,7 +60,7 @@ export const SelectManyCheckbox = (props: { blur; focus; mode; schema; path; nam
   return (
     <StyledComponent
       componentType="checkbox"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       as="fieldset"

@@ -289,13 +289,13 @@ For a complete list of migrated components and their status, see [MIGRATION_STAT
         "classes": ["flex", "space-x-2", "mt-2"]
       },
       "input": {
-        "classes": ["border-indigo-300", "focus:ring-indigo-500", "focus:border-indigo-500", "rounded-md"]
+        "classes": ["border-indigo-200", "focus:ring-indigo-500", "focus:border-indigo-500", "rounded-md"]
       },
       "controls": {
         "classes": ["space-y-3", "mb-3", "border-b", "border-indigo-200", "pb-3"]
       },
       "select": {
-        "classes": ["bg-white", "border-indigo-300", "rounded-md", "text-indigo-700"]
+        "classes": ["bg-white", "border-indigo-200", "rounded-md", "text-indigo-700"]
       },
       "error": {
         "classes": ["text-red-600", "font-medium", "text-center", "mt-2"]

@@ -38,7 +38,7 @@ export const NoticeElement = ({ schema, name, value, theme, path }) => {
   return (
     <StyledComponent
       componentType="notice"
-      part="container"
+      part="container-element"
       schema={schema}
       theme={theme}
       className={twMerge(

@@ -184,7 +184,7 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
   return (
     <StyledComponent
       componentType="social-textarea"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("relative", props.className)}

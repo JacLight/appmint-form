@@ -29,7 +29,7 @@ export const QuestionElement = (props: { update; mode; schema; path; name; data;
   return (
     <StyledComponent
       componentType="question"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className="flex flex-col gap-2 w-full"

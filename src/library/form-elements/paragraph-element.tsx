@@ -7,7 +7,7 @@ export const ParagraphElement = ({ schema, name, value, theme, path }) => {
   return (
     <StyledComponent
       componentType="paragraph"
-      part="container"
+      part="container-element"
       schema={schema}
       theme={theme}
       className="w-full p-2"

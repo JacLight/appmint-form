@@ -50,7 +50,7 @@ export const CodeElement: React.FC<CodeElementProps> = (props) => {
   return (
     <StyledComponent
       componentType="code-element"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("code-element-container", props.className)}

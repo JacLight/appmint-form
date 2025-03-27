@@ -48,7 +48,10 @@ export const Dialog: React.FC<DialogProps> & {
 
         return createPortal(
             <DialogContext.Provider value={{ open, onClose }}>
-                <Component className={className} role="dialog" aria-modal="true">
+                <Component className={className} role="dialog" aria-modal="true"
+                    data-component-type="dialog"
+                    data-component-part="container"
+                >
                     {children}
                 </Component>
             </DialogContext.Provider>,

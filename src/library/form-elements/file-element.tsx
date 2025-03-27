@@ -87,7 +87,7 @@ export const FileElement: React.FC<FileElementProps> = (props) => {
   return (
     <StyledComponent
       componentType="file-element"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("w-full", props.className)}

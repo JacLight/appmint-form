@@ -101,7 +101,7 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
     <div className="relative">
       <StyledComponent
         componentType="phone"
-        part="container"
+        part="container-element"
         schema={props.schema}
         theme={props.theme}
         className={twMerge("flex items-center", props.className)}

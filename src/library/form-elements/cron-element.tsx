@@ -595,7 +595,7 @@ export const CronElement: React.FC<CronElementProps> = (props) => {
   return (
     <StyledComponent
       componentType="cron-element"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("w-full max-w-md mx-auto bg-white rounded-lg shadow p-4", props.className)}

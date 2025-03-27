@@ -55,7 +55,7 @@ export const DateRangeElement = (props: {
   return (
     <StyledComponent
       componentType="date-range"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className="flex items-center"

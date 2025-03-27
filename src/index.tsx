@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { CollectionForm } from './library/form-view';
 import { CollectionTable } from './library/table-view';

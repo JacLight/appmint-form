@@ -45,7 +45,7 @@ export const DataViewElement: React.FC<DataViewElementProps> = (props) => {
   return (
     <StyledComponent
       componentType="data-view"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("w-full shadow border-white border-8 bg-gray-50 p-10", props.className)}

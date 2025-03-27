@@ -37,7 +37,13 @@ export const Listbox: React.FC<ListboxProps> & {
 
         return (
             <ListboxContext.Provider value={{ value, onChange, open, setOpen }}>
-                <Component className={className}>
+                <Component className={className}
+                    data-component-type="listbox"
+                    data-component-part="container"
+                    role="combobox"
+                    aria-haspopup="listbox"
+                    aria-expanded={open ? "true" : "false"}
+                >
                     {children}
                 </Component>
             </ListboxContext.Provider>
@@ -64,6 +70,8 @@ export const ListboxButton: React.FC<ListboxButtonProps> = ({
     return (
         <Component
             type="button"
+            data-component-type="listbox"
+            data-component-part="button"
             aria-haspopup="listbox"
             aria-expanded={open ? "true" : "false"}
             className={className}
@@ -85,7 +93,7 @@ export const ListboxOptions: React.FC<ListboxOptionsProps> = ({
     as: Component = 'ul',
     className = '',
     anchor = 'bottom',
-    children
+    children,
 }) => {
     const { open } = useContext(ListboxContext);
     const ref = useRef<HTMLElement>(null);
@@ -113,6 +121,8 @@ export const ListboxOptions: React.FC<ListboxOptionsProps> = ({
         <Component
             ref={ref as any}
             role="listbox"
+            data-component-type="listbox"
+            data-component-part="options"
             className={className}
             data-anchor={anchor}
         >
@@ -166,6 +176,8 @@ export const ListboxOption: React.FC<ListboxOptionProps> = ({
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            data-component-type="listbox"
+            data-component-part="option"
             className={resolvedClassName}
             aria-disabled={disabled ? "true" : undefined}
         >

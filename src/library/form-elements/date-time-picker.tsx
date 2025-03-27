@@ -163,7 +163,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
   return (
     <StyledComponent
       componentType="date-time-picker"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge(props.className)}

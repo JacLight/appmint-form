@@ -60,7 +60,7 @@ export const StyledComponent: React.FC<StyledComponentProps> = ({
     const styling = getComponentPartStyling(componentType, part, schema?.layout, theme, customStyling);
 
     // Combine with additional className
-    const combinedClassName = twMerge(styling, className);
+    const combinedClassName = twMerge(className, styling);
 
     // Create the component with the combined className
     return React.createElement(
@@ -82,7 +82,7 @@ export const StyledContainer: React.FC<Omit<StyledComponentProps, 'part'>> = ({
     componentType,
     ...props
 }) => {
-    return <StyledComponent componentType={componentType} {...props} part="container" />;
+    return <StyledComponent componentType={componentType} {...props} part="container-element" />;
 };
 
 /**

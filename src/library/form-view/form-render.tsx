@@ -110,24 +110,17 @@ export const FormRender = (props: { storeId; path; dataPath; name; className; ar
     }
   };
 
+
+
+  console.log('render', path, dataPath);
   if (['string', 'number', 'boolean'].includes(properties.type) || properties['x-control']) {
-    return (
-      <StyledComponent
-        componentType="form"
-        part="container"
-        schema={schema}
-        theme={theme}
-        className={classNames(className, 'flex gap-3 mx-auto')}
-      >
-        <FormElementRender key={path} mode="view" name={props.name} path={path} dataPath={dataPath} parentDataPath={dataPath} arrayIndex={arrayIndex} storeId={props.storeId} />
-      </StyledComponent>
-    );
+    return <FormElementRender key={path} mode="view" name={props.name} path={path} dataPath={dataPath} parentDataPath={dataPath} arrayIndex={arrayIndex} storeId={props.storeId} />
   }
 
   const render = (
     <StyledComponent
       componentType="form"
-      part="root"
+      part={props.arrayControl ? 'container-array' : 'container'}
       schema={schema}
       theme={theme}
       id={dataPath}

@@ -61,7 +61,7 @@ export const TextElement = (props: { readOnly?; change; dataPath, focus; blur; m
   return (
     <StyledComponent
       componentType="text"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className="flex items-center"

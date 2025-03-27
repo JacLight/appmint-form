@@ -150,7 +150,7 @@ export const DataLookupCombo = (props: { schema; change; theme?}) => {
   return (
     <StyledComponent
       componentType="data-lookup"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className="relative"

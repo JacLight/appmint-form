@@ -36,7 +36,7 @@ export const NumberElement = (props: { change; blur; focus; mode; storeId; schem
   return (
     <StyledComponent
       componentType="number"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className="flex items-center"

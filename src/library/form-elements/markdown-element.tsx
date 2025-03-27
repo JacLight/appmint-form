@@ -33,7 +33,7 @@ export const MarkdownElement = (props: {
   return (
     <StyledComponent
       componentType="markdown"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("markdown-element-container", props.className)}

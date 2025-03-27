@@ -33,10 +33,10 @@ export const ShadowElement = ({ change, blur, value, schema, theme }) => {
     }
 
     setCssCode(`${shadowType}: ${shadowValue};`);
-    if(blur){
+    if (blur) {
       blur(shadowValue);
     }
-    
+
   }, [shadowType, shadowColor, shadowOpacity, shadowBlur, shadowSpread, shadowX, shadowY, isInset]);
 
   const handleMouseDown = (e) => {
@@ -72,7 +72,7 @@ export const ShadowElement = ({ change, blur, value, schema, theme }) => {
   return (
     <StyledComponent
       componentType="shadow"
-      part="container"
+      part="container-element"
       schema={schema}
       theme={theme}
       className="flex flex-col w-full max-w-xl p-2 gap-2 border border-gray-200 rounded-lg bg-white text-sm"

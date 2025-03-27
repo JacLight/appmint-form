@@ -62,7 +62,7 @@ export const UuidElement: React.FC<UuidElementProps> = (props) => {
   return (
     <StyledComponent
       componentType="uuid-element"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("flex items-center justify-between p-2 text-sm", props.className)}

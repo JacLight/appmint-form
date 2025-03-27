@@ -96,7 +96,7 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
   return (
     <StyledComponent
       componentType="select-many"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={props.className}

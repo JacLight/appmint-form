@@ -163,7 +163,7 @@ export const RankingInput = (props: {
   return (
     <StyledComponent
       componentType="ranking"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className="w-full"

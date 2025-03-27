@@ -129,7 +129,7 @@ export const ElementWrapperLayout = (props: {
     render = (
       <StyledComponent
         componentType="layout"
-        part="control-input"
+        part="inner"
         schema={schema}
         theme={props.theme}
         className={classNames(hasFlex && 'flex', 'gap-4 items-center', 'cb-control-input w-full')}
@@ -139,14 +139,14 @@ export const ElementWrapperLayout = (props: {
         {['end', 'bottom'].includes(labelPosition) && label}
       </StyledComponent>
     );
-  }
-
-  if (schema.collapsible)
+  } else {
     render = (
       <FormCollapsible defaultState={schema.collapsible} theme={props.theme} title={caption} icon={icon} arrayControl={props.arrayControl}>
         {elements}
       </FormCollapsible>
     );
+  }
+
   if (schema.popup)
     return (
       <FormPopup title={label} icon={icon}>

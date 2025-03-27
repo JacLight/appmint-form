@@ -8,7 +8,7 @@ export const CaptureElement = ({ schema, name, value, theme, path }) => {
   return (
     <StyledComponent
       componentType="signature"
-      part="container"
+      part="container-element"
       schema={schema}
       theme={theme}
       className=""

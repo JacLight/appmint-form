@@ -67,7 +67,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
             <ChevronsUpDown className={chevronClasses} aria-hidden="true" />
           </span>
         </ListboxButton>
-        <ListboxOptions anchor="bottom start" className={twMerge(optionsClasses, 'absolute z-50  max-w-96', props.className)}>
+        <ListboxOptions anchor="bottom start" className={twMerge(optionsClasses, 'absolute z-50 max-w-sm w-full', props.className)}>
           {options?.map(item => {
             const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className={iconClasses} mode={props.mode} path={props.path} />;
             return (
@@ -96,7 +96,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
                     </div>
                     {selected ? (
                       <span className={twMerge(
-                        'absolute inset-y-0 right-0 flex items-center pr-4',
+                        'absolute top-2 inset-y-0 right-42flex items-center',
                         selectedIconClasses,
                         active ? selectedIconActiveClasses : selectedIconInactiveClasses
                       )}>

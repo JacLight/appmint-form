@@ -284,7 +284,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
                 key={item.value + '-' + idx}
                 onMouseEnter={() => onMouseEnter(itemValue)}
                 onMouseLeave={() => onMouseLeave(itemValue)}
-                className="relative hover:bg-gray-200 cursor-default select-none py-2 pl-3 pr-9 text-gray-900"
+                className="relative hover:bg-gray-200 cursor-default select-none py-1 pl-2 pr-9 text-gray-900"
               >
                 <div className='flex justify-between items-center w-full'>
                   <div className="flex items-center">
@@ -319,7 +319,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
                 value={item}
                 onMouseEnter={() => onMouseEnter(item?.value)}
                 onMouseLeave={() => onMouseLeave(item?.value)}
-                className={({ active }) => classNames('relative cursor-default select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-900')}
+                className={({ active }) => classNames('relative cursor-default select-none py-1 pl-2 pr-9', active ? 'bg-indigo-200' : 'text-gray-900')}
               >
                 {({ active, selected }) => (
                   <div className="flex items-center">

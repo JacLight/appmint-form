@@ -52,7 +52,7 @@ export const IconPickerElement: React.FC<IconPickerElementProps> = (props) => {
   return (
     <StyledComponent
       componentType="icon-picker-element"
-      part="container"
+      part="container-element"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("flex gap-2 items-center", props.className)}
