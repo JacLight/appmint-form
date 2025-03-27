@@ -26,6 +26,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@appmint/form@workspace:."
   dependencies:
+    "@eslint/js": "npm:^9.21.0"
     "@radix-ui/react-select": "npm:^2.1.6"
     "@size-limit/preset-small-lib": "npm:^11.1.4"
     "@tailwindcss/vite": "npm:^4.0.9"
@@ -1741,6 +1742,13 @@ __metadata:
   version: 9.21.0
   resolution: "@eslint/js@npm:9.21.0"
   checksum: 10c0/86c24a2668808995037e3f40c758335df2ae277c553ac0cf84381a1a8698f3099d8a22dd9c388947e6b7f93fcc1142f62406072faaa2b83c43ca79993fc01bb3
+  languageName: node
+  linkType: hard
+
+"@eslint/js@npm:^9.21.0":
+  version: 9.23.0
+  resolution: "@eslint/js@npm:9.23.0"
+  checksum: 10c0/4e70869372b6325389e0ab51cac6d3062689807d1cef2c3434857571422ce11dde3c62777af85c382b9f94d937127598d605d2086787f08611351bf99faded81
   languageName: node
   linkType: hard
 

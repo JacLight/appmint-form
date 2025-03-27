@@ -1,24 +1,12 @@
 import { twMerge } from 'tailwind-merge';
-import { baseTheme, ComponentStyling, minimalTheme, primaryTheme, secondaryTheme, ThemeStyling } from './theme-settings';
-
-
-/**
- * Built-in themes
- */
-export const themes: Record<string, ThemeStyling> = {
-    // Default theme is the base theme
-    default: baseTheme,
-    // Other themes
-    primary: primaryTheme,
-    secondary: secondaryTheme,
-    minimal: minimalTheme,
-};
+import { ComponentStyling, ThemeStyling, themes } from './theme-settings';
 
 /**
  * Get styling for a component part
  * 
  * @param componentType The type of component (text, select, checkbox, etc.)
  * @param part The part of the component to style (container, label, input, etc.)
+ * @param layout The layout to use (optional)
  * @param theme The theme to use (can be a string name or a theme object)
  * @param customStyling Custom styling to override theme styling
  * @returns The Tailwind classes for the component part
@@ -26,7 +14,7 @@ export const themes: Record<string, ThemeStyling> = {
 export function getComponentPartStyling(
     componentType: string,
     part: string,
-    layout: string,
+    layout?: string,
     theme: string | ThemeStyling = 'default',
     customStyling?: ComponentStyling
 ): string {

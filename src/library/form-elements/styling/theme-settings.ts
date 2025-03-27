@@ -13,10 +13,20 @@ export interface ThemeStyling {
 }
 
 /**
+ * Legacy theme interface for backward compatibility
+ */
+export interface LegacyTheme {
+    classes?: string[];
+    style?: Record<string, string>;
+    className?: string;
+}
+
+/**
  * Base theme - the single source of truth for all styling
  * Every component must get its styling from this theme
  * 
  * Note: Styles from element-style-class.ts have been migrated here
+ * Additional styles from themeStyleMap in store.tsx have been migrated here
  */
 export const baseTheme: ThemeStyling = {
     // Layout components
@@ -88,6 +98,7 @@ export const baseTheme: ThemeStyling = {
         group: 'gap-3',
     },
     'form-array': {
+        container: 'w-full',
         'array-item': 'relative mb-0 even:bg-gray-50  dark:even:bg-gray-600  dark:bg-gray-700 flex gap-2 items-center',
         'array-item-horizontal': 'bg-white dark:bg-gray-800 shadow rounded-lg p-4',
     },
@@ -372,6 +383,123 @@ export const secondaryTheme: ThemeStyling = {
 };
 
 /**
+ * Filter theme - migrated from legacy theme system
+ */
+export const filterTheme: ThemeStyling = {
+    control: {
+        container: 'rounded-lg mx-auto',
+    },
+    help: {
+        container: 'hidden',
+    },
+    form: {
+        container: 'h-full',
+    },
+    layout: {
+        container: 'w-full mx-auto',
+    },
+    'form-root': {
+        container: 'space-y-0',
+    },
+    date: {
+        container: 'w-24',
+    },
+    collapsible: {
+        container: 'text-sm shadow w-full rounded border-b border-b-gray-300 mt-1',
+    },
+};
+
+/**
+ * Schedule theme - migrated from legacy theme system
+ */
+export const scheduleTheme: ThemeStyling = {
+    control: {
+        container: 'rounded-lg mx-auto',
+    },
+    help: {
+        container: 'hidden',
+    },
+    form: {
+        container: 'h-full',
+    },
+    layout: {
+        container: 'w-full mx-auto',
+    },
+    'form-root': {
+        container: 'space-y-0',
+    },
+    collapsible: {
+        container: 'text-sm shadow w-full rounded border-b border-b-gray-300 mt-1',
+    },
+};
+
+/**
+ * Quick Meeting theme - migrated from legacy theme system
+ */
+export const quickMeetingTheme: ThemeStyling = {
+    date: {
+        container: '!w-56',
+    },
+};
+
+/**
+ * Settings theme - migrated from legacy theme system
+ */
+export const settingsTheme: ThemeStyling = {
+    layout: {
+        container: 'w-full mx-auto my-0',
+    },
+    'form-root': {
+        container: '',
+    },
+    control: {
+        container: 'rounded-lg mx-auto my-0 mt-1',
+    },
+    'control-group': {
+        container: 'justify-start gap-3',
+    },
+    collapsible: {
+        container: 'text-sm shadow w-full rounded border-b border-b-gray-300 mt-1',
+    },
+};
+
+/**
+ * Mintflow theme - migrated from legacy theme system
+ */
+export const mintflowTheme: ThemeStyling = {
+    label: {
+        container: 'hidden',
+    },
+    layout: {
+        container: 'w-full mx-auto my-0',
+    },
+    'form-root': {
+        container: 'text-xs',
+    },
+    control: {
+        container: 'rounded-lg mx-auto mt-0 my-2',
+    },
+    'control-group': {
+        container: 'justify-start gap-1',
+    },
+    'control-input': {
+        container: 'mt-0',
+    },
+    input: {
+        container: '!text-xs mt-0',
+    },
+    text: {
+        container: 'px-2 py-1',
+    },
+    number: {
+        container: 'px-2 py-1',
+    },
+    popup: {
+        container: 'w-[800px]',
+    },
+};
+
+/**
  * Minimal theme with subtle styling
  */
 export const minimalTheme: ThemeStyling = {
@@ -463,4 +591,21 @@ export const minimalTheme: ThemeStyling = {
         addButton: 'mt-1 inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-gray-400 dark:focus:ring-gray-500',
         removeButton: 'absolute top-1 right-1 text-gray-300 hover:text-gray-400 dark:text-gray-600 dark:hover:text-gray-500',
     },
+};
+
+/**
+ * Map of all available themes
+ */
+export const themes: Record<string, ThemeStyling> = {
+    // Default theme is the base theme
+    default: baseTheme,
+    // Other themes
+    primary: primaryTheme,
+    secondary: secondaryTheme,
+    minimal: minimalTheme,
+    filter: filterTheme,
+    schedule: scheduleTheme,
+    'quick-meeting': quickMeetingTheme,
+    settings: settingsTheme,
+    mintflow: mintflowTheme,
 };

@@ -152,7 +152,7 @@ export const FormRender = (props: { storeId; path; dataPath; name; className; ar
           const groupPath = childPath + '.' + field.group;
           return (
             <StyledComponent
-              componentType="form"
+              componentType={props.arrayControl ? 'form-array' : 'form'}
               part="group"
               schema={schema}
               theme={theme}

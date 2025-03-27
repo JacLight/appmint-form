@@ -272,76 +272,26 @@ export const useFormStore = create<FormStoreProps>((set, get) => ({
 }));
 
 
-export const getElementTheme = (name, theme = 'default') => {
-  if (!name) return null;
+import { getComponentPartStyling } from '../form-elements/styling/style-utils';
+import { LegacyTheme, ThemeStyling } from '../form-elements/styling/theme-settings';
 
-  if (theme === 'unstyled') return { classes: [], style: {}, className: [] };
+export const getElementTheme = (componentType: string, theme: string | ThemeStyling = 'default'): LegacyTheme => {
+  if (!componentType) return null;
 
-  if (themeStyleMap[theme] && themeStyleMap[theme][name]) {
-    return { ...themeStyleMap[theme][name], className: (themeStyleMap[theme][name].classes || []).join(' ') };
-  }
+  if (theme === 'unstyled') return { classes: [], style: {}, className: '' };
 
-  if (themeStyleMap['default'] && themeStyleMap['default'][name]) {
-    return { ...themeStyleMap['default'][name], className: (themeStyleMap['default'][name].classes || []).join(' ') };
-  }
-  return {};
+  // Get styling using the modern system
+  const className = getComponentPartStyling(componentType, 'container', '', theme);
+
+  // Return in the format expected by existing code
+  return {
+    classes: className.split(' ').filter(Boolean),
+    style: {},
+    className
+  };
 };
 
-const themeStyleMap = {
-  default: {
-    control: { classes: ['rounded-lg mx-auto mx-auto mt-2'], style: {} },
-    button: { classes: [''], style: {} },
-    layout: { classes: ['w-full  mx-auto my-2'], style: {} },
-    form: { classes: [' '], style: {} },
-    'form-root': { classes: ['pb-2'], style: {} },
-    collapsible: { classes: [`text-sm mb-2 mt-4 shadow w-full rounded`], style: {} },
-    'control-group': { classes: ['flex', 'gap-3', 'items-center', 'mx-auto'] },
-    'control-label': { classes: ['whitespace-nowrap'], style: {} },
-    'control-input': { classes: ['mt-0'] },
-
-  },
-  filter: {
-    control: { classes: ['rounded-lg mx-auto'], style: {} },
-    help: { classes: ['hidden'], style: {} },
-    // 'label': { classes: ['hidden'], style: {} },
-    form: { classes: ['h-full'], style: {} },
-    layout: { classes: ['w-full  mx-auto'], style: {} },
-    'form-root': { classes: ['space-y-0'], style: {} },
-    date: { classes: ['w-24'], style: {} },
-    collapsible: { classes: [`text-sm  shadow w-full rounded border-b border-b-gray-300 mt-1`], style: {} },
-    // 'array': { layout: 'horizontal' },
-  },
-  schedule: {
-    control: { classes: ['rounded-lg mx-auto'], style: {} },
-    help: { classes: ['hidden'], style: {} },
-    form: { classes: ['h-full'], style: {} },
-    layout: { classes: ['w-full  mx-auto'], style: {} },
-    'form-root': { classes: ['space-y-0'], style: {} },
-    collapsible: { classes: [`text-sm  shadow w-full rounded border-b border-b-gray-300 mt-1`], style: {} },
-  },
-  'quick-meeting': {
-    date: { classes: ['!w-56'], style: {} },
-  },
-  'settings': {
-    layout: { classes: ['w-full  mx-auto my-0'], style: {} },
-    'form-root': { classes: [''], style: {} },
-    control: { classes: ['rounded-lg mx-auto my-0 mt-1'], style: {} },
-    'control-group': { classes: ['justify-start', 'gap-3', ''] },
-    collapsible: { classes: [`text-sm  shadow w-full rounded border-b border-b-gray-300 mt-1`], style: {} },
-  },
-  'mintflow': {
-    label: { classes: ['hidden'], style: {} },
-    layout: { classes: ['w-full  mx-auto my-0'], style: {} },
-    'form-root': { classes: ['text-xs'], style: {} },
-    control: { classes: ['rounded-lg  mx-auto mt-0 my-2'], style: {} },
-    'control-group': { classes: ['justify-start', 'gap-1', ''] },
-    'control-input': { classes: ['mt-0'] },
-    'input': { classes: ['!text-xs', 'mt-0'] },
-    'text': { classes: ['px-2 py-1'] },
-    'number': { classes: ['px-2 py-1'] },
-    'popup': { classes: ['w-[800px]'] }
-  }
-};
+// Legacy themeStyleMap has been migrated to theme-settings.ts
 
 
 export const statusColors = {
