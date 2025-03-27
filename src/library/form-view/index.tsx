@@ -9,7 +9,7 @@ import { tabButtonActiveClass, tabButtonClass } from '../utils/constants';
 import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { StyledComponent } from '../form-elements/styling';
-import DataGalleryView from '../display-view/data-gallery-view';
+import DataGalleryView from '../common/data-gallery-view';
 import {
   registerCustomComponent,
   registerCustomComponents,
@@ -20,7 +20,8 @@ import {
 export {
   registerCustomComponent,
   registerCustomComponents,
-  clearCustomComponents
+  clearCustomComponents,
+  DataGalleryView
 };
 
 // Internal form component that uses the context-provided store
@@ -163,7 +164,8 @@ const FormInternal = (props: { demo?; data?; path?; title?; schema?; rules?; the
       className="w-full"
       componentType="appmint-form"
       part="root"
-      data-theme={props.theme}>
+      schema={schema}
+      theme={props.theme}>
       {tabHeaders}
       {!collapsible && title && (
         <StyledComponent
@@ -215,10 +217,7 @@ const FormInternal = (props: { demo?; data?; path?; title?; schema?; rules?; the
     );
   }
 
-  return <>
-    {render}
-    <DataGalleryView />
-  </>;
+  return render;
 };
 
 // Public form component that provides the store context

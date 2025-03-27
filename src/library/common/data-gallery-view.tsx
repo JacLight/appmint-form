@@ -1,15 +1,15 @@
 'use client';
 import React, { useEffect } from 'react';
-import { BaseModelDTO, classNames, getRandomString, getResponseErrorMessage } from '../utils';
+import { BaseModelDTO, classNames, getRandomString } from '../utils';
 import { useShallow } from 'zustand/shallow';
 import { useFormStore } from '../context/store';
-import { LoadingIndicator } from '../common/loading-indicator';
-import { IconRenderer } from '../common/icons/icon-renderer';
+import { LoadingIndicator } from './loading-indicator';
+import { IconRenderer } from './icons/icon-renderer';
 import CollectionTable from '../table-view';
-import { JSONViewer } from '../common/json-viewer';
+import { JSONViewer } from './json-viewer';
 import CollectionForm from '../form-view';
 import { CollectionHelper } from '../form-view/form-utils';
-import ViewManager from '../common/view-manager/view-manager';
+import ViewManager from './view-manager/view-manager';
 import { iconButtonClass } from '../utils/constants';
 import { StyledComponent } from '../form-elements/styling';
 
