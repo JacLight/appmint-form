@@ -60,14 +60,19 @@ const schema = {
             'x-control': 'selectmany',
             'x-control-variant': 'combo'
         },
+        selectManyOptions: {
+            type: 'array',
+            title: 'Select Many (Multi-select)',
+            options: ['Option A', 'Option B', 'Option C', 'Option D', 'Option E'],
+            default: ['Option A', 'Option C'],
+            'x-control-variant': 'combo',
+            'x-control': 'selectmany',
+        },
         selectManyCheckbox: {
             type: 'array',
             title: 'Select Many (Checkboxes)',
             description: 'Multiple selection with checkboxes',
-            items: {
-                type: 'string',
-                enum: ['Red', 'Green', 'Blue', 'Yellow', 'Purple']
-            },
+            options: ['Red', 'Green', 'Blue', 'Yellow', 'Purple'],
             default: ['Red', 'Blue'],
             'x-control': 'selectmany',
             'x-control-variant': 'checkbox'

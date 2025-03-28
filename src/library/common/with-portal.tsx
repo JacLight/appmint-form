@@ -4,25 +4,14 @@ import ReactDOM from 'react-dom';
 const withPortal = WrappedComponent => {
   return ({ usePortal, id, triggerRef, ...props }) => {
     const [container, setContainer] = useState(null);
-    const [isIframe, setIsIframe] = useState(false);
     const portalRef = useRef(null);
 
     // Check if we're in an iframe
     useEffect(() => {
-      try {
-        setIsIframe(window.self !== window.top);
-      } catch (e) {
-        // If we can't access window.top due to cross-origin issues, we're in an iframe
-        setIsIframe(true);
-      }
-    }, []);
-
-    // Create and manage the portal container
-    useEffect(() => {
       if (!usePortal) return;
 
       // Determine target document (iframe or main window)
-      const targetDocument = isIframe ? window.top?.document || document : document;
+      const targetDocument = document;
 
       // Check if container already exists
       let portalContainer = targetDocument.getElementById(id + '-portal');
@@ -70,6 +59,7 @@ const withPortal = WrappedComponent => {
         window.removeEventListener('scroll', updatePosition, true);
         targetDocument.removeEventListener('mousedown', handleClickOutside);
 
+        let portalContainer = targetDocument.getElementById(id + '-portal');
         if (portalContainer && portalContainer.parentNode) {
           try {
             portalContainer.parentNode.removeChild(portalContainer);
@@ -78,7 +68,7 @@ const withPortal = WrappedComponent => {
           }
         }
       };
-    }, [usePortal, id, isIframe, triggerRef?.current]);
+    }, [usePortal, id, triggerRef?.current]);
 
     // Function to update the position of the portal
     const updatePosition = () => {
@@ -112,13 +102,9 @@ const withPortal = WrappedComponent => {
     };
 
     // Render the wrapped component
-    const content = <WrappedComponent {...props} />;
+    if (!container) return null
+    return ReactDOM.createPortal(<WrappedComponent {...props} />, container);
 
-    if (usePortal && container) {
-      return ReactDOM.createPortal(content, container);
-    }
-
-    return content;
   };
 };
 

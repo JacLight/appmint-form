@@ -78,10 +78,18 @@ const schema = {
             type: 'array',
             title: 'Select Many (Multi-select)',
             description: 'Multiple selection control',
-            items: {
-                type: 'string',
-                enum: ['Option A', 'Option B', 'Option C', 'Option D', 'Option E']
+            dataSource: {
+                source: 'json',
+                value: ['Option A', 'Option B', 'Option C', 'Option D', 'Option E']
             },
+            default: ['Option A', 'Option C'],
+            'x-control': 'selectmany',
+            layoutGroup: 'x-layout.main.items.2'
+        },
+        selectManyOptions: {
+            type: 'array',
+            title: 'Select Many (Multi-select)',
+            options: ['Option A', 'Option B', 'Option C', 'Option D', 'Option E'],
             default: ['Option A', 'Option C'],
             'x-control': 'selectmany',
             layoutGroup: 'x-layout.main.items.2'

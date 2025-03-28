@@ -287,73 +287,71 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
           </ComboboxButton>
         </StyledComponent>
       </StyledComponent>
-      {filterOptions?.length > 0 && (
-        <PortalComboboxOptions
-          className="absolute z-50 mt-1 max-h-80 w-full min-w-48 overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-          id={`combo-options-${props.path || props.name || 'default'}`}
-          triggerRef={comboButtonRef}
-        >
-          {selections?.map((itemValue, idx) => {
-            const item = options.find(option => option.value === itemValue.value || option.value === itemValue);
-            if (!item) return null;
-            const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className="h-10 w-10 flex-shrink-0 rounded-full" mode={props.mode} path={props.path} />;
-            return (
-              <StyledComponent
-                componentType="combo"
-                part="selectedOption"
-                schema={props.schema}
-                theme={props.theme}
-                key={item.value + '-' + idx}
-                onMouseEnter={() => onMouseEnter(itemValue)}
-                onMouseLeave={() => onMouseLeave(itemValue)}
-                className="relative hover:bg-gray-200 cursor-default select-none py-1 pl-2 pr-9 text-gray-900"
-              >
-                <div className='flex justify-between items-center w-full'>
-                  <div className="flex items-center">
-                    {iconOrImage}
-                    <span className="ml-3 truncate font-semibold">{item.label}</span>
-                  </div>
-                  <div className='flex items-center'>
-                    <StyledComponent
-                      componentType="combo"
-                      part="removeButton"
-                      schema={props.schema}
-                      theme={props.theme}
-                      as="button"
-                      onClick={() => removeItem(itemValue)}
-                      title="Remove item"
-                      aria-label="Remove item"
-                    >
-                      <IconRenderer icon="X" className="h-4 w-4 group-hover:text-sky-500 text-red-400" aria-hidden="true" />
-                    </StyledComponent>
-                  </div>
+      <PortalComboboxOptions
+        className="absolute z-50 mt-1 max-h-80 w-full min-w-48 overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+        id={`combo-options-${props.path || props.name || 'default'}`}
+        triggerRef={comboButtonRef}
+      >
+        {selections?.map((itemValue, idx) => {
+          const item = options.find(option => option.value === itemValue.value || option.value === itemValue);
+          if (!item) return null;
+          const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className="h-10 w-10 flex-shrink-0 rounded-full" mode={props.mode} path={props.path} />;
+          return (
+            <StyledComponent
+              componentType="combo"
+              part="selectedOption"
+              schema={props.schema}
+              theme={props.theme}
+              key={item.value + '-' + idx}
+              onMouseEnter={() => onMouseEnter(itemValue)}
+              onMouseLeave={() => onMouseLeave(itemValue)}
+              className="relative hover:bg-gray-200 cursor-default select-none py-1 pl-2 pr-9 text-gray-900"
+            >
+              <div className='flex justify-between items-center w-full'>
+                <div className="flex items-center">
+                  {iconOrImage}
+                  <span className="ml-3 truncate font-semibold">{item.label}</span>
                 </div>
-              </StyledComponent>
-            );
-          })}
-          {filterOptions?.map((item, idx) => {
-            const isSelected = selections?.findIndex(value => value === item.value) > -1;
-            if (isSelected) return null;
-            const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className="h-10 w-10 flex-shrink-0 rounded-full" mode={props.mode} path={props.path} />;
-            return (
-              <ComboboxOption
-                key={item.value + '-' + idx}
-                value={item}
-                onMouseEnter={() => onMouseEnter(item?.value)}
-                onMouseLeave={() => onMouseLeave(item?.value)}
-                className={({ active }) => classNames('relative cursor-default select-none py-1 pl-2 pr-9', active ? 'bg-indigo-200' : 'text-gray-900')}
-              >
-                {({ active, selected }) => (
-                  <div className="flex items-center">
-                    {iconOrImage}
-                    <span className="ml-3 truncate">{item.label}</span>
-                  </div>
-                )}
-              </ComboboxOption>
-            );
-          })}
-        </PortalComboboxOptions>
-      )}
+                <div className='flex items-center'>
+                  <StyledComponent
+                    componentType="combo"
+                    part="removeButton"
+                    schema={props.schema}
+                    theme={props.theme}
+                    as="button"
+                    onClick={() => removeItem(itemValue)}
+                    title="Remove item"
+                    aria-label="Remove item"
+                  >
+                    <IconRenderer icon="X" className="h-4 w-4 group-hover:text-sky-500 text-red-400" aria-hidden="true" />
+                  </StyledComponent>
+                </div>
+              </div>
+            </StyledComponent>
+          );
+        })}
+        {filterOptions?.map((item, idx) => {
+          const isSelected = selections?.findIndex(value => value === item.value) > -1;
+          if (isSelected) return null;
+          const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className="h-10 w-10 flex-shrink-0 rounded-full" mode={props.mode} path={props.path} />;
+          return (
+            <ComboboxOption
+              key={item.value + '-' + idx}
+              value={item}
+              onMouseEnter={() => onMouseEnter(item?.value)}
+              onMouseLeave={() => onMouseLeave(item?.value)}
+              className={({ active }) => classNames('relative cursor-default select-none py-1 pl-2 pr-9', active ? 'bg-indigo-200' : 'text-gray-900')}
+            >
+              {({ active, selected }) => (
+                <div className="flex items-center">
+                  {iconOrImage}
+                  <span className="ml-3 truncate">{item.label}</span>
+                </div>
+              )}
+            </ComboboxOption>
+          );
+        })}
+      </PortalComboboxOptions>
     </Combobox>
   );
 };

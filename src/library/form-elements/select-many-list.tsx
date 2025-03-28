@@ -66,7 +66,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
     <Listbox value={selected} onChange={handleChange}>
       <div className={containerClasses} ref={listboxRef}>
         <ListboxButton className={twMerge(buttonClasses, props.buttonClassName)}>
-          <span className="flex items-center">
+          <span className="flex items-center min-h-5">
             {selected ? (
               <>
                 <ElementIcon icon={selected.icon} image={selected.image} className={iconClasses} mode={props.mode} />
