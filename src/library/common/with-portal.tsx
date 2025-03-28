@@ -1,46 +1,117 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 const withPortal = WrappedComponent => {
-  return ({ usePortal, id, ...props }) => {
+  return ({ usePortal, id, triggerRef, ...props }) => {
     const [container, setContainer] = useState(null);
     const [isIframe, setIsIframe] = useState(false);
+    const portalRef = useRef(null);
 
+    // Check if we're in an iframe
     useEffect(() => {
-      setIsIframe(window.self !== window.top);
+      try {
+        setIsIframe(window.self !== window.top);
+      } catch (e) {
+        // If we can't access window.top due to cross-origin issues, we're in an iframe
+        setIsIframe(true);
+      }
     }, []);
 
+    // Create and manage the portal container
     useEffect(() => {
-      let newContainer;
-      let targetDocument = document;
-      if (usePortal) {
-        console.log('usePortal', isIframe);
-        targetDocument = isIframe ? window.top.document : document;
+      if (!usePortal) return;
 
-        newContainer = targetDocument.getElementById(id + '-portal');
-        if (!newContainer) {
-          newContainer = targetDocument.createElement('div');
-          newContainer.id = id + '-portal';
-          targetDocument.body.appendChild(newContainer);
-        }
-        setContainer(newContainer);
+      // Determine target document (iframe or main window)
+      const targetDocument = isIframe ? window.top?.document || document : document;
+
+      // Check if container already exists
+      let portalContainer = targetDocument.getElementById(id + '-portal');
+
+      // Create container if it doesn't exist
+      if (!portalContainer) {
+        portalContainer = targetDocument.createElement('div');
+        portalContainer.id = id + '-portal';
+        portalContainer.style.position = 'absolute';
+        portalContainer.style.zIndex = '9999';
+        targetDocument.body.appendChild(portalContainer);
       }
+
+      setContainer(portalContainer);
+      portalRef.current = portalContainer;
+
+      // Position the portal initially
+      if (triggerRef?.current) {
+        updatePosition();
+      }
+
+      // Add event listeners for repositioning
+      window.addEventListener('resize', updatePosition);
+      window.addEventListener('scroll', updatePosition, true);
+
+      // Add click outside handler to close the portal
+      const handleClickOutside = (e) => {
+        if (
+          portalContainer &&
+          triggerRef?.current &&
+          !triggerRef.current.contains(e.target) &&
+          !portalContainer.contains(e.target)
+        ) {
+          // Click was outside both the trigger and the portal
+          targetDocument.body.removeChild(portalContainer);
+          setContainer(null);
+        }
+      };
+
+      targetDocument.addEventListener('mousedown', handleClickOutside);
+
+      // Cleanup function
       return () => {
-        if (newContainer) {
-          if (newContainer && newContainer.childNodes.length === 0) {
-            try {
-              if (targetDocument) {
-                targetDocument.body.removeChild(newContainer);
-              }
-            } catch (e) {
-              console.error(e);
-            }
+        window.removeEventListener('resize', updatePosition);
+        window.removeEventListener('scroll', updatePosition, true);
+        targetDocument.removeEventListener('mousedown', handleClickOutside);
+
+        if (portalContainer && portalContainer.parentNode) {
+          try {
+            portalContainer.parentNode.removeChild(portalContainer);
+          } catch (e) {
+            console.error('Error removing portal container:', e);
           }
         }
-
       };
-    }, [id, usePortal, isIframe]);
+    }, [usePortal, id, isIframe, triggerRef?.current]);
 
+    // Function to update the position of the portal
+    const updatePosition = () => {
+      if (!triggerRef?.current || !portalRef.current) return;
+
+      const triggerRect = triggerRef.current.getBoundingClientRect();
+      const portalElement = portalRef.current;
+
+      // Position below the trigger
+      portalElement.style.top = `${triggerRect.bottom + window.scrollY}px`;
+      portalElement.style.left = `${triggerRect.left + window.scrollX}px`;
+      portalElement.style.minWidth = `${triggerRect.width}px`;
+
+      // After rendering, check if we need to adjust position to stay in viewport
+      setTimeout(() => {
+        const portalRect = portalElement.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+
+        // If dropdown extends beyond bottom of viewport, position above trigger
+        if (portalRect.bottom > viewportHeight) {
+          portalElement.style.top = `${triggerRect.top + window.scrollY - portalRect.height}px`;
+        }
+
+        // If dropdown extends beyond right edge of viewport, align with right edge of trigger
+        if (portalRect.right > viewportWidth) {
+          const rightOffset = triggerRect.right - portalRect.width;
+          portalElement.style.left = `${rightOffset > 0 ? rightOffset + window.scrollX : 0}px`;
+        }
+      }, 0);
+    };
+
+    // Render the wrapped component
     const content = <WrappedComponent {...props} />;
 
     if (usePortal && container) {

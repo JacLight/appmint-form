@@ -1,12 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Listbox, ListboxOptions, ListboxOption, ListboxButton } from '../common/select-components';
+import withPortal from '../common/with-portal';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { ElementIcon } from './element-icon';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { twMerge } from 'tailwind-merge';
 
+// Create a portal-wrapped version of ListboxOptions
+const PortalListboxOptions = ({ children, className, id, triggerRef }) => {
+  // Use the withPortal HOC to render the dropdown outside of any containers with position: relative
+  const PortalWrapper = withPortal(ListboxOptions);
+
+  return (
+    <PortalWrapper
+      usePortal={true}
+      id={id}
+      triggerRef={triggerRef}
+      className={className}
+    >
+      {children}
+    </PortalWrapper>
+  );
+};
+
 export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; path?; name?; data?; value?; options?; dataPath?; className?; buttonClassName?; theme?}) => {
   const [selected, setSelected] = useState<any>();
+  const listboxRef = useRef(null);
 
   useEffect(() => {
     if (props.value) {
@@ -45,7 +64,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
 
   return (
     <Listbox value={selected} onChange={handleChange}>
-      <div className={containerClasses}>
+      <div className={containerClasses} ref={listboxRef}>
         <ListboxButton className={twMerge(buttonClasses, props.buttonClassName)}>
           <span className="flex items-center">
             {selected ? (
@@ -67,7 +86,11 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
             <ChevronsUpDown className={chevronClasses} aria-hidden="true" />
           </span>
         </ListboxButton>
-        <ListboxOptions anchor="bottom start" className={twMerge(optionsClasses, 'absolute z-50 max-w-sm w-full', props.className)}>
+        <PortalListboxOptions
+          id={`listbox-options-${props.path || props.name || 'default'}`}
+          className={twMerge(optionsClasses, 'absolute z-50 max-w-sm w-full', props.className)}
+          triggerRef={listboxRef}
+        >
           {options?.map(item => {
             const iconOrImage = <ElementIcon icon={item.icon} image={item.image} className={iconClasses} mode={props.mode} path={props.path} />;
             return (
@@ -108,7 +131,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
               </ListboxOption>
             );
           })}
-        </ListboxOptions>
+        </PortalListboxOptions>
       </div>
     </Listbox>
   );

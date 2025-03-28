@@ -1,16 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { ChevronsUpDown } from 'lucide-react';
 import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions, ComboboxButton } from '../common/select-components';
 import { classNames, isEmpty, isNotEmpty } from '../utils';
+import withPortal from '../common/with-portal';
 import { ElementIcon } from './element-icon';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema } from './styling/style-utils';
 
+// Create a portal-wrapped version of ComboboxOptions
+const PortalComboboxOptions = ({ children, className, id, triggerRef }) => {
+  // Use the withPortal HOC to render the dropdown outside of any containers with position: relative
+  const PortalWrapper = withPortal(ComboboxOptions);
+
+  return (
+    <PortalWrapper
+      usePortal={true}
+      id={id}
+      triggerRef={triggerRef}
+      className={className}
+    >
+      {children}
+    </PortalWrapper>
+  );
+};
+
 export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mode?; value?; schema?; path?; name?; data?; options?, theme?}) => {
   const [query, setQuery] = useState('');
   const [selections, setSelections] = useState<any[]>();
   const [options, setOptions] = useState<any[]>([]);
+  const comboButtonRef = useRef(null);
 
   useEffect(() => {
     const initValue = Array.isArray(props.value) ? props.value : isEmpty(props.value) ? [] : typeof props.value === 'string' ? [{ value: props.value, label: props.value }] : [props.value];
@@ -164,6 +183,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
         schema={props.schema}
         theme={props.theme}
         className="relative flex rounded gap-1 bg-white shadow-sm ring-1 ring-inset p-px border-0 ring-gray-30 w-full items-center"
+        ref={comboButtonRef}
       >
         {listSelected && Array.isArray(selections) && isNotEmpty(selections) && (
           <StyledComponent
@@ -268,8 +288,10 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
         </StyledComponent>
       </StyledComponent>
       {filterOptions?.length > 0 && (
-        <ComboboxOptions
+        <PortalComboboxOptions
           className="absolute z-50 mt-1 max-h-80 w-full min-w-48 overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+          id={`combo-options-${props.path || props.name || 'default'}`}
+          triggerRef={comboButtonRef}
         >
           {selections?.map((itemValue, idx) => {
             const item = options.find(option => option.value === itemValue.value || option.value === itemValue);
@@ -330,7 +352,7 @@ export const SelectManyCombo = (props: { className?; blur?; change?; focus?; mod
               </ComboboxOption>
             );
           })}
-        </ComboboxOptions>
+        </PortalComboboxOptions>
       )}
     </Combobox>
   );
