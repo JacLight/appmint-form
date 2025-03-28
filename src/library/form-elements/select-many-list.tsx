@@ -96,7 +96,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
                     </div>
                     {selected ? (
                       <span className={twMerge(
-                        'absolute top-2 inset-y-0 right-42flex items-center',
+                        'absolute top-2 inset-y-0 right-2 flex items-center',
                         selectedIconClasses,
                         active ? selectedIconActiveClasses : selectedIconInactiveClasses
                       )}>
