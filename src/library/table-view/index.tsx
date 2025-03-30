@@ -229,7 +229,7 @@ export const CollectionTable = (props: {
 
     const title = typeof props.title === 'undefined' && props.datatype ? toTitleCase(props.datatype) : props.title;
     return (
-        <div className="h-full w-full overflow-hidden min-w-[600px] dark:bg-gray-900/80 bg-white/80 p-4 rounded-xl shadow-lg">
+        <div className="overflow-hidden min-w-[600px] dark:bg-gray-900/80 bg-white/80 rounded-xl shadow-lg h-[calc(100%-16px)] w-[calc(100%-16px)] p-4">
             {canSearch && (
                 <div className="lg:flex items-center">
                     {(title || props.description) && <div className="lg:flex gap-3">
@@ -255,7 +255,7 @@ export const CollectionTable = (props: {
                     'mt-8 flow-root w-full overflow-auto',
                 )}
             >
-                <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+                <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-">
                     {cardView ? (
                         <CollectionTableCardView
                             table={table}

@@ -36,7 +36,7 @@ export const ColorElement = (props: { path; name; value; blur, schema, theme, cl
         className={twMerge(inputClasses, props.className)}
         type={variant}
         icon={icon || 'MdFormatColorFill'}
-        toggle={toggle}
+        toggle={typeof toggle !== 'undefined' ? toggle : true}
         updateColor={handleUpdate}
         color={props.value}
         // Pass styling through the style prop since the component doesn't accept the specific class props
