@@ -11,8 +11,9 @@ import { TableFilter } from './table-filter';
 import { TablePagination } from './table-pagination';
 import { TablePresetFilter } from './table-preset-filter';
 import { TableButtons } from './table-buttons';
-import { CollectionTableView } from './view-table';
 import { CollectionTableCardView } from './view-cards';
+import { CollectionTableView } from './view-table';
+import { CollectionTreeView } from './renderer/view-tree';
 
 // Stubs for missing dependencies
 const GenerateSchema = {
@@ -226,10 +227,11 @@ export const CollectionTable = (props: {
     const showGroup = props.options?.grouping !== false;
     const showPagination = props.options?.pagination !== false;
     const cardView = props.options?.cardView === true;
+    const treeView = props.options?.treeView === true;
 
     const title = typeof props.title === 'undefined' && props.datatype ? toTitleCase(props.datatype) : props.title;
     return (
-        <div className="overflow-hidden min-w-[600px] dark:bg-gray-900/80 bg-white/80 rounded-xl shadow-lg h-[calc(100%-16px)] w-[calc(100%-16px)] p-4">
+        <div className="h-[calc(100%-20px)] w-[calc(100%-20px)] p-4 mx-auto my-auto overflow-hidden min-w-[600px] dark:bg-gray-900/80 bg-white/80 rounded-xl shadow-lg">
             {canSearch && (
                 <div className="lg:flex items-center">
                     {(title || props.description) && <div className="lg:flex gap-3">
@@ -255,8 +257,19 @@ export const CollectionTable = (props: {
                     'mt-8 flow-root w-full overflow-auto',
                 )}
             >
-                <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-">
-                    {cardView ? (
+                <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+                    {treeView ? (
+                        <CollectionTreeView
+                            table={table}
+                            selectRow={selectRow}
+                            selectedRows={selectedRows}
+                            slimRow={slimRow}
+                            onRowEvent={props.onRowEvent}
+                            options={props.options}
+                            onRowDataEvent={onRowDataEvent}
+                            datatype={props.datatype}
+                        />
+                    ) : cardView ? (
                         <CollectionTableCardView
                             table={table}
                             selectRow={selectRow}
@@ -269,7 +282,16 @@ export const CollectionTable = (props: {
                             datatype={props.datatype}
                         />
                     ) : (
-                        <CollectionTableView table={table} selectRow={selectRow} selectedRows={selectedRows} slimRow={slimRow} onRowEvent={props.onRowEvent} options={props.options} onRowDataEvent={onRowDataEvent} datatype={props.datatype} />
+                        <CollectionTableView 
+                            table={table} 
+                            selectRow={selectRow} 
+                            selectedRows={selectedRows} 
+                            slimRow={slimRow} 
+                            onRowEvent={props.onRowEvent} 
+                            options={props.options} 
+                            onRowDataEvent={onRowDataEvent} 
+                            datatype={props.datatype} 
+                        />
                     )}
                 </div>
             </div>
@@ -294,5 +316,3 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
     // Provide an alphanumeric fallback for when the item ranks are equal
     return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
 };
-
-export default CollectionTable;
