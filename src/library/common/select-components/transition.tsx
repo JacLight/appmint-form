@@ -33,7 +33,7 @@ export const Transition: React.FC<TransitionProps> & {
             if (show && !mounted) {
                 setMounted(true);
                 // Apply enter animation classes
-                setTransitionClasses(`${enter} ${enterFrom}`);
+                setTransitionClasses(`${enter}`);
 
                 // After a small delay, switch to enterTo class
                 const enterTimer = setTimeout(() => {
