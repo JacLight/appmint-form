@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { IconRenderer } from '../icons/icon-renderer';
-import { localStorageUtils } from '@ui/utils/localstorage';
+import { localStorageUtils } from '../../utils/localstorage';
 
 const placementRef = ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'center', 'top-center', 'bottom-center', 'left-center', 'right-center'];
 // placement = { width: 400, height: 300, x: 20, y: 20, ref: 'top-left' } or { width: 400, height: 300, ref: reactRef } or { width: 400, height: 300, ref: 'context' }
