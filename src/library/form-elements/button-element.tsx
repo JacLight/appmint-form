@@ -126,7 +126,7 @@ export const ButtonElement = (props: {
   return (
     <StyledComponent
       componentType="button"
-      part="container-element"
+      part="container"
       schema={schema}
       theme={props.theme}
       className={classNames(

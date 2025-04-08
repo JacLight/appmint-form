@@ -41,7 +41,7 @@ export const SelectManyRadio = (props: { blur?; change?; focus?; mode?; schema?;
   return (
     <StyledComponent
       componentType="radio"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
     >

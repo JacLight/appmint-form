@@ -13,7 +13,7 @@ export const LabelElement = (props: { path; name; value; className; schema?; the
   return (
     <StyledComponent
       componentType="label"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className={twMerge('px-2 py-1 rounded-lg shadow w-fit', props.className, statusColor)}

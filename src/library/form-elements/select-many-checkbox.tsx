@@ -60,7 +60,7 @@ export const SelectManyCheckbox = (props: { blur; focus; mode; schema; path; nam
   return (
     <StyledComponent
       componentType="checkbox"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       as="fieldset"

@@ -28,7 +28,7 @@ export const ColorElement = (props: { path; name; value; blur, schema, theme, cl
   return (
     <StyledComponent
       componentType="color"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
     >

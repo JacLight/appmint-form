@@ -248,7 +248,7 @@ const getDefaultRenderer = (schema, meta) => {
       return cell.value;
     },
     status: ({ cell }) => {
-      return <span className={`px-2 py-1 rounded-full ${statusColors[cell.value.toLowerCase()]}`}>{cell.value}</span>;
+      return <span className={`px-2 py-1 rounded-full ${statusColors[cell.value?.toLowerCase()]}`}>{cell.value}</span>;
     }
   };
 

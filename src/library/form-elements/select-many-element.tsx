@@ -60,7 +60,7 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
   const onChange = value => {
     if (props.change) {
       if (props.schema.fetchData && typeof value === 'string') {
-        const original = options.find(o => o.value === value).original;
+        const original = options.find(o => o?.value === value).original;
         props.updateRepository(props.dataPath, original);
       }
       if (props.schema.type === 'string' && typeof value !== 'string') {
@@ -77,7 +77,12 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
         props.blur(JSON.stringify(value));
       }
       if (props.schema.type === 'array' && typeof value === 'string') {
-        props.blur(JSON.parse(value));
+        const { json, err } = safeParseJSON(value);
+        if (err) {
+          console.error(err);
+          return;
+        }
+        props.blur(json);
       } else {
         props.blur(value);
       }
@@ -96,7 +101,7 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
   return (
     <StyledComponent
       componentType="select-many"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className={props.className}

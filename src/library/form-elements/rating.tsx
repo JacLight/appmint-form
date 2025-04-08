@@ -41,7 +41,7 @@ export const RatingInput = (props: {
   return (
     <StyledComponent
       componentType="rating"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className="flex items-center"

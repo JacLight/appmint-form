@@ -82,7 +82,7 @@ export const StyledContainer: React.FC<Omit<StyledComponentProps, 'part'>> = ({
     componentType,
     ...props
 }) => {
-    return <StyledComponent componentType={componentType} {...props} part="container-element" />;
+    return <StyledComponent componentType={componentType} {...props} part="container" />;
 };
 
 /**

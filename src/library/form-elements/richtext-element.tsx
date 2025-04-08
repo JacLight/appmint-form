@@ -40,7 +40,7 @@ export const RichtextElement = (props: {
   return (
     <StyledComponent
       componentType="richtext"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className="w-full"

@@ -17,7 +17,7 @@ export const SelectSingleElement = (props: { change; blur; focus; value; mode; s
     return (
       <StyledComponent
         componentType="select-single"
-        part="container-element"
+        part="container"
         schema={props.schema}
         theme={props.theme}
         className={props.className}
@@ -45,7 +45,7 @@ export const SelectSingleElement = (props: { change; blur; focus; value; mode; s
   return (
     <StyledComponent
       componentType="select-single"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className={props.className}

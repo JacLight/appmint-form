@@ -1,6 +1,7 @@
 import { classNames } from '../utils';
 import { isEmpty } from '../utils';
 import { toSentenceCase } from '../utils';
+import { getElementTheme } from '../context/store';
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ElementIcon } from './element-icon';
@@ -58,12 +59,16 @@ export const ElementWrapperControl = (props: {
   }
 
   const isFixedLabel = fixedLabel.includes(controlType);
+  const controlHelpTheme = getElementTheme('help', props.theme);
 
   // Extract styling from schema
   const customStyling = extractStylingFromSchema(schema);
 
   // Get help container styling
   const helpContainerClasses = getComponentPartStyling(controlType, 'helpContainer', '', props.theme, customStyling);
+
+  // Get description styling
+  const descriptionClasses = getComponentPartStyling(controlType, 'description', '', props.theme, customStyling);
 
   const description =
     schema.description || info ? (
@@ -81,6 +86,8 @@ export const ElementWrapperControl = (props: {
       </StyledComponent>
     ) : null;
 
+  // Get error styling
+  const errorClasses = getComponentPartStyling(controlType, 'error', '', props.theme, customStyling);
 
   const error = errorMsg ? (
     <StyledComponent
@@ -94,20 +101,36 @@ export const ElementWrapperControl = (props: {
     </StyledComponent>
   ) : null;
   const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon ui={schema['x-ui']} icon={schema?.icon} image={schema?.image} mode={props.mode} theme={props.theme} /> : null;
-  const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && ' flex gap-2 items-center');
-  const element = (
-    <StyledComponent
-      componentType={controlType}
-      part="input-container"
-      schema={schema}
-      theme={props.theme}
-      className={inputClasses}
-    >
-      {!!icon && iconPosition === 'start' && icon} {props.children} {!!icon && iconPosition === 'end' && icon}
-    </StyledComponent>
-  );
-
-
+  let element;
+  const controlThemeStyle = getElementTheme('control-' + controlType, props.theme);
+  // Get input container styling
+  const inputContainerClasses = getComponentPartStyling(controlType, 'input-container', '', props.theme, customStyling);
+  const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center', controlThemeStyle?.className);
+  if (icon && (iconPosition === 'start' || iconPosition === 'end')) {
+    element = (
+      <StyledComponent
+        componentType={controlType}
+        part="input-container"
+        schema={schema}
+        theme={props.theme}
+        className={inputClasses}
+      >
+        {iconPosition === 'start' && icon} {props.children} {iconPosition === 'end' && icon}
+      </StyledComponent>
+    );
+  } else {
+    element = (
+      <StyledComponent
+        componentType={controlType}
+        part="input-container"
+        schema={schema}
+        theme={props.theme}
+        className={inputClasses}
+      >
+        {props.children}
+      </StyledComponent>
+    );
+  }
 
   let label;
   const caption = schema.title ? schema.title : toSentenceCase(schema.name || props.name || '');
@@ -165,10 +188,10 @@ export const ElementWrapperControl = (props: {
     return (
       <StyledComponent
         componentType={controlType}
-        part={props.arrayIndex > -1 ? 'element-root-array' : 'element-root'}
+        part="container"
         schema={schema}
         theme={props.theme}
-        className={twMerge('relative w-full', className)}
+        className={twMerge(className, 'relative')}
         data-ui-name="control"
       >
         <StyledComponent
@@ -182,10 +205,10 @@ export const ElementWrapperControl = (props: {
           {labelPosition === 'end' && element}
           <div className="w-full">
             {label}
+            {description}
           </div>
           {labelPosition === 'start' && element}
         </StyledComponent>
-        {description}
         {error}
       </StyledComponent>
     );
@@ -195,11 +218,11 @@ export const ElementWrapperControl = (props: {
     return (
       <StyledComponent
         componentType={controlType}
-        part={props.arrayIndex > -1 ? 'element-root-array' : 'element-root'}
+        part="container"
         schema={schema}
         theme={props.theme}
         data-ui-name="control"
-        className={twMerge('relative w-full', className)}
+        className={twMerge(className, 'relative')}
       >
         <div className="flex gap-4 items-center">
           {labelPosition === 'start' && label}
@@ -212,10 +235,10 @@ export const ElementWrapperControl = (props: {
             className={'w-full'}
           >
             {element}
+            {description}
           </StyledComponent>
           {labelPosition === 'end' && label}
         </div>
-        {description}
         {error}
       </StyledComponent>
     );
@@ -224,11 +247,11 @@ export const ElementWrapperControl = (props: {
   return (
     <StyledComponent
       componentType={controlType}
-      part={props.arrayIndex > -1 ? 'element-root-array' : 'element-root'}
+      part={props.arrayIndex > -1 ? 'container-array' : 'container'}
       schema={schema}
       theme={props.theme}
       data-ui-name="control"
-      className={twMerge('relative w-full', className)}
+      className={twMerge(className, 'relative')}
     >
       {labelPosition !== 'bottom' && label}
       {element}

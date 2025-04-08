@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { IconRenderer } from '../icons/icon-renderer';
+import { localStorageUtils } from '@ui/utils/localstorage';
 
 const placementRef = ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'center', 'top-center', 'bottom-center', 'left-center', 'right-center'];
 // placement = { width: 400, height: 300, x: 20, y: 20, ref: 'top-left' } or { width: 400, height: 300, ref: reactRef } or { width: 400, height: 300, ref: 'context' }
@@ -51,19 +52,16 @@ const ViewManager = ({
     useEffect(() => {
         if (isModal) {
             document.body.style.overflow = 'hidden';
-        }
-
-        return () => {
-            if (isModal) {
+            return () => {
                 document.body.style.overflow = 'unset';
-            }
-        };
+            };
+        }
     }, [isModal]);
 
     function getStoredValue(key, defaultValue) {
         if (!id) return defaultValue;
-        const stored = localStorage.getItem(`float-box-${id}-${key}`);
-        return stored ? JSON.parse(stored) : defaultValue;
+        const stored = localStorageUtils.get(`float-box-${id}-${key}`);
+        return stored || defaultValue;
     }
 
     // Save state to localStorage

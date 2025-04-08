@@ -9,8 +9,31 @@ import { TableCardRenderer } from './view-card-renderer';
 import { CollectionTableCardPopup } from './view-card-popup';
 import { IndeterminateCheckbox } from '../common/indeterminate-checkbox';
 
-export const CollectionTableCardView = (props: { table; selectRow; selectedRows; slimRow; onRowEvent; options; itemRenderer; onRowDataEvent; datatype }) => {
-  const { table, selectedRows, slimRow, selectRow, itemRenderer } = props;
+export interface CardFieldsMap {
+  title?: string;       // Main identifier field
+  subtitle?: string;    // Secondary description
+  status?: string;      // Status indicator
+  timestamp?: string;   // Date/time field
+  image?: string;       // Image/thumbnail
+  tags?: string;        // Categories/tags
+  type?: string;        // Type/category classification
+  metrics?: string[];   // Numeric fields to highlight
+  exclude?: string[];   // Fields to exclude from "Show More"
+}
+
+export const CollectionTableCardView = (props: { 
+  table; 
+  selectRow; 
+  selectedRows; 
+  slimRow; 
+  onRowEvent; 
+  options; 
+  itemRenderer; 
+  onRowDataEvent; 
+  datatype;
+  cardFieldsMap?: CardFieldsMap;
+}) => {
+  const { table, selectedRows, slimRow, selectRow, itemRenderer, cardFieldsMap } = props;
   const [isOpen, setIsOpened] = React.useState(false);
 
   return (
@@ -38,7 +61,7 @@ export const CollectionTableCardView = (props: { table; selectRow; selectedRows;
               selected={isSelected}
               onSelect={e => setIsOpened(true)}
               slimRow={slimRow}
-            // Pass additional props if needed
+              cardFieldsMap={cardFieldsMap}
             />
           );
         })}

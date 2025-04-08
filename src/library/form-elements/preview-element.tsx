@@ -20,7 +20,7 @@ export const PreviewElement = (props: {
   return (
     <StyledComponent
       componentType="preview"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className="w-full flex justify-center"

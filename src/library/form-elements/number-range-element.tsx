@@ -99,7 +99,7 @@ export const NumberRangeElement: React.FC<NumberRangeElementProps> = (props) => 
   return (
     <StyledComponent
       componentType="number-range"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className="flex gap-2 items-center w-full"

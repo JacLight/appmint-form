@@ -83,7 +83,7 @@ export const SliderElement: React.FC<SliderProps> = ({
   return (
     <StyledComponent
       componentType="slider"
-      part="container-element"
+      part="container"
       schema={schema}
       theme={theme}
       className={classNames("relative flex gap-4 items-center justify-between", variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}

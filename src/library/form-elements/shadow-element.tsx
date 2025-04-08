@@ -72,7 +72,7 @@ export const ShadowElement = ({ change, blur, value, schema, theme }) => {
   return (
     <StyledComponent
       componentType="shadow"
-      part="container-element"
+      part="container"
       schema={schema}
       theme={theme}
       className="flex flex-col w-full max-w-xl p-2 gap-2 border border-gray-200 rounded-lg bg-white text-sm"

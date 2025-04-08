@@ -110,7 +110,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   return (
     <StyledComponent
       componentType="slider-range"
-      part="container-element"
+      part="container"
       schema={schema}
       theme={theme}
       className={classNames("flex items-center gap-4", variant === 'vertical' ? 'rotate-90 w-fit min-w-24' : 'w-full')}

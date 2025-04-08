@@ -44,7 +44,7 @@ export const GeneratedElement: React.FC<GeneratedElementProps> = (props) => {
   return (
     <StyledComponent
       componentType="generated-element"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className={twMerge("flex items-center justify-between p-4 text-sm", props.className)}

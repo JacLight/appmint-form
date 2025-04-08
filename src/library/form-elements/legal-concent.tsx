@@ -56,7 +56,7 @@ export const LegalConsentElement = (props: {
   return (
     <StyledComponent
       componentType="legal-consent"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
       className="w-full border shadow-sm rounded p-4"

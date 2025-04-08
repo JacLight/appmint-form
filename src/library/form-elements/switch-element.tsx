@@ -34,7 +34,7 @@ export const SwitchElement = (props: { change?; blur?; focus?; mode?; value?; sc
   return (
     <StyledComponent
       componentType="switch"
-      part="container-element"
+      part="container"
       schema={props.schema}
       theme={props.theme}
     >
