@@ -78,7 +78,15 @@ export const FormRender = (props: { storeId; path; dataPath; name; className; ar
       const layoutInfo = layouts[layoutId];
       const RenderWithLayout = formLayouts[layoutInfo.type];
       return (
-        <RenderWithLayout path={path ? path + '.properties' : 'properties'} layoutPath={path ? path + '.x-layout.' + layoutId : 'x-layout.' + layoutId} className={className} dataPath={dataPath} schema={schema} storeId={props.storeId} />
+        <RenderWithLayout
+          key={layoutId}
+          path={path ? path + '.properties' : 'properties'}
+          layoutPath={path ? path + '.x-layout.' + layoutId : 'x-layout.' + layoutId}
+          className={className}
+          dataPath={dataPath}
+          schema={schema}
+          storeId={props.storeId}
+        />
       );
     });
   }
@@ -103,9 +111,9 @@ export const FormRender = (props: { storeId; path; dataPath; name; className; ar
     } else if (field.type === 'array' && hasControl) {
       return <FormElementRender key={fieldName} mode="view" name={fieldName} path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} storeId={props.storeId} />;
     } else if (field.type === 'object') {
-      return <FormRender path={fieldPath} className="" dataPath={valuePath} name={fieldName} parentDataPath={dataPath} storeId={props.storeId} />;
+      return <FormRender key={fieldName} path={fieldPath} className="" dataPath={valuePath} name={fieldName} parentDataPath={dataPath} storeId={props.storeId} />;
     } else if (field.type === 'array') {
-      return <FormRenderArray path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} childPath={childPath} name={fieldName} arrayIndex={arrayIndex} fieldName={fieldName} schema={field} className={className} hasControl={hasControl} storeId={props.storeId} />;
+      return <FormRenderArray key={fieldName} path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} childPath={childPath} name={fieldName} arrayIndex={arrayIndex} fieldName={fieldName} schema={field} className={className} hasControl={hasControl} storeId={props.storeId} />;
     } else {
       return <FormElementRender key={fieldName} mode="view" name={fieldName} path={fieldPath} dataPath={valuePath} parentDataPath={dataPath} arrayIndex={arrayIndex} storeId={props.storeId} />;
     }
@@ -133,7 +141,7 @@ export const FormRender = (props: { storeId; path; dataPath; name; className; ar
         const field = properties[fieldName];
         if (!field) {
           console.error('field not found', fieldName, properties);
-          return <div>`field not found ${fieldName}`</div>;
+          return <div key={fieldName}>`field not found ${fieldName}`</div>;
         }
         if (field.layoutGroup && field.layoutGroup !== layoutPath) return null;
         if (field.hidden) return null;

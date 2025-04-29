@@ -32,7 +32,7 @@ export const FormLayoutRender = ({ storeId, path, dataPath, layoutPath, classNam
     setItemValue(arrayItemPath, '');
   };
 
-  console.debug('FormLayoutRender');
+  console.debug('FormLayoutRender', JSON.stringify({ path, layoutPath, properties }, null, 2));
   const layoutSchema = getSchemaItem(layoutPath);
   const fieldNames = deepCopy(Object.keys(properties));
   return (

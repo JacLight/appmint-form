@@ -32,9 +32,19 @@ import RichtextDemo from './textInputs/RichtextDemo';
 import { Bus } from 'lucide-react';
 import BusinessMadeDemo from './business-nade';
 import PageDemo from './page-demo';
+import SliderFormDemo from './SliderFormDemo';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
+    // Slider Form Demo
+    {
+        id: 'slider-form-demo',
+        title: 'TypeForm-like Slider Form',
+        description: 'A form with smooth slide animations between sections, similar to TypeForm.',
+        category: 'Views',
+        component: SliderFormDemo,
+        code: `// Slider Form Demo Code`
+    },
     // Multiple Form Instances Demo
     {
         id: 'multi-form-demo',
