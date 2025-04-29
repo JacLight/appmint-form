@@ -4,6 +4,7 @@ import { iconButtonClass } from '../utils/constants';
 import { useFormStore } from '../context/form-store-context';
 import { getTemplateValue } from './form-validator';
 import { isNotEmpty } from '../utils';
+import DataGalleryView from '../common/data-gallery-view';
 
 export const FormPicker = ({ schema, dataPath, parentDataPath }) => {
   const store = useFormStore();
@@ -24,7 +25,10 @@ export const FormPicker = ({ schema, dataPath, parentDataPath }) => {
 
   const onTableEvent = async (event, options, selections) => {
     console.log('onTableEvent', event, options, selections);
-    if (event !== 'select') return;
+    if (event !== 'select') {
+      return false; // Return a value for all code paths
+    }
+    
     if (selections) {
       const rows = selections.map(selection => {
         const { datatype, sk, name, title, slug, email, username } = selection?.original || selection || {};

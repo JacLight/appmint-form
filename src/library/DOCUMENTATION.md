@@ -16,6 +16,8 @@ AppmintForm is a powerful, lightweight, and flexible form builder library for Re
 - **Theming Support**: Easily customize the appearance of your forms
 - **Performance Optimized**: Only updates what has changed, ensuring efficient rendering
 - **Extensible**: Add custom input components and layouts
+- **Multiple Form Instances**: Use multiple forms on the same page without state conflicts
+- **Custom Components Registry**: Create and register custom form elements or override existing ones
 
 ## Table of Contents
 
@@ -47,6 +49,8 @@ AppmintForm simplifies form creation and management in React applications. It pr
 - **Theming Support**: Easily customize the appearance of your forms
 - **Performance Optimized**: Only updates what has changed, ensuring efficient rendering
 - **Extensible**: Add custom input components and layouts
+- **Multiple Form Instances**: Use multiple forms on the same page without state conflicts
+- **Custom Components Registry**: Create and register custom form elements or override existing ones
 
 ## Installation
 
@@ -467,6 +471,176 @@ const theme = {
 ```
 
 ## API Reference
+
+### Custom Components Registry
+
+AppmintForm v0.3.4 introduces a powerful custom components registry system that allows you to extend the library with your own custom form elements or override existing ones.
+
+```jsx
+import { registerCustomComponent, registerCustomComponents, clearCustomComponents } from '@appmint/form';
+
+// Register a single custom component
+registerCustomComponent('custom-text', CustomTextComponent);
+
+// Register multiple custom components at once
+registerCustomComponents({
+  'custom-date': CustomDateComponent,
+  'custom-select': CustomSelectComponent
+});
+
+// Clear all custom component registrations
+clearCustomComponents();
+```
+
+#### Creating Custom Components
+
+Custom components receive a set of props that allow them to integrate with the form's state management and validation system:
+
+```jsx
+const CustomTextInput = (props) => {
+  const { 
+    value,          // Current field value
+    change,         // Function to update the value
+    blur,           // Function to call on blur
+    focus,          // Function to call on focus
+    name,           // Field name
+    schema,         // Field schema
+    error,          // Validation error (if any)
+    disabled,       // Whether the field is disabled
+    readOnly        // Whether the field is read-only
+  } = props;
+  
+  return (
+    <div className="custom-input-container">
+      <input
+        type="text"
+        value={value || ''}
+        onChange={(e) => change(e.target.value)}
+        onBlur={(e) => blur(e.target.value)}
+        onFocus={focus}
+        disabled={disabled}
+        readOnly={readOnly}
+        placeholder={schema.placeholder}
+        className={error ? 'custom-input-error' : 'custom-input'}
+      />
+      {error && <div className="error-message">{error}</div>}
+    </div>
+  );
+};
+
+// Register the custom component
+registerCustomComponent('custom-text', CustomTextInput);
+```
+
+#### Using Custom Components in Schema
+
+Once registered, you can use your custom components in your form schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "customField": {
+      "type": "string",
+      "title": "Custom Field",
+      "x-control": "custom-text",
+      "placeholder": "Enter text here"
+    }
+  }
+}
+```
+
+#### Overriding Built-in Components
+
+You can override any of the built-in components with your own implementation:
+
+```jsx
+// Create a custom implementation of the built-in textarea component
+const CustomTextarea = (props) => {
+  // Implementation details...
+};
+
+// Override the built-in textarea component
+registerCustomComponent('textarea', CustomTextarea);
+```
+
+### Multiple Form Instances
+
+AppmintForm v0.3.4 supports multiple form instances on the same page without state conflicts. Each form maintains its own independent state, allowing for complex multi-form layouts and workflows.
+
+```jsx
+import React from 'react';
+import { AppmintForm } from '@appmint/form';
+
+const MultipleFormsExample = () => {
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      {/* Each form has its own independent state */}
+      <AppmintForm 
+        schema={schema1} 
+        id="form-1"
+        initData={data1}
+        onChange={handleForm1Change}
+      />
+      
+      <AppmintForm 
+        schema={schema2} 
+        id="form-2"
+        initData={data2}
+        onChange={handleForm2Change}
+      />
+    </div>
+  );
+};
+```
+
+#### Form Interaction
+
+Forms can interact with each other through your application's state management:
+
+```jsx
+import React, { useState } from 'react';
+import { AppmintForm } from '@appmint/form';
+
+const InteractingFormsExample = () => {
+  const [form1Data, setForm1Data] = useState({});
+  const [form2Data, setForm2Data] = useState({});
+  
+  const handleForm1Change = (path, value, data) => {
+    setForm1Data(data);
+    
+    // Update form2 based on form1 data
+    if (data.selectedOption === 'option1') {
+      setForm2Data({
+        ...form2Data,
+        conditionalField: 'Value based on form1'
+      });
+    }
+  };
+  
+  const handleForm2Change = (path, value, data) => {
+    setForm2Data(data);
+  };
+  
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      <AppmintForm 
+        schema={schema1} 
+        id="form-1"
+        initData={form1Data}
+        onChange={handleForm1Change}
+      />
+      
+      <AppmintForm 
+        schema={schema2} 
+        id="form-2"
+        initData={form2Data}
+        onChange={handleForm2Change}
+      />
+    </div>
+  );
+};
+```
 
 ### AppmintForm Component
 
@@ -911,4 +1085,4 @@ AppmintForm is open-source software licensed under the [MIT license](https://ope
 
 ---
 
-Documentation created for AppmintForm v0.2.0
+Documentation created for AppmintForm v0.3.4

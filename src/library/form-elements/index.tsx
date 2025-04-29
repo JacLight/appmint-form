@@ -164,15 +164,17 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
     applyRuleResult();
 
     if (schema.fetchData?.datatype) {
-      requestQueueInstance
-        .getDataById(schema.fetchData?.datatype, newValue)
-        .then(res => {
-          updateRepository(dataPath, res);
-        })
-        .catch(e => {
-          console.error('Error fetching data', e);
-          updateRepository(dataPath);
-        });
+      // Use store's onFormEvent to fetch data instead of requestQueueInstance
+      if (store.getState().onFormEvent) {
+        store.getState().onFormEvent('getDataById', { datatype: schema.fetchData?.datatype, id: newValue })
+          .then(res => {
+            updateRepository(dataPath, res);
+          })
+          .catch(e => {
+            console.error('Error fetching data', e);
+            updateRepository(dataPath);
+          });
+      }
     }
   };
 

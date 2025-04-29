@@ -1,6 +1,35 @@
-# AppmintForm v0.3.0 Release Notes
+# AppmintForm v0.3.4 Release Notes
 
-We're excited to announce the release of AppmintForm v0.3.0, which introduces two major new features that significantly enhance the library's flexibility and extensibility.
+We're excited to announce the release of AppmintForm v0.3.4, which builds upon the foundation of v0.3.0 with enhanced features, improved performance, and better documentation.
+
+## What's New in v0.3.4
+
+### Enhanced Error Handling
+
+We've significantly improved error handling for form validation:
+
+- More descriptive error messages that help users understand validation issues
+- Better visualization of validation errors in the UI
+- Improved error propagation for nested form structures
+- Enhanced error recovery mechanisms
+
+### Performance Optimizations
+
+This release includes several performance improvements:
+
+- Reduced re-renders for large forms with many fields
+- Optimized state management for complex form structures
+- Improved memory usage for forms with large datasets
+- Better handling of conditional rendering logic
+
+### Comprehensive Documentation
+
+We've completely revamped our documentation:
+
+- Detailed API reference for all components and functions
+- More code examples and usage patterns
+- Improved troubleshooting section
+- New guides for advanced use cases
 
 ## Multiple Form Instances
 

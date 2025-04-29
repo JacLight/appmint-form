@@ -132,6 +132,9 @@ export const FormLayoutSliderAnimation = ({
         window.removeEventListener('keydown', handleKeyDown);
       };
     }
+    
+    // Return empty cleanup function for when items don't exist
+    return () => {};
   }, [currentIndex, isAnimating, items]);
 
   // If no items, show a placeholder

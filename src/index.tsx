@@ -25,6 +25,7 @@ export interface AppmintFormProps {
   useAI?: boolean;
   collapsible?: boolean;
   onChange?: (path: string, value: any, data: any, files: any, error: any) => any;
+  onFormEvent?: (eventName: any, params: any, options?: any) => Promise<any>;
 }
 
 export interface AppmintTableProps {

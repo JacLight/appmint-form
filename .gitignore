@@ -27,6 +27,7 @@ dist-ssr
 build
 out
 .output
+demo-dist
 
 # Editor directories and files
 .vscode/*

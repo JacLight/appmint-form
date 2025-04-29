@@ -1,5 +1,5 @@
 {
-  "version": "0.3.3",
+  "version": "0.3.4",
   "license": "MIT",
   "type": "module",
   "main": "dist/appmint-form.cjs.js",
@@ -14,9 +14,9 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/appmint-form.es.js",
-      "require": "./dist/appmint-form.cjs.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/appmint-form.cjs.js"
     }
   },
   "engines": {

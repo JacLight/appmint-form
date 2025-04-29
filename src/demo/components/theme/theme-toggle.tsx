@@ -1,9 +1,9 @@
 // ThemeContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Color from 'color';
-import { useFormStore } from '../../../library/context/store';
 import { useShallow } from 'zustand/shallow';
 import { IconRenderer } from '../../../library/common/icons/icon-renderer';
+import { useFormStore } from '../../../library/context/form-store-context';
 
 const defaultTheme = {
     colors: {
@@ -59,7 +59,8 @@ const generateDarkModeColors = (colors) => {
 };
 
 export const ThemeToggle: React.FC<any> = ({ children }) => {
-    const { theme = defaultTheme, setStateItem } = useFormStore(useShallow(state => ({ theme: state.theme, setStateItem: state.setStateItem })));
+    const store = useFormStore();
+    const { theme = defaultTheme, setStateItem } = store(useShallow(state => ({ theme: state.theme, setStateItem: state.setStateItem })));
     const [darkMode, setDarkMode] = useState(getDarkMode());
 
 

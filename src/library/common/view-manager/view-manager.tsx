@@ -34,19 +34,24 @@ const ViewManager = ({
     const resizeRef: any = useRef(null);
     const menuRef: any = useRef(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsMenuOpen(false);
-            }
-            if (isModal && closeOnOutsideClick && boxRef.current && !boxRef.current.contains(event.target)) {
-                onClose?.();
-            }
-        };
+  // Handle clicks outside the menu or modal
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+      if (isModal && closeOnOutsideClick && boxRef.current && !boxRef.current.contains(event.target)) {
+        onClose?.();
+      }
+    }
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isModal, closeOnOutsideClick, onClose]);
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    // Cleanup function
+    return function cleanup() {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isModal, closeOnOutsideClick, onClose]);
 
     // Prevent body scroll when modal is open
     useEffect(() => {
@@ -56,6 +61,8 @@ const ViewManager = ({
                 document.body.style.overflow = 'unset';
             };
         }
+        // Return empty cleanup function when not modal
+        return () => {};
     }, [isModal]);
 
     function getStoredValue(key, defaultValue) {
@@ -70,6 +77,7 @@ const ViewManager = ({
             localStorage.setItem(`float-box-${id}-position`, JSON.stringify(position));
             localStorage.setItem(`float-box-${id}-size`, JSON.stringify(size));
         }
+        return () => {}; // Empty cleanup function
     }, [id, position, size, windowState]);
 
     const constrainToViewport = (pos, boxSize) => {
@@ -139,6 +147,7 @@ const ViewManager = ({
 
             positionRelativeToRef();
         }
+        return () => {}; // Empty cleanup function
     }, [placement.ref, windowState, isModal, size]);
 
     // Handle window resize
