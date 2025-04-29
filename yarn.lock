@@ -47,6 +47,7 @@ __metadata:
     deep-object-diff: "npm:^1.1.9"
     eslint: "npm:^9.21.0"
     eslint-plugin-react: "npm:^7.37.4"
+    generate-schema: "npm:^2.6.0"
     husky: "npm:^9.0.11"
     immer: "npm:^10.1.1"
     jsdom: "npm:^26.0.0"
@@ -5269,7 +5270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^2.20.0":
+"commander@npm:^2.20.0, commander@npm:^2.9.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
   checksum: 10c0/74c781a5248c2402a0a3e966a0a2bba3c054aad144f5c023364be83265e796b20565aa9feff624132ff629aa64e16999fa40a743c10c12f7c61e96a794b99288
@@ -7220,6 +7221,18 @@ __metadata:
   version: 1.2.3
   resolution: "functions-have-names@npm:1.2.3"
   checksum: 10c0/33e77fd29bddc2d9bb78ab3eb854c165909201f88c75faa8272e35899e2d35a8a642a15e7420ef945e1f64a9670d6aa3ec744106b2aa42be68ca5114025954ca
+  languageName: node
+  linkType: hard
+
+"generate-schema@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "generate-schema@npm:2.6.0"
+  dependencies:
+    commander: "npm:^2.9.0"
+    type-of-is: "npm:^3.4.0"
+  bin:
+    generate-schema: ./bin/generate-schema
+  checksum: 10c0/b0de6b5fbd47314aac4644f0c97ef91288f0ee0b6d4bd94a51a17454a034c5f48545617bf4edf03285448aebe72d2ad4d6b83ccb2fc17c02e3bf64675bc3acd2
   languageName: node
   linkType: hard
 
@@ -14165,6 +14178,13 @@ __metadata:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: 10c0/dffbb99329da2aa840f506d376c863bd55f5636f4741ad6e65e82f5ce47e6914108f44f340a0b74009b0cb5d09d6752ae83203e53e98b1192cf80ecee5651636
+  languageName: node
+  linkType: hard
+
+"type-of-is@npm:^3.4.0":
+  version: 3.5.1
+  resolution: "type-of-is@npm:3.5.1"
+  checksum: 10c0/6b558b9c3ae9ec310e9242b39b3a28430fd99637949f119669f156e3c08f32b3a58fca4f3e711133e268e35e2e0f297c174b9176daa76d5a7f45e6dc7fc120a2
   languageName: node
   linkType: hard
 

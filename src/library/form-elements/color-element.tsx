@@ -4,7 +4,7 @@ import React from 'react';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
-export const ColorElement = (props: { path; name; value; blur, schema, theme, className }) => {
+export const ColorElement = (props: { path; name; value; blur; schema; theme; className }) => {
   const prop: any = {};
 
   const handleUpdate = color => {
@@ -26,16 +26,11 @@ export const ColorElement = (props: { path; name; value; blur, schema, theme, cl
   const paletteItemClasses = getComponentPartStyling('color', 'paletteItem', '', props.theme, customStyling);
 
   return (
-    <StyledComponent
-      componentType="color"
-      part="container"
-      schema={props.schema}
-      theme={props.theme}
-    >
+    <StyledComponent componentType="color" part="container" schema={props.schema} theme={props.theme}>
       <CommonColorPicker
         className={twMerge(inputClasses, props.className)}
         type={variant}
-        icon={icon || 'MdFormatColorFill'}
+        icon={icon || 'Paintbrush'}
         toggle={typeof toggle !== 'undefined' ? toggle : true}
         updateColor={handleUpdate}
         color={props.value}
@@ -43,10 +38,12 @@ export const ColorElement = (props: { path; name; value; blur, schema, theme, cl
         style={{
           preview: previewClasses,
           palette: paletteClasses,
-          paletteItem: paletteItemClasses
+          paletteItem: paletteItemClasses,
         }}
       />
     </StyledComponent>
   );
 };
-{/* <ColorPicker palette={palette} onChange={handleChange} value={value} defaultValue={value} /> */ }
+{
+  /* <ColorPicker palette={palette} onChange={handleChange} value={value} defaultValue={value} /> */
+}

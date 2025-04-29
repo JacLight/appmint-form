@@ -39,7 +39,7 @@ export const CodeElement: React.FC<CodeElementProps> = (props) => {
   const variant = props.schema?.['x-control-variant'];
 
   // Determine editor mode
-  const editorMode = props.mode || 'javascript';
+  const editorMode = variant || props.mode || 'javascript';
 
   // Determine editor height
   const editorHeight = props.height || 300;

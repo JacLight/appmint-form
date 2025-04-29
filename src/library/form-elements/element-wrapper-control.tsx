@@ -144,8 +144,7 @@ export const ElementWrapperControl = (props: {
           schema={schema}
           theme={props.theme}
           className={twMerge(
-            labelStartEnd && !isInline && '-mt-5',
-            'cb-label-with-icon flex gap-2 text-xs items-center'
+            'cb-label-with-icon flex gap-2 text-xs items-center whitespace-nowrap',
           )}
         >
           {iconPosition === 'beforeLabel' && icon}
@@ -171,9 +170,8 @@ export const ElementWrapperControl = (props: {
           className={twMerge(
             labelPosition === 'auto' && !isFixedLabel && !hasValue && 'opacity-0',
             labelPosition === 'auto' && hasValue && '!text-[8px]  opacity-100',
-            labelStartEnd && !isInline && '-mt-5',
             'cb-label text-xs',
-            'transition-all duration-200',
+            'transition-all duration-200  whitespace-nowrap',
           )}
         >
           {caption}

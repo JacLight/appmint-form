@@ -14,38 +14,34 @@ import { runElementRules } from '../form-view/form-rules';
 import { validateFormValue } from '../form-view/form-validator';
 import { twMerge } from 'tailwind-merge';
 import * as objectPath from 'object-path';
-import shallow, { useShallow } from 'zustand/shallow';
+import { useShallow } from 'zustand/shallow';
 
-// Stubs for missing dependencies
-const requestQueueInstance = {
-  getDataById: async (datatype, id) => {
-    console.log(`Getting ${id} from ${datatype}`);
-    return { sk: id, datatype, data: {} };
-  }
-};
 
-const genericService = {
-  isUniqueInCollection: async (datatype, id, field, value, filter) => {
-    console.log(`Checking if ${field}=${value} is unique in ${datatype}`);
-    return true;
-  }
-};
-
-export const FormElementRender = (props: { storeId; theme?: any; mode: string; name: string; path: string; dataPath: string; parentDataPath: string, schema?; arrayPath?, arrayIndex?}) => {
+export const FormElementRender = (props: { storeId; theme?: any; mode: string; name: string; path: string; dataPath: string; parentDataPath: string; schema?; arrayPath?; arrayIndex? }) => {
   const { name, path, arrayIndex } = props;
   const dataPath = props.dataPath ? props.dataPath : `${props.dataPath}.${name}`;
   const parentPath = dataPath.includes('.') ? dataPath.split('.').slice(0, -1).join('.') : '';
 
   const store = useFormStore();
-  const { dataPathTimestamp, theme: formTheme, datatype, storeId, activeDataPath, readOnly, dataBindValue } = store(useShallow(state => ({
-    dataPathTimestamp: state.timestamp?.[dataPath],
-    theme: state.theme,
-    datatype: state.datatype,
-    storeId: state.storeId,
-    activeDataPath: state.activeDataPath,
-    readOnly: state.readOnly,
-    dataBindValue: state.dataBindValue
-  })));
+  const {
+    dataPathTimestamp,
+    theme: formTheme,
+    datatype,
+    storeId,
+    activeDataPath,
+    readOnly,
+    dataBindValue,
+  } = store(
+    useShallow(state => ({
+      dataPathTimestamp: state.timestamp?.[dataPath],
+      theme: state.theme,
+      datatype: state.datatype,
+      storeId: state.storeId,
+      activeDataPath: state.activeDataPath,
+      readOnly: state.readOnly,
+      dataBindValue: state.dataBindValue,
+    })),
+  );
   const { rules, getItemValue, setStateItem, applyRuleResult, getDefaultValue, setItemValue, updateError, getError, getSchemaItem, updateRepository } = store.getState();
   let schema = deepCopy(props.schema || getSchemaItem(path));
 
@@ -60,7 +56,7 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
       store.getState().updateWatchedPath(props.dataPath, watchedPaths);
     }
     if (schema?.rules) {
-      const parentData = getItemValue(`${props.parentDataPath}`)
+      const parentData = getItemValue(`${props.parentDataPath}`);
       const _ruleActions = runElementRules(schema, getItemValue(''), parentData);
       setRuleActions(_ruleActions);
     }
@@ -137,14 +133,16 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
 
       if (schema.unique && newValue) {
         try {
-          const recordId = ''; // Using empty string as a placeholder for id
-          const isUnique = await genericService.isUniqueInCollection(datatype, recordId, name, newValue, '');
-          if (isUnique) {
-            updateError(dataPath, null);
-          } else {
-            updateError(dataPath, ' must be unique');
+          if (store.getState().onFormEvent){
+            const isUnique = await store.getState().onFormEvent('isUnique', { datatype, field: schema.name, value: newValue });
+            if (isUnique) {
+              updateError(dataPath, null);
+            } else {
+              updateError(dataPath, ' must be unique');
+            }
           }
-        } catch (error) {
+          
+        } catch (error: any) {
           const errorMessage = error?.response?.data?.message || error?.response?.data?.error || error.message;
           showNotice(errorMessage, 'error');
           updateError(dataPath, ' must be unique, error: ' + errorMessage);
@@ -166,15 +164,17 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
     applyRuleResult();
 
     if (schema.fetchData?.datatype) {
-      requestQueueInstance.getDataById(schema.fetchData?.datatype, newValue).then(res => {
-        updateRepository(dataPath, res);
-      }).catch(e => {
-        console.error('Error fetching data', e);
-        updateRepository(dataPath);
-      })
+      requestQueueInstance
+        .getDataById(schema.fetchData?.datatype, newValue)
+        .then(res => {
+          updateRepository(dataPath, res);
+        })
+        .catch(e => {
+          console.error('Error fetching data', e);
+          updateRepository(dataPath);
+        });
     }
   };
-
 
   const ruleSchema = applyRuleResult(dataPath, deepCopy(schema));
   let value = dataBindValue ? dataBindValue : dataPath ? getItemValue(dataPath) : null;
@@ -198,25 +198,14 @@ export const FormElementRender = (props: { storeId; theme?: any; mode: string; n
   const Element = getComponentForFieldType(controlType);
 
   if (controlType === ControlType.button) {
-    return <ButtonElement
-      storeId={props.storeId}
-      readOnly={readOnly}
-      mode={props.mode}
-      schema={ruleSchema}
-      name={name}
-      path={path}
-      error={getError(dataPath)}
-      dataPath={dataPath}
-      theme={theme}
-      children={null}
-    />;
+    return <ButtonElement storeId={props.storeId} readOnly={readOnly} mode={props.mode} schema={ruleSchema} name={name} path={path} error={getError(dataPath)} dataPath={dataPath} theme={theme} children={null} />;
   }
 
   let schemaStyle: any = ruleSchema['x-ui'] || {};
   const uiInputStyle = schemaStyle['input'];
   const uiControlStyle = schemaStyle[controlType];
-  const inputTheme = getElementTheme('input', theme)
-  const controlTheme = getElementTheme(controlType, theme)
+  const inputTheme = getElementTheme('input', theme);
+  const controlTheme = getElementTheme(controlType, theme);
 
   ruleSchema.placeholder = ruleSchema?.placeholder ? ruleSchema.placeholder : toSentenceCase(ruleSchema?.title || ruleSchema?.name || name || '');
   const render = (

@@ -54,7 +54,8 @@ export const FormRender = (props: { storeId; path; dataPath; name; className; ar
   let schema = getSchemaItem(path);
   if (schema?.hidden || ruleActions.hide) return null;
 
-  if (!schema) return <LoadingIndicator />;
+  if (!schema) return <div className="text-xs w-full text-center text-red-400 py-4 text-red-500">empty schema</div>;
+
   schema = deepCopy(schema);
   applyRuleResult(dataPath, schema);
 

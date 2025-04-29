@@ -1,3 +1,5 @@
+'use client';
+
 export const localStorageUtils = {
   set: (name: string, value: any) => {
     if (value instanceof Object) {

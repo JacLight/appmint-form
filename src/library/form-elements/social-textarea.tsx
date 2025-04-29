@@ -24,7 +24,7 @@ interface SocialTextAreaProps {
   theme?: any;
 }
 
-export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
+export const SocialTextArea: React.FC<SocialTextAreaProps> = props => {
   // Extract styling from schema
   const customStyling = props.schema ? extractStylingFromSchema(props.schema) : undefined;
 
@@ -66,9 +66,7 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
     if (value.length < 2) return [];
 
     const data = props.schema?.suggestions || [];
-    return data.filter((item: string) =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
+    return data.filter((item: string) => item.toLowerCase().includes(value.toLowerCase()));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -83,13 +81,11 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault();
-          setSelectedIndex(prev =>
-            prev < suggestions.length - 1 ? prev + 1 : prev
-          );
+          setSelectedIndex(prev => (prev < suggestions.length - 1 ? prev + 1 : prev));
           break;
         case 'ArrowUp':
           e.preventDefault();
-          setSelectedIndex(prev => prev > 0 ? prev - 1 : -1);
+          setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1));
           break;
         case 'Enter':
           if (selectedIndex >= 0) {
@@ -166,7 +162,7 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
   };
 
   const rows = props.schema?.rows || 4;
-  const showSocialInput = props.schema?.hideSocialInput !== true;
+  const showSocialControl = props.schema?.socialControl === true;
 
   // Determine counter color class based on character count
   const getCounterClass = () => {
@@ -182,14 +178,7 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
   };
 
   return (
-    <StyledComponent
-      componentType="social-textarea"
-      part="container"
-      schema={props.schema}
-      theme={props.theme}
-      className={twMerge("relative", props.className)}
-      ref={containerRef}
-    >
+    <StyledComponent componentType="social-textarea" part="container" schema={props.schema} theme={props.theme} className={twMerge('relative', props.className)} ref={containerRef}>
       <StyledComponent
         componentType="social-textarea"
         part="textarea"
@@ -209,24 +198,12 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
         onKeyDown={handleKeyDown}
         className="block w-full rounded border-0 py-1.5 text-gray-900 bg-white/20 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-5"
         ref={inputRef}
-        aria-label={props.schema?.title || props.name || "Social media message"}
+        aria-label={props.schema?.title || props.name || 'Social media message'}
       />
 
-      {showSocialInput && (
-        <StyledComponent
-          componentType="social-textarea"
-          part="controls"
-          schema={props.schema}
-          theme={props.theme}
-          className="text-sm flex gap-4 justify-between items-center border-b border-b-gray-200 mt-1 mb-2 px-1"
-        >
-          <StyledComponent
-            componentType="social-textarea"
-            part="platformSelector"
-            schema={props.schema}
-            theme={props.theme}
-            className='w-64'
-          >
+      {showSocialControl && (
+        <StyledComponent componentType="social-textarea" part="controls" schema={props.schema} theme={props.theme} className="text-sm flex gap-4 justify-between items-center border-b border-b-gray-200 mt-1 mb-2 px-1">
+          <StyledComponent componentType="social-textarea" part="platformSelector" schema={props.schema} theme={props.theme} className="w-64">
             <SelectManyList
               value={socialPlatform?.key}
               theme={'minimal'}
@@ -238,25 +215,11 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
           </StyledComponent>
           <div className="flex-grow "></div>
 
-          <StyledComponent
-            componentType="social-textarea"
-            part="iconPicker"
-            schema={props.schema}
-            theme={props.theme}
-          >
-            <IconPickerElement
-              blur={iconPicked}
-              schema={{ noSvg: true }}
-            />
+          <StyledComponent componentType="social-textarea" part="iconPicker" schema={props.schema} theme={props.theme}>
+            <IconPickerElement blur={iconPicked} schema={{ noSvg: true }} />
           </StyledComponent>
 
-          <StyledComponent
-            componentType="social-textarea"
-            part="counter"
-            schema={props.schema}
-            theme={props.theme}
-            className={twMerge("whitespace-nowrap", getCounterClass())}
-          >
+          <StyledComponent componentType="social-textarea" part="counter" schema={props.schema} theme={props.theme} className={twMerge('whitespace-nowrap', getCounterClass())}>
             <span>{charCount}</span>
             {socialPlatform && <span> / {socialPlatform.character_limit}</span>}
           </StyledComponent>
@@ -264,27 +227,17 @@ export const SocialTextArea: React.FC<SocialTextAreaProps> = (props) => {
       )}
 
       {isOpen && (
-        <StyledComponent
-          componentType="social-textarea"
-          part="suggestions"
-          schema={props.schema}
-          theme={props.theme}
-          as="ul"
-          className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-auto"
-        >
+        <StyledComponent componentType="social-textarea" part="suggestions" schema={props.schema} theme={props.theme} as="ul" className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-auto">
           {suggestions.map((suggestion, index) => (
             <StyledComponent
               key={suggestion}
               componentType="social-textarea"
-              part={index === selectedIndex ? "suggestionSelected" : "suggestionItem"}
+              part={index === selectedIndex ? 'suggestionSelected' : 'suggestionItem'}
               schema={props.schema}
               theme={props.theme}
               as="li"
               onClick={() => handleSuggestionClick(suggestion)}
-              className={twMerge(
-                "px-4 py-2 cursor-pointer hover:bg-gray-100",
-                index === selectedIndex ? "bg-blue-50 text-blue-700" : ""
-              )}
+              className={twMerge('px-4 py-2 cursor-pointer hover:bg-gray-100', index === selectedIndex ? 'bg-blue-50 text-blue-700' : '')}
             >
               {suggestion}
             </StyledComponent>

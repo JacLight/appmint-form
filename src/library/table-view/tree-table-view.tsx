@@ -62,6 +62,7 @@ export const TreeTableView = (props: {
   isDemo?;
   onRowEvent?: (event: RowEvents, rowId, row) => any;
   onTableEvent?: (event: TableEvents, option, selected) => any;
+  onRowDataEvent?: (event: RowEvents, rowId, row) => any;
   isLoading?;
   cellRenderers?;
   treeConfig?: TreeConfig;
@@ -75,17 +76,17 @@ export const TreeTableView = (props: {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [datatype, setDatatype] = useState(props.datatype);
   const [globalFilter, setGlobalFilter] = useState('');
-  
+
   // State for expanded rows
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
-  
+
   // State for tree data
   const [treeData, setTreeData] = useState<TreeNode[]>([]);
-  
+
   // State for flattened visible rows
   const [visibleRows, setVisibleRows] = useState<any[]>([]);
   const [editedData, setEditedData] = useState<Record<string, any>>({});
-  
+
   // Get tree configuration
   const treeConfig: TreeConfig = props.treeConfig || {
     parentField: 'parentId',
@@ -126,12 +127,11 @@ export const TreeTableView = (props: {
     let auditFields;
     let idField;
     let dataPrefix;
-    if (props.datatype || row0?.sk) {
+    if (props.datatype || row0?.id) {
       auditFields = true;
       idField = 'sk';
       dataPrefix = 'data';
-    } else if (row0) {
-      auditFields = false;
+    } else if (row0 && typeof row0 === 'object') {
       for (const key in ['_id', 'id', 'uid', 'key', 'name', 'title', 'label']) {
         if (row0[key]) {
           idField = key;
@@ -139,7 +139,7 @@ export const TreeTableView = (props: {
         }
       }
     }
-    const columns = props.columns || convertSchemaToColumns(idField, dataPrefix, schema, auditFields, props.cellRenderers);
+    const columns = props.columns || convertSchemaToColumns(idField, schema, props.cellRenderers);
     setColumns(columns);
     if (props.isDemo) {
       setData(generateFakeData(columns, 100));
@@ -151,32 +151,32 @@ export const TreeTableView = (props: {
   // Transform flat data into tree structure
   useEffect(() => {
     if (!data.length) return;
-    
+
     const idField = treeConfig.idField || 'id';
     const parentField = treeConfig.parentField;
     const expandedByDefault = treeConfig.expandedByDefault !== false;
-    
+
     // Create a map of all rows by ID for quick lookup
     const rowsById = new Map();
     data.forEach(row => {
       const id = row[idField] || row.id;
       rowsById.set(id, row);
-      
+
       // Initialize expanded state if not already set
       if (expandedRows[id] === undefined) {
         expandedRows[id] = expandedByDefault;
       }
     });
-    
+
     // Build tree structure
     const tree: TreeNode[] = [];
     const nodeMap = new Map();
-    
+
     // First pass: create nodes
     data.forEach(row => {
       const id = row[idField] || row.id;
       const parentId = row[parentField] || null;
-      
+
       const node: TreeNode = {
         id,
         data: row,
@@ -185,14 +185,14 @@ export const TreeTableView = (props: {
         parentId,
         expanded: expandedRows[id] || expandedByDefault
       };
-      
+
       nodeMap.set(id, node);
     });
-    
+
     // Second pass: build relationships
     nodeMap.forEach((node, id) => {
       const parentId = node.parentId;
-      
+
       if (parentId && nodeMap.has(parentId)) {
         // This is a child node
         const parentNode = nodeMap.get(parentId);
@@ -203,9 +203,9 @@ export const TreeTableView = (props: {
         tree.push(node);
       }
     });
-    
+
     setTreeData(tree);
-    
+
     // Update expanded rows state
     const newExpandedRows = { ...expandedRows };
     nodeMap.forEach((node, id) => {
@@ -214,33 +214,33 @@ export const TreeTableView = (props: {
       }
     });
     setExpandedRows(newExpandedRows);
-    
+
     // Flatten visible tree based on expanded state
     flattenTree(tree);
   }, [data, treeConfig]);
-  
+
   // Flatten tree based on expanded state
   const flattenTree = (nodes: TreeNode[]) => {
     const result: any[] = [];
-    
+
     const processNode = (node: TreeNode) => {
       result.push(node.data);
-      
+
       if (node.expanded && node.children.length > 0) {
         node.children.forEach(child => processNode(child));
       }
     };
-    
+
     nodes.forEach(node => processNode(node));
     setVisibleRows(result);
   };
-  
+
   // Toggle expanded state for a row
   const toggleExpanded = (id: string) => {
     const newExpandedRows = { ...expandedRows };
     newExpandedRows[id] = !newExpandedRows[id];
     setExpandedRows(newExpandedRows);
-    
+
     // Update expanded state in tree data
     const updateNodeExpanded = (nodes: TreeNode[]) => {
       nodes.forEach(node => {
@@ -252,13 +252,13 @@ export const TreeTableView = (props: {
         }
       });
     };
-    
+
     updateNodeExpanded(treeData);
-    
+
     // Recompute visible rows
     flattenTree(treeData);
   };
-  
+
   // Find node depth by ID
   const getNodeDepth = (id: string): number => {
     const findDepth = (nodes: TreeNode[], targetId: string): number => {
@@ -266,7 +266,7 @@ export const TreeTableView = (props: {
         if (node.id === targetId) {
           return node.depth;
         }
-        
+
         if (node.children.length > 0) {
           const childDepth = findDepth(node.children, targetId);
           if (childDepth >= 0) {
@@ -274,13 +274,13 @@ export const TreeTableView = (props: {
           }
         }
       }
-      
+
       return -1;
     };
-    
+
     return findDepth(treeData, id);
   };
-  
+
   // Check if a node has children
   const hasChildren = (id: string): boolean => {
     const findNode = (nodes: TreeNode[], targetId: string): TreeNode | null => {
@@ -288,7 +288,7 @@ export const TreeTableView = (props: {
         if (node.id === targetId) {
           return node;
         }
-        
+
         if (node.children.length > 0) {
           const foundNode = findNode(node.children, targetId);
           if (foundNode) {
@@ -296,25 +296,25 @@ export const TreeTableView = (props: {
           }
         }
       }
-      
+
       return null;
     };
-    
+
     const node = findNode(treeData, id);
     return node ? node.children.length > 0 : false;
   };
-  
+
   // Get the ID field from a row
   const getRowId = (row: any): string => {
     const idField = treeConfig.idField || 'id';
     return row[idField] || row.id;
   };
-  
+
   // Handle saving edited cell data
   const handleSaveCell = useCallback((value: any, row: any, column: any) => {
     const rowId = getRowId(row);
     const columnKey = column.accessorKey;
-    
+
     // Update the edited data state
     setEditedData(prev => ({
       ...prev,
@@ -323,24 +323,24 @@ export const TreeTableView = (props: {
         [columnKey]: value
       }
     }));
-    
+
     // Update the row data
     const updatedRow = { ...row, [columnKey]: value };
-    
+
     // Find and update the row in the data array
-    const updatedData = data.map(item => 
+    const updatedData = data.map(item =>
       getRowId(item) === rowId ? updatedRow : item
     );
-    
+
     // Update the data state
     setData(updatedData);
-    
+
     // Notify parent component if onRowEvent is provided
     if (props.onRowEvent) {
       props.onRowEvent('edit', rowId, updatedRow);
     }
   }, [data, props.onRowEvent]);
-  
+
   // Handle canceling cell edit
   const handleCancelEdit = useCallback(() => {
     // No state changes needed for cancel
@@ -395,9 +395,9 @@ export const TreeTableView = (props: {
   const showPagination = props.options?.pagination !== false;
 
   const title = typeof props.title === 'undefined' && props.datatype ? toTitleCase(props.datatype) : props.title;
-  
+
   return (
-    <div className="h-[calc(100%-20px)] w-[calc(100%-20px)] p-4 mx-auto my-auto overflow-hidden min-w-[600px] dark:bg-gray-900/80 bg-white/80 rounded-xl shadow-lg">
+    <div className="h-[calc(100%-8px)] w-[calc(100%-8px)] p-2 mx-auto my-auto overflow-hidden min-w-[600px] dark:bg-gray-900/80 bg-white/80 rounded-xl shadow-lg">
       {canSearch && (
         <div className="lg:flex items-center">
           {(title || props.description) && <div className="lg:flex gap-3">
@@ -454,7 +454,7 @@ export const TreeTableView = (props: {
                 const depth = getNodeDepth(rowId);
                 const hasChildNodes = hasChildren(rowId);
                 const isExpanded = expandedRows[rowId] || false;
-                
+
                 return (
                   <tr
                     key={rowId}
@@ -466,13 +466,13 @@ export const TreeTableView = (props: {
                     onClick={selectRow}
                   >
                     <td className={classNames(slimRow ? 'py-1' : 'py-2', 'relative whitespace-nowrap pl-2 pr-4 text-right text-sm font-medium sm:pr-0')}>
-                      <RowHandler row={{ id: rowId, original: row }} onRowEvent={props.onRowEvent} options={props.options} datatype={props.datatype} />
+                      <RowHandler row={{ id: rowId, original: row }} onRowEvent={props.onRowEvent} options={props.options} datatype={props.datatype} onRowDataEvent={props.onRowDataEvent} />
                     </td>
                     {columns.map((column, cellIndex) => {
                       const value = row[column.accessorKey];
                       const cellRenderer = props.cellRenderers?.[column.accessorKey];
                       const render = cellRenderer ? cellRenderer(value, row) : value;
-                      
+
                       // Add tree controls to the first cell
                       if (cellIndex === 0) {
                         return (
@@ -480,7 +480,7 @@ export const TreeTableView = (props: {
                             <div className="flex items-center">
                               {/* Indentation based on depth */}
                               <div style={{ width: `${depth * 20}px` }} />
-                              
+
                               {/* Expand/collapse button if has children */}
                               {hasChildNodes ? (
                                 <button
@@ -490,22 +490,22 @@ export const TreeTableView = (props: {
                                   }}
                                   className="mr-1 p-1 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-700"
                                 >
-                                  <IconRenderer 
-                                    icon={isExpanded ? 'ChevronDown' : 'ChevronRight'} 
-                                    className="w-4 h-4 text-gray-500 dark:text-gray-400" 
+                                  <IconRenderer
+                                    icon={isExpanded ? 'ChevronDown' : 'ChevronRight'}
+                                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
                                   />
                                 </button>
                               ) : (
                                 <div className="w-6" /> // Spacer for leaf nodes
                               )}
-                              
+
                               {/* Cell content */}
                               {render}
                             </div>
                           </td>
                         );
                       }
-                      
+
                       // Regular cells
                       return (
                         <td key={column.accessorKey} className={classNames(slimRow ? 'py-1' : 'py-2', 'px-2 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 truncate')}>

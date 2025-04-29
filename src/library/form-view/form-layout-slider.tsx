@@ -1,16 +1,16 @@
 import { FormLayoutRender } from './form-layout-render';
 import { classNames } from '../utils';
 import { isNotEmpty } from '../utils';
-import { useFormStore } from '../context/store';
 import { validateFormValue } from './form-validator';
 import React, { useEffect } from 'react';
 import FormLayoutSliderAnimation from './form-layout-slider-animation';
-import { shallow, useShallow } from 'zustand/shallow';
+import { useShallow } from 'zustand/shallow';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { StyledComponent } from '../form-elements/styling';
+import { useFormStore } from '../context/form-store-context';
 
 export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }) => {
-  const { getSchemaItem, getError, getItemValue, updateError, timestamp } = useFormStore(useShallow(state => ({
+  const { getSchemaItem, getError, getItemValue, updateError, timestamp } = useFormStore()(useShallow(state => ({
     getSchemaItem: state.getSchemaItem,
     getError: state.getError,
     getItemValue: state.getItemValue,
@@ -113,7 +113,7 @@ export const FormLayoutSlider = ({ storeId, layoutPath, path, dataPath, schema }
     if (schema.autoProgress) {
       const properties = getSchemaItem(path);
       const allPaths = Object.keys(properties).map(fieldName => dataPath + '.' + fieldName);
-      useFormStore.getState().updateWatchedPath(layoutPath, allPaths);
+      useFormStore().getState().updateWatchedPath(layoutPath, allPaths);
     }
 
     return (

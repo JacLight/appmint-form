@@ -1,21 +1,3 @@
-import { showNotice, useFormStore } from '../context/store';
-import { validateForm } from './form-validator';
-import { applyFunction } from './form-transforms';
-import { DataType } from '../utils';
-
-// Stub for genericService
-const genericService = {
-  createBaseData: (name: string, id: string) => {
-    return {
-      name,
-      id: id || '',
-      data: {},
-      author: '',
-      owner: {}
-    };
-  }
-};
-
 export const buttonsActions = {
   'submit-form': {
     title: 'Submit Form',

@@ -9,6 +9,7 @@ import { BusyIcon } from '../common/icons/svg';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema } from './styling/style-utils';
+import { useFormStore } from '../context/form-store-context';
 
 // Stubs for missing imports from form-view/common-imports
 const CollectionHelper = {
@@ -17,21 +18,6 @@ const CollectionHelper = {
     getCollectionOptions: () => [],
     getCollectionOptionsByType: (type) => [],
   })
-};
-
-const requestQueueInstance = {
-  findDataByAttribute: async (collection, property, value, options) => {
-    console.log(`Finding data in ${collection} where ${property}=${value}`);
-    return { data: [] };
-  },
-  getDataById: async (datatype, id) => {
-    console.log(`Getting ${id} from ${datatype}`);
-    return { sk: id, datatype, data: {} };
-  },
-  searchData: async (collection, keyword, options) => {
-    console.log(`Searching ${collection} for ${keyword}`);
-    return { data: [] };
-  }
 };
 
 const infoFields = ['name', 'email', 'username', 'title', 'phone'];
@@ -48,6 +34,8 @@ export const DataLookupCombo = (props: { schema; change; theme?}) => {
   const [formattedItems, setFormattedItems] = useState([]);
   const [maxItems, setMaxItems] = useState(1);
   const [minItems, setMinItems] = useState(1);
+
+  const store = useFormStore();
 
   useEffect(() => {
     setDatatype(props?.schema?.datatype);
@@ -73,8 +61,9 @@ export const DataLookupCombo = (props: { schema; change; theme?}) => {
   const handleSearch = () => {
     setError(null);
     setIsLoading(true);
-    requestQueueInstance
-      .searchData(datatype, keyword, null)
+
+    if (store.getState().onFormEvent)
+      store.getState().onFormEvent('onDataLookupSearch', { keyword, datatype })
       .then((res: any) => {
         setResult(res);
       })
@@ -110,9 +99,9 @@ export const DataLookupCombo = (props: { schema; change; theme?}) => {
   const toggleSelection = (event, result) => {
     setError(null);
     event.preventDefault();
-    const alreadySelected = selectedItems.findIndex(item => item.sk === result.sk);
+    const alreadySelected = selectedItems.findIndex(item => item.id === result.id);
     if (alreadySelected >= 0) {
-      setSelectedItems(selectedItems.filter(item => item.sk !== result.sk));
+      setSelectedItems(selectedItems.filter(item => item.id !== result.id));
       return;
     }
     if (selectedItems.length >= maxItems) {
@@ -138,13 +127,13 @@ export const DataLookupCombo = (props: { schema; change; theme?}) => {
   };
 
   const isSelected = id => {
-    return selectedItems.findIndex(item => item.sk === id) >= 0;
+    return selectedItems.findIndex(item => item.id === id) >= 0;
   };
 
   const removeItem = id => {
     setError(null);
-    setSelectedItems(selectedItems.filter(item => item.sk !== id));
-    setFormattedItems(formattedItems.filter(item => item.sk !== id));
+    setSelectedItems(selectedItems.filter(item => item.id !== id));
+    setFormattedItems(formattedItems.filter(item => item.id !== id));
   };
 
   return (
@@ -175,7 +164,7 @@ export const DataLookupCombo = (props: { schema; change; theme?}) => {
           className="mb-2"
         >
           {selectedItems?.map((item: any) => (
-            <LookupItem key={item.sk} item={item} remove={removeItem} theme={props.theme} schema={props.schema} />
+            <LookupItem key={item.id} item={item} remove={removeItem} theme={props.theme} schema={props.schema} />
           ))}
         </StyledComponent>
       )}
@@ -248,14 +237,14 @@ export const DataLookupCombo = (props: { schema; change; theme?}) => {
           >
             {result?.data.map((result: any) => (
               <StyledComponent
-                key={result.sk}
+                key={result.id}
                 componentType="data-lookup"
                 part="resultsItem"
                 schema={props.schema}
                 theme={props.theme}
                 as="li"
                 onClick={e => toggleSelection(e, result)}
-                className={isSelected(result.sk) ? 'bg-orange-100 p-2 rounded-md hover:bg-cyan-100 cursor-pointer' : 'bg-gray-50 p-2 rounded-md hover:bg-cyan-100 cursor-pointer'}
+                className={isSelected(result.id) ? 'bg-orange-100 p-2 rounded-md hover:bg-cyan-100 cursor-pointer' : 'bg-gray-50 p-2 rounded-md hover:bg-cyan-100 cursor-pointer'}
               >
                 <LookupItem item={result} theme={props.theme} schema={props.schema} />
               </StyledComponent>
@@ -293,7 +282,7 @@ const LookupItem = ({ item, remove = null, theme, schema }) => {
           theme={theme}
           as="button"
           title="Remove Item"
-          onClick={e => remove(item.sk)}
+          onClick={e => remove(item.id)}
           className="text-red-500"
         >
           <IconRenderer icon="X" />
@@ -310,7 +299,7 @@ const LookupItem = ({ item, remove = null, theme, schema }) => {
       </StyledComponent>
       {/* <div>
         <div className="text-[9px]">id</div>
-        <div className="">{item.sk}</div>
+        <div className="">{item.id}</div>
       </div> */}
       <StyledComponent
         componentType="data-lookup"

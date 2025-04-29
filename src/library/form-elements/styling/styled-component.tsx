@@ -57,7 +57,8 @@ export const StyledComponent: React.FC<StyledComponentProps> = ({
     const customStyling = extractStylingFromSchema(schema);
 
     // Get styling for the component part, supporting both group-level and component-specific styling
-    const styling = getComponentPartStyling(componentType, part, schema?.layout, theme, customStyling);
+    const layoutStyle = schema?.layout ? schema.layout[part] : undefined;
+    const styling = getComponentPartStyling(componentType, part, layoutStyle, theme, customStyling);
 
     // Combine with additional className
     const combinedClassName = twMerge(className, styling);

@@ -6,7 +6,7 @@ import { SliderElement } from './slider';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 
-export const NumberElement = (props: { change; blur; focus; mode; storeId; schema; path; name; value, className, ui?, theme }) => {
+export const NumberElement = (props: { change?; blur?; focus?; mode?; storeId?; schema?; path?; name?; value?; className?; ui?; theme? }) => {
   const handleBlur = e => {
     e.preventDefault();
     props.blur(e.target.value * 1);
@@ -34,20 +34,9 @@ export const NumberElement = (props: { change; blur; focus; mode; storeId; schem
   let step = (schema?.step && typeof schema?.step === 'string' ? parseFloat(schema?.step) : schema?.step) || 1;
 
   return (
-    <StyledComponent
-      componentType="number"
-      part="container"
-      schema={props.schema}
-      theme={props.theme}
-      className="flex items-center"
-    >
+    <StyledComponent componentType="number" part="container" schema={props.schema} theme={props.theme} className={classNames('flex items-center', props.className)}>
       {props.schema.prefix && (
-        <StyledComponent
-          componentType="number"
-          part="prefix"
-          schema={props.schema}
-          theme={props.theme}
-        >
+        <StyledComponent componentType="number" part="prefix" schema={props.schema} theme={props.theme}>
           {props.schema.prefix}
         </StyledComponent>
       )}
@@ -74,12 +63,7 @@ export const NumberElement = (props: { change; blur; focus; mode; storeId; schem
         placeholder={props.schema.placeholder}
       />
       {props.schema.suffix && (
-        <StyledComponent
-          componentType="number"
-          part="suffix"
-          schema={props.schema}
-          theme={props.theme}
-        >
+        <StyledComponent componentType="number" part="suffix" schema={props.schema} theme={props.theme}>
           {props.schema.suffix}
         </StyledComponent>
       )}

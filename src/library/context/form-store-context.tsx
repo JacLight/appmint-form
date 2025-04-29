@@ -208,6 +208,7 @@ const createFormStore = () => create<FormStoreProps>((set, get) => ({
         });
         set({ repository });
     },
+    onFormEvent: null,
 }));
 
 // Store instances map

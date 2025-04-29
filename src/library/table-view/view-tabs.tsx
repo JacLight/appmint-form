@@ -19,19 +19,19 @@ export interface CollectionTabViewProps {
   cardFieldsMap?: any;
 }
 
-export const CollectionTabView: React.FC<CollectionTabViewProps> = (props) => {
-  const { 
-    table, 
-    tabField, 
-    contentViewType = 'table', 
+export const CollectionTabView: React.FC<CollectionTabViewProps> = props => {
+  const {
+    table,
+    tabField,
+    contentViewType = 'table',
     defaultTab = 'all',
     onTabChange,
     cardFieldsMap,
-    ...restProps 
+    ...restProps
   } = props;
-  
+
   const [activeTab, setActiveTab] = useState(defaultTab);
-  
+
   useEffect(() => {
     if (defaultTab !== activeTab) {
       setActiveTab(defaultTab);
@@ -44,22 +44,28 @@ export const CollectionTabView: React.FC<CollectionTabViewProps> = (props) => {
     new Set(
       allRows.map(row => {
         const value = row.getValue(tabField);
-        return value === null || value === undefined ? 'Uncategorized' : String(value);
+        return value === null || value === undefined
+          ? 'Uncategorized'
+          : String(value);
       })
     )
   ).sort();
-  
-  const tabs: string[] = ['all', ...uniqueTabValues];
-  
+
+  const tabs: string[] = ['all', ...(uniqueTabValues.map(value => String(value)) || [])];
+
   // Filter rows based on selected tab
-  const filteredRows = activeTab === 'all' 
-    ? allRows 
-    : allRows.filter(row => {
-        const value = row.getValue(tabField);
-        const stringValue = value === null || value === undefined ? 'Uncategorized' : String(value);
-        return stringValue === activeTab;
-      });
-  
+  const filteredRows =
+    activeTab === 'all'
+      ? allRows
+      : allRows.filter(row => {
+          const value = row.getValue(tabField);
+          const stringValue =
+            value === null || value === undefined
+              ? 'Uncategorized'
+              : String(value);
+          return stringValue === activeTab;
+        });
+
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
     if (onTabChange) {
@@ -72,10 +78,10 @@ export const CollectionTabView: React.FC<CollectionTabViewProps> = (props) => {
     ...table,
     getRowModel: () => ({
       ...table.getRowModel(),
-      rows: filteredRows
-    })
+      rows: filteredRows,
+    }),
   };
-  
+
   return (
     <div className="space-y-4">
       {/* Tab Header */}
@@ -85,29 +91,34 @@ export const CollectionTabView: React.FC<CollectionTabViewProps> = (props) => {
             key={tab}
             onClick={() => handleTabChange(tab)}
             className={`px-4 py-2 text-sm font-medium whitespace-nowrap ${
-              activeTab === tab 
-                ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-400 dark:border-blue-400' 
+              activeTab === tab
+                ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-400 dark:border-blue-400'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
             }`}
           >
             {tab === 'all' ? 'All' : tab}
             {tab !== 'all' && (
               <span className="ml-2 bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300 text-xs px-2 py-0.5 rounded-full">
-                {allRows.filter(row => {
-                  const value = row.getValue(tabField);
-                  const stringValue = value === null || value === undefined ? 'Uncategorized' : String(value);
-                  return stringValue === tab;
-                }).length}
+                {
+                  allRows.filter(row => {
+                    const value = row.getValue(tabField);
+                    const stringValue =
+                      value === null || value === undefined
+                        ? 'Uncategorized'
+                        : String(value);
+                    return stringValue === tab;
+                  }).length
+                }
               </span>
             )}
           </button>
         ))}
       </div>
-      
+
       {/* Content based on selected view type */}
       {contentViewType === 'table' ? (
-        <CollectionTableView 
-          table={filteredTable} 
+        <CollectionTableView
+          table={filteredTable}
           selectRow={props.selectRow}
           selectedRows={props.selectedRows}
           slimRow={props.slimRow || false}
@@ -117,8 +128,8 @@ export const CollectionTabView: React.FC<CollectionTabViewProps> = (props) => {
           datatype={props.datatype || ''}
         />
       ) : (
-        <CollectionTableCardView 
-          table={filteredTable} 
+        <CollectionTableCardView
+          table={filteredTable}
           selectRow={props.selectRow}
           selectedRows={props.selectedRows}
           slimRow={props.slimRow || false}

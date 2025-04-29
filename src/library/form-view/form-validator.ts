@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import { z } from 'zod';
 import * as objectPath from 'object-path';
 import { ruleOperations } from './form-rules';
@@ -8,6 +9,7 @@ interface ValidationResult {
   errors?: any;
   message?: string;
   path?: string;
+  formattedErrors?: any;
 }
 
 // Helper function to convert JSON Schema to Zod schema
@@ -110,16 +112,16 @@ export const schemaValidator = (data: any, schema: any): { valid: boolean; valid
     return {
       valid: result.success,
       validate: {
-        errors: result.success ? undefined : result.error.errors
-      }
+        errors: result.success ? undefined : result.error.errors,
+      },
     };
   } catch (error) {
     console.error('Schema validation error:', error);
     return {
       valid: false,
       validate: {
-        errors: [{ message: 'Schema validation error' }]
-      }
+        errors: [{ message: 'Schema validation error' }],
+      },
     };
   }
 };
@@ -144,22 +146,43 @@ export const getTemplateValue = (key: string, parentPath: string, data: any): an
   return argValue;
 };
 
-export const validateForm = (data: any, schema: any): { valid: boolean; validate: any; errors?: any[]; message?: string; validationResults?: ValidationResult[] } => {
+export const validateForm = (sourceData: any, schema: any): { valid: boolean; validate: any; errors?: any[]; message?: string; validationResults?: ValidationResult[] } => {
   let schemaCopy = deepCopy(schema);
   schemaCopy = replaceIdWithDollarIdAndCleanSchema(schemaCopy);
   schemaCopy = findAndSetRequiredFields(schemaCopy);
+  const data = deepCopy(sourceData);
+  if (typeof data === 'object') {
+    Object.keys(data).forEach(key => {
+      if (data[key] === null) {
+        delete data[key];
+      }
+    });
+  }
 
   try {
     const zodSchema = jsonSchemaToZod(schemaCopy);
     const result = zodSchema.safeParse(data);
     const validationResults: ValidationResult[] = [];
 
+    //has all required fields
+    if (schemaCopy.required && schemaCopy.required.length) {
+      const missingFields = schemaCopy.required.filter((field: string) => !objectPath.has(data, field));
+      if (missingFields.length) {
+        validationResults.push({
+          valid: false,
+          errors: [{ message: `Missing required fields: ${missingFields.join(', ')}` }],
+          message: `Missing required fields: ${missingFields.join(', ')}`,
+        });
+      }
+    }
+
     if (!result.success) {
       const formattedErrors = result.error.format();
       validationResults.push({
         valid: false,
         errors: result.error.errors,
-        message: result.error.errors.map((e: any) => e.message).join(', ')
+        message: result.error.errors.map((e: any) => e.message).join(', '),
+        formattedErrors,
       });
     }
 
@@ -172,7 +195,7 @@ export const validateForm = (data: any, schema: any): { valid: boolean; validate
         validate: { errors: validationResults.map(v => v.errors) },
         errors: validationResults.map(v => v.errors),
         message: validationResults.map(v => `${v.path ? v.path + ' : ' : ''}${v.message || ''}`).join('\n'),
-        validationResults
+        validationResults,
       };
     }
 
@@ -184,7 +207,7 @@ export const validateForm = (data: any, schema: any): { valid: boolean; validate
       validate: { errors: [{ message: 'Form validation error' }] },
       errors: [{ message: 'Form validation error' }],
       message: 'Form validation error',
-      validationResults: [{ valid: false, errors: [{ message: 'Form validation error' }], message: 'Form validation error' }]
+      validationResults: [{ valid: false, errors: [{ message: 'Form validation error' }], message: 'Form validation error' }],
     };
   }
 };
@@ -266,7 +289,7 @@ export const validateFormValue = (path: string, value: any, schema: any, data?: 
         path,
         valid: false,
         errors: result.error.errors,
-        message: result.error.errors.map((e: any) => e.message).join(', ')
+        message: result.error.errors.map((e: any) => e.message).join(', '),
       };
     }
   } catch (error) {
@@ -275,7 +298,7 @@ export const validateFormValue = (path: string, value: any, schema: any, data?: 
       path,
       valid: false,
       errors: [{ message: 'Value validation error' }],
-      message: 'Value validation error'
+      message: 'Value validation error',
     };
   }
 
@@ -335,10 +358,12 @@ export const validateFormValue = (path: string, value: any, schema: any, data?: 
 };
 
 export const validateValue = (type: string, valueA: any, valueB: any, message?: string): ValidationResult => {
+  if (!type) return;
   const rule = ruleOperations[type];
 
   if (!rule) {
-    throw new Error(`Rule ${type} not found`);
+    console.error(`Validation rule "${type}" not found.`);
+    return;
   }
 
   const isValid = rule.validate(valueA, valueB);

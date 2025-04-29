@@ -24,7 +24,7 @@ export const runElementRules = (schema: any, data: any, arrayData: any): any => 
       continue;
     }
     const result = executeRule(rule.operation, rule.valueA, rule.valueB, mergedData);
-    if (result.valid) {
+    if (result?.valid) {
       if (['disabled', 'hide', 'show', 'readOnly'].includes(rule.action)) {
         ruleActions[rule.action] = true;
       } else if (rule.action === 'set-property' && rule.property) {
@@ -62,7 +62,6 @@ const executeRule = (operator: string, valueA: any, valueB: any, data: any): Rul
   return result;
 };
 
-
 interface RuleOperation {
   operation: string;
   args: string[];
@@ -91,7 +90,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     message: 'This field is required',
     label: 'Required',
     info: 'value',
-    validate: (valueA) => !!valueA,
+    validate: valueA => !!valueA,
   },
 
   equal: {
@@ -208,7 +207,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     message: 'This field must contain only letters',
     label: 'Is Alpha',
     pattern: '^[a-zA-Z]+$',
-    validate: (valueA) => /^[a-zA-Z]+$/.test(valueA)
+    validate: valueA => /^[a-zA-Z]+$/.test(valueA),
   },
 
   isNumeric: {
@@ -217,7 +216,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     message: 'This field must be a number',
     label: 'Is Numeric',
     pattern: '^[0-9]+$',
-    validate: (valueA) => /^[0-9]+$/.test(valueA)
+    validate: valueA => /^[0-9]+$/.test(valueA),
   },
 
   isAlphaNumeric: {
@@ -226,7 +225,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     message: 'This field must contain both letters and numbers only',
     label: 'Is Alpha Numeric',
     pattern: '^(?=.*[A-Za-z])(?=.*\\d).{8,}$',
-    validate: (valueA) => /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(valueA)
+    validate: valueA => /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(valueA),
   },
 
   isEmpty: {
@@ -234,7 +233,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     args: ['valueA'],
     message: 'This field must be empty',
     label: 'Is Empty',
-    validate: (valueA) => valueA === null || valueA === undefined || valueA === '',
+    validate: valueA => valueA === null || valueA === undefined || valueA === '',
   },
 
   isNotEmpty: {
@@ -242,7 +241,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     args: ['valueA'],
     message: 'This field must not be empty',
     label: 'Is Not Empty',
-    validate: (valueA) => valueA !== null && valueA !== undefined && valueA !== '',
+    validate: valueA => valueA !== null && valueA !== undefined && valueA !== '',
   },
 
   isTruthy: {
@@ -250,7 +249,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     args: ['valueA'],
     message: 'This field must be truthy',
     label: 'Is Truthy',
-    validate: (valueA) => !!valueA,
+    validate: valueA => !!valueA,
   },
 
   isFalsy: {
@@ -258,7 +257,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     args: ['valueA'],
     message: 'This field must be falsy',
     label: 'Is Falsy',
-    validate: (valueA) => !valueA,
+    validate: valueA => !valueA,
   },
 
   isEmail: {
@@ -267,7 +266,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     message: 'This field must be a valid email address',
     label: 'Is Email',
     pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
-    validate: (valueA) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(valueA),
+    validate: valueA => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(valueA),
   },
 
   isDate: {
@@ -275,7 +274,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
     args: ['valueA'],
     message: 'This field must be a date',
     label: 'Is Date',
-    validate: (valueA) => !isNaN(new Date(valueA).getTime()),
+    validate: valueA => !isNaN(new Date(valueA).getTime()),
   },
 
   fn: {
@@ -287,7 +286,7 @@ export const ruleOperations: Record<string, RuleOperation> = {
         const fn = new Function('valueA', 'valueB', `return ${valueB};`);
         return fn(valueA, valueB);
       } catch (e) {
-        console.error("Invalid function in rule operation", e);
+        console.error('Invalid function in rule operation', e);
         return false;
       }
     },

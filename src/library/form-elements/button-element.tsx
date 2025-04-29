@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { isEmpty, toTitleCase, toSentenceCase } from '../utils';
-import { getElementTheme, useFormStore } from '../context/store';
+import { isEmpty, toSentenceCase } from '../utils';
 import { classNames } from '../utils';
 import { buttonsActions } from '../form-view/button-actions';
 import { ElementIcon } from './element-icon';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
-import { twMerge } from 'tailwind-merge';
+import { useFormStore } from '../context/form-store-context';
 
 export const ButtonElement = (props: {
   storeId;
@@ -22,7 +21,7 @@ export const ButtonElement = (props: {
   schema?: { readOnly; disabled; theme; validations; hidden; name; title; hideLabel; position; children; image?; icon?; labelPosition; iconPosition?; error?; description; action };
 }) => {
   const { path, name, schema, dataPath } = props;
-  const { getStateItem, getItemValue, getSchemaItem, updateError } = useFormStore.getState();
+  const { getStateItem, getItemValue, getSchemaItem, updateError } = useFormStore().getState();
 
   const [errorMsg, setErrorMsg] = useState('');
 

@@ -1,12 +1,11 @@
-import { shallow, useShallow } from 'zustand/shallow';
-import { classNames } from '../utils';
+import { useShallow } from 'zustand/shallow';
 import { FormLayoutRender } from './form-layout-render';
-import { useFormStore } from '../context/store';
 import React from 'react';
 import { StyledComponent } from '../form-elements/styling';
+import { useFormStore } from '../context/form-store-context';
 
 export const FormLayoutAccordion = ({ storeId, layoutPath, path, dataPath }) => {
-  const { getSchemaItem } = useFormStore(useShallow(state => ({ getSchemaItem: state.getSchemaItem })));
+  const { getSchemaItem } = useFormStore()(useShallow(state => ({ getSchemaItem: state.getSchemaItem })));
   const [accordionState, setAccordionState] = React.useState([]);
 
   const toggleAccordion = itemPath => {

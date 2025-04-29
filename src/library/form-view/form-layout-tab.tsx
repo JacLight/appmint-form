@@ -1,16 +1,15 @@
-import { useShallow } from 'zustand/shallow';
 import { classNames } from '../utils';
 import { FormLayoutRender } from './form-layout-render';
-import { useFormStore } from '../context/store';
 import React from 'react';
 import { StyledComponent } from '../form-elements/styling';
+import { useFormStore } from '../context/form-store-context';
 
 export const FormLayoutTab = ({ storeId, layoutPath, path, dataPath, theme }) => {
-  const { getSchemaItem } = useFormStore(useShallow(state => ({ getSchemaItem: state.getSchemaItem })));
   const [value, setValue] = React.useState(layoutPath + '.items.0');
 
-  const layout = getSchemaItem(layoutPath);
-  const activeLayout = getSchemaItem(value);
+  const store = useFormStore()
+  const layout = store.getState().getSchemaItem(layoutPath);
+  const activeLayout =  store.getState().getSchemaItem(value);
 
   return (
     <div className="w-full">
@@ -43,11 +42,10 @@ export const FormLayoutTab = ({ storeId, layoutPath, path, dataPath, theme }) =>
 };
 
 export const FormLayoutTab2 = ({ storeId, layoutPath, path, dataPath, theme }) => {
-  const { getSchemaItem } = useFormStore.getState();
   const [value, setValue] = React.useState(layoutPath + '.items.0');
-
-  const layout = getSchemaItem(layoutPath);
-  const activeLayout = getSchemaItem(value);
+  const store = useFormStore()
+  const layout = store.getState().getSchemaItem(layoutPath);
+  const activeLayout =  store.getState().getSchemaItem(value);
 
   return (
     <div className=" w-full ">

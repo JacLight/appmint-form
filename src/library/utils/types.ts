@@ -23,6 +23,9 @@ export function FileInfoSchema(): FileInfoSchema {
 export interface BaseModelDTO<T> {
     data: T;
     total: number;
+    page: number;
+    pageSize: number;
+    rows: T[];a
     // Add other properties as needed
 }
 
@@ -35,5 +38,4 @@ export const themeSettingsList = [
     { name: 'light', description: 'Light theme' },
     { name: 'dark', description: 'Dark theme' },
     { name: 'system', description: 'System theme' },
-    // Add more theme settings as needed
 ];

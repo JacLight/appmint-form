@@ -1,5 +1,20 @@
 import { twMerge } from 'tailwind-merge';
-import { ComponentStyling, ThemeStyling, themes } from './theme-settings';
+import { baseTheme, ComponentStyling, minimalTheme, primaryTheme, secondaryTheme, ThemeStyling,inlineTheme, settingsTheme } from './theme-settings';
+
+
+/**
+ * Built-in themes
+ */
+export const themes: Record<string, ThemeStyling> = {
+    // Default theme is the base theme
+    default: baseTheme,
+    // Other themes
+    primary: primaryTheme,
+    secondary: secondaryTheme,
+    minimal: minimalTheme,
+    inline: inlineTheme,
+    settings:settingsTheme,
+};
 
 /**
  * Get styling for a component part
@@ -33,10 +48,10 @@ export function getComponentPartStyling(
     }
 
     // Get common styling for all components
-    const commonStyling = themeObj.common || {};
+    const commonStyling = themeObj.common || themes.default.common || {};
 
     // Get component-specific styling
-    const componentStyling = themeObj[componentType] || {};
+    const componentStyling = themeObj[componentType] || themes.default[componentType] || {};
 
     // Combine common and component-specific styling
     let styling = '';
@@ -53,7 +68,11 @@ export function getComponentPartStyling(
 
     // Add custom styling at the group level if it exists
     if (customStyling && typeof customStyling[part] === 'string') {
-        styling = twMerge(styling, customStyling[part] as string);
+        styling = twMerge(styling, customStyling[part] as string)
+    }
+
+    if (typeof layout === 'string') {
+        styling = twMerge(styling, layout);
     }
 
     // Add custom styling at the specific level if it exists

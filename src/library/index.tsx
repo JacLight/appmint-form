@@ -1,13 +1,11 @@
 'use client';
 
 import React from 'react';
-import { CollectionForm } from './library/form-view';
-import { CollectionTable } from './library/table-view';
-import { RowEvents, TableEvents } from './library/table-view';
+import { CollectionForm } from './form-view';
+import { CollectionTable } from './table-view';
+import { RowEvents, TableEvents } from './table-view';
 
 export type { RowEvents, TableEvents };
-
-export {  registerCustomComponent, registerCustomComponents, clearCustomComponents } from './library/form-view';
 export interface AppmintFormProps {
   demo?: boolean;
   data?: any;
@@ -42,6 +40,7 @@ export interface AppmintTableProps {
   inlineEdit?: boolean;
   datatype?: string;
   isDemo?: boolean;
+  selectedIds?: string[];
   onRowEvent?: (event: RowEvents, rowId: string, row: any) => any;
   onTableEvent?: (event: TableEvents, option: any, selected: any[]) => any;
   isLoading?: boolean;
@@ -49,12 +48,12 @@ export interface AppmintTableProps {
   itemRenderer?: (item: any) => React.ReactNode;
 }
 
-export const AppmintForm: React.FC<AppmintFormProps> = (props) => {
+export const AppmintForm: React.FC<AppmintFormProps> = props => {
   console.log('AppmintForm', props);
   return <CollectionForm {...props} />;
 };
 
-export const AppmintTable: React.FC<AppmintTableProps> = (props) => {
+export const AppmintTable: React.FC<AppmintTableProps> = props => {
   console.log('AppmintTable', props);
   return <CollectionTable {...props} />;
 };

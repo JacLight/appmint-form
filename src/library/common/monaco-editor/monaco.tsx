@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IconRenderer } from '../icons/icon-renderer';
+import ViewManager from '../view-manager/view-manager';
 
 // Define the props for the Monaco Code Editor component
 interface MonacoCodeEditorProps {
@@ -166,7 +167,7 @@ export const MonacoCodeEditor: React.FC<MonacoCodeEditorProps> = ({
     // Calculate editor height
     const editorHeight = isExpanded ? '80vh' : height;
 
-    return (
+    const editor =  (
         <div style={{ width: width }}>
             {showAppBar && (
                 <div style={{
@@ -230,6 +231,14 @@ export const MonacoCodeEditor: React.FC<MonacoCodeEditorProps> = ({
             )}
         </div>
     );
+
+    if (isExpanded){
+        <ViewManager id={`view-manager-${name}`} className="monaco-editor-view-manager" placement={'center'}>
+            {editor}
+        </ViewManager>
+    }
+
+    return editor;
 };
 
 // Add the Monaco type to the Window interface

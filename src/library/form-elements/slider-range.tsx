@@ -18,26 +18,10 @@ interface SliderRangeProps {
   storeId?: string;
 }
 
-export const SliderRangeElement: React.FC<SliderRangeProps> = ({
-  min = 0,
-  max = 100,
-  step = 1,
-  data = [0, 0],
-  blur,
-  change,
-  schema,
-  theme,
-  path,
-  name,
-  storeId,
-}) => {
-
-  const schemaMin = schema?.min !== undefined ?
-    (typeof schema.min === 'string' ? parseFloat(schema.min) : schema.min) : min;
-  const schemaMax = schema?.max !== undefined ?
-    (typeof schema.max === 'string' ? parseFloat(schema.max) : schema.max) : max;
-  const schemaStep = schema?.step !== undefined ?
-    (typeof schema.step === 'string' ? parseFloat(schema.step) : schema.step) : step;
+export const SliderRangeElement: React.FC<SliderRangeProps> = ({ min = 0, max = 100, step = 1, data = [0, 0], blur, change, schema, theme, path, name, storeId }) => {
+  const schemaMin = schema?.min !== undefined ? (typeof schema.min === 'string' ? parseFloat(schema.min) : schema.min) : min;
+  const schemaMax = schema?.max !== undefined ? (typeof schema.max === 'string' ? parseFloat(schema.max) : schema.max) : max;
+  const schemaStep = schema?.step !== undefined ? (typeof schema.step === 'string' ? parseFloat(schema.step) : schema.step) : step;
 
   // Use schema values if available, otherwise use props
   const actualMin = schemaMin !== undefined ? schemaMin : min;
@@ -108,36 +92,17 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
   const showValue = schema['x-show-value'] || true;
 
   return (
-    <StyledComponent
-      componentType="slider-range"
-      part="container"
-      schema={schema}
-      theme={theme}
-      className={classNames("flex items-center gap-4", variant === 'vertical' ? 'rotate-90 w-fit min-w-24' : 'w-full')}
-    >
-      <StyledComponent
-        componentType="slider-range"
-        part="track"
-        schema={schema}
-        theme={theme}
-        className="relative w-full h-2"
-      >
+    <StyledComponent componentType="slider-range" part="container" schema={schema} theme={theme} className={classNames('flex items-center gap-4', variant === 'vertical' ? 'rotate-90 w-fit min-w-24' : 'w-full')}>
+      <StyledComponent componentType="slider-range" part="track" schema={schema} theme={theme} className="relative w-full h-2">
         {/* Rail background */}
-        <StyledComponent
-          componentType="slider-range"
-          part="rail"
-          schema={schema}
-          theme={theme}
-          as="div"
-          className="w-full h-2 bg-gray-200 rounded-full absolute"
-        />
+        <StyledComponent componentType="slider-range" part="rail" schema={schema} theme={theme} as="div" className="w-full h-2 bg-gray-200 rounded-full absolute" />
 
         {/* Selected range indicator */}
         <div
           className="absolute h-2 bg-blue-500 rounded-full"
           style={{
             left: `${minPercentage}%`,
-            width: `${maxPercentage - minPercentage}%`
+            width: `${maxPercentage - minPercentage}%`,
           }}
         />
 
@@ -147,9 +112,9 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
           <div
             className="absolute w-4 h-4 bg-white border-2 border-blue-500 rounded-full cursor-pointer -mt-1 -ml-2 z-10"
             style={{
-              left: `${minPercentage}%`
+              left: `${minPercentage}%`,
             }}
-            onMouseDown={(e) => {
+            onMouseDown={e => {
               e.preventDefault(); // Prevent text selection during drag
 
               // Get initial position and track dimensions
@@ -170,7 +135,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
                 const positionPercentage = (mouseX - trackLeft) / trackWidth;
 
                 // Calculate new value based on position percentage
-                let newValue = actualMin + (positionPercentage * range);
+                let newValue = actualMin + positionPercentage * range;
 
                 // Apply step if needed
                 if (actualStep > 0) {
@@ -203,9 +168,9 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
           <div
             className="absolute w-4 h-4 bg-white border-2 border-blue-500 rounded-full cursor-pointer -mt-1 -ml-2 z-20"
             style={{
-              left: `${maxPercentage}%`
+              left: `${maxPercentage}%`,
             }}
-            onMouseDown={(e) => {
+            onMouseDown={e => {
               e.preventDefault(); // Prevent text selection during drag
 
               // Get initial position and track dimensions
@@ -226,7 +191,7 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
                 const positionPercentage = (mouseX - trackLeft) / trackWidth;
 
                 // Calculate new value based on position percentage
-                let newValue = actualMin + (positionPercentage * range);
+                let newValue = actualMin + positionPercentage * range;
 
                 // Apply step if needed
                 if (actualStep > 0) {
@@ -273,8 +238,8 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
             value={minValue}
             onChange={handleMinChange}
             onBlur={handleMinBlur}
-            title={`Minimum ${schema?.title || name || "value"}`}
-            aria-label={`Minimum ${schema?.title || name || "value"}`}
+            title={`Minimum ${schema?.title || name || 'value'}`}
+            aria-label={`Minimum ${schema?.title || name || 'value'}`}
             className="w-14 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-px text-right"
           />
           <span className="text-xs font-semibold text-gray-600">to</span>
@@ -291,32 +256,18 @@ export const SliderRangeElement: React.FC<SliderRangeProps> = ({
             value={maxValue}
             onChange={handleMaxChange}
             onBlur={handleMaxBlur}
-            title={`Maximum ${schema?.title || name || "value"}`}
-            aria-label={`Maximum ${schema?.title || name || "value"}`}
+            title={`Maximum ${schema?.title || name || 'value'}`}
+            aria-label={`Maximum ${schema?.title || name || 'value'}`}
             className="w-14 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-px text-right"
           />
         </div>
       ) : (
         showValue && (
-          <div className="flex gap-4 items-center min-w-8">
-            <StyledComponent
-              componentType="slider-range"
-              part="value"
-              schema={schema}
-              theme={theme}
-              as="div"
-              className="text-xs font-semibold text-gray-600  text-right"
-            >
+          <div className="flex gap-2 items-center min-w-8">
+            <StyledComponent componentType="slider-range" part="value" schema={schema} theme={theme} as="div" className="text-xs font-semibold text-gray-600  text-right">
               {formattedMinValue}
             </StyledComponent>
-            <StyledComponent
-              componentType="slider-range"
-              part="value"
-              schema={schema}
-              theme={theme}
-              as="div"
-              className="text-xs font-semibold text-gray-600  text-right"
-            >
+            <StyledComponent componentType="slider-range" part="value" schema={schema} theme={theme} as="div" className="text-xs font-semibold text-gray-600  text-right">
               {formattedMaxValue}
             </StyledComponent>
           </div>

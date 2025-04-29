@@ -18,19 +18,7 @@ interface SliderProps {
   path?: string;
 }
 
-export const SliderElement: React.FC<SliderProps> = ({
-  schema,
-  name,
-  storeId,
-  value,
-  change,
-  blur,
-  focus,
-  className,
-  ui,
-  theme,
-  path
-}) => {
+export const SliderElement: React.FC<SliderProps> = ({ schema, name, storeId, value, change, blur, focus, className, ui, theme, path }) => {
   // Extract styling from schema
   const [sliderValue, setSliderValue] = useState<number>(value || 0);
 
@@ -73,36 +61,16 @@ export const SliderElement: React.FC<SliderProps> = ({
   const percentage = ((sliderValue - min) / (max - min)) * 100;
 
   // Format the displayed value
-  const formattedValue = isNaN(sliderValue) ? '0' :
-    Number.isInteger(sliderValue) ? sliderValue.toString() : sliderValue.toFixed(1);
+  const formattedValue = isNaN(sliderValue) ? '0' : Number.isInteger(sliderValue) ? sliderValue.toString() : sliderValue.toFixed(1);
   const variant = schema?.['x-control-variant'] || 'horizontal';
 
   const showInput = schema['x-show-input'];
   const showValue = schema['x-show-value'] || true;
 
   return (
-    <StyledComponent
-      componentType="slider"
-      part="container"
-      schema={schema}
-      theme={theme}
-      className={classNames("relative flex gap-4 items-center justify-between", variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}
-    >
-      <StyledComponent
-        componentType="slider"
-        part="track"
-        schema={schema}
-        theme={theme}
-        className="relative w-full"
-      >
-        <StyledComponent
-          componentType="slider"
-          part="rail"
-          schema={schema}
-          theme={theme}
-          as="div"
-          className="w-full h-2 bg-gray-200 rounded-full"
-        />
+    <StyledComponent componentType="slider" part="container" schema={schema} theme={theme} className={classNames('relative flex gap-2 items-center justify-between', variant === 'vertical' ? '  rotate-90 w-fit min-w-24' : 'w-full')}>
+      <StyledComponent componentType="slider" part="track" schema={schema} theme={theme} className="relative w-full">
+        <StyledComponent componentType="slider" part="rail" schema={schema} theme={theme} as="div" className="w-full h-2 bg-gray-200 rounded-full" />
 
         <StyledComponent
           as="input"
@@ -119,8 +87,8 @@ export const SliderElement: React.FC<SliderProps> = ({
           onChange={handleChange}
           onBlur={handleBlur}
           onFocus={handleFocus}
-          title={schema?.title || name || "Slider"}
-          aria-label={schema?.title || name || "Slider"}
+          title={schema?.title || name || 'Slider'}
+          aria-label={schema?.title || name || 'Slider'}
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={sliderValue}
@@ -147,20 +115,13 @@ export const SliderElement: React.FC<SliderProps> = ({
           onChange={handleChange}
           onBlur={handleBlur}
           onFocus={handleFocus}
-          title={schema?.title || name || "Value input"}
-          aria-label={schema?.title || name || "Value input"}
+          title={schema?.title || name || 'Value input'}
+          aria-label={schema?.title || name || 'Value input'}
           className="w-full max-w-14 bg-sky-50 rounded outline-none text-sm border border-sky-500 p-px text-right"
         />
       ) : (
         showValue && (
-          <StyledComponent
-            componentType="slider"
-            part="value"
-            schema={schema}
-            theme={theme}
-            as="div"
-            className="text-xs font-semibold text-gray-600 min-w-8 text-right"
-          >
+          <StyledComponent componentType="slider" part="value" schema={schema} theme={theme} as="div" className="text-xs font-semibold text-gray-600 min-w-8 text-right">
             {formattedValue}
           </StyledComponent>
         )

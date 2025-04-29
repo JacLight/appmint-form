@@ -80,7 +80,7 @@ export const determineMetaType = (key, field) => {
   }
 };
 
-export const convertSchemaToColumns = (idField, dataPrefix, schema, auditField = true, cellRenderers) => {
+export const convertSchemaToColumns = (idField,  schema, cellRenderers) => {
   const columns = [];
 
   const properties = schema?.properties || schema?.items?.properties || schema;
@@ -99,7 +99,7 @@ export const convertSchemaToColumns = (idField, dataPrefix, schema, auditField =
           // Skip hidden sub-fields
           if (subValue.hidden || subValue.hideInTable) continue;
 
-          const accessorKey = dataPrefix ? `${dataPrefix}.${key}.${subKey}` : `${key}.${subKey}`;
+          const accessorKey = `${key}.${subKey}`;
 
           columns.push({
             header: toSentenceCase(`${capitalizeFirstLetter(key)}.${capitalizeFirstLetter(subKey)}`),
@@ -108,7 +108,7 @@ export const convertSchemaToColumns = (idField, dataPrefix, schema, auditField =
           });
         }
       } else {
-        const accessorKey = dataPrefix ? `${dataPrefix}.${key}` : `${key}`;
+        const accessorKey =  `${key}`;
 
         columns.push({
           header: toSentenceCase(capitalizeFirstLetter(key)),
@@ -120,21 +120,18 @@ export const convertSchemaToColumns = (idField, dataPrefix, schema, auditField =
   }
 
   // Assign cell renderers and other properties
-  columns.forEach(column => {
-    let thisRenderer = cellRenderers ? cellRenderers[column.accessorKey] : null;
-    thisRenderer = thisRenderer || getDefaultRenderer(schema, column.meta);
+  // columns.forEach(column => {
+  //   let thisRenderer = cellRenderers ? cellRenderers[column.accessorKey] : null;
+  //   thisRenderer = thisRenderer || getDefaultRenderer(schema, column.meta);
 
-    if (thisRenderer) {
-      column.cell = thisRenderer;
-    }
-    column.filterFn = 'fuzzy';
+  //   if (thisRenderer) {
+  //     column.cell = thisRenderer;
+  //   }
+  //   column.filterFn = 'fuzzy';
 
-    // Optionally, add additional metadata or properties here
-  });
+  //   // Optionally, add additional metadata or properties here
+  // });
 
-  if (auditField) {
-    return [idColumn(idField), ...columns, ...getAudit()];
-  }
   return columns;
 };
 
@@ -159,9 +156,8 @@ export const getTableColumns = (props: any) => {
         width: 150,
       };
     });
-  const audit = hideAudit ? [] : getAudit();
 
-  return [idColumn, ...columns, ...audit];
+  return [idColumn, ...columns];
 };
 
 export const getTableColumnsLight: (schema: any) => any[] = schema => [
@@ -176,19 +172,6 @@ export const getTableColumnsLight: (schema: any) => any[] = schema => [
   'createdate',
   'modifydate',
 ];
-
-const getAudit = () => {
-  return ['state', 'author', 'datatype', 'subschema', 'createdate', 'modifydate'].map(item => ({
-    field: `${item} `,
-    accessorKey: `${item} `,
-    header: `${toSentenceCase(item)} `,
-    enableColumnOrdering: false,
-    sortable: true,
-    filterable: true,
-    disableClickEventBubbling: true,
-    width: 150,
-  }));
-};
 
 function IndeterminateCheckbox({ indeterminate, className = '', ...rest }: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
   const ref = React.useRef<HTMLInputElement>(null!);

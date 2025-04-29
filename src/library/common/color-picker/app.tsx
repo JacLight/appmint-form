@@ -5,8 +5,9 @@ import { Popover } from '../popover';
 import { useShallow } from 'zustand/shallow';
 import { colorUtils } from '../color-utils';
 import { IconRenderer } from '../icons/icon-renderer';
+import { classNames } from '../../utils';
 
-export const CommonColorPicker = (props: { color; updateColor; type; toggle?; style?; icon?; className?}) => {
+export const CommonColorPicker = (props: { color; updateColor; type; toggle?; style?; icon?; className? }) => {
   const [colorTemp, setColorTemp] = useState('#000000');
   const [gradient, setGradient] = useState('rgba(255, 255, 255, 1)');
   const { color, setColor } = useColorPickerStore(useShallow(state => ({ color: state.color, setColor: state.setColor })));
@@ -46,12 +47,12 @@ export const CommonColorPicker = (props: { color; updateColor; type; toggle?; st
   const onCancel = () => {
     setColorTemp(color);
     setPopoverState({ timestamp: Date.now(), isOpen: false });
-  }
+  };
 
   const onAccept = () => {
     setColor(colorTemp);
     setPopoverState({ timestamp: Date.now(), isOpen: false });
-  }
+  };
 
   const getPicker = () => {
     return (
@@ -61,16 +62,18 @@ export const CommonColorPicker = (props: { color; updateColor; type; toggle?; st
     );
   };
 
-
   const toggleButton = () => {
-    return (<Popover position="context" offsetY={0} content={getPicker()}  >
-      <button className={props.className} onClick={e => setPopoverState({ timestamp: Date.now(), isOpen: !popoverState.isOpen })} style={{ ...props.style, backgroundColor: colorTemp }} >
-        {typeof props.icon === 'string' ? <IconRenderer color={colorTemp ? colorUtils.getInverseColor(colorTemp) : undefined} icon={props.icon} className={' '} /> : props.icon}
-      </button>
-    </Popover >);
+    return (
+      <Popover position="context" offsetY={0} content={getPicker()}>
+        <button
+          className={classNames('flex items-center gap-2 flex-shrink-0 p-1 shadow rounded', props.className)}
+          onClick={e => setPopoverState({ timestamp: Date.now(), isOpen: !popoverState.isOpen })}
+          style={{ ...props.style, backgroundColor: colorTemp }}
+        >
+          {typeof props.icon === 'string' ? <IconRenderer color={colorTemp ? colorUtils.getInverseColor(colorTemp) : undefined} icon={props.icon} className={' '} /> : props.icon}
+        </button>
+      </Popover>
+    );
   };
   return <div className="color-picker-wrapper">{props.toggle ? toggleButton() : getPicker()}</div>;
 };
-
-
-

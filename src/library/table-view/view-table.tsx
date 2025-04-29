@@ -7,8 +7,8 @@ import { TableColumns } from './table-columns';
 import { ColumnFilters } from './column-filters';
 import { IndeterminateCheckbox } from '../common/indeterminate-checkbox';
 
-export const CollectionTableView = (props: { table; selectRow; selectedRows; slimRow; onRowEvent; options; onRowDataEvent; datatype }) => {
-  const { table, selectedRows, slimRow, selectRow } = props;
+export const CollectionTableView = (props: { table; rowActions?, selectRow; selectedRows; slimRow; onRowEvent; options; onRowDataEvent; datatype }) => {
+  const { table, selectedRows, slimRow, selectRow, rowActions } = props;
 
   return (
     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -49,7 +49,7 @@ export const CollectionTableView = (props: { table; selectRow; selectedRows; sli
                 onClick={selectRow}
               >
                 <td className={classNames(slimRow ? 'py-1' : 'py-2', 'relative whitespace-nowrap pl-2 pr-4 text-right text-sm font-medium sm:pr-0')}>
-                  <RowHandler row={row} onRowEvent={props.onRowEvent} options={props.options} onRowDataEvent={props.onRowDataEvent} datatype={props.datatype} />
+                  <RowHandler rowActions={rowActions} row={row} onRowEvent={props.onRowEvent} options={props.options} onRowDataEvent={props.onRowDataEvent} datatype={props.datatype} />
                 </td>
                 {row.getVisibleCells().map(cell => {
                   const render = flexRender(cell.column.columnDef.cell, cell.getContext());

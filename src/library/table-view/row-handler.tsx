@@ -1,5 +1,4 @@
 import React from 'react';
-import { showNotice } from '../context/store';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { classNames } from '../utils';
 
@@ -31,21 +30,9 @@ const Icon = ({ name, color, size }) => {
     return <span style={{ color, fontSize: size }}>{icons[name] || '⚠️'}</span>;
 };
 
-// Stub for requestQueueInstance
-const requestQueueInstance = {
-    deleteData: async (datatype, id) => {
-        console.log(`Deleting ${id} from ${datatype}`);
-        return { success: true };
-    },
-    getDataById: async (datatype, id) => {
-        console.log(`Getting ${id} from ${datatype}`);
-        return { sk: id, datatype, data: {} };
-    }
-};
-
 const iconSize = 12;
-export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (event, id, row) => boolean; datatype; onRowDataEvent }) => {
-    const { row, onRowEvent } = props;
+export const RowHandler: React.FC<any> = (props: { rowActions?, options?; row; onRowEvent: (event, id, row) => boolean; datatype; onRowDataEvent }) => {
+    const { row, onRowEvent, rowActions } = props;
     const [showJSON, setShowJSON] = React.useState<any>(false);
     const [isLoading, setIsLoading] = React.useState<any>(false);
     const [deleteActive, setDeleteActive] = React.useState<any>(false);
@@ -68,21 +55,6 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
             }
         }
         if (props.datatype) {
-            setIsLoading(true);
-            await requestQueueInstance
-                .deleteData(props.datatype, row.original.sk)
-                .then(res => {
-                    showNotice(props.datatype.toUpperCase() + ' deleted', 'info');
-                    if (props.onRowDataEvent) {
-                        props.onRowDataEvent('delete', row.original.sk, row);
-                    }
-                })
-                .catch(e => {
-                    console.error(e);
-                })
-                .finally(() => {
-                    setIsLoading(false);
-                });
         }
     };
 
@@ -96,18 +68,18 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
                 return;
             }
         }
-        setIsLoading(true);
-        const data = await requestQueueInstance
-            .getDataById(props.datatype, row.original.sk)
-            .catch(e => {
-                console.error(e);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        console.log('rowEditHandler', row);
+    };
 
-        if (props.datatype) {
-            // useSiteStore.getState().setStateItem({ dataFormProps: { data: data, datatype: props.datatype } });
+    const rowRestoreHandler = async e => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (onRowEvent) {
+            const rt = await onRowEvent('restore', row.id, row);
+            if (rt === true) {
+                return;
+            }
         }
         console.log('rowEditHandler', row);
     };
@@ -127,7 +99,7 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
     };
 
     const rowCloneHandler = async e => {
-        e.preventDefault();
+        e.preventDefault();``
         e.stopPropagation();
 
         if (onRowEvent) {
@@ -139,9 +111,10 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
         console.log('rowCloneHandler', row);
     };
 
-    const canEdit = props.options?.rowEdit !== false && props.options?.readOnly !== true;
-    const canDelete = props.options?.rowDelete !== false && props.options?.readOnly !== true;
-    const canClone = props.options?.rowClone !== false && props.options?.readOnly !== true;
+    const canEdit = Array.isArray(rowActions) ? rowActions?.includes('edit') : props.options?.rowEdit !== false && props.options?.readOnly !== true;
+    const canDelete = Array.isArray(rowActions) ? rowActions?.includes('delete') : props.options?.rowDelete !== false && props.options?.readOnly !== true;
+    const canClone = Array.isArray(rowActions) ? rowActions?.includes('clone') : props.options?.rowClone !== false && props.options?.readOnly !== true;
+    const canRestore = rowActions?.includes('restore')
 
     const buttonClass = "p-1 bg-gray-100 dark:bg-gray-700 border-2 border-white dark:border-gray-800 rounded-full shadow hover:scale-125 block transition-all duration-200";
 
@@ -157,6 +130,15 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
                     className={buttonClass}
                 >
                     <IconRenderer icon="Edit" size={iconSize} className=' stroke-sky-500' />
+                </button>
+            )}
+            {canRestore && (
+                <button
+                    onClick={rowRestoreHandler}
+                    title="Restore"
+                    className={buttonClass}
+                >
+                    <IconRenderer icon="Undo" size={iconSize} className=' stroke-sky-500' />
                 </button>
             )}
             <button
@@ -185,7 +167,7 @@ export const RowHandler: React.FC<any> = (props: { options?; row; onRowEvent: (e
                 </button>
             }
 
-            {showJSON && <DataJSONView key={row.id} datatype={row.original.datatype} uid={row.original.sk} data={row.original} onClose={e => setShowJSON(false)} />}
+            {showJSON && <DataJSONView key={row.id} datatype={row.original.datatype} uid={row.original.id} data={row.original} onClose={e => setShowJSON(false)} />}
         </div>
     );
 };

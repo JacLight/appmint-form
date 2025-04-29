@@ -1,17 +1,14 @@
-import { getSelectOptions } from '../form-view/form-utils';
-import { getWatchedPaths } from '../form-view/form-utils';
 import React, { useEffect } from 'react';
 import { SelectManyList } from './select-many-list';
 import { SelectManyCombo } from './select-many-combo';
 import { SelectManyRadio } from './select-many-radio';
 import { SelectManyCheckbox } from './select-many-checkbox';
-import { isEmpty, isNotEmpty, toSentenceCase, toTitleCase } from '../utils';
+import { isEmpty, isNotEmpty, toSentenceCase } from '../utils';
 import { StyledComponent } from './styling';
 import { extractStylingFromSchema } from './styling/style-utils';
+import { useFormStore } from '../context/form-store-context';
 
 const getSelectType = type => {
-
-  console.log('type', type);
   const selectTypes = {
     select: SelectManyList,
     combo: SelectManyCombo,
@@ -25,8 +22,25 @@ const getSelectType = type => {
   return selectTypes[type] || SelectManyList;
 };
 
-export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus; mode; schema; path; name; data; value; dataPath, ui?, className?, updateRepository }) => {
+export const SelectManyElement = (props: {
+  storeId?;
+  blur;
+  change;
+  theme?;
+  focus;
+  mode;
+  schema;
+  path;
+  name;
+  data;
+  value;
+  dataPath;
+  ui?;
+  className?;
+  updateRepository;
+}) => {
   const [options, setOptions] = React.useState([]);
+  const store = useFormStore();
 
   const dataString = JSON.stringify(props.data);
   useEffect(() => {
@@ -37,10 +51,17 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
       }
       setOptions(checkAndFixOptions(options));
     } else if (props.schema?.dataSource) {
-      (async () => {
-        const dataOptions = await getSelectOptions(props.schema.dataSource, props.data);
-        setOptions(checkAndFixOptions(dataOptions));
-      })();
+      if (store.getState().onFormEvent) {
+        (async () => {
+          const dataOptions = await store
+            .getState()
+            .onFormEvent('getSelectOptions', {
+              dataSource: props.schema.dataSource,
+              data: props.data,
+            });
+          setOptions(checkAndFixOptions(dataOptions));
+        })();
+      }
     }
     // const pathsToWatch = getWatchedPaths(props.schema, props.parentDataPath, arrayIndex);
     // if (isNotEmpty(pathsToWatch) && typeof useFormStore === 'function') {
@@ -60,7 +81,7 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
   const onChange = value => {
     if (props.change) {
       if (props.schema.fetchData && typeof value === 'string') {
-        const original = options.find(o => o?.value === value).original;
+        const original = options.find(o => o.value === value).original;
         props.updateRepository(props.dataPath, original);
       }
       if (props.schema.type === 'string' && typeof value !== 'string') {
@@ -77,25 +98,22 @@ export const SelectManyElement = (props: { storeId?; blur; change; theme?, focus
         props.blur(JSON.stringify(value));
       }
       if (props.schema.type === 'array' && typeof value === 'string') {
-        const { json, err } = safeParseJSON(value);
-        if (err) {
-          console.error(err);
-          return;
-        }
-        props.blur(json);
+        props.blur(JSON.parse(value));
       } else {
         props.blur(value);
       }
     }
   };
 
-  const onFocus = value => { };
+  const onFocus = value => {};
 
   // Extract styling from schema
   const customStyling = extractStylingFromSchema(props.schema);
 
   let variant = props.schema['x-control-variant'];
-  const defaultType = getSelectType(props.schema.type === 'array' ? 'combo' : 'select');
+  const defaultType = getSelectType(
+    props.schema.type === 'array' ? 'combo' : 'select'
+  );
   const Element = getSelectType(variant) || getSelectType(defaultType);
 
   return (
