@@ -1,0 +1,268 @@
+{
+  "type": "object",
+  "title": "Public Opinion Poll",
+  "description": "Share your opinions on public issues and policies",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Community Issues Survey",
+      "description": "Thank you for participating in our public opinion poll. Your feedback will help inform policy decisions and community initiatives. This survey should take approximately 3-5 minutes to complete.",
+      "x-control": "paragraph"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name (Optional)",
+      "description": "Your name will be kept confidential",
+      "placeholder": "Your name"
+    },
+    "age_group": {
+      "type": "string",
+      "title": "Age Group",
+      "description": "Please select your age group",
+      "x-control": "selectsingle",
+      "enum": [
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65+"
+      ],
+      "inputRequired": true
+    },
+    "zip_code": {
+      "type": "string",
+      "title": "Zip Code",
+      "description": "Please enter your zip code to help us understand regional differences",
+      "placeholder": "Zip Code",
+      "inputRequired": true
+    },
+    "voting_frequency": {
+      "type": "string",
+      "title": "How often do you vote in local elections?",
+      "description": "Please select the option that best describes your voting habits",
+      "x-control": "selectsingle",
+      "enum": [
+        "Always vote",
+        "Usually vote",
+        "Sometimes vote",
+        "Rarely vote",
+        "Never vote",
+        "Not eligible to vote"
+      ],
+      "inputRequired": true
+    },
+    "economy_concern": {
+      "type": "string",
+      "title": "How concerned are you about the economy?",
+      "description": "Please select your level of concern",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very concerned",
+        "Somewhat concerned",
+        "Neutral",
+        "Not very concerned",
+        "Not at all concerned"
+      ],
+      "inputRequired": true
+    },
+    "healthcare_concern": {
+      "type": "string",
+      "title": "How concerned are you about healthcare?",
+      "description": "Please select your level of concern",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very concerned",
+        "Somewhat concerned",
+        "Neutral",
+        "Not very concerned",
+        "Not at all concerned"
+      ],
+      "inputRequired": true
+    },
+    "education_concern": {
+      "type": "string",
+      "title": "How concerned are you about education?",
+      "description": "Please select your level of concern",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very concerned",
+        "Somewhat concerned",
+        "Neutral",
+        "Not very concerned",
+        "Not at all concerned"
+      ],
+      "inputRequired": true
+    },
+    "environment_concern": {
+      "type": "string",
+      "title": "How concerned are you about the environment?",
+      "description": "Please select your level of concern",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very concerned",
+        "Somewhat concerned",
+        "Neutral",
+        "Not very concerned",
+        "Not at all concerned"
+      ],
+      "inputRequired": true
+    },
+    "public_safety_concern": {
+      "type": "string",
+      "title": "How concerned are you about public safety?",
+      "description": "Please select your level of concern",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very concerned",
+        "Somewhat concerned",
+        "Neutral",
+        "Not very concerned",
+        "Not at all concerned"
+      ],
+      "inputRequired": true
+    },
+    "infrastructure_concern": {
+      "type": "string",
+      "title": "How concerned are you about infrastructure (roads, bridges, public transit)?",
+      "description": "Please select your level of concern",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very concerned",
+        "Somewhat concerned",
+        "Neutral",
+        "Not very concerned",
+        "Not at all concerned"
+      ],
+      "inputRequired": true
+    },
+    "housing_concern": {
+      "type": "string",
+      "title": "How concerned are you about housing affordability?",
+      "description": "Please select your level of concern",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very concerned",
+        "Somewhat concerned",
+        "Neutral",
+        "Not very concerned",
+        "Not at all concerned"
+      ],
+      "inputRequired": true
+    },
+    "top_priority": {
+      "type": "string",
+      "title": "Which of these issues should be the top priority for local government?",
+      "description": "Please select one issue that you believe should be the highest priority",
+      "x-control": "selectsingle",
+      "enum": [
+        "Economy and jobs",
+        "Healthcare",
+        "Education",
+        "Environment and climate change",
+        "Public safety",
+        "Infrastructure",
+        "Housing affordability",
+        "Other"
+      ],
+      "inputRequired": true
+    },
+    "other_priority": {
+      "type": "string",
+      "title": "Other Priority",
+      "description": "If you selected 'Other', please specify the issue",
+      "placeholder": "Other priority issue"
+    },
+    "community_issue": {
+      "type": "string",
+      "title": "What do you think is the most important issue facing your community today?",
+      "description": "Please share your thoughts on the most pressing local issue",
+      "x-control-variant": "textarea",
+      "placeholder": "The most important issue is...",
+      "inputRequired": true
+    },
+    "government_performance": {
+      "type": "string",
+      "title": "How would you rate the performance of your local government?",
+      "description": "Please select your rating",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Good",
+        "Fair",
+        "Poor",
+        "Very poor",
+        "No opinion"
+      ]
+    },
+    "government_trust": {
+      "type": "number",
+      "title": "How much do you trust your local government to make the right decisions?",
+      "description": "Please rate on a scale of 1-5, where 1 is 'No trust at all' and 5 is 'Complete trust'",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "policy_suggestions": {
+      "type": "string",
+      "title": "Do you have any specific policy suggestions or ideas for improving your community?",
+      "description": "Please share any suggestions or ideas you have",
+      "x-control-variant": "textarea",
+      "placeholder": "My suggestions are..."
+    },
+    "community_involvement": {
+      "type": "array",
+      "title": "How are you currently involved in your community?",
+      "description": "Please select all that apply",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Volunteer work",
+        "Attend community meetings",
+        "Member of community organization",
+        "Participate in local events",
+        "Contact elected officials",
+        "Donate to local causes",
+        "Not currently involved",
+        "Other"
+      ]
+    },
+    "information_sources": {
+      "type": "array",
+      "title": "Where do you get most of your information about local issues?",
+      "description": "Please select all that apply",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Local newspaper",
+        "Local TV news",
+        "Radio",
+        "Social media",
+        "Community meetings",
+        "Word of mouth",
+        "Government websites",
+        "Other"
+      ]
+    },
+    "contact_permission": {
+      "type": "boolean",
+      "title": "Future Contact",
+      "description": "May we contact you for future public opinion polls or community discussions?",
+      "default": true
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "If you answered yes above, please provide your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your participation in this public opinion poll. Your feedback will help inform policy decisions and community initiatives. Results from this poll will be shared on our website and at upcoming community meetings.",
+      "x-control": "paragraph"
+    }
+  }
+}

@@ -1,0 +1,589 @@
+{
+  "type": "object",
+  "title": "Employee Onboarding Form",
+  "description": "Welcome to our team! Please complete this form to help us set up your employment",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "welcome", "title": "Welcome" },
+        { "id": "personal", "title": "Personal Information" },
+        { "id": "contact", "title": "Contact Information" },
+        { "id": "employment", "title": "Employment Details" },
+        { "id": "emergency", "title": "Emergency Contacts" },
+        { "id": "tax", "title": "Tax Information" },
+        { "id": "benefits", "title": "Benefits Enrollment" },
+        { "id": "documents", "title": "Required Documents" },
+        { "id": "equipment", "title": "Equipment & Access" },
+        { "id": "acknowledgment", "title": "Acknowledgment & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "welcome_message": {
+      "type": "null",
+      "title": "Welcome to Our Team!",
+      "description": "Congratulations on joining our company! We're excited to have you on board. This onboarding form will help us collect the necessary information to set up your employment, benefits, and systems access. Please complete all sections as accurately as possible. If you have any questions, please contact your HR representative or hiring manager.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "onboarding_instructions": {
+      "type": "null",
+      "title": "Instructions",
+      "description": "• Please complete all required fields marked with an asterisk (*)\n• Have your identification documents ready for upload (passport, driver's license, etc.)\n• Have your banking information available for direct deposit setup\n• You'll need your tax information (SSN/TIN, tax withholding preferences)\n• The form will save automatically as you progress\n• You can return to complete the form later if needed\n• Submit the form at least 3 business days before your start date",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "start_date": {
+      "type": "string",
+      "title": "Start Date",
+      "description": "Please confirm your employment start date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "legal_first_name": {
+      "type": "string",
+      "title": "Legal First Name",
+      "description": "Please enter your legal first name as it appears on your identification documents",
+      "placeholder": "Legal first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "legal_middle_name": {
+      "type": "string",
+      "title": "Legal Middle Name",
+      "description": "Please enter your legal middle name (if applicable)",
+      "placeholder": "Legal middle name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "legal_last_name": {
+      "type": "string",
+      "title": "Legal Last Name",
+      "description": "Please enter your legal last name as it appears on your identification documents",
+      "placeholder": "Legal last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "preferred_name": {
+      "type": "string",
+      "title": "Preferred Name",
+      "description": "If different from your legal name, please enter your preferred name",
+      "placeholder": "Preferred name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender (for benefits and demographic purposes)",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary/third gender",
+        "Prefer to self-describe",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "marital_status": {
+      "type": "string",
+      "title": "Marital Status",
+      "description": "Please select your marital status (for benefits and tax purposes)",
+      "x-control": "selectsingle",
+      "enum": [
+        "Single",
+        "Married",
+        "Domestic Partnership",
+        "Divorced",
+        "Widowed",
+        "Separated",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "citizenship_status": {
+      "type": "string",
+      "title": "Citizenship/Work Authorization Status",
+      "description": "Please select your citizenship or work authorization status",
+      "x-control": "selectsingle",
+      "enum": [
+        "U.S. Citizen",
+        "Permanent Resident",
+        "Visa Holder",
+        "Other Work Authorization"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "street_address": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "address_line2": {
+      "type": "string",
+      "title": "Address Line 2",
+      "description": "Apartment, suite, unit, building, floor, etc.",
+      "placeholder": "Apt, Suite, Unit, etc.",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "personal_email": {
+      "type": "string",
+      "title": "Personal Email Address",
+      "description": "Please enter your personal email address",
+      "placeholder": "Personal email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mobile_phone": {
+      "type": "string",
+      "title": "Mobile Phone Number",
+      "description": "Please enter your mobile phone number",
+      "placeholder": "Mobile phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "job_title": {
+      "type": "string",
+      "title": "Job Title",
+      "description": "Please confirm your job title",
+      "placeholder": "Job title",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "department": {
+      "type": "string",
+      "title": "Department",
+      "description": "Please confirm your department",
+      "placeholder": "Department",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "manager_name": {
+      "type": "string",
+      "title": "Manager's Name",
+      "description": "Please enter your manager's name",
+      "placeholder": "Manager's name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "employment_type": {
+      "type": "string",
+      "title": "Employment Type",
+      "description": "Please confirm your employment type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Full-time",
+        "Part-time",
+        "Temporary",
+        "Contract",
+        "Intern",
+        "Apprentice"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "work_schedule": {
+      "type": "string",
+      "title": "Work Schedule",
+      "description": "Please confirm your expected work schedule",
+      "x-control": "selectsingle",
+      "enum": [
+        "Standard (9am-5pm, Monday-Friday)",
+        "Flexible hours",
+        "Shift work",
+        "Remote/Work from home",
+        "Hybrid (partial remote)",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "work_location": {
+      "type": "string",
+      "title": "Work Location",
+      "description": "Please confirm your primary work location",
+      "placeholder": "Work location",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "emergency_contact1_name": {
+      "type": "string",
+      "title": "Emergency Contact 1 - Full Name",
+      "description": "Please provide the full name of your primary emergency contact",
+      "placeholder": "Emergency contact name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "emergency_contact1_relationship": {
+      "type": "string",
+      "title": "Emergency Contact 1 - Relationship",
+      "description": "Please specify your relationship to this emergency contact",
+      "placeholder": "Relationship (e.g., spouse, parent, friend)",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "emergency_contact1_phone": {
+      "type": "string",
+      "title": "Emergency Contact 1 - Phone Number",
+      "description": "Please provide the phone number of your primary emergency contact",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "emergency_contact2_name": {
+      "type": "string",
+      "title": "Emergency Contact 2 - Full Name",
+      "description": "Please provide the full name of your secondary emergency contact (optional)",
+      "placeholder": "Emergency contact name",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "emergency_contact2_phone": {
+      "type": "string",
+      "title": "Emergency Contact 2 - Phone Number",
+      "description": "Please provide the phone number of your secondary emergency contact",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "ssn": {
+      "type": "string",
+      "title": "Social Security Number (SSN)",
+      "description": "Please enter your Social Security Number (for tax purposes)",
+      "placeholder": "XXX-XX-XXXX",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tax_withholding": {
+      "type": "string",
+      "title": "Federal Tax Withholding Status",
+      "description": "Please select your federal tax withholding status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Single",
+        "Married Filing Jointly",
+        "Married Filing Separately",
+        "Head of Household",
+        "Qualifying Widow(er)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "allowances": {
+      "type": "number",
+      "title": "Number of Allowances",
+      "description": "Please enter the number of allowances you're claiming",
+      "minimum": 0,
+      "maximum": 20,
+      "default": 0,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "w4_upload": {
+      "type": "string",
+      "title": "W-4 Form Upload",
+      "description": "Please upload your completed W-4 form (PDF format preferred)",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "direct_deposit": {
+      "type": "boolean",
+      "title": "Direct Deposit",
+      "description": "Would you like to set up direct deposit for your paycheck?",
+      "default": true,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "bank_name": {
+      "type": "string",
+      "title": "Bank Name",
+      "description": "Please enter the name of your bank",
+      "placeholder": "Bank name",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "account_type": {
+      "type": "string",
+      "title": "Account Type",
+      "description": "Please select your bank account type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Checking",
+        "Savings"
+      ],
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "routing_number": {
+      "type": "string",
+      "title": "Routing Number",
+      "description": "Please enter your bank's routing number (9 digits)",
+      "placeholder": "Routing number",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "account_number": {
+      "type": "string",
+      "title": "Account Number",
+      "description": "Please enter your bank account number",
+      "placeholder": "Account number",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "void_check_upload": {
+      "type": "string",
+      "title": "Void Check Upload",
+      "description": "Please upload an image of a voided check or bank document showing your account and routing numbers",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "health_insurance": {
+      "type": "string",
+      "title": "Health Insurance",
+      "description": "Please select your health insurance plan option",
+      "x-control": "selectsingle",
+      "enum": [
+        "Employee Only",
+        "Employee + Spouse",
+        "Employee + Child(ren)",
+        "Family",
+        "Waive Coverage"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "dental_insurance": {
+      "type": "string",
+      "title": "Dental Insurance",
+      "description": "Please select your dental insurance plan option",
+      "x-control": "selectsingle",
+      "enum": [
+        "Employee Only",
+        "Employee + Spouse",
+        "Employee + Child(ren)",
+        "Family",
+        "Waive Coverage"
+      ],
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "vision_insurance": {
+      "type": "string",
+      "title": "Vision Insurance",
+      "description": "Please select your vision insurance plan option",
+      "x-control": "selectsingle",
+      "enum": [
+        "Employee Only",
+        "Employee + Spouse",
+        "Employee + Child(ren)",
+        "Family",
+        "Waive Coverage"
+      ],
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "retirement_plan": {
+      "type": "boolean",
+      "title": "Retirement Plan Participation",
+      "description": "Would you like to participate in the company retirement plan (401(k)/403(b))?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "retirement_contribution": {
+      "type": "number",
+      "title": "Retirement Contribution Percentage",
+      "description": "If participating, what percentage of your salary would you like to contribute?",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 5,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "id_document_type": {
+      "type": "string",
+      "title": "Identification Document Type",
+      "description": "Please select the type of identification document you will provide for I-9 verification",
+      "x-control": "selectsingle",
+      "enum": [
+        "U.S. Passport",
+        "Permanent Resident Card",
+        "Driver's License + Social Security Card",
+        "Driver's License + Birth Certificate",
+        "State ID + Social Security Card",
+        "State ID + Birth Certificate",
+        "Other combination (see I-9 form for acceptable documents)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "id_document_upload": {
+      "type": "string",
+      "title": "Identification Document Upload",
+      "description": "Please upload a copy of your identification document(s)",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "signed_offer_letter": {
+      "type": "string",
+      "title": "Signed Offer Letter",
+      "description": "Please upload your signed offer letter",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "computer_preference": {
+      "type": "string",
+      "title": "Computer Preference",
+      "description": "Please select your preferred computer type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Windows Laptop",
+        "Windows Desktop",
+        "Mac Laptop",
+        "Mac Desktop",
+        "No preference"
+      ],
+      "layoutGroup": "x-layout.main.items.9"
+    },
+    "software_needs": {
+      "type": "array",
+      "title": "Software Needs",
+      "description": "Please select any specific software you'll need for your role (beyond standard applications)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Microsoft Office Suite",
+        "Adobe Creative Suite",
+        "Project Management Software",
+        "Development Tools",
+        "Design Software",
+        "Accounting Software",
+        "CRM Software",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.9"
+    },
+    "phone_preference": {
+      "type": "string",
+      "title": "Phone Preference",
+      "description": "Please select your preferred phone setup",
+      "x-control": "selectsingle",
+      "enum": [
+        "Desk phone",
+        "Mobile phone",
+        "Both desk and mobile phone",
+        "No phone needed"
+      ],
+      "layoutGroup": "x-layout.main.items.9"
+    },
+    "acknowledgment_text": {
+      "type": "null",
+      "title": "Acknowledgment",
+      "description": "By submitting this form, I certify that the information provided is true and accurate to the best of my knowledge. I understand that any false statements or omissions may result in denial of employment or dismissal. I authorize the company to verify the information provided and to contact the references listed.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.10"
+    },
+    "handbook_acknowledgment": {
+      "type": "boolean",
+      "title": "Employee Handbook Acknowledgment",
+      "description": "I acknowledge that I have received and read the Employee Handbook, and I agree to comply with the policies and procedures outlined therein.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.10"
+    },
+    "confidentiality_agreement": {
+      "type": "boolean",
+      "title": "Confidentiality Agreement",
+      "description": "I agree to maintain the confidentiality of all proprietary and confidential information of the company and its clients, both during and after my employment.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.10"
+    },
+    "electronic_signature": {
+      "type": "string",
+      "title": "Electronic Signature",
+      "description": "Please type your full legal name as your electronic signature",
+      "placeholder": "Your full legal name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.10"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.10"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Onboarding Form",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.10"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for completing your onboarding form. Your information has been submitted successfully. We're excited to have you join our team! If you have any questions before your start date, please contact your HR representative or hiring manager.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.10"
+    }
+  }
+}

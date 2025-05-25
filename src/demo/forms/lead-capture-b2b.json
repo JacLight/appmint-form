@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "title": "Business Lead Capture",
+  "description": "A short form embedded on a landing page to gather basic info from potential business clients. Ideal for marketing campaigns or product demos.",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Welcome to Our Business Solution",
+      "description": "Fill out this short form to learn how our product can help your business grow. Our team will reach out with more information tailored to your needs.",
+      "x-control": "paragraph"
+    },
+    "company_name": {
+      "type": "string",
+      "title": "Company Name",
+      "description": "Legal or brand name of the organization.",
+      "inputRequired": true,
+      "placeholder": "Acme Corporation"
+    },
+    "website": {
+      "type": "string",
+      "title": "Website URL",
+      "description": "Optional: We may visit for a quick background check.",
+      "format": "url",
+      "placeholder": "https://www.example.com"
+    },
+    "industry": {
+      "type": "string",
+      "title": "Industry",
+      "description": "Select the industry that best describes your business.",
+      "enum": [
+        "Software & Technology",
+        "Healthcare & Pharmaceuticals",
+        "Financial Services",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Education",
+        "Media & Entertainment",
+        "Professional Services",
+        "Government",
+        "Non-profit",
+        "Other"
+      ],
+      "inputRequired": true
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "First and last name.",
+      "inputRequired": true,
+      "placeholder": "John Doe"
+    },
+    "email": {
+      "type": "string",
+      "title": "Work Email",
+      "description": "We'll send more info or schedule a product demo.",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "placeholder": "john.doe@company.com"
+    },
+    "phone_number": {
+      "type": "string",
+      "title": "Phone Number (Optional)",
+      "description": "If you'd prefer a call or SMS.",
+      "x-control": "phone",
+      "placeholder": "+1 (555) 123-4567"
+    },
+    "submit_message": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We've received your information and a member of our team will reach out within 24 hours.",
+      "x-control": "paragraph"
+    }
+  }
+}

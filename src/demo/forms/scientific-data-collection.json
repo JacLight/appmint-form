@@ -1,0 +1,267 @@
+{
+  "type": "object",
+  "title": "Scientific Data Collection Form",
+  "description": "Collect scientific data for research purposes",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "researcher_info", "title": "Researcher Information" },
+        { "id": "study_details", "title": "Study Details" },
+        { "id": "collection_info", "title": "Collection Information" },
+        { "id": "data_submission", "title": "Data Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Scientific Data Collection",
+      "description": "This form is designed to collect scientific data for research purposes. Please complete all required fields and attach any relevant data files.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "researcher_name": {
+      "type": "string",
+      "title": "Researcher Name",
+      "description": "Please enter your full name",
+      "placeholder": "Your name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "research_institution": {
+      "type": "string",
+      "title": "Research Institution",
+      "description": "Please enter the name of your research institution or organization",
+      "placeholder": "Institution/Organization name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "department": {
+      "type": "string",
+      "title": "Department",
+      "description": "Please enter your department or division",
+      "placeholder": "Department/Division",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "position": {
+      "type": "string",
+      "title": "Position",
+      "description": "Please enter your position or role",
+      "placeholder": "Position/Role",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "study_id": {
+      "type": "string",
+      "title": "Study ID",
+      "description": "Please enter the unique identifier for this study",
+      "placeholder": "Study ID",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "study_title": {
+      "type": "string",
+      "title": "Study Title",
+      "description": "Please enter the title of the study",
+      "placeholder": "Study title",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "study_description": {
+      "type": "string",
+      "title": "Study Description",
+      "description": "Please provide a brief description of the study",
+      "x-control-variant": "textarea",
+      "placeholder": "Study description",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "research_field": {
+      "type": "string",
+      "title": "Research Field",
+      "description": "Please select the primary field of research",
+      "x-control": "selectsingle",
+      "enum": [
+        "Biology",
+        "Chemistry",
+        "Physics",
+        "Earth Sciences",
+        "Environmental Science",
+        "Computer Science",
+        "Mathematics",
+        "Medicine",
+        "Psychology",
+        "Sociology",
+        "Economics",
+        "Engineering",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "funding_source": {
+      "type": "string",
+      "title": "Funding Source",
+      "description": "Please enter the funding source for this research",
+      "placeholder": "Funding source",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "ethics_approval": {
+      "type": "string",
+      "title": "Ethics Approval",
+      "description": "Please enter the ethics approval reference number (if applicable)",
+      "placeholder": "Ethics approval reference",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "collection_date": {
+      "type": "string",
+      "title": "Collection Date",
+      "description": "Please enter the date when the data was collected",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "collection_time": {
+      "type": "string",
+      "title": "Collection Time",
+      "description": "Please enter the time when the data was collected",
+      "placeholder": "HH:MM (24-hour format)",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "location": {
+      "type": "string",
+      "title": "Location",
+      "description": "Please enter the location where the data was collected",
+      "placeholder": "Collection location",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "gps_coordinates": {
+      "type": "string",
+      "title": "GPS Coordinates",
+      "description": "Please enter the GPS coordinates of the collection location (if applicable)",
+      "placeholder": "Latitude, Longitude",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "collection_method": {
+      "type": "string",
+      "title": "Collection Method",
+      "description": "Please describe the method used to collect the data",
+      "x-control-variant": "textarea",
+      "placeholder": "Collection method",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "equipment_used": {
+      "type": "string",
+      "title": "Equipment Used",
+      "description": "Please list the equipment used for data collection",
+      "x-control-variant": "textarea",
+      "placeholder": "Equipment used",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "environmental_conditions": {
+      "type": "string",
+      "title": "Environmental Conditions",
+      "description": "Please describe the environmental conditions during data collection",
+      "x-control-variant": "textarea",
+      "placeholder": "Environmental conditions",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "sample_size": {
+      "type": "string",
+      "title": "Sample Size",
+      "description": "Please enter the sample size for this data collection",
+      "placeholder": "Sample size",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "observation_notes": {
+      "type": "string",
+      "title": "Observation Notes",
+      "description": "Please provide detailed notes about your observations during data collection",
+      "x-control": "richtext",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "data_files": {
+      "type": "string",
+      "title": "Data Files",
+      "description": "Please upload your data files (CSV, Excel, PDF, etc.)",
+      "x-control": "file",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "supplementary_files": {
+      "type": "string",
+      "title": "Supplementary Files",
+      "description": "Please upload any supplementary files (images, diagrams, etc.)",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "data_format": {
+      "type": "string",
+      "title": "Data Format",
+      "description": "Please describe the format of your data files",
+      "x-control-variant": "textarea",
+      "placeholder": "Data format description",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "data_processing": {
+      "type": "string",
+      "title": "Data Processing",
+      "description": "Please describe any processing that has been applied to the raw data",
+      "x-control-variant": "textarea",
+      "placeholder": "Data processing description",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "quality_control": {
+      "type": "string",
+      "title": "Quality Control",
+      "description": "Please describe any quality control measures that were applied",
+      "x-control-variant": "textarea",
+      "placeholder": "Quality control measures",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "data_certification": {
+      "type": "boolean",
+      "title": "Data Certification",
+      "description": "I certify that the data submitted is accurate and has been collected according to the appropriate scientific standards and protocols.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Data",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your data has been submitted successfully. A confirmation email will be sent to the provided email address.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    }
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "type": "object",
+  "title": "Scholarship Application Form",
+  "description": "Apply for educational financial assistance",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "academic_info", "title": "Academic Information" },
+        { "id": "financial_info", "title": "Financial Information" },
+        { "id": "essays", "title": "Essays & Personal Statement" },
+        { "id": "documents", "title": "Supporting Documents" },
+        { "id": "submission", "title": "Review & Submit" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Scholarship Application",
+      "description": "Thank you for your interest in our scholarship program. This form will guide you through the application process. Please complete all required fields and submit any necessary documentation.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full legal name",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "address": {
+      "type": "string",
+      "title": "Mailing Address",
+      "description": "Please enter your complete mailing address",
+      "x-control-variant": "textarea",
+      "placeholder": "Street address, City, State, Zip Code, Country",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "citizenship": {
+      "type": "string",
+      "title": "Citizenship Status",
+      "description": "Please select your citizenship status",
+      "x-control": "selectsingle",
+      "enum": [
+        "U.S. Citizen",
+        "U.S. Permanent Resident",
+        "International Student",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "current_school": {
+      "type": "string",
+      "title": "Current School/Institution",
+      "description": "Please enter the name of your current school or institution",
+      "placeholder": "School/Institution name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "education_level": {
+      "type": "string",
+      "title": "Current Education Level",
+      "description": "Please select your current education level",
+      "x-control": "selectsingle",
+      "enum": [
+        "High School",
+        "Undergraduate",
+        "Graduate",
+        "Doctoral",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "field_of_study": {
+      "type": "string",
+      "title": "Field of Study",
+      "description": "Please enter your major or field of study",
+      "placeholder": "Major/Field of study",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "gpa": {
+      "type": "number",
+      "title": "Current GPA",
+      "description": "Please enter your current GPA (on a 4.0 scale)",
+      "minimum": 0,
+      "maximum": 4.0,
+      "step": 0.1,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "expected_graduation": {
+      "type": "string",
+      "title": "Expected Graduation Date",
+      "description": "Please enter your expected graduation date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "academic_achievements": {
+      "type": "string",
+      "title": "Academic Achievements",
+      "description": "Please list any academic achievements, honors, or awards",
+      "x-control-variant": "textarea",
+      "placeholder": "List achievements, honors, awards",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "extracurricular_activities": {
+      "type": "string",
+      "title": "Extracurricular Activities",
+      "description": "Please list any extracurricular activities, leadership roles, or community service",
+      "x-control-variant": "textarea",
+      "placeholder": "List activities, roles, service",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "financial_need": {
+      "type": "string",
+      "title": "Financial Need Statement",
+      "description": "Please explain your financial need for this scholarship",
+      "x-control-variant": "textarea",
+      "placeholder": "Explain your financial need",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "household_income": {
+      "type": "string",
+      "title": "Annual Household Income",
+      "description": "Please select your annual household income range",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than $25,000",
+        "$25,000 - $49,999",
+        "$50,000 - $74,999",
+        "$75,000 - $99,999",
+        "$100,000 - $149,999",
+        "$150,000 or more",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "dependents": {
+      "type": "string",
+      "title": "Number of Dependents in Household",
+      "description": "Please select the number of dependents in your household (including yourself)",
+      "x-control": "selectsingle",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6 or more"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_scholarships": {
+      "type": "string",
+      "title": "Other Scholarships",
+      "description": "Please list any other scholarships or financial aid you have applied for or received",
+      "x-control-variant": "textarea",
+      "placeholder": "List other scholarships/financial aid",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "employment_status": {
+      "type": "string",
+      "title": "Employment Status",
+      "description": "Please select your current employment status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Full-time",
+        "Part-time",
+        "Not employed",
+        "Self-employed",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "personal_statement": {
+      "type": "string",
+      "title": "Personal Statement",
+      "description": "Please write a personal statement explaining why you deserve this scholarship (500-1000 words)",
+      "x-control": "richtext",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "career_goals": {
+      "type": "string",
+      "title": "Career Goals",
+      "description": "Please describe your career goals and how this scholarship will help you achieve them (250-500 words)",
+      "x-control": "richtext",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "challenges_overcome": {
+      "type": "string",
+      "title": "Challenges Overcome",
+      "description": "Please describe any significant challenges or obstacles you have overcome (optional)",
+      "x-control": "richtext",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "transcript": {
+      "type": "string",
+      "title": "Academic Transcript",
+      "description": "Please upload your most recent academic transcript (PDF format preferred)",
+      "x-control": "file",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "recommendation_letter": {
+      "type": "string",
+      "title": "Letter of Recommendation",
+      "description": "Please upload a letter of recommendation from a teacher, professor, or employer (PDF format preferred)",
+      "x-control": "file",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "financial_documents": {
+      "type": "string",
+      "title": "Financial Documents",
+      "description": "Please upload any relevant financial documents to support your application (e.g., FAFSA, tax returns)",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "additional_documents": {
+      "type": "string",
+      "title": "Additional Supporting Documents",
+      "description": "Please upload any additional documents that may support your application",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "how_discovered": {
+      "type": "string",
+      "title": "How did you hear about this scholarship?",
+      "description": "Please select how you heard about this scholarship opportunity",
+      "x-control": "selectsingle",
+      "enum": [
+        "School/University",
+        "Teacher/Professor",
+        "Friend/Family",
+        "Social Media",
+        "Scholarship Website",
+        "Email",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "additional_info": {
+      "type": "string",
+      "title": "Additional Information",
+      "description": "Is there anything else you would like us to know about you or your application?",
+      "x-control-variant": "textarea",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "certification": {
+      "type": "boolean",
+      "title": "Information Certification",
+      "description": "I certify that all information provided in this application is true and complete to the best of my knowledge. I understand that any false information or omission may disqualify me from further consideration for the scholarship.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "permission": {
+      "type": "boolean",
+      "title": "Information Usage Permission",
+      "description": "I give permission to the scholarship committee to verify the information provided in this application and to contact my references.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Application",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your scholarship application has been submitted. You will receive a confirmation email shortly. The scholarship committee will review your application and notify you of their decision within 4-6 weeks.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

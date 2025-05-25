@@ -1,0 +1,191 @@
+{
+  "type": "object",
+  "title": "Conference Registration Form",
+  "description": "Register and collect payment for a conference or large-scale event, capturing attendee details and ticket preferences.",
+  "x-layout": {
+    "main": {
+      "type": "slider",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Conference Overview" },
+        { "id": "attendee_info", "title": "Attendee Information" },
+        { "id": "ticket_selection", "title": "Ticket Selection" },
+        { "id": "payment_details", "title": "Payment Details" },
+        { "id": "confirmation", "title": "Confirmation" }
+      ]
+    }
+  },
+  "properties": {
+    "conference_overview": {
+      "type": "null",
+      "title": "TechConnect 2025 Conference",
+      "description": "Join us for the premier tech conference of the year! TechConnect 2025 brings together industry leaders, innovators, and tech enthusiasts for three days of inspiring talks, hands-on workshops, and unparalleled networking opportunities.\n\nDates: September 15-17, 2025\nLocation: Tech Convention Center, San Francisco, CA",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "conference_highlights": {
+      "type": "null",
+      "title": "Conference Highlights",
+      "description": "• 50+ expert speakers from leading tech companies\n• Hands-on workshops on AI, blockchain, cloud computing, and more\n• Exclusive networking events with industry leaders\n• Product showcases featuring cutting-edge technologies\n• Career fair with top tech employers",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Will appear on your conference badge.",
+      "inputRequired": true,
+      "placeholder": "John Doe",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "For registration confirmation and event updates.",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "placeholder": "john.doe@example.com",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone_number": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "For urgent communications during the event.",
+      "x-control": "phone",
+      "placeholder": "+1 (555) 123-4567",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "organization": {
+      "type": "string",
+      "title": "Organization / Company",
+      "description": "Displayed on your badge (Optional).",
+      "placeholder": "Acme Corporation",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "job_title": {
+      "type": "string",
+      "title": "Job Title",
+      "description": "Your current position (Optional).",
+      "placeholder": "Software Engineer",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "dietary_restrictions": {
+      "type": "string",
+      "title": "Dietary Restrictions",
+      "description": "Please let us know if you have any dietary restrictions for event catering.",
+      "x-control-variant": "textarea",
+      "placeholder": "Vegetarian, gluten-free, allergies, etc.",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "ticket_type": {
+      "type": "string",
+      "title": "Ticket Type",
+      "description": "Select your preferred ticket package.",
+      "x-control": "selectsingle",
+      "enum": [
+        "General Admission ($499) - Access to all talks and expo hall",
+        "VIP Pass ($899) - General admission plus exclusive networking events and VIP lounge access",
+        "Premium Pass ($1299) - VIP benefits plus workshop access and conference recordings",
+        "Student Pass ($199) - Valid student ID required at check-in"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "add_ons": {
+      "type": "array",
+      "title": "Add-On Options",
+      "description": "Select any additional options you'd like to add to your registration.",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Pre-Conference Workshop: Intro to AI ($199)",
+        "Pre-Conference Workshop: Cloud Architecture ($199)",
+        "Conference Dinner & Networking Event ($99)",
+        "Conference T-Shirt ($25)",
+        "Conference Recording Bundle ($149)"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "promo_code": {
+      "type": "string",
+      "title": "Promo Code",
+      "description": "If you have a promotional code, enter it here.",
+      "placeholder": "TECH2025",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "payment_method": {
+      "type": "string",
+      "title": "Payment Method",
+      "description": "Select your preferred payment method.",
+      "x-control": "selectsingle",
+      "enum": [
+        "Credit/Debit Card",
+        "PayPal",
+        "Bank Transfer",
+        "Invoice (for corporate registrations)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "card_number": {
+      "type": "string",
+      "title": "Card Number",
+      "description": "16-digit credit/debit card number.",
+      "placeholder": "1234 5678 9012 3456",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "card_expiry": {
+      "type": "string",
+      "title": "Expiration Date",
+      "description": "MM/YY format.",
+      "placeholder": "12/25",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "card_cvv": {
+      "type": "string",
+      "title": "CVV",
+      "description": "3 or 4-digit security code.",
+      "placeholder": "123",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "billing_address": {
+      "type": "string",
+      "title": "Billing Address",
+      "description": "Address associated with your payment method.",
+      "x-control-variant": "textarea",
+      "placeholder": "123 Main St, Apt 4B\nCity, State 12345\nCountry",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "terms_and_conditions": {
+      "type": "boolean",
+      "title": "Terms and Conditions",
+      "description": "I agree to the conference terms and conditions, including the cancellation policy. I understand that tickets are non-refundable after August 15, 2025, but may be transferred to another attendee.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "marketing_opt_in": {
+      "type": "boolean",
+      "title": "Marketing Communications",
+      "description": "I would like to receive updates about future conferences and related events.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "confirmation_message": {
+      "type": "null",
+      "title": "Registration Confirmed!",
+      "description": "Thank you for registering for TechConnect 2025! A confirmation email with your ticket details has been sent to your email address. We look forward to seeing you at the conference!",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "download_ticket": {
+      "type": "null",
+      "title": "Download Ticket",
+      "x-control": "button",
+      "x-button-action": "download",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

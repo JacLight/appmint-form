@@ -1,0 +1,218 @@
+{
+  "type": "object",
+  "title": "Market Research Survey",
+  "description": "Gather insights about market trends and consumer preferences",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Market Research Survey",
+      "description": "Thank you for participating in our market research survey. Your feedback will help us better understand consumer preferences and market trends. This survey should take approximately 5-7 minutes to complete.",
+      "x-control": "paragraph"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Please enter your full name",
+      "placeholder": "Your name",
+      "inputRequired": true
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true
+    },
+    "age_group": {
+      "type": "string",
+      "title": "Age Group",
+      "description": "Please select your age group",
+      "x-control": "selectsingle",
+      "enum": [
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65+"
+      ],
+      "inputRequired": true
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer not to say"
+      ]
+    },
+    "location": {
+      "type": "string",
+      "title": "Location",
+      "description": "Please enter your city and country",
+      "placeholder": "City, Country"
+    },
+    "purchase_frequency": {
+      "type": "string",
+      "title": "How often do you purchase products in this category?",
+      "description": "Please select the option that best describes your purchasing habits",
+      "x-control": "selectsingle",
+      "enum": [
+        "Weekly",
+        "Monthly",
+        "Quarterly",
+        "Yearly",
+        "Rarely",
+        "Never"
+      ],
+      "inputRequired": true
+    },
+    "important_features": {
+      "type": "array",
+      "title": "Which features are most important to you?",
+      "description": "Please select all features that are important to you when making a purchase decision",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Quality",
+        "Price",
+        "Design",
+        "Brand reputation",
+        "Sustainability",
+        "Customer service",
+        "Warranty",
+        "Ease of use"
+      ],
+      "inputRequired": true
+    },
+    "brand_awareness": {
+      "type": "array",
+      "title": "Which brands are you familiar with in this category?",
+      "description": "Please select all brands that you recognize",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Brand A",
+        "Brand B",
+        "Brand C",
+        "Brand D",
+        "Brand E",
+        "None of the above"
+      ]
+    },
+    "brand_preference": {
+      "type": "string",
+      "title": "Which brand do you prefer in this category?",
+      "description": "Please select your preferred brand",
+      "x-control": "selectsingle",
+      "enum": [
+        "Brand A",
+        "Brand B",
+        "Brand C",
+        "Brand D",
+        "Brand E",
+        "No preference",
+        "Other"
+      ]
+    },
+    "other_brand": {
+      "type": "string",
+      "title": "Other Brand",
+      "description": "If you selected 'Other', please specify your preferred brand",
+      "placeholder": "Brand name"
+    },
+    "satisfaction_rating": {
+      "type": "number",
+      "title": "How satisfied are you with current offerings in the market?",
+      "description": "Please rate your satisfaction on a scale of 1-5, where 1 is 'Very Dissatisfied' and 5 is 'Very Satisfied'",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "price_sensitivity": {
+      "type": "string",
+      "title": "How important is price in your purchasing decision?",
+      "description": "Please select the option that best describes the importance of price to you",
+      "x-control": "selectsingle",
+      "enum": [
+        "Extremely important - I always choose the lowest price",
+        "Very important - Price is a major factor but not the only one",
+        "Moderately important - I balance price with other factors",
+        "Slightly important - I'm willing to pay more for quality",
+        "Not important - I don't consider price in my decision"
+      ]
+    },
+    "purchase_channels": {
+      "type": "array",
+      "title": "Where do you typically purchase products in this category?",
+      "description": "Please select all channels that you use",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Physical retail stores",
+        "Brand websites",
+        "Online marketplaces (e.g., Amazon)",
+        "Department stores",
+        "Specialty stores",
+        "Social media",
+        "Other"
+      ]
+    },
+    "information_sources": {
+      "type": "array",
+      "title": "Where do you get information about products before purchasing?",
+      "description": "Please select all sources that you use",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Online reviews",
+        "Social media",
+        "Friends and family",
+        "Brand websites",
+        "Comparison websites",
+        "In-store displays",
+        "Traditional advertising",
+        "Influencers"
+      ]
+    },
+    "improvement_suggestions": {
+      "type": "string",
+      "title": "What improvements would you like to see in products in this category?",
+      "description": "Please share your suggestions for how products in this category could better meet your needs",
+      "x-control-variant": "textarea",
+      "placeholder": "I would like to see..."
+    },
+    "new_features": {
+      "type": "string",
+      "title": "Are there any new features or innovations you would like to see?",
+      "description": "Please describe any new features or innovations that would enhance your experience with products in this category",
+      "x-control-variant": "textarea",
+      "placeholder": "I would like products to have..."
+    },
+    "future_trends": {
+      "type": "string",
+      "title": "What trends do you think will shape this product category in the future?",
+      "description": "Please share your thoughts on future trends in this category",
+      "x-control-variant": "textarea",
+      "placeholder": "I think future trends will include..."
+    },
+    "contact_permission": {
+      "type": "boolean",
+      "title": "Future Contact",
+      "description": "May we contact you for future market research opportunities?",
+      "default": true
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your valuable feedback. Your input will help us better understand consumer preferences and market trends. As a token of our appreciation, you will be entered into a drawing for a $100 gift card.",
+      "x-control": "paragraph"
+    }
+  }
+}

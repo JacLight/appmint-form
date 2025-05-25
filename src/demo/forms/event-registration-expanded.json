@@ -1,0 +1,214 @@
+{
+  "type": "object",
+  "title": "Event Registration Form",
+  "description": "Register for an upcoming event",
+  "x-layout": {
+    "main": {
+      "type": "slider",
+      "id": "main",
+      "items": [
+        { "id": "event_info", "title": "Event Information" },
+        { "id": "attendee_info", "title": "Attendee Information" },
+        { "id": "preferences", "title": "Preferences" },
+        { "id": "confirmation", "title": "Confirmation" }
+      ]
+    }
+  },
+  "properties": {
+    "event_header": {
+      "type": "null",
+      "title": "Event Registration",
+      "description": "Thank you for your interest in our event. Please complete this form to register.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "event_selection": {
+      "type": "string",
+      "title": "Event",
+      "description": "Please select the event you would like to attend",
+      "x-control": "selectsingle",
+      "enum": [
+        "Annual Conference 2025",
+        "Leadership Workshop Series",
+        "Tech Innovation Summit",
+        "Industry Networking Event",
+        "Product Launch Celebration"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "event_date": {
+      "type": "string",
+      "title": "Event Date",
+      "description": "Please select your preferred date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "event_description": {
+      "type": "null",
+      "title": "Event Details",
+      "description": "Join us for an exciting event featuring industry experts, networking opportunities, and the latest insights in your field. The event will include keynote presentations, interactive workshops, and panel discussions.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full name as it should appear on your badge",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address for registration confirmation",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number for urgent communications",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "organization": {
+      "type": "string",
+      "title": "Organization / Company",
+      "description": "Please enter your organization or company name",
+      "placeholder": "Your organization",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "job_title": {
+      "type": "string",
+      "title": "Job Title",
+      "description": "Please enter your job title",
+      "placeholder": "Your job title",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "attendees": {
+      "type": "string",
+      "title": "Number of Attendees",
+      "description": "Please select the number of attendees in your group",
+      "x-control": "selectsingle",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5+",
+        "10+"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "additional_attendees": {
+      "type": "string",
+      "title": "Additional Attendees",
+      "description": "If registering for multiple attendees, please provide their names and email addresses",
+      "x-control-variant": "textarea",
+      "placeholder": "Name, Email\nName, Email",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "dietary_restrictions": {
+      "type": "array",
+      "title": "Dietary Restrictions",
+      "description": "Please select any dietary restrictions",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Vegetarian",
+        "Vegan",
+        "Gluten-Free",
+        "Dairy-Free",
+        "Nut Allergy",
+        "Shellfish Allergy",
+        "Kosher",
+        "Halal",
+        "None"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "accessibility_needs": {
+      "type": "string",
+      "title": "Accessibility Needs",
+      "description": "Please let us know if you have any accessibility requirements",
+      "x-control-variant": "textarea",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "session_preferences": {
+      "type": "array",
+      "title": "Session Preferences",
+      "description": "Please select which sessions you are interested in attending",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Keynote Presentation",
+        "Panel Discussion",
+        "Hands-on Workshop",
+        "Networking Session",
+        "Product Demonstration",
+        "Q&A Session"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "special_requests": {
+      "type": "string",
+      "title": "Special Requests",
+      "description": "Please let us know if you have any special requests or questions",
+      "x-control-variant": "textarea",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "marketing_opt_in": {
+      "type": "boolean",
+      "title": "Marketing Communications",
+      "description": "I would like to receive updates about future events and related information",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "confirmation_message": {
+      "type": "null",
+      "title": "Registration Summary",
+      "description": "Please review your registration details before submitting. Once submitted, you will receive a confirmation email with further instructions.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "terms_agreement": {
+      "type": "boolean",
+      "title": "Terms and Conditions",
+      "description": "I agree to the event terms and conditions, including the cancellation policy. I understand that registrations are non-refundable after 14 days before the event, but may be transferred to another attendee.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "photo_consent": {
+      "type": "boolean",
+      "title": "Photography Consent",
+      "description": "I understand that photographs and videos may be taken during the event and give permission for my image to be used in event-related materials and promotions.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Complete Registration",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your registration has been submitted. You will receive a confirmation email shortly with additional details about the event.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    }
+  }
+}

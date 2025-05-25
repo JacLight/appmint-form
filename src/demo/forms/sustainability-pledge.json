@@ -1,0 +1,625 @@
+{
+  "type": "object",
+  "title": "Sustainability Pledge Form",
+  "description": "Commit to sustainable practices and help protect our planet",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "personal", "title": "Personal Information" },
+        { "id": "household", "title": "Household Assessment" },
+        { "id": "pledges", "title": "Sustainability Pledges" },
+        { "id": "commitment", "title": "Commitment & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Join Our Sustainability Movement",
+      "description": "Thank you for your interest in making a sustainability pledge. By committing to sustainable practices in your daily life, you are helping to create a healthier planet for current and future generations. This pledge is a personal commitment to reduce your environmental footprint and promote sustainable living in your community.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "pledge_benefits": {
+      "type": "null",
+      "title": "Benefits of Your Pledge",
+      "description": "By making this sustainability pledge, you will:\n\n• Reduce your personal environmental impact\n• Join a community of like-minded individuals committed to sustainability\n• Receive resources and tips to help you achieve your sustainability goals\n• Track your progress and see the collective impact of our community\n• Be invited to sustainability events and workshops\n• Help create a more sustainable future for all",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "pledge_process": {
+      "type": "null",
+      "title": "Pledge Process",
+      "description": "This form will guide you through assessing your current practices and selecting specific sustainability commitments. You'll receive a personalized sustainability plan based on your pledges, along with resources to help you succeed. We'll check in periodically to support your journey and celebrate your achievements.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "age_group": {
+      "type": "string",
+      "title": "Age Group",
+      "description": "Please select your age group",
+      "x-control": "selectsingle",
+      "enum": [
+        "Under 18",
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65+"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_country": {
+      "type": "string",
+      "title": "Other Country",
+      "description": "If you selected 'Other', please specify your country",
+      "placeholder": "Country name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "communication_preference": {
+      "type": "array",
+      "title": "Communication Preferences",
+      "description": "How would you like to receive updates and resources?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Email",
+        "Text Message",
+        "Phone Call",
+        "Postal Mail"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "motivation": {
+      "type": "string",
+      "title": "Your Motivation",
+      "description": "What motivated you to make a sustainability pledge?",
+      "x-control-variant": "textarea",
+      "placeholder": "Share your motivation",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "household_size": {
+      "type": "string",
+      "title": "Household Size",
+      "description": "How many people live in your household?",
+      "x-control": "selectsingle",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6+",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "dwelling_type": {
+      "type": "string",
+      "title": "Dwelling Type",
+      "description": "What type of dwelling do you live in?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Single-family house",
+        "Townhouse/Duplex",
+        "Apartment/Condominium",
+        "Mobile home",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "dwelling_ownership": {
+      "type": "string",
+      "title": "Dwelling Ownership",
+      "description": "Do you own or rent your dwelling?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Own",
+        "Rent",
+        "Other arrangement",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_practices": {
+      "type": "array",
+      "title": "Current Sustainable Practices",
+      "description": "Which of the following sustainable practices do you currently engage in?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Recycling",
+        "Composting",
+        "Using reusable bags",
+        "Using reusable water bottles",
+        "Reducing single-use plastics",
+        "Energy-efficient appliances",
+        "Water conservation",
+        "Public transportation",
+        "Carpooling",
+        "Biking/Walking",
+        "Reducing meat consumption",
+        "Buying local produce",
+        "Growing own food",
+        "Reducing food waste",
+        "Using renewable energy",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_current_practices": {
+      "type": "string",
+      "title": "Other Current Practices",
+      "description": "If you selected 'Other', please specify your current sustainable practices",
+      "placeholder": "Other sustainable practices",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "sustainability_challenges": {
+      "type": "array",
+      "title": "Sustainability Challenges",
+      "description": "What challenges do you face in adopting more sustainable practices?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Cost",
+        "Time constraints",
+        "Lack of knowledge",
+        "Limited access to resources",
+        "Limited options in my area",
+        "Household resistance",
+        "Rental property limitations",
+        "Physical limitations",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_challenges": {
+      "type": "string",
+      "title": "Other Challenges",
+      "description": "If you selected 'Other', please specify your challenges",
+      "placeholder": "Other challenges",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "carbon_footprint_knowledge": {
+      "type": "string",
+      "title": "Carbon Footprint Knowledge",
+      "description": "How familiar are you with your personal carbon footprint?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very familiar - I track it regularly",
+        "Somewhat familiar - I have a general idea",
+        "Not very familiar - I know the concept but not my impact",
+        "Not at all familiar - I don't know what this means"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "energy_pledges": {
+      "type": "array",
+      "title": "Energy Conservation Pledges",
+      "description": "I pledge to adopt the following energy conservation practices:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Switch to LED light bulbs",
+        "Unplug electronics when not in use",
+        "Use a programmable thermostat",
+        "Wash clothes in cold water",
+        "Air-dry clothes when possible",
+        "Reduce heating/cooling usage",
+        "Conduct a home energy audit",
+        "Switch to renewable energy sources",
+        "Install energy-efficient appliances",
+        "Install solar panels",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_energy_pledges": {
+      "type": "string",
+      "title": "Other Energy Pledges",
+      "description": "If you selected 'Other', please specify your energy conservation pledges",
+      "placeholder": "Other energy pledges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "water_pledges": {
+      "type": "array",
+      "title": "Water Conservation Pledges",
+      "description": "I pledge to adopt the following water conservation practices:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Take shorter showers",
+        "Install low-flow fixtures",
+        "Fix leaky faucets and pipes",
+        "Collect rainwater for gardening",
+        "Use water-efficient appliances",
+        "Only run full loads of laundry/dishes",
+        "Turn off water while brushing teeth",
+        "Reduce lawn watering",
+        "Plant drought-resistant landscaping",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_water_pledges": {
+      "type": "string",
+      "title": "Other Water Pledges",
+      "description": "If you selected 'Other', please specify your water conservation pledges",
+      "placeholder": "Other water pledges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "waste_pledges": {
+      "type": "array",
+      "title": "Waste Reduction Pledges",
+      "description": "I pledge to adopt the following waste reduction practices:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Recycle consistently and properly",
+        "Start composting food waste",
+        "Reduce single-use plastics",
+        "Use reusable shopping bags",
+        "Use reusable water bottles/coffee cups",
+        "Buy products with minimal packaging",
+        "Repair items instead of replacing them",
+        "Donate or repurpose unwanted items",
+        "Participate in community clean-ups",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_waste_pledges": {
+      "type": "string",
+      "title": "Other Waste Pledges",
+      "description": "If you selected 'Other', please specify your waste reduction pledges",
+      "placeholder": "Other waste pledges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "transportation_pledges": {
+      "type": "array",
+      "title": "Transportation Pledges",
+      "description": "I pledge to adopt the following sustainable transportation practices:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Use public transportation more often",
+        "Carpool when possible",
+        "Walk or bike for short trips",
+        "Combine errands to reduce trips",
+        "Maintain vehicle for optimal efficiency",
+        "Consider an electric or hybrid vehicle for next purchase",
+        "Reduce air travel",
+        "Offset carbon emissions from travel",
+        "Work from home when possible",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_transportation_pledges": {
+      "type": "string",
+      "title": "Other Transportation Pledges",
+      "description": "If you selected 'Other', please specify your transportation pledges",
+      "placeholder": "Other transportation pledges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "food_pledges": {
+      "type": "array",
+      "title": "Sustainable Food Pledges",
+      "description": "I pledge to adopt the following sustainable food practices:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Reduce meat consumption",
+        "Buy local and seasonal produce",
+        "Grow some of my own food",
+        "Reduce food waste",
+        "Compost food scraps",
+        "Support sustainable food producers",
+        "Choose organic when possible",
+        "Plan meals to reduce waste",
+        "Preserve seasonal foods",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_food_pledges": {
+      "type": "string",
+      "title": "Other Food Pledges",
+      "description": "If you selected 'Other', please specify your sustainable food pledges",
+      "placeholder": "Other food pledges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "consumption_pledges": {
+      "type": "array",
+      "title": "Sustainable Consumption Pledges",
+      "description": "I pledge to adopt the following sustainable consumption practices:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Buy second-hand items when possible",
+        "Choose products with eco-friendly packaging",
+        "Research companies' sustainability practices",
+        "Support B Corps and sustainable businesses",
+        "Borrow or rent items used infrequently",
+        "Choose quality items that last longer",
+        "Reduce overall consumption",
+        "Repair items instead of replacing",
+        "Choose natural/sustainable materials",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_consumption_pledges": {
+      "type": "string",
+      "title": "Other Consumption Pledges",
+      "description": "If you selected 'Other', please specify your sustainable consumption pledges",
+      "placeholder": "Other consumption pledges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "community_pledges": {
+      "type": "array",
+      "title": "Community Engagement Pledges",
+      "description": "I pledge to engage with my community in the following sustainable ways:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Participate in community clean-ups",
+        "Join or support environmental organizations",
+        "Advocate for sustainable policies",
+        "Share sustainability knowledge with others",
+        "Start or join a community garden",
+        "Volunteer for environmental causes",
+        "Attend sustainability workshops/events",
+        "Organize sustainability initiatives",
+        "Support local environmental education",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_community_pledges": {
+      "type": "string",
+      "title": "Other Community Pledges",
+      "description": "If you selected 'Other', please specify your community engagement pledges",
+      "placeholder": "Other community pledges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "top_priorities": {
+      "type": "array",
+      "title": "Top Priorities",
+      "description": "From all your pledges, please select your top 3 priorities to focus on first",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Energy Conservation",
+        "Water Conservation",
+        "Waste Reduction",
+        "Sustainable Transportation",
+        "Sustainable Food Choices",
+        "Sustainable Consumption",
+        "Community Engagement"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "timeline": {
+      "type": "string",
+      "title": "Implementation Timeline",
+      "description": "When do you plan to implement your sustainability pledges?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Immediately",
+        "Within 1 month",
+        "Within 3 months",
+        "Within 6 months",
+        "Gradually over the next year"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "support_needed": {
+      "type": "array",
+      "title": "Support Needed",
+      "description": "What support would help you fulfill your sustainability pledges?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Educational resources",
+        "Regular reminders",
+        "Community support group",
+        "Mentorship",
+        "Financial resources/incentives",
+        "Technical assistance",
+        "Product recommendations",
+        "Local service provider recommendations",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_support_needed": {
+      "type": "string",
+      "title": "Other Support Needed",
+      "description": "If you selected 'Other', please specify what support you need",
+      "placeholder": "Other support needed",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "pledge_summary": {
+      "type": "null",
+      "title": "Pledge Summary",
+      "description": "Thank you for making these sustainability pledges. Your commitments will help create a more sustainable future for all. After submission, you will receive a personalized sustainability plan based on your pledges, along with resources to help you succeed.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "pledge_duration": {
+      "type": "string",
+      "title": "Pledge Duration",
+      "description": "How long are you committing to maintain these sustainability practices?",
+      "x-control": "selectsingle",
+      "enum": [
+        "6 months",
+        "1 year",
+        "2 years",
+        "Ongoing commitment"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "progress_updates": {
+      "type": "string",
+      "title": "Progress Updates",
+      "description": "How often would you like to receive progress check-ins and updates?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Weekly",
+        "Monthly",
+        "Quarterly",
+        "Annually",
+        "No updates"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "share_permission": {
+      "type": "boolean",
+      "title": "Share Permission",
+      "description": "Do you give permission to share your sustainability story (anonymously) to inspire others?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "newsletter_signup": {
+      "type": "boolean",
+      "title": "Newsletter Signup",
+      "description": "Would you like to receive our sustainability newsletter with tips, resources, and success stories?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "pledge_commitment": {
+      "type": "boolean",
+      "title": "Pledge Commitment",
+      "description": "I commit to implementing the sustainability practices I have pledged to adopt, understanding that my individual actions contribute to collective environmental impact. I will make a good faith effort to fulfill these commitments and seek support when needed.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please share any additional thoughts, questions, or comments about your sustainability journey",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature": {
+      "type": "string",
+      "title": "Digital Signature",
+      "description": "Please type your full name as your digital signature",
+      "placeholder": "Type your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Sustainability Pledge",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You for Your Commitment!",
+      "description": "Your sustainability pledge has been submitted successfully. You will receive a confirmation email with your personalized sustainability plan and resources to help you succeed. Together, we can create a more sustainable future for all. Remember, every action matters!",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

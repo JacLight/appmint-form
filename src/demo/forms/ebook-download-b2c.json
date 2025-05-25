@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "title": "E-book Download Form",
+  "description": "Collect leads by offering a free downloadable resource (e-book, whitepaper, etc.). Targets individual consumers or small businesses.",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Get Your Free E-book: 5 Steps to Boost Your Online Sales",
+      "description": "Learn proven strategies to increase your conversion rates and maximize your online revenue. Fill out this short form to get instant access to our comprehensive guide.",
+      "x-control": "paragraph"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Helps us personalize follow-ups.",
+      "inputRequired": true,
+      "placeholder": "John"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "We'll send the download link here.",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "placeholder": "john@example.com"
+    },
+    "opt_in_newsletter": {
+      "type": "boolean",
+      "title": "Subscribe to Our Newsletter",
+      "description": "Get weekly tips, industry insights, and special offers directly to your inbox.",
+      "default": true
+    },
+    "download_info": {
+      "type": "null",
+      "title": "Your E-book is Ready!",
+      "description": "Thank you for your interest! Click the button below to download your free e-book. We've also sent a copy to your email for future reference.",
+      "x-control": "paragraph"
+    },
+    "download_button": {
+      "type": "null",
+      "title": "Download Now",
+      "x-control": "button",
+      "x-button-action": "download",
+      "x-button-style": "primary"
+    }
+  }
+}

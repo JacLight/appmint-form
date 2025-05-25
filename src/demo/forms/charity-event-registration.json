@@ -1,0 +1,611 @@
+{
+  "type": "object",
+  "title": "Charity Event Registration",
+  "description": "Register for our upcoming charity event to support a great cause",
+  "x-layout": {
+    "main": {
+      "type": "slider",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Event Information" },
+        { "id": "personal", "title": "Personal Information" },
+        { "id": "tickets", "title": "Ticket Selection" },
+        { "id": "donation", "title": "Additional Donation" },
+        { "id": "preferences", "title": "Event Preferences" },
+        { "id": "payment", "title": "Payment Information" },
+        { "id": "confirmation", "title": "Confirmation" }
+      ]
+    }
+  },
+  "properties": {
+    "event_banner": {
+      "type": "null",
+      "title": "Annual Charity Gala",
+      "description": "Join us for an unforgettable evening of entertainment, inspiration, and giving back to the community. Your participation will help fund vital programs that make a difference in the lives of those in need.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "event_details": {
+      "type": "null",
+      "title": "Event Details",
+      "description": "**Date:** Saturday, October 15, 2025\n**Time:** 6:00 PM - 10:00 PM\n**Location:** Grand Ballroom, City Convention Center\n**Address:** 123 Main Street, Downtown, City, State 12345\n**Dress Code:** Formal Attire\n**Parking:** Complimentary valet parking available",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "event_description": {
+      "type": "null",
+      "title": "About the Event",
+      "description": "The Annual Charity Gala is our flagship fundraising event, bringing together supporters, community leaders, and beneficiaries for an evening of celebration and commitment to our cause. The evening will include a gourmet dinner, silent and live auctions, inspiring speakers, and live entertainment. All proceeds will support our mission to provide essential services to underserved communities.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "event_highlights": {
+      "type": "null",
+      "title": "Event Highlights",
+      "description": "• Cocktail reception with premium open bar\n• Gourmet three-course dinner with wine pairings\n• Silent and live auctions featuring unique items and experiences\n• Keynote address from renowned humanitarian speaker\n• Live entertainment and dancing\n• Opportunity to meet program beneficiaries and hear their stories\n• Networking with community leaders and philanthropists",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "event_impact": {
+      "type": "null",
+      "title": "Your Impact",
+      "description": "By attending this event, you are directly contributing to programs that provide education, healthcare, housing, and economic opportunities to those in need. Last year's gala raised over $250,000, which funded three new community centers, scholarships for 50 students, and healthcare services for over 1,000 individuals.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "continue_button_1": {
+      "type": "null",
+      "title": "Continue to Registration",
+      "x-control": "button",
+      "x-button-action": "next",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address_line1": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address_line2": {
+      "type": "string",
+      "title": "Address Line 2",
+      "description": "Apartment, suite, unit, building, floor, etc.",
+      "placeholder": "Apt, Suite, Unit, etc.",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "company": {
+      "type": "string",
+      "title": "Company/Organization",
+      "description": "If you are representing a company or organization, please enter its name",
+      "placeholder": "Company/Organization name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "title": {
+      "type": "string",
+      "title": "Job Title",
+      "description": "Please enter your job title (if applicable)",
+      "placeholder": "Job title",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "how_heard": {
+      "type": "string",
+      "title": "How did you hear about this event?",
+      "description": "Please select how you learned about this event",
+      "x-control": "selectsingle",
+      "enum": [
+        "Email invitation",
+        "Social media",
+        "Website",
+        "Friend/Colleague",
+        "Previous attendee",
+        "Print advertisement",
+        "Radio/TV",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_how_heard": {
+      "type": "string",
+      "title": "Other Source",
+      "description": "If you selected 'Other', please specify how you heard about this event",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "continue_button_2": {
+      "type": "null",
+      "title": "Continue to Ticket Selection",
+      "x-control": "button",
+      "x-button-action": "next",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "ticket_info": {
+      "type": "null",
+      "title": "Ticket Options",
+      "description": "Please select the type and number of tickets you would like to purchase. All ticket purchases are tax-deductible to the extent allowed by law.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "ticket_type": {
+      "type": "string",
+      "title": "Ticket Type",
+      "description": "Please select your preferred ticket type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Individual Ticket ($250)",
+        "Couple Ticket ($450)",
+        "VIP Individual Ticket ($500)",
+        "VIP Couple Ticket ($900)",
+        "Table for 8 ($1,800)",
+        "VIP Table for 8 ($3,600)",
+        "Sponsor Table for 10 ($5,000)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "ticket_quantity": {
+      "type": "number",
+      "title": "Ticket Quantity",
+      "description": "Please select the number of tickets/tables you would like to purchase",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 1,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "ticket_description": {
+      "type": "null",
+      "title": "Ticket Benefits",
+      "description": "**Individual/Couple Ticket:** Includes cocktail reception, dinner, and full event access\n\n**VIP Individual/Couple Ticket:** Includes premium seating, cocktail reception, dinner, full event access, VIP gift bag, and exclusive pre-event reception with special guests\n\n**Table for 8:** Includes 8 tickets with reserved table seating, cocktail reception, dinner, and full event access\n\n**VIP Table for 8:** Includes 8 tickets with premium reserved table seating, cocktail reception, dinner, full event access, VIP gift bags, and exclusive pre-event reception with special guests\n\n**Sponsor Table for 10:** Includes 10 tickets with premium reserved table seating, cocktail reception, dinner, full event access, VIP gift bags, exclusive pre-event reception with special guests, recognition in event program and from podium, and company logo/name displayed at table",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "guest_names": {
+      "type": "string",
+      "title": "Guest Names",
+      "description": "If you are purchasing multiple tickets or a table, please provide the names of your guests (one per line)",
+      "x-control-variant": "textarea",
+      "placeholder": "Guest names",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "continue_button_3": {
+      "type": "null",
+      "title": "Continue to Additional Donation",
+      "x-control": "button",
+      "x-button-action": "next",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "donation_info": {
+      "type": "null",
+      "title": "Make an Additional Donation",
+      "description": "In addition to your ticket purchase, would you like to make an additional donation to support our cause? All donations are tax-deductible to the extent allowed by law.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "donation_amount": {
+      "type": "string",
+      "title": "Donation Amount",
+      "description": "Please select or enter the amount you would like to donate",
+      "x-control": "selectsingle",
+      "enum": [
+        "No additional donation at this time",
+        "$100",
+        "$250",
+        "$500",
+        "$1,000",
+        "$2,500",
+        "$5,000",
+        "Other amount"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_donation_amount": {
+      "type": "string",
+      "title": "Other Donation Amount",
+      "description": "If you selected 'Other amount', please specify the amount you would like to donate",
+      "placeholder": "$",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "donation_designation": {
+      "type": "string",
+      "title": "Donation Designation",
+      "description": "Would you like to designate your donation to a specific program?",
+      "x-control": "selectsingle",
+      "enum": [
+        "General Fund (use where needed most)",
+        "Education Programs",
+        "Healthcare Initiatives",
+        "Housing Assistance",
+        "Youth Development",
+        "Community Centers",
+        "Emergency Relief"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "donation_recognition": {
+      "type": "string",
+      "title": "Donation Recognition",
+      "description": "How would you like to be recognized for your donation?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Use my name as entered above",
+        "Anonymous",
+        "In memory of someone",
+        "In honor of someone",
+        "Company/Organization name"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "recognition_name": {
+      "type": "string",
+      "title": "Recognition Name",
+      "description": "If you selected 'In memory of' or 'In honor of', please provide the name",
+      "placeholder": "Name for recognition",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "matching_gift": {
+      "type": "boolean",
+      "title": "Matching Gift",
+      "description": "Does your employer offer a matching gift program?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "employer_name": {
+      "type": "string",
+      "title": "Employer Name",
+      "description": "If your employer offers matching gifts, please provide the company name",
+      "placeholder": "Employer name",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "continue_button_4": {
+      "type": "null",
+      "title": "Continue to Event Preferences",
+      "x-control": "button",
+      "x-button-action": "next",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "dietary_restrictions": {
+      "type": "array",
+      "title": "Dietary Restrictions",
+      "description": "Do you or any of your guests have dietary restrictions? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Vegetarian",
+        "Vegan",
+        "Gluten-free",
+        "Dairy-free",
+        "Nut allergies",
+        "Shellfish allergies",
+        "Kosher",
+        "Halal",
+        "Other",
+        "No dietary restrictions"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "other_dietary_restrictions": {
+      "type": "string",
+      "title": "Other Dietary Restrictions",
+      "description": "If you selected 'Other', please specify the dietary restrictions",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "dietary_notes": {
+      "type": "string",
+      "title": "Dietary Notes",
+      "description": "Please provide any additional details about dietary restrictions, including which guests they apply to",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional dietary notes",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "accessibility_needs": {
+      "type": "array",
+      "title": "Accessibility Needs",
+      "description": "Do you or any of your guests have accessibility needs? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Wheelchair accessibility",
+        "Hearing assistance",
+        "Visual assistance",
+        "Mobility assistance",
+        "Service animal accommodations",
+        "Other",
+        "No accessibility needs"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "other_accessibility_needs": {
+      "type": "string",
+      "title": "Other Accessibility Needs",
+      "description": "If you selected 'Other', please specify the accessibility needs",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "seating_preferences": {
+      "type": "string",
+      "title": "Seating Preferences",
+      "description": "Do you have any seating preferences or requests?",
+      "x-control-variant": "textarea",
+      "placeholder": "Seating preferences",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "auction_participation": {
+      "type": "boolean",
+      "title": "Auction Participation",
+      "description": "Do you plan to participate in the silent and/or live auctions?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "auction_interests": {
+      "type": "array",
+      "title": "Auction Interests",
+      "description": "If you plan to participate in the auctions, what types of items are you most interested in? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Travel experiences",
+        "Sports memorabilia",
+        "Art",
+        "Dining experiences",
+        "Wine and spirits",
+        "Entertainment packages",
+        "Jewelry",
+        "Fashion items",
+        "Home goods",
+        "Wellness packages",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "other_auction_interests": {
+      "type": "string",
+      "title": "Other Auction Interests",
+      "description": "If you selected 'Other', please specify your auction interests",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "continue_button_5": {
+      "type": "null",
+      "title": "Continue to Payment",
+      "x-control": "button",
+      "x-button-action": "next",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "payment_info": {
+      "type": "null",
+      "title": "Payment Information",
+      "description": "Please provide your payment information to complete your registration. All transactions are secure and encrypted.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "payment_method": {
+      "type": "string",
+      "title": "Payment Method",
+      "description": "Please select your preferred payment method",
+      "x-control": "selectsingle",
+      "enum": [
+        "Credit/Debit Card",
+        "PayPal",
+        "Bank Transfer",
+        "Check"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_holder_name": {
+      "type": "string",
+      "title": "Cardholder Name",
+      "description": "Please enter the name as it appears on your card",
+      "placeholder": "Cardholder name",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_number": {
+      "type": "string",
+      "title": "Card Number",
+      "description": "Please enter your card number",
+      "placeholder": "Card number",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_expiration": {
+      "type": "string",
+      "title": "Expiration Date",
+      "description": "Please enter the expiration date (MM/YY)",
+      "placeholder": "MM/YY",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_cvv": {
+      "type": "string",
+      "title": "CVV",
+      "description": "Please enter the 3 or 4 digit security code",
+      "placeholder": "CVV",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_address_same": {
+      "type": "boolean",
+      "title": "Billing Address",
+      "description": "Is your billing address the same as your contact address?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_address": {
+      "type": "string",
+      "title": "Billing Address",
+      "description": "If different from contact address, please enter your billing address",
+      "x-control-variant": "textarea",
+      "placeholder": "Billing address",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "payment_notes": {
+      "type": "string",
+      "title": "Payment Notes",
+      "description": "If you selected 'Bank Transfer' or 'Check', please note that your registration will be confirmed once payment is received. Instructions for completing your payment will be sent to your email address.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tax_receipt": {
+      "type": "boolean",
+      "title": "Tax Receipt",
+      "description": "Would you like to receive a tax receipt for your donation?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "terms_agreement": {
+      "type": "boolean",
+      "title": "Terms and Conditions",
+      "description": "I have read and agree to the terms and conditions, including the cancellation and refund policy.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "privacy_policy": {
+      "type": "boolean",
+      "title": "Privacy Policy",
+      "description": "I have read and agree to the privacy policy and consent to the collection and use of my personal information as described therein.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "continue_button_6": {
+      "type": "null",
+      "title": "Review and Confirm",
+      "x-control": "button",
+      "x-button-action": "next",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "confirmation_message": {
+      "type": "null",
+      "title": "Registration Summary",
+      "description": "Please review your registration details below. If everything is correct, click 'Complete Registration' to finalize your registration.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "registration_summary": {
+      "type": "null",
+      "title": "Your Registration Details",
+      "description": "**Event:** Annual Charity Gala\n**Date:** Saturday, October 15, 2025\n**Time:** 6:00 PM - 10:00 PM\n**Location:** Grand Ballroom, City Convention Center\n\n**Attendee:** [First Name] [Last Name]\n**Email:** [Email Address]\n**Phone:** [Phone Number]\n\n**Ticket Selection:** [Ticket Type] x [Quantity]\n**Additional Donation:** [Donation Amount]\n**Total Amount:** [Total Amount]\n\n**Dietary Restrictions:** [Dietary Restrictions]\n**Accessibility Needs:** [Accessibility Needs]\n\n**Payment Method:** [Payment Method]",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "special_instructions": {
+      "type": "string",
+      "title": "Special Instructions",
+      "description": "If you have any special instructions or additional information you'd like to provide, please enter it here",
+      "x-control-variant": "textarea",
+      "placeholder": "Special instructions",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "email_updates": {
+      "type": "boolean",
+      "title": "Email Updates",
+      "description": "Would you like to receive email updates about this event and future events?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "volunteer_interest": {
+      "type": "boolean",
+      "title": "Volunteer Interest",
+      "description": "Are you interested in volunteering for this or future events?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Complete Registration",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for registering for the Annual Charity Gala! Your registration has been received and a confirmation email has been sent to your email address. We look forward to seeing you at the event. If you have any questions or need to make changes to your registration, please contact us at events@example.org or call (555) 123-4567.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    }
+  }
+}

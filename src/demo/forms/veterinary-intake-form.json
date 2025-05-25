@@ -1,0 +1,630 @@
+{
+  "type": "object",
+  "title": "Veterinary Intake Form",
+  "description": "Complete this form for your pet's veterinary visit",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "owner_info", "title": "Owner Information" },
+        { "id": "pet_info", "title": "Pet Information" },
+        { "id": "medical_history", "title": "Medical History" },
+        { "id": "current_visit", "title": "Current Visit Information" },
+        { "id": "consent", "title": "Consent & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Veterinary Intake Form",
+      "description": "Thank you for choosing our veterinary clinic. To provide the best care for your pet, please complete this intake form with accurate information about your pet's health history and current condition.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone_primary": {
+      "type": "string",
+      "title": "Primary Phone Number",
+      "description": "Please enter your primary phone number",
+      "placeholder": "Primary phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone_alternate": {
+      "type": "string",
+      "title": "Alternate Phone Number",
+      "description": "Please enter an alternate phone number (optional)",
+      "placeholder": "Alternate phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "address_line1": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "emergency_contact_name": {
+      "type": "string",
+      "title": "Emergency Contact Name",
+      "description": "Please provide an emergency contact name",
+      "placeholder": "Emergency contact name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "emergency_contact_phone": {
+      "type": "string",
+      "title": "Emergency Contact Phone",
+      "description": "Please provide an emergency contact phone number",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "relationship_to_emergency_contact": {
+      "type": "string",
+      "title": "Relationship to Emergency Contact",
+      "description": "Please specify your relationship to the emergency contact",
+      "placeholder": "Relationship to emergency contact",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "referral_source": {
+      "type": "string",
+      "title": "Referral Source",
+      "description": "How did you hear about our veterinary clinic?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Friend/Family",
+        "Another Veterinarian",
+        "Internet Search",
+        "Social Media",
+        "Website",
+        "Drove By",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "other_referral_source": {
+      "type": "string",
+      "title": "Other Referral Source",
+      "description": "If you selected 'Other', please specify how you heard about us",
+      "placeholder": "Other referral source",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "pet_name": {
+      "type": "string",
+      "title": "Pet Name",
+      "description": "Please enter your pet's name",
+      "placeholder": "Pet's name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pet_type": {
+      "type": "string",
+      "title": "Pet Type",
+      "description": "Please select your pet's type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Dog",
+        "Cat",
+        "Bird",
+        "Rabbit",
+        "Ferret",
+        "Guinea Pig",
+        "Hamster",
+        "Reptile",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_pet_type": {
+      "type": "string",
+      "title": "Other Pet Type",
+      "description": "If you selected 'Other', please specify your pet's type",
+      "placeholder": "Other pet type",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "breed": {
+      "type": "string",
+      "title": "Breed",
+      "description": "Please enter your pet's breed",
+      "placeholder": "Pet's breed",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "color_markings": {
+      "type": "string",
+      "title": "Color/Markings",
+      "description": "Please describe your pet's color and any distinctive markings",
+      "placeholder": "Color and markings",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your pet's date of birth (if known)",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "age": {
+      "type": "string",
+      "title": "Age",
+      "description": "If date of birth is unknown, please provide your pet's approximate age",
+      "placeholder": "Approximate age",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your pet's gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Unknown"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "spayed_neutered": {
+      "type": "boolean",
+      "title": "Spayed/Neutered",
+      "description": "Has your pet been spayed or neutered?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "microchipped": {
+      "type": "boolean",
+      "title": "Microchipped",
+      "description": "Is your pet microchipped?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "microchip_id": {
+      "type": "string",
+      "title": "Microchip ID",
+      "description": "If your pet is microchipped, please provide the microchip ID",
+      "placeholder": "Microchip ID",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "weight": {
+      "type": "number",
+      "title": "Weight (lbs)",
+      "description": "Please enter your pet's weight in pounds (if known)",
+      "minimum": 0,
+      "maximum": 500,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pet_photo": {
+      "type": "string",
+      "title": "Pet Photo",
+      "description": "Upload a recent photo of your pet (optional)",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "previous_vet": {
+      "type": "boolean",
+      "title": "Previous Veterinarian",
+      "description": "Has your pet been seen by another veterinarian?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_vet_name": {
+      "type": "string",
+      "title": "Previous Veterinarian Name",
+      "description": "If yes, please provide the name of your previous veterinarian",
+      "placeholder": "Previous veterinarian name",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_vet_clinic": {
+      "type": "string",
+      "title": "Previous Veterinary Clinic",
+      "description": "If applicable, please provide the name of the previous veterinary clinic",
+      "placeholder": "Previous clinic name",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_vet_phone": {
+      "type": "string",
+      "title": "Previous Veterinarian Phone",
+      "description": "If applicable, please provide the phone number of the previous veterinary clinic",
+      "placeholder": "Previous clinic phone",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "records_transfer": {
+      "type": "boolean",
+      "title": "Records Transfer",
+      "description": "Would you like us to request your pet's medical records from the previous veterinarian?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "vaccination_history": {
+      "type": "string",
+      "title": "Vaccination History",
+      "description": "Please provide information about your pet's vaccination history",
+      "x-control-variant": "textarea",
+      "placeholder": "Vaccination history",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "last_vaccines": {
+      "type": "string",
+      "title": "Last Vaccines Date",
+      "description": "When did your pet last receive vaccines?",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_medications": {
+      "type": "string",
+      "title": "Current Medications",
+      "description": "Please list any medications your pet is currently taking",
+      "x-control-variant": "textarea",
+      "placeholder": "Current medications",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "allergies": {
+      "type": "string",
+      "title": "Allergies",
+      "description": "Please list any known allergies your pet has",
+      "x-control-variant": "textarea",
+      "placeholder": "Known allergies",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_medical_conditions": {
+      "type": "string",
+      "title": "Previous Medical Conditions",
+      "description": "Please list any previous medical conditions your pet has had",
+      "x-control-variant": "textarea",
+      "placeholder": "Previous medical conditions",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_surgeries": {
+      "type": "string",
+      "title": "Previous Surgeries",
+      "description": "Please list any previous surgeries your pet has had",
+      "x-control-variant": "textarea",
+      "placeholder": "Previous surgeries",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "diet": {
+      "type": "string",
+      "title": "Current Diet",
+      "description": "Please describe your pet's current diet (brand, type, amount, frequency)",
+      "x-control-variant": "textarea",
+      "placeholder": "Current diet",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "parasite_prevention": {
+      "type": "array",
+      "title": "Parasite Prevention",
+      "description": "What parasite prevention is your pet currently on?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Heartworm prevention",
+        "Flea prevention",
+        "Tick prevention",
+        "Intestinal parasite prevention",
+        "None",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_parasite_prevention": {
+      "type": "string",
+      "title": "Other Parasite Prevention",
+      "description": "If you selected 'Other', please specify the parasite prevention",
+      "placeholder": "Other parasite prevention",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "visit_reason": {
+      "type": "string",
+      "title": "Reason for Visit",
+      "description": "Please describe the primary reason for your pet's visit today",
+      "x-control-variant": "textarea",
+      "placeholder": "Reason for visit",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "symptoms": {
+      "type": "string",
+      "title": "Current Symptoms",
+      "description": "Please describe any symptoms your pet is currently experiencing",
+      "x-control-variant": "textarea",
+      "placeholder": "Current symptoms",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "symptom_onset": {
+      "type": "string",
+      "title": "Symptom Onset",
+      "description": "When did you first notice these symptoms?",
+      "placeholder": "When symptoms began",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "symptom_frequency": {
+      "type": "string",
+      "title": "Symptom Frequency",
+      "description": "How often does your pet experience these symptoms?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Constantly",
+        "Several times a day",
+        "Once daily",
+        "Several times a week",
+        "Occasionally",
+        "Only once"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "symptom_progression": {
+      "type": "string",
+      "title": "Symptom Progression",
+      "description": "How have the symptoms changed since they began?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Getting worse",
+        "Staying the same",
+        "Improving",
+        "Come and go"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "appetite_changes": {
+      "type": "string",
+      "title": "Appetite Changes",
+      "description": "Has your pet's appetite changed?",
+      "x-control": "selectsingle",
+      "enum": [
+        "No change",
+        "Increased appetite",
+        "Decreased appetite",
+        "Not eating at all"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "water_consumption": {
+      "type": "string",
+      "title": "Water Consumption",
+      "description": "Has your pet's water consumption changed?",
+      "x-control": "selectsingle",
+      "enum": [
+        "No change",
+        "Drinking more than usual",
+        "Drinking less than usual",
+        "Not drinking at all"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "urination_changes": {
+      "type": "string",
+      "title": "Urination Changes",
+      "description": "Have you noticed any changes in your pet's urination?",
+      "x-control": "selectsingle",
+      "enum": [
+        "No change",
+        "Urinating more frequently",
+        "Urinating larger amounts",
+        "Urinating smaller amounts",
+        "Difficulty urinating",
+        "Blood in urine",
+        "Accidents in the house"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "bowel_movement_changes": {
+      "type": "string",
+      "title": "Bowel Movement Changes",
+      "description": "Have you noticed any changes in your pet's bowel movements?",
+      "x-control": "selectsingle",
+      "enum": [
+        "No change",
+        "Diarrhea",
+        "Constipation",
+        "Blood in stool",
+        "Different color than normal",
+        "Increased frequency",
+        "Decreased frequency"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "vomiting": {
+      "type": "boolean",
+      "title": "Vomiting",
+      "description": "Has your pet been vomiting?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "vomiting_frequency": {
+      "type": "string",
+      "title": "Vomiting Frequency",
+      "description": "If your pet has been vomiting, how often?",
+      "placeholder": "Vomiting frequency",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "vomiting_description": {
+      "type": "string",
+      "title": "Vomiting Description",
+      "description": "If your pet has been vomiting, please describe the vomit (color, content, etc.)",
+      "x-control-variant": "textarea",
+      "placeholder": "Vomit description",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "activity_level": {
+      "type": "string",
+      "title": "Activity Level",
+      "description": "Has your pet's activity level changed?",
+      "x-control": "selectsingle",
+      "enum": [
+        "No change",
+        "More active than usual",
+        "Less active than usual",
+        "Reluctant to move",
+        "Unable to move normally"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "behavior_changes": {
+      "type": "string",
+      "title": "Behavior Changes",
+      "description": "Have you noticed any changes in your pet's behavior?",
+      "x-control-variant": "textarea",
+      "placeholder": "Behavior changes",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "pain_signs": {
+      "type": "array",
+      "title": "Signs of Pain",
+      "description": "Have you noticed any signs that your pet might be in pain?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Crying/Vocalizing",
+        "Limping",
+        "Reluctance to move",
+        "Guarding a body part",
+        "Aggression when touched",
+        "Panting",
+        "Restlessness",
+        "None observed"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_concerns": {
+      "type": "string",
+      "title": "Additional Concerns",
+      "description": "Please describe any additional concerns about your pet's health",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional concerns",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "treatment_authorization": {
+      "type": "boolean",
+      "title": "Treatment Authorization",
+      "description": "I authorize the veterinarian to examine and provide treatment for my pet as deemed necessary.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "financial_responsibility": {
+      "type": "boolean",
+      "title": "Financial Responsibility",
+      "description": "I understand that payment is due at the time services are rendered and I accept financial responsibility for all charges incurred for the treatment of my pet.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "information_accuracy": {
+      "type": "boolean",
+      "title": "Information Accuracy",
+      "description": "I certify that the information provided in this form is accurate and complete to the best of my knowledge.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "photo_consent": {
+      "type": "boolean",
+      "title": "Photo Consent",
+      "description": "I give permission for the veterinary clinic to take photos of my pet for medical records and potential use in educational or promotional materials.",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "communication_preference": {
+      "type": "array",
+      "title": "Communication Preference",
+      "description": "How would you prefer to receive communications from us?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Phone",
+        "Email",
+        "Text Message"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature": {
+      "type": "string",
+      "title": "Digital Signature",
+      "description": "Please type your full name as your digital signature",
+      "placeholder": "Type your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Form",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for providing this information about your pet. This will help us provide the best possible care. A member of our veterinary team will review this information and discuss your pet's health with you during your appointment.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

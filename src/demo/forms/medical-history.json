@@ -1,0 +1,747 @@
+{
+  "type": "object",
+  "title": "Medical History Form",
+  "description": "Comprehensive medical history for healthcare providers",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "current_health", "title": "Current Health Status" },
+        { "id": "medical_conditions", "title": "Medical Conditions" },
+        { "id": "medications", "title": "Medications & Allergies" },
+        { "id": "family_history", "title": "Family Medical History" },
+        { "id": "lifestyle", "title": "Lifestyle & Social History" },
+        { "id": "certification", "title": "Certification & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Medical History Form",
+      "description": "Please complete this comprehensive medical history form. This information will help your healthcare provider understand your health background and provide appropriate care. All information will be kept confidential in accordance with HIPAA regulations.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full legal name",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "age": {
+      "type": "number",
+      "title": "Age",
+      "description": "Please enter your current age",
+      "minimum": 0,
+      "maximum": 120,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Transgender",
+        "Prefer to self-describe",
+        "Prefer not to say"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender_self_describe": {
+      "type": "string",
+      "title": "Self-Described Gender",
+      "description": "If you selected 'Prefer to self-describe', please specify",
+      "placeholder": "Self-described gender",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "sex_at_birth": {
+      "type": "string",
+      "title": "Sex Assigned at Birth",
+      "description": "Please select your sex assigned at birth",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Intersex",
+        "Prefer not to say"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "primary_care_physician": {
+      "type": "string",
+      "title": "Primary Care Physician",
+      "description": "Please enter your primary care physician's name",
+      "placeholder": "Physician name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "date_last_physical": {
+      "type": "string",
+      "title": "Date of Last Physical Exam",
+      "description": "Please enter the date of your last physical examination",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "current_health_rating": {
+      "type": "string",
+      "title": "Current Health Rating",
+      "description": "How would you rate your current overall health?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Very Good",
+        "Good",
+        "Fair",
+        "Poor"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "current_concerns": {
+      "type": "string",
+      "title": "Current Health Concerns",
+      "description": "Please describe any current health concerns or symptoms you are experiencing",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe current health concerns",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pain": {
+      "type": "boolean",
+      "title": "Pain",
+      "description": "Are you currently experiencing any pain?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pain_location": {
+      "type": "string",
+      "title": "Pain Location",
+      "description": "If yes, where is your pain located?",
+      "placeholder": "Pain location",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pain_severity": {
+      "type": "number",
+      "title": "Pain Severity",
+      "description": "On a scale of 1-10, how would you rate your pain? (1 = minimal, 10 = worst possible)",
+      "x-control": "slider",
+      "minimum": 1,
+      "maximum": 10,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pain_duration": {
+      "type": "string",
+      "title": "Pain Duration",
+      "description": "How long have you been experiencing this pain?",
+      "placeholder": "Pain duration",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "recent_weight_changes": {
+      "type": "string",
+      "title": "Recent Weight Changes",
+      "description": "Have you experienced any significant weight changes in the past 6 months?",
+      "x-control": "selectsingle",
+      "enum": [
+        "No significant change",
+        "Weight gain",
+        "Weight loss",
+        "Fluctuating weight"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "weight_change_amount": {
+      "type": "string",
+      "title": "Weight Change Amount",
+      "description": "If you've had weight changes, approximately how much?",
+      "placeholder": "Amount of weight change",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "sleep_quality": {
+      "type": "string",
+      "title": "Sleep Quality",
+      "description": "How would you rate your sleep quality?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Good",
+        "Fair",
+        "Poor",
+        "Very Poor"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "sleep_hours": {
+      "type": "number",
+      "title": "Average Hours of Sleep",
+      "description": "How many hours do you sleep on average per night?",
+      "minimum": 0,
+      "maximum": 24,
+      "step": 0.5,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "energy_level": {
+      "type": "string",
+      "title": "Energy Level",
+      "description": "How would you describe your energy level?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very High",
+        "High",
+        "Moderate",
+        "Low",
+        "Very Low"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "stress_level": {
+      "type": "string",
+      "title": "Stress Level",
+      "description": "How would you rate your current stress level?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very High",
+        "High",
+        "Moderate",
+        "Low",
+        "Very Low"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "medical_conditions_current": {
+      "type": "array",
+      "title": "Current Medical Conditions",
+      "description": "Please select all current medical conditions that you have been diagnosed with",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Asthma",
+        "Cancer",
+        "Chronic Pain",
+        "COPD",
+        "Diabetes (Type 1)",
+        "Diabetes (Type 2)",
+        "Heart Disease",
+        "High Blood Pressure (Hypertension)",
+        "High Cholesterol",
+        "Kidney Disease",
+        "Liver Disease",
+        "Stroke",
+        "Thyroid Disorder",
+        "Autoimmune Disorder",
+        "Arthritis",
+        "Osteoporosis",
+        "Depression",
+        "Anxiety",
+        "Bipolar Disorder",
+        "PTSD",
+        "Other Mental Health Condition",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_current_conditions": {
+      "type": "string",
+      "title": "Other Current Conditions",
+      "description": "If you selected 'Other', please specify",
+      "x-control-variant": "textarea",
+      "placeholder": "Other current conditions",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "medical_conditions_past": {
+      "type": "array",
+      "title": "Past Medical Conditions",
+      "description": "Please select all past medical conditions that you have had but are now resolved",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Asthma",
+        "Cancer",
+        "Chronic Pain",
+        "COPD",
+        "Diabetes",
+        "Heart Disease",
+        "High Blood Pressure (Hypertension)",
+        "High Cholesterol",
+        "Kidney Disease",
+        "Liver Disease",
+        "Stroke",
+        "Thyroid Disorder",
+        "Autoimmune Disorder",
+        "Arthritis",
+        "Osteoporosis",
+        "Depression",
+        "Anxiety",
+        "Bipolar Disorder",
+        "PTSD",
+        "Other Mental Health Condition",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_past_conditions": {
+      "type": "string",
+      "title": "Other Past Conditions",
+      "description": "If you selected 'Other', please specify",
+      "x-control-variant": "textarea",
+      "placeholder": "Other past conditions",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "hospitalizations": {
+      "type": "string",
+      "title": "Hospitalizations",
+      "description": "Please list any hospitalizations you have had, including dates and reasons",
+      "x-control-variant": "textarea",
+      "placeholder": "Hospitalizations with dates and reasons",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "surgeries": {
+      "type": "string",
+      "title": "Surgeries",
+      "description": "Please list any surgeries you have had, including dates and types",
+      "x-control-variant": "textarea",
+      "placeholder": "Surgeries with dates and types",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "injuries": {
+      "type": "string",
+      "title": "Major Injuries",
+      "description": "Please list any major injuries you have had, including dates and types",
+      "x-control-variant": "textarea",
+      "placeholder": "Major injuries with dates and types",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "infectious_diseases": {
+      "type": "array",
+      "title": "Infectious Diseases",
+      "description": "Please select all infectious diseases you have had",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "COVID-19",
+        "Chickenpox",
+        "Measles",
+        "Mumps",
+        "Rubella",
+        "Tuberculosis",
+        "Hepatitis",
+        "HIV/AIDS",
+        "Mononucleosis",
+        "Pneumonia",
+        "Meningitis",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_infectious_diseases": {
+      "type": "string",
+      "title": "Other Infectious Diseases",
+      "description": "If you selected 'Other', please specify",
+      "placeholder": "Other infectious diseases",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_medications": {
+      "type": "string",
+      "title": "Current Medications",
+      "description": "Please list all prescription medications you are currently taking, including dosage and frequency",
+      "x-control-variant": "textarea",
+      "placeholder": "Medication name, dosage, frequency",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "otc_medications": {
+      "type": "string",
+      "title": "Over-the-Counter Medications",
+      "description": "Please list all over-the-counter medications you take regularly",
+      "x-control-variant": "textarea",
+      "placeholder": "OTC medications",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "supplements": {
+      "type": "string",
+      "title": "Supplements & Vitamins",
+      "description": "Please list all supplements, vitamins, and herbal remedies you take regularly",
+      "x-control-variant": "textarea",
+      "placeholder": "Supplements, vitamins, herbal remedies",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "medication_allergies": {
+      "type": "boolean",
+      "title": "Medication Allergies",
+      "description": "Do you have any known medication allergies?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "medication_allergies_list": {
+      "type": "string",
+      "title": "Medication Allergies List",
+      "description": "If yes, please list all medication allergies and reactions",
+      "x-control-variant": "textarea",
+      "placeholder": "Medication allergies and reactions",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "food_allergies": {
+      "type": "boolean",
+      "title": "Food Allergies",
+      "description": "Do you have any food allergies?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "food_allergies_list": {
+      "type": "string",
+      "title": "Food Allergies List",
+      "description": "If yes, please list all food allergies and reactions",
+      "x-control-variant": "textarea",
+      "placeholder": "Food allergies and reactions",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "environmental_allergies": {
+      "type": "boolean",
+      "title": "Environmental Allergies",
+      "description": "Do you have any environmental allergies?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "environmental_allergies_list": {
+      "type": "string",
+      "title": "Environmental Allergies List",
+      "description": "If yes, please list all environmental allergies and reactions",
+      "x-control-variant": "textarea",
+      "placeholder": "Environmental allergies and reactions",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "family_history_intro": {
+      "type": "null",
+      "title": "Family Medical History",
+      "description": "Please indicate if any blood relatives have had any of the following conditions. This information helps identify potential genetic risk factors.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_heart_disease": {
+      "type": "boolean",
+      "title": "Heart Disease",
+      "description": "Has anyone in your family been diagnosed with heart disease?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_heart_disease_relation": {
+      "type": "string",
+      "title": "Heart Disease - Relation",
+      "description": "If yes, please specify which family members",
+      "placeholder": "Family members with heart disease",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_cancer": {
+      "type": "boolean",
+      "title": "Cancer",
+      "description": "Has anyone in your family been diagnosed with cancer?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_cancer_relation": {
+      "type": "string",
+      "title": "Cancer - Relation",
+      "description": "If yes, please specify which family members and types of cancer",
+      "placeholder": "Family members with cancer and types",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_diabetes": {
+      "type": "boolean",
+      "title": "Diabetes",
+      "description": "Has anyone in your family been diagnosed with diabetes?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_diabetes_relation": {
+      "type": "string",
+      "title": "Diabetes - Relation",
+      "description": "If yes, please specify which family members and type of diabetes if known",
+      "placeholder": "Family members with diabetes",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_hypertension": {
+      "type": "boolean",
+      "title": "High Blood Pressure",
+      "description": "Has anyone in your family been diagnosed with high blood pressure?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_hypertension_relation": {
+      "type": "string",
+      "title": "High Blood Pressure - Relation",
+      "description": "If yes, please specify which family members",
+      "placeholder": "Family members with high blood pressure",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_stroke": {
+      "type": "boolean",
+      "title": "Stroke",
+      "description": "Has anyone in your family had a stroke?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_stroke_relation": {
+      "type": "string",
+      "title": "Stroke - Relation",
+      "description": "If yes, please specify which family members",
+      "placeholder": "Family members who had strokes",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_mental_health": {
+      "type": "boolean",
+      "title": "Mental Health Conditions",
+      "description": "Has anyone in your family been diagnosed with mental health conditions?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_mental_health_relation": {
+      "type": "string",
+      "title": "Mental Health - Relation",
+      "description": "If yes, please specify which family members and conditions",
+      "placeholder": "Family members with mental health conditions",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "family_other_conditions": {
+      "type": "string",
+      "title": "Other Family Conditions",
+      "description": "Please list any other significant medical conditions in your family",
+      "x-control-variant": "textarea",
+      "placeholder": "Other family medical conditions",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "tobacco_use": {
+      "type": "string",
+      "title": "Tobacco Use",
+      "description": "Please select your tobacco use status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never used",
+        "Former user",
+        "Current user - occasional",
+        "Current user - regular",
+        "Current user - heavy"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tobacco_type": {
+      "type": "array",
+      "title": "Tobacco Type",
+      "description": "If you use or used tobacco, please select all types that apply",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Cigarettes",
+        "Cigars",
+        "Pipe",
+        "Chewing tobacco",
+        "Snuff",
+        "E-cigarettes/Vaping",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tobacco_frequency": {
+      "type": "string",
+      "title": "Tobacco Frequency",
+      "description": "If you currently use tobacco, how much do you use per day?",
+      "placeholder": "Amount per day",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tobacco_years": {
+      "type": "number",
+      "title": "Years of Tobacco Use",
+      "description": "For how many years have you used tobacco?",
+      "minimum": 0,
+      "maximum": 100,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tobacco_quit_date": {
+      "type": "string",
+      "title": "Tobacco Quit Date",
+      "description": "If you've quit, when did you quit?",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "alcohol_use": {
+      "type": "string",
+      "title": "Alcohol Use",
+      "description": "Please select your alcohol use status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely (few times a year)",
+        "Occasionally (few times a month)",
+        "Regularly (few times a week)",
+        "Daily"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "alcohol_frequency": {
+      "type": "string",
+      "title": "Alcohol Frequency",
+      "description": "If you drink alcohol, how many drinks do you typically have per week?",
+      "placeholder": "Drinks per week",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "recreational_drugs": {
+      "type": "boolean",
+      "title": "Recreational Drugs",
+      "description": "Do you use recreational drugs?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "recreational_drugs_details": {
+      "type": "string",
+      "title": "Recreational Drugs Details",
+      "description": "If yes, please specify types and frequency (this information is confidential and used only for medical purposes)",
+      "x-control-variant": "textarea",
+      "placeholder": "Types and frequency",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "exercise": {
+      "type": "string",
+      "title": "Exercise",
+      "description": "How often do you exercise?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely (few times a month)",
+        "Occasionally (1-2 times a week)",
+        "Regularly (3-5 times a week)",
+        "Daily"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "exercise_types": {
+      "type": "string",
+      "title": "Exercise Types",
+      "description": "What types of exercise do you do?",
+      "x-control-variant": "textarea",
+      "placeholder": "Types of exercise",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "diet": {
+      "type": "string",
+      "title": "Diet",
+      "description": "How would you describe your diet?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Balanced/Regular",
+        "Vegetarian",
+        "Vegan",
+        "Gluten-free",
+        "Dairy-free",
+        "Keto/Low-carb",
+        "Paleo",
+        "Mediterranean",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "diet_details": {
+      "type": "string",
+      "title": "Diet Details",
+      "description": "Please provide any additional details about your diet",
+      "x-control-variant": "textarea",
+      "placeholder": "Diet details",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "occupation": {
+      "type": "string",
+      "title": "Occupation",
+      "description": "What is your current occupation?",
+      "placeholder": "Your occupation",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "occupational_hazards": {
+      "type": "string",
+      "title": "Occupational Hazards",
+      "description": "Are you exposed to any hazards at work? (e.g., chemicals, radiation, excessive noise)",
+      "x-control-variant": "textarea",
+      "placeholder": "Occupational hazards",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "travel_history": {
+      "type": "string",
+      "title": "Travel History",
+      "description": "Have you traveled outside the country in the past year? If yes, where?",
+      "x-control-variant": "textarea",
+      "placeholder": "Recent travel history",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "information_accuracy": {
+      "type": "boolean",
+      "title": "Information Accuracy",
+      "description": "I certify that the information provided in this medical history form is accurate and complete to the best of my knowledge.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "information_sharing": {
+      "type": "boolean",
+      "title": "Information Sharing",
+      "description": "I authorize the sharing of this medical history information with my healthcare providers for the purpose of my medical care.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "update_responsibility": {
+      "type": "boolean",
+      "title": "Update Responsibility",
+      "description": "I understand that it is my responsibility to inform my healthcare providers of any changes to my medical history.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "signature": {
+      "type": "string",
+      "title": "Digital Signature",
+      "description": "Please type your full name as your digital signature",
+      "placeholder": "Type your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Medical History",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your medical history form has been submitted successfully. This information will be reviewed by your healthcare provider before your appointment.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    }
+  }
+}

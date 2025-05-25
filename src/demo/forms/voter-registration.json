@@ -1,0 +1,398 @@
+{
+  "type": "object",
+  "title": "Voter Registration Form",
+  "description": "Register to vote in upcoming elections",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "eligibility", "title": "Eligibility" },
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "residence_info", "title": "Residence Information" },
+        { "id": "identification", "title": "Identification" },
+        { "id": "political_info", "title": "Political Information" },
+        { "id": "submission", "title": "Review & Submit" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Voter Registration",
+      "description": "This form is used to register to vote in upcoming elections. Please complete all required fields accurately. Your information will be verified before your registration is approved.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "citizenship": {
+      "type": "boolean",
+      "title": "U.S. Citizenship",
+      "description": "I am a citizen of the United States of America",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "age_confirmation": {
+      "type": "boolean",
+      "title": "Age Confirmation",
+      "description": "I am at least 18 years old, or will be by the next election",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "felony_status": {
+      "type": "boolean",
+      "title": "Felony Status",
+      "description": "I am not currently serving a felony sentence and my voting rights have not been revoked",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "mental_capacity": {
+      "type": "boolean",
+      "title": "Mental Capacity",
+      "description": "I have not been declared mentally incompetent by a court of law",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_legal_name": {
+      "type": "string",
+      "title": "Full Legal Name",
+      "description": "Please enter your full legal name as it appears on your identification documents",
+      "placeholder": "Your full legal name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "previous_name": {
+      "type": "string",
+      "title": "Previous Name",
+      "description": "If you have changed your name since your last registration, please enter your previous name",
+      "placeholder": "Previous name (if applicable)",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address for voter notifications",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "residence_address": {
+      "type": "string",
+      "title": "Residence Address",
+      "description": "Please enter your residential street address (not a P.O. Box)",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "apartment": {
+      "type": "string",
+      "title": "Apartment/Unit Number",
+      "description": "Please enter your apartment or unit number (if applicable)",
+      "placeholder": "Apartment/Unit number",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "state_province": {
+      "type": "string",
+      "title": "State",
+      "description": "Please enter your state",
+      "placeholder": "State",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Zip Code",
+      "description": "Please enter your zip code",
+      "placeholder": "Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mailing_address_same": {
+      "type": "boolean",
+      "title": "Mailing Address",
+      "description": "My mailing address is the same as my residence address",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mailing_address": {
+      "type": "string",
+      "title": "Mailing Address",
+      "description": "Please enter your mailing address if different from residence address",
+      "placeholder": "Mailing address",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mailing_city": {
+      "type": "string",
+      "title": "Mailing City",
+      "description": "Please enter your mailing city",
+      "placeholder": "Mailing city",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mailing_state": {
+      "type": "string",
+      "title": "Mailing State",
+      "description": "Please enter your mailing state",
+      "placeholder": "Mailing state",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mailing_zip": {
+      "type": "string",
+      "title": "Mailing Zip Code",
+      "description": "Please enter your mailing zip code",
+      "placeholder": "Mailing zip code",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_registration": {
+      "type": "boolean",
+      "title": "Previous Registration",
+      "description": "I have previously registered to vote at another address",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_address": {
+      "type": "string",
+      "title": "Previous Registration Address",
+      "description": "Please enter your previous registration address",
+      "placeholder": "Previous address",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_city": {
+      "type": "string",
+      "title": "Previous Registration City",
+      "description": "Please enter your previous registration city",
+      "placeholder": "Previous city",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_state": {
+      "type": "string",
+      "title": "Previous Registration State",
+      "description": "Please enter your previous registration state",
+      "placeholder": "Previous state",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "previous_zip": {
+      "type": "string",
+      "title": "Previous Registration Zip Code",
+      "description": "Please enter your previous registration zip code",
+      "placeholder": "Previous zip code",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "id_type": {
+      "type": "string",
+      "title": "Identification Type",
+      "description": "Please select the type of identification you are providing",
+      "x-control": "selectsingle",
+      "enum": [
+        "Driver's License",
+        "State ID",
+        "Social Security Number (last 4 digits)",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "id_number": {
+      "type": "string",
+      "title": "ID Number",
+      "description": "Please enter your ID number (Driver's License/State ID)",
+      "placeholder": "ID number",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "ssn_last_four": {
+      "type": "string",
+      "title": "Last 4 Digits of SSN",
+      "description": "Please enter the last 4 digits of your Social Security Number",
+      "placeholder": "Last 4 digits of SSN",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "id_issue_state": {
+      "type": "string",
+      "title": "ID Issuing State",
+      "description": "Please enter the state that issued your ID",
+      "placeholder": "ID issuing state",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "id_expiration": {
+      "type": "string",
+      "title": "ID Expiration Date",
+      "description": "Please enter the expiration date of your ID",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "political_party": {
+      "type": "string",
+      "title": "Political Party Affiliation",
+      "description": "Please select your political party affiliation (optional)",
+      "x-control": "selectsingle",
+      "enum": [
+        "Democratic",
+        "Republican",
+        "Independent",
+        "Green",
+        "Libertarian",
+        "Other",
+        "No Affiliation"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "other_party": {
+      "type": "string",
+      "title": "Other Political Party",
+      "description": "If you selected 'Other', please specify your political party",
+      "placeholder": "Other political party",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "poll_worker": {
+      "type": "boolean",
+      "title": "Poll Worker Interest",
+      "description": "I am interested in serving as a poll worker on Election Day",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "accessibility_needs": {
+      "type": "array",
+      "title": "Accessibility Needs",
+      "description": "Please select any accessibility accommodations you may need at your polling place",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Wheelchair access",
+        "Hearing assistance",
+        "Visual assistance",
+        "Language assistance",
+        "Other",
+        "None"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "other_accessibility": {
+      "type": "string",
+      "title": "Other Accessibility Needs",
+      "description": "If you selected 'Other', please specify your accessibility needs",
+      "placeholder": "Other accessibility needs",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "preferred_language": {
+      "type": "string",
+      "title": "Preferred Language",
+      "description": "Please select your preferred language for voting materials",
+      "x-control": "selectsingle",
+      "enum": [
+        "English",
+        "Spanish",
+        "Chinese",
+        "Vietnamese",
+        "Korean",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "other_language": {
+      "type": "string",
+      "title": "Other Language",
+      "description": "If you selected 'Other', please specify your preferred language",
+      "placeholder": "Other language",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "information_certification": {
+      "type": "boolean",
+      "title": "Information Certification",
+      "description": "I certify that the information provided is true and correct to the best of my knowledge. I understand that providing false information may subject me to penalties under law.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "voter_declaration": {
+      "type": "boolean",
+      "title": "Voter Declaration",
+      "description": "I declare that I meet all the eligibility requirements to register to vote in this jurisdiction. I am a U.S. citizen, I meet the age and residency requirements, and I am not disqualified from voting due to a felony conviction or court determination.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "privacy_agreement": {
+      "type": "boolean",
+      "title": "Privacy Agreement",
+      "description": "I understand that the information provided will be used for voter registration purposes and may be shared with election officials as required by law.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "digital_signature": {
+      "type": "string",
+      "title": "Digital Signature",
+      "description": "Please type your full name as your digital signature",
+      "placeholder": "Type your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Register to Vote",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your voter registration application has been submitted. You will receive a confirmation by mail within 2-3 weeks. If you do not receive confirmation or have questions about your registration status, please contact your local election office.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

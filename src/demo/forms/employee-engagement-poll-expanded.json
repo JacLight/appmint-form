@@ -1,0 +1,117 @@
+{
+  "type": "object",
+  "title": "Employee Engagement Poll",
+  "description": "Measure employee satisfaction and engagement within your organization",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Employee Feedback Initiative",
+      "description": "Your feedback is important to us! This anonymous poll will help us understand how you're feeling about your work experience and identify areas for improvement. It will take less than 3 minutes to complete.",
+      "x-control": "paragraph"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name (Optional)",
+      "description": "Your name will be kept confidential",
+      "placeholder": "Your name"
+    },
+    "department": {
+      "type": "string",
+      "title": "Department",
+      "description": "Please select your department",
+      "x-control": "selectsingle",
+      "enum": [
+        "Marketing",
+        "Sales",
+        "Customer Support",
+        "Product",
+        "Engineering",
+        "HR",
+        "Finance",
+        "Other"
+      ],
+      "inputRequired": true
+    },
+    "valued_rating": {
+      "type": "number",
+      "title": "I feel valued at work",
+      "description": "1 = Strongly Disagree, 5 = Strongly Agree",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true
+    },
+    "resources_rating": {
+      "type": "number",
+      "title": "I have the resources I need to do my job well",
+      "description": "1 = Strongly Disagree, 5 = Strongly Agree",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true
+    },
+    "future_rating": {
+      "type": "number",
+      "title": "I see myself still working here in two years' time",
+      "description": "1 = Strongly Disagree, 5 = Strongly Agree",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true
+    },
+    "manager_rating": {
+      "type": "number",
+      "title": "My manager recognizes my contributions",
+      "description": "1 = Strongly Disagree, 5 = Strongly Agree",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true
+    },
+    "improvement_suggestions": {
+      "type": "string",
+      "title": "What would make this company a better place to work?",
+      "description": "Please share your ideas for improvement",
+      "x-control-variant": "textarea",
+      "placeholder": "My suggestions are..."
+    },
+    "work_life_balance": {
+      "type": "number",
+      "title": "How satisfied are you with your work-life balance?",
+      "description": "1 = Very Dissatisfied, 5 = Very Satisfied",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "career_growth": {
+      "type": "number",
+      "title": "How satisfied are you with your career growth opportunities?",
+      "description": "1 = Very Dissatisfied, 5 = Very Satisfied",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "initiative_interest": {
+      "type": "array",
+      "title": "Which of these potential company initiatives would interest you most?",
+      "description": "Select all that apply",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Flexible work hours",
+        "Remote work options",
+        "Professional development programs",
+        "Team building activities",
+        "Wellness programs",
+        "Mentorship opportunities",
+        "Recognition programs"
+      ]
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your feedback. Your input helps us create a better workplace environment. Results from this poll will be shared in the next company-wide meeting.",
+      "x-control": "paragraph"
+    }
+  }
+}

@@ -1,0 +1,540 @@
+{
+  "type": "object",
+  "title": "Climate Action Commitment Form",
+  "description": "Commit to personal and community actions to combat climate change",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "personal", "title": "Personal Information" },
+        { "id": "assessment", "title": "Carbon Footprint" },
+        { "id": "commitments", "title": "Action Commitments" },
+        { "id": "community", "title": "Community Engagement" },
+        { "id": "submit", "title": "Review & Submit" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Climate Action Commitment",
+      "description": "Thank you for taking the first step toward addressing climate change. This form will help you assess your current carbon footprint, identify areas for improvement, and commit to specific actions that reduce your environmental impact. Your individual actions, combined with those of others, can make a significant difference in our collective effort to create a sustainable future.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "climate_urgency": {
+      "type": "null",
+      "title": "The Urgency of Climate Action",
+      "description": "Climate change is one of the most pressing challenges of our time. Rising global temperatures are leading to more frequent and severe weather events, rising sea levels, biodiversity loss, and threats to food and water security. Scientific consensus indicates that limiting global warming to 1.5°C above pre-industrial levels is critical to preventing the most catastrophic impacts. This requires rapid, far-reaching transitions in how we produce energy, manage land, build cities, and operate industrial systems.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "form_purpose": {
+      "type": "null",
+      "title": "Purpose of This Form",
+      "description": "This Climate Action Commitment Form serves several purposes:\n\n• **Assessment**: Helps you understand your current carbon footprint and environmental impact\n• **Education**: Provides information about effective climate actions and their benefits\n• **Commitment**: Allows you to pledge specific actions you'll take to reduce your impact\n• **Community**: Connects you with local initiatives and like-minded individuals\n• **Accountability**: Creates a record of your commitments that you can revisit and track",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number (optional)",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "household_size": {
+      "type": "number",
+      "title": "Household Size",
+      "description": "How many people live in your household?",
+      "minimum": 1,
+      "maximum": 20,
+      "default": 1,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "housing_type": {
+      "type": "string",
+      "title": "Housing Type",
+      "description": "What type of housing do you live in?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Apartment/Condominium",
+        "Townhouse",
+        "Single-family home (small)",
+        "Single-family home (medium)",
+        "Single-family home (large)",
+        "Mobile home",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "motivation": {
+      "type": "array",
+      "title": "Motivation",
+      "description": "What motivates you to take climate action? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Concern for future generations",
+        "Environmental protection",
+        "Social justice",
+        "Health benefits",
+        "Economic benefits",
+        "Community resilience",
+        "Personal values/ethics",
+        "Religious/spiritual beliefs",
+        "Scientific evidence",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "carbon_footprint_intro": {
+      "type": "null",
+      "title": "Carbon Footprint Assessment",
+      "description": "The following questions will help estimate your current carbon footprint. This assessment covers major sources of greenhouse gas emissions in your daily life, including home energy use, transportation, food choices, and consumption patterns.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "energy_source": {
+      "type": "array",
+      "title": "Home Energy Sources",
+      "description": "What energy sources do you use in your home? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Electricity (standard grid)",
+        "Electricity (renewable energy plan)",
+        "Natural gas",
+        "Heating oil",
+        "Propane",
+        "Wood",
+        "Solar panels (owned/leased)",
+        "Other renewable energy (e.g., geothermal, wind)"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "energy_efficiency": {
+      "type": "array",
+      "title": "Energy Efficiency Measures",
+      "description": "Which energy efficiency measures have you implemented in your home? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "LED/efficient lighting",
+        "Energy Star appliances",
+        "Programmable/smart thermostat",
+        "Improved insulation",
+        "Energy-efficient windows",
+        "Low-flow water fixtures",
+        "Energy audit completed",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "transportation_primary": {
+      "type": "string",
+      "title": "Primary Transportation",
+      "description": "What is your primary mode of transportation?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Walk",
+        "Bicycle",
+        "Public transit",
+        "Motorcycle/scooter",
+        "Gasoline car",
+        "Diesel car",
+        "Hybrid car",
+        "Plug-in hybrid car",
+        "Electric vehicle",
+        "Carpool/rideshare"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "weekly_driving": {
+      "type": "string",
+      "title": "Weekly Driving Distance",
+      "description": "How many miles do you drive in a typical week?",
+      "x-control": "selectsingle",
+      "enum": [
+        "0 (I don't drive)",
+        "Less than 50 miles",
+        "50-100 miles",
+        "101-200 miles",
+        "201-300 miles",
+        "More than 300 miles"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "air_travel": {
+      "type": "string",
+      "title": "Air Travel",
+      "description": "How many flights do you take in a typical year?",
+      "x-control": "selectsingle",
+      "enum": [
+        "0 (I don't fly)",
+        "1-2 short flights (under 3 hours)",
+        "1-2 long flights",
+        "3-5 flights (mix of short and long)",
+        "6-10 flights",
+        "More than 10 flights"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "diet": {
+      "type": "string",
+      "title": "Diet",
+      "description": "Which best describes your diet?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Vegan (no animal products)",
+        "Vegetarian (no meat, but may include dairy/eggs)",
+        "Pescatarian (vegetarian plus fish)",
+        "Flexitarian (mostly plant-based with occasional meat)",
+        "Omnivore with low meat consumption",
+        "Omnivore with average meat consumption",
+        "Omnivore with high meat consumption"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "food_choices": {
+      "type": "array",
+      "title": "Food Choices",
+      "description": "Which of the following apply to your food choices? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Buy local produce when available",
+        "Grow some of my own food",
+        "Purchase organic food regularly",
+        "Minimize food waste",
+        "Compost food scraps",
+        "Limit processed foods",
+        "Limit red meat consumption",
+        "Prioritize seasonal foods",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "waste_management": {
+      "type": "array",
+      "title": "Waste Management",
+      "description": "Which waste reduction practices do you follow? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Recycle paper, plastic, glass, and metal",
+        "Compost food waste",
+        "Compost yard waste",
+        "Properly dispose of electronics and hazardous waste",
+        "Use reusable alternatives to disposable products",
+        "Donate unwanted items",
+        "Practice zero-waste principles",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "commitments_intro": {
+      "type": "null",
+      "title": "Climate Action Commitments",
+      "description": "Based on your carbon footprint assessment, please select specific actions you commit to taking in the next 12 months to reduce your environmental impact. These commitments should be realistic for your situation while still challenging you to make meaningful changes.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "energy_commitments": {
+      "type": "array",
+      "title": "Energy Commitments",
+      "description": "Which energy-related actions do you commit to taking? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Switch to a renewable energy plan or provider",
+        "Install solar panels or other renewable energy system",
+        "Replace inefficient appliances with Energy Star models",
+        "Install a programmable or smart thermostat",
+        "Improve home insulation",
+        "Replace all lighting with LED bulbs",
+        "Conduct a home energy audit",
+        "Reduce heating temperature in winter and increase cooling temperature in summer",
+        "Unplug electronics when not in use or use smart power strips",
+        "Wash clothes in cold water and line-dry when possible",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "transportation_commitments": {
+      "type": "array",
+      "title": "Transportation Commitments",
+      "description": "Which transportation-related actions do you commit to taking? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Walk or bike for short trips instead of driving",
+        "Use public transportation more frequently",
+        "Carpool or use rideshare services instead of driving alone",
+        "Purchase an electric or hybrid vehicle",
+        "Reduce air travel or purchase carbon offsets for necessary flights",
+        "Combine errands to reduce driving trips",
+        "Work from home when possible",
+        "Keep vehicle properly maintained for optimal efficiency",
+        "Practice eco-driving techniques (avoid rapid acceleration/braking)",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "food_commitments": {
+      "type": "array",
+      "title": "Food Commitments",
+      "description": "Which food-related actions do you commit to taking? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Reduce meat consumption (especially red meat)",
+        "Adopt a more plant-based diet",
+        "Purchase locally grown food when available",
+        "Grow some of my own food",
+        "Reduce food waste through better planning and storage",
+        "Start composting food scraps",
+        "Choose organic and sustainably produced foods when possible",
+        "Avoid highly processed foods",
+        "Bring reusable containers for takeout and leftovers",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "waste_commitments": {
+      "type": "array",
+      "title": "Waste Commitments",
+      "description": "Which waste-related actions do you commit to taking? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Improve recycling habits by learning local guidelines",
+        "Start or improve composting of food and yard waste",
+        "Reduce use of single-use plastics",
+        "Use reusable shopping bags, water bottles, and coffee cups",
+        "Properly dispose of electronics and hazardous waste",
+        "Donate unwanted items instead of discarding them",
+        "Choose products with less packaging",
+        "Opt for digital receipts and bills",
+        "Work toward a zero-waste lifestyle",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "priority_commitments": {
+      "type": "string",
+      "title": "Priority Commitments",
+      "description": "From all the commitments you've selected, which 3-5 will you prioritize in the next six months?",
+      "x-control-variant": "textarea",
+      "placeholder": "Your priority commitments",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "commitment_timeline": {
+      "type": "string",
+      "title": "Commitment Timeline",
+      "description": "Please outline a rough timeline for implementing your priority commitments",
+      "x-control-variant": "textarea",
+      "placeholder": "Your implementation timeline",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "community_intro": {
+      "type": "null",
+      "title": "Community Engagement",
+      "description": "Individual actions are important, but collective action and systemic change are essential for addressing climate change at scale. This section explores how you can engage with your community and advocate for broader climate solutions.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "community_commitments": {
+      "type": "array",
+      "title": "Community Commitments",
+      "description": "Which community-related actions do you commit to taking? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Share knowledge about climate solutions with friends and family",
+        "Join a local environmental or climate action group",
+        "Participate in community clean-up events",
+        "Volunteer for environmental organizations",
+        "Attend town halls or community meetings on environmental issues",
+        "Support local sustainability initiatives",
+        "Start or join a neighborhood sustainability project",
+        "Organize or participate in climate demonstrations",
+        "None at this time"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "advocacy_commitments": {
+      "type": "array",
+      "title": "Advocacy Commitments",
+      "description": "Which advocacy-related actions do you commit to taking? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Contact elected officials about climate policies",
+        "Vote for candidates with strong climate platforms",
+        "Sign petitions supporting climate action",
+        "Write letters to the editor or op-eds on climate issues",
+        "Share credible climate information on social media",
+        "Engage with businesses about their environmental practices",
+        "Support climate-friendly policies in your workplace or school",
+        "Participate in public comments on environmental regulations",
+        "None at this time"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "local_issues": {
+      "type": "string",
+      "title": "Local Climate Issues",
+      "description": "What climate or environmental issues are most important in your local community?",
+      "x-control-variant": "textarea",
+      "placeholder": "Local climate issues",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "interest_areas": {
+      "type": "array",
+      "title": "Interest Areas",
+      "description": "Which climate action areas are you most interested in? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Renewable energy",
+        "Energy efficiency",
+        "Sustainable transportation",
+        "Food systems and agriculture",
+        "Waste reduction and circular economy",
+        "Natural resource conservation",
+        "Climate policy and advocacy",
+        "Climate justice and equity",
+        "Climate education and communication",
+        "Climate adaptation and resilience",
+        "Carbon removal and sequestration",
+        "Sustainable business practices"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "review_intro": {
+      "type": "null",
+      "title": "Review Your Commitments",
+      "description": "Thank you for completing the Climate Action Commitment Form. Please review your commitments before submitting. Remember that these commitments represent your personal pledge to take action on climate change. You can revisit and update them at any time as your circumstances change or as you achieve your goals.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "impact_statement": {
+      "type": "null",
+      "title": "Your Impact",
+      "description": "By following through on your commitments, you'll be making a meaningful contribution to climate action. While individual actions alone won't solve climate change, they are an essential part of the solution, especially when combined with systemic changes and policy reforms. Your actions also help demonstrate public support for climate solutions and can inspire others to take similar steps.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "next_steps": {
+      "type": "null",
+      "title": "Next Steps",
+      "description": "After submitting this form, you'll receive an email confirmation with a summary of your commitments. We'll also provide resources to help you implement your commitments and connect with others in your community who are taking similar actions. We'll check in periodically to see how you're progressing and offer support as needed.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please share any additional thoughts, questions, or feedback about your climate action commitments",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "email_updates": {
+      "type": "boolean",
+      "title": "Email Updates",
+      "description": "I would like to receive periodic emails with climate action resources, tips, and local opportunities",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "data_usage_consent": {
+      "type": "boolean",
+      "title": "Data Usage Consent",
+      "description": "I consent to the use of my anonymized data for research and reporting on climate action trends",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Climate Action Commitments",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You for Your Commitment!",
+      "description": "Thank you for completing the Climate Action Commitment Form. Your commitment to reducing your environmental impact is an important step toward addressing climate change. You will receive an email confirmation with a summary of your commitments and resources to help you implement them. Together, we can create a more sustainable and resilient future.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

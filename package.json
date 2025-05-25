@@ -1,5 +1,5 @@
 {
-  "version": "0.3.4",
+  "version": "0.3.91",
   "license": "MIT",
   "type": "module",
   "main": "dist/appmint-form.cjs.js",
@@ -99,7 +99,6 @@
     "@tanstack/match-sorter-utils": "^8.15.1",
     "@tanstack/react-table": "^8.19.2",
     "@uiw/react-md-editor": "^4.0.4",
-    "axios": "^1.7.2",
     "color": "^5.0.0",
     "colord": "^2.9.3",
     "deep-object-diff": "^1.1.9",

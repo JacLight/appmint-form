@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "title": "Customer Satisfaction Survey",
+  "description": "Collect feedback from existing customers about their satisfaction levels, identify improvement areas, and measure overall experience.",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "We Value Your Feedback",
+      "description": "Thank you for taking the time to complete this short survey. Your feedback helps us improve our products and services. This survey will take approximately 2-3 minutes to complete.",
+      "x-control": "paragraph"
+    },
+    "csat_rating": {
+      "type": "number",
+      "title": "How satisfied are you with our service?",
+      "description": "Please rate your overall satisfaction with our service.",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true
+    },
+    "open_feedback": {
+      "type": "string",
+      "title": "Any additional feedback?",
+      "description": "Please share any specific comments or suggestions about your experience.",
+      "x-control-variant": "textarea",
+      "placeholder": "Your feedback helps us improve..."
+    },
+    "feature_usage": {
+      "type": "array",
+      "title": "Which features do you use most?",
+      "description": "Select all features that you regularly use.",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Feature A",
+        "Feature B",
+        "Feature C",
+        "Feature D",
+        "Feature E"
+      ]
+    },
+    "support_satisfaction": {
+      "type": "number",
+      "title": "How satisfied were you with our support team?",
+      "description": "Please rate your satisfaction with our customer support.",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your feedback. Your input helps us improve our products and services. If you have any urgent concerns, please contact our support team.",
+      "x-control": "paragraph"
+    }
+  }
+}

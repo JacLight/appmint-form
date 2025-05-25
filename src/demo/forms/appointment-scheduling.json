@@ -1,0 +1,363 @@
+{
+  "type": "object",
+  "title": "Appointment Scheduling Form",
+  "description": "Schedule a healthcare appointment with your provider",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Appointment Scheduling",
+      "description": "Please complete this form to schedule an appointment with your healthcare provider. We will confirm your appointment via email or phone within 24 business hours.",
+      "x-control": "paragraph"
+    },
+    "appointment_type": {
+      "type": "string",
+      "title": "Appointment Type",
+      "description": "Please select the type of appointment you need",
+      "x-control": "selectsingle",
+      "enum": [
+        "New Patient Consultation",
+        "Follow-up Visit",
+        "Annual Physical",
+        "Urgent Care",
+        "Specialist Consultation",
+        "Vaccination",
+        "Lab Work",
+        "Procedure",
+        "Telehealth/Virtual Visit",
+        "Other"
+      ],
+      "inputRequired": true
+    },
+    "other_appointment_type": {
+      "type": "string",
+      "title": "Other Appointment Type",
+      "description": "If you selected 'Other', please specify the type of appointment",
+      "placeholder": "Specify appointment type"
+    },
+    "provider_preference": {
+      "type": "string",
+      "title": "Provider Preference",
+      "description": "Please select your preferred healthcare provider",
+      "x-control": "selectsingle",
+      "enum": [
+        "Dr. Sarah Johnson",
+        "Dr. Michael Chen",
+        "Dr. Robert Williams",
+        "Dr. Emily Rodriguez",
+        "Dr. David Kim",
+        "Nurse Practitioner Lisa Thompson",
+        "Physician Assistant James Wilson",
+        "No preference - first available"
+      ]
+    },
+    "reason_for_visit": {
+      "type": "string",
+      "title": "Reason for Visit",
+      "description": "Please briefly describe the reason for your appointment",
+      "x-control-variant": "textarea",
+      "placeholder": "Reason for visit",
+      "inputRequired": true
+    },
+    "symptoms": {
+      "type": "string",
+      "title": "Current Symptoms",
+      "description": "If applicable, please describe any symptoms you are experiencing",
+      "x-control-variant": "textarea",
+      "placeholder": "Current symptoms"
+    },
+    "symptom_duration": {
+      "type": "string",
+      "title": "Symptom Duration",
+      "description": "If you have symptoms, how long have you been experiencing them?",
+      "placeholder": "Duration of symptoms"
+    },
+    "urgency": {
+      "type": "string",
+      "title": "Appointment Urgency",
+      "description": "How urgent is your need for this appointment?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Urgent - Need to be seen within 24-48 hours",
+        "Semi-urgent - Need to be seen within the week",
+        "Routine - Can wait 1-2 weeks",
+        "Non-urgent - Can wait more than 2 weeks"
+      ],
+      "inputRequired": true
+    },
+    "preferred_date_1": {
+      "type": "string",
+      "title": "Preferred Date (First Choice)",
+      "description": "Please select your first choice for appointment date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true
+    },
+    "preferred_time_1": {
+      "type": "string",
+      "title": "Preferred Time (First Choice)",
+      "description": "Please select your first choice for appointment time",
+      "x-control": "selectsingle",
+      "enum": [
+        "Early Morning (8:00 AM - 10:00 AM)",
+        "Late Morning (10:00 AM - 12:00 PM)",
+        "Early Afternoon (12:00 PM - 2:00 PM)",
+        "Late Afternoon (2:00 PM - 4:00 PM)",
+        "Evening (4:00 PM - 6:00 PM)"
+      ],
+      "inputRequired": true
+    },
+    "preferred_date_2": {
+      "type": "string",
+      "title": "Preferred Date (Second Choice)",
+      "description": "Please select your second choice for appointment date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true
+    },
+    "preferred_time_2": {
+      "type": "string",
+      "title": "Preferred Time (Second Choice)",
+      "description": "Please select your second choice for appointment time",
+      "x-control": "selectsingle",
+      "enum": [
+        "Early Morning (8:00 AM - 10:00 AM)",
+        "Late Morning (10:00 AM - 12:00 PM)",
+        "Early Afternoon (12:00 PM - 2:00 PM)",
+        "Late Afternoon (2:00 PM - 4:00 PM)",
+        "Evening (4:00 PM - 6:00 PM)"
+      ],
+      "inputRequired": true
+    },
+    "preferred_date_3": {
+      "type": "string",
+      "title": "Preferred Date (Third Choice)",
+      "description": "Please select your third choice for appointment date",
+      "x-control": "date",
+      "format": "date"
+    },
+    "preferred_time_3": {
+      "type": "string",
+      "title": "Preferred Time (Third Choice)",
+      "description": "Please select your third choice for appointment time",
+      "x-control": "selectsingle",
+      "enum": [
+        "Early Morning (8:00 AM - 10:00 AM)",
+        "Late Morning (10:00 AM - 12:00 PM)",
+        "Early Afternoon (12:00 PM - 2:00 PM)",
+        "Late Afternoon (2:00 PM - 4:00 PM)",
+        "Evening (4:00 PM - 6:00 PM)"
+      ]
+    },
+    "appointment_location": {
+      "type": "string",
+      "title": "Appointment Location",
+      "description": "Please select your preferred location",
+      "x-control": "selectsingle",
+      "enum": [
+        "Main Clinic - Downtown",
+        "North Branch",
+        "South Branch",
+        "East Branch",
+        "West Branch",
+        "Telehealth/Virtual Visit"
+      ],
+      "inputRequired": true
+    },
+    "insurance_information": {
+      "type": "boolean",
+      "title": "Insurance Information",
+      "description": "Has your insurance information changed since your last visit?",
+      "default": false
+    },
+    "insurance_provider": {
+      "type": "string",
+      "title": "Insurance Provider",
+      "description": "If your insurance has changed, please enter your insurance provider",
+      "placeholder": "Insurance provider name"
+    },
+    "insurance_id": {
+      "type": "string",
+      "title": "Insurance ID",
+      "description": "If your insurance has changed, please enter your insurance ID number",
+      "placeholder": "Insurance ID number"
+    },
+    "insurance_group": {
+      "type": "string",
+      "title": "Insurance Group Number",
+      "description": "If your insurance has changed, please enter your insurance group number",
+      "placeholder": "Insurance group number"
+    },
+    "insurance_card": {
+      "type": "string",
+      "title": "Insurance Card",
+      "description": "If your insurance has changed, please upload images of the front and back of your insurance card",
+      "x-control": "file"
+    },
+    "new_patient": {
+      "type": "boolean",
+      "title": "New Patient",
+      "description": "Are you a new patient to our practice?",
+      "default": false
+    },
+    "patient_information": {
+      "type": "null",
+      "title": "Patient Information",
+      "description": "Please provide the following information about the patient",
+      "x-control": "paragraph"
+    },
+    "patient_full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter the patient's full name",
+      "placeholder": "Patient's full name",
+      "inputRequired": true
+    },
+    "patient_dob": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter the patient's date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true
+    },
+    "patient_gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select the patient's gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer not to say"
+      ],
+      "inputRequired": true
+    },
+    "patient_phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter the patient's phone number",
+      "placeholder": "Phone number",
+      "x-control": "phone",
+      "inputRequired": true
+    },
+    "patient_email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter the patient's email address",
+      "placeholder": "Email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true
+    },
+    "patient_address": {
+      "type": "string",
+      "title": "Address",
+      "description": "Please enter the patient's address",
+      "x-control-variant": "textarea",
+      "placeholder": "Street address, City, State, Zip Code"
+    },
+    "emergency_contact_name": {
+      "type": "string",
+      "title": "Emergency Contact Name",
+      "description": "Please enter the name of an emergency contact",
+      "placeholder": "Emergency contact name"
+    },
+    "emergency_contact_phone": {
+      "type": "string",
+      "title": "Emergency Contact Phone",
+      "description": "Please enter the phone number of your emergency contact",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone"
+    },
+    "emergency_contact_relationship": {
+      "type": "string",
+      "title": "Emergency Contact Relationship",
+      "description": "Please enter your relationship to the emergency contact",
+      "placeholder": "Relationship to emergency contact"
+    },
+    "special_accommodations": {
+      "type": "boolean",
+      "title": "Special Accommodations",
+      "description": "Do you require any special accommodations for your appointment?",
+      "default": false
+    },
+    "special_accommodations_details": {
+      "type": "string",
+      "title": "Special Accommodations Details",
+      "description": "If yes, please describe any special accommodations you require",
+      "x-control-variant": "textarea",
+      "placeholder": "Special accommodations details"
+    },
+    "interpreter_needed": {
+      "type": "boolean",
+      "title": "Interpreter Needed",
+      "description": "Do you need an interpreter for your appointment?",
+      "default": false
+    },
+    "interpreter_language": {
+      "type": "string",
+      "title": "Interpreter Language",
+      "description": "If you need an interpreter, please specify the language",
+      "placeholder": "Language needed"
+    },
+    "referral": {
+      "type": "boolean",
+      "title": "Referral",
+      "description": "Were you referred by another healthcare provider?",
+      "default": false
+    },
+    "referring_provider": {
+      "type": "string",
+      "title": "Referring Provider",
+      "description": "If yes, please enter the name of the referring provider",
+      "placeholder": "Referring provider name"
+    },
+    "additional_information": {
+      "type": "string",
+      "title": "Additional Information",
+      "description": "Please provide any additional information that may be helpful for your appointment",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional information"
+    },
+    "appointment_reminders": {
+      "type": "array",
+      "title": "Appointment Reminders",
+      "description": "How would you like to receive appointment reminders?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Email",
+        "Text message",
+        "Phone call"
+      ]
+    },
+    "cancellation_policy": {
+      "type": "boolean",
+      "title": "Cancellation Policy",
+      "description": "I understand that I must provide at least 24 hours notice to cancel or reschedule my appointment, or I may be subject to a cancellation fee.",
+      "x-control": "legalconsent",
+      "inputRequired": true
+    },
+    "privacy_policy": {
+      "type": "boolean",
+      "title": "Privacy Policy",
+      "description": "I acknowledge that I have been informed of the practice's privacy policy regarding the use and disclosure of my protected health information.",
+      "x-control": "legalconsent",
+      "inputRequired": true
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Request Appointment",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your appointment request has been submitted. We will contact you within 24 business hours to confirm your appointment. If you need immediate assistance, please call our office directly.",
+      "x-control": "paragraph"
+    }
+  }
+}

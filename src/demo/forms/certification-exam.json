@@ -1,0 +1,284 @@
+{
+  "type": "object",
+  "title": "Certification Exam Form",
+  "description": "Formally evaluate knowledge or skills via multiple questions—scored or pass/fail. Used by HR or professional training bodies.",
+  "x-layout": {
+    "main": {
+      "type": "slider",
+      "id": "main",
+      "items": [
+        { "id": "instructions", "title": "Exam Instructions" },
+        { "id": "candidate_info", "title": "Candidate Information" },
+        { "id": "exam_section1", "title": "Section 1: Fundamentals" },
+        { "id": "exam_section2", "title": "Section 2: Advanced Concepts" },
+        { "id": "exam_section3", "title": "Section 3: Practical Application" },
+        { "id": "finish", "title": "Submit & Confirmation" }
+      ]
+    }
+  },
+  "properties": {
+    "exam_title": {
+      "type": "null",
+      "title": "Cloud Computing Certification Exam",
+      "description": "This certification exam evaluates your knowledge and skills in cloud computing concepts, services, and implementation strategies.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "exam_instructions": {
+      "type": "null",
+      "title": "Exam Instructions",
+      "description": "• This exam consists of 15 questions across three sections.\n• You have 60 minutes to complete the exam.\n• Each question is worth 1 point unless otherwise specified.\n• A passing score is 70% or higher (11 out of 15 points).\n• Once you submit your answers, you cannot return to previous questions.\n• Results will be emailed to you within 48 hours of completion.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "honor_code": {
+      "type": "boolean",
+      "title": "Honor Code",
+      "description": "I agree to complete this exam honestly, without assistance from others or unauthorized reference materials. I understand that violating this honor code may result in disqualification and revocation of any certifications earned.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "As it should appear on the certificate.",
+      "inputRequired": true,
+      "placeholder": "John Doe",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Results or next steps will be sent here.",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "placeholder": "john.doe@example.com",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "id_number": {
+      "type": "string",
+      "title": "Candidate ID / Employee ID (Optional)",
+      "description": "For internal references if needed.",
+      "placeholder": "EMP12345 or CAN98765",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "organization": {
+      "type": "string",
+      "title": "Organization",
+      "description": "Your company or institution name.",
+      "placeholder": "Acme Corporation",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "q1": {
+      "type": "string",
+      "title": "Question 1: Cloud Service Models",
+      "description": "Which of the following is NOT a primary cloud service model?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Infrastructure as a Service (IaaS)",
+        "Platform as a Service (PaaS)",
+        "Software as a Service (SaaS)",
+        "Security as a Service (SECaaS)",
+        "Hardware as a Service (HaaS)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "q2": {
+      "type": "string",
+      "title": "Question 2: Cloud Deployment Models",
+      "description": "Which cloud deployment model provides services exclusively to a single organization?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Public Cloud",
+        "Private Cloud",
+        "Hybrid Cloud",
+        "Community Cloud",
+        "Multi Cloud"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "q3": {
+      "type": "array",
+      "title": "Question 3: Cloud Computing Benefits",
+      "description": "Select ALL benefits that are commonly associated with cloud computing:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Cost efficiency and reduced capital expenditure",
+        "Increased hardware maintenance responsibilities",
+        "Scalability and flexibility",
+        "Decreased network latency in all cases",
+        "Automatic software updates and patch management",
+        "Improved disaster recovery capabilities"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "q4": {
+      "type": "string",
+      "title": "Question 4: Cloud Storage",
+      "description": "Explain the difference between object storage and block storage in cloud environments. Provide an example of when you would use each type.",
+      "x-control-variant": "textarea",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "q5": {
+      "type": "string",
+      "title": "Question 5: Cloud Security",
+      "description": "True or False: In the shared responsibility model, the cloud provider is responsible for all security aspects of the cloud environment.",
+      "x-control": "selectsingle",
+      "enum": [
+        "True",
+        "False"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "q6": {
+      "type": "string",
+      "title": "Question 6: Virtualization",
+      "description": "Which of the following best describes the relationship between virtualization and cloud computing?",
+      "x-control": "selectsingle",
+      "enum": [
+        "They are the same technology with different names",
+        "Virtualization is a fundamental technology that enables cloud computing",
+        "Cloud computing is a subset of virtualization technologies",
+        "Virtualization is only used in private clouds, not public clouds",
+        "They are competing technologies that solve the same problems"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "q7": {
+      "type": "string",
+      "title": "Question 7: Containers vs. Virtual Machines",
+      "description": "Compare and contrast containers and virtual machines. What are the key advantages of each?",
+      "x-control-variant": "textarea",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "q8": {
+      "type": "array",
+      "title": "Question 8: Cloud Networking",
+      "description": "Select ALL statements that are true regarding Virtual Private Clouds (VPCs):",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "A VPC is a logically isolated section of the cloud where you can launch resources",
+        "VPCs always span multiple geographic regions for redundancy",
+        "You can define your own IP address range within a VPC",
+        "VPCs cannot connect to on-premises networks",
+        "You can configure route tables and network gateways in a VPC",
+        "All resources in a VPC are automatically accessible from the internet"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "q9": {
+      "type": "string",
+      "title": "Question 9: Serverless Computing",
+      "description": "What is serverless computing, and what are its primary benefits?",
+      "x-control-variant": "textarea",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "q10": {
+      "type": "string",
+      "title": "Question 10: High Availability",
+      "description": "Which cloud design principle involves deploying resources across multiple availability zones?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Elasticity",
+        "Fault Tolerance",
+        "Horizontal Scaling",
+        "Vertical Scaling",
+        "Load Balancing"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "q11": {
+      "type": "string",
+      "title": "Question 11: Case Study",
+      "description": "A retail company wants to migrate their e-commerce platform to the cloud. They experience predictable high traffic during holiday seasons and need to ensure security for customer payment data. Which cloud deployment model and service model would you recommend, and why?",
+      "x-control-variant": "textarea",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "q12": {
+      "type": "string",
+      "title": "Question 12: Cloud Migration",
+      "description": "Describe the 'lift and shift' approach to cloud migration. What are its advantages and disadvantages?",
+      "x-control-variant": "textarea",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "q13": {
+      "type": "array",
+      "title": "Question 13: DevOps in the Cloud",
+      "description": "Select ALL tools that are commonly used for CI/CD pipelines in cloud environments:",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Jenkins",
+        "Microsoft Word",
+        "GitHub Actions",
+        "Adobe Photoshop",
+        "GitLab CI",
+        "AWS CodePipeline",
+        "Microsoft Excel"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "q14": {
+      "type": "string",
+      "title": "Question 14: Cloud Cost Optimization",
+      "description": "A company is running several virtual machines in the cloud that are only used during business hours (9 AM to 5 PM, Monday through Friday). What strategy would you recommend to optimize costs?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Move all workloads to a cheaper cloud provider",
+        "Implement auto-scaling to add more instances during business hours",
+        "Schedule instances to automatically start and stop based on business hours",
+        "Switch to a higher-tier service plan for better pricing",
+        "Convert all virtual machines to containers"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "q15": {
+      "type": "string",
+      "title": "Question 15: Future of Cloud Computing",
+      "description": "In your opinion, what is the most significant emerging trend in cloud computing, and how might it impact organizations in the next 3-5 years?",
+      "x-control-variant": "textarea",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "exam_completion": {
+      "type": "null",
+      "title": "Exam Completion",
+      "description": "You have reached the end of the certification exam. Please review your answers before submitting. Once submitted, you cannot return to change your answers.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "final_submission": {
+      "type": "boolean",
+      "title": "Final Submission",
+      "description": "I confirm that I have completed all questions to the best of my ability and am ready to submit my exam for grading.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "confirmation_message": {
+      "type": "null",
+      "title": "Thank You for Completing the Exam",
+      "description": "Your exam has been submitted successfully. You will receive your results via email within 48 hours. If you have any questions about your certification, please contact certification@example.com.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

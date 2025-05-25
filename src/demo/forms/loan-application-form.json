@@ -1,0 +1,578 @@
+{
+  "type": "object",
+  "title": "Loan Application Form",
+  "description": "Apply for personal, business, or mortgage loans with this comprehensive application form",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "loan", "title": "Loan Details" },
+        { "id": "personal", "title": "Personal Information" },
+        { "id": "employment", "title": "Employment & Income" },
+        { "id": "financial", "title": "Financial Information" },
+        { "id": "collateral", "title": "Collateral" },
+        { "id": "documents", "title": "Required Documents" },
+        { "id": "terms", "title": "Terms & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Loan Application",
+      "description": "Thank you for your interest in applying for a loan. Please complete this application form with accurate information. Required fields are marked with an asterisk (*). Your information will be kept confidential and used only for the purpose of evaluating your loan application.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "application_instructions": {
+      "type": "null",
+      "title": "Application Instructions",
+      "description": "• Complete all required fields\n• Provide accurate and up-to-date information\n• Have your financial documents ready for upload\n• Review all information before submission\n• Submit supporting documentation as requested\n• Contact our loan department if you have any questions",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "application_date": {
+      "type": "string",
+      "title": "Application Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "loan_type": {
+      "type": "string",
+      "title": "Loan Type",
+      "description": "Please select the type of loan you're applying for",
+      "x-control": "selectsingle",
+      "enum": [
+        "Personal Loan",
+        "Auto Loan",
+        "Home Mortgage",
+        "Home Equity Loan",
+        "Business Loan",
+        "Student Loan",
+        "Debt Consolidation Loan",
+        "Line of Credit",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_loan_type": {
+      "type": "string",
+      "title": "Other Loan Type",
+      "description": "If you selected 'Other', please specify the loan type",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "loan_purpose": {
+      "type": "string",
+      "title": "Loan Purpose",
+      "description": "Please describe the purpose of this loan",
+      "x-control-variant": "textarea",
+      "placeholder": "Loan purpose",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "loan_amount": {
+      "type": "number",
+      "title": "Loan Amount Requested",
+      "description": "Please enter the amount you wish to borrow (in dollars)",
+      "minimum": 1000,
+      "maximum": 1000000,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "loan_term": {
+      "type": "string",
+      "title": "Loan Term",
+      "description": "Please select your preferred loan term",
+      "x-control": "selectsingle",
+      "enum": [
+        "6 months",
+        "1 year",
+        "2 years",
+        "3 years",
+        "4 years",
+        "5 years",
+        "7 years",
+        "10 years",
+        "15 years",
+        "20 years",
+        "30 years",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "interest_rate_preference": {
+      "type": "string",
+      "title": "Interest Rate Preference",
+      "description": "Please select your preferred interest rate type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Fixed Rate",
+        "Variable Rate",
+        "No Preference"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "repayment_frequency": {
+      "type": "string",
+      "title": "Repayment Frequency",
+      "description": "Please select your preferred repayment frequency",
+      "x-control": "selectsingle",
+      "enum": [
+        "Weekly",
+        "Bi-weekly",
+        "Monthly",
+        "Quarterly"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your legal first name",
+      "placeholder": "First name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "middle_name": {
+      "type": "string",
+      "title": "Middle Name",
+      "description": "Please enter your middle name (if applicable)",
+      "placeholder": "Middle name",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your legal last name",
+      "placeholder": "Last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "ssn": {
+      "type": "string",
+      "title": "Social Security Number",
+      "description": "Please enter your Social Security Number (XXX-XX-XXXX)",
+      "placeholder": "XXX-XX-XXXX",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "marital_status": {
+      "type": "string",
+      "title": "Marital Status",
+      "description": "Please select your marital status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Single",
+        "Married",
+        "Divorced",
+        "Separated",
+        "Widowed"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "dependents": {
+      "type": "number",
+      "title": "Number of Dependents",
+      "description": "Please enter the number of dependents you have (excluding yourself and spouse)",
+      "minimum": 0,
+      "maximum": 20,
+      "default": 0,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "phone_primary": {
+      "type": "string",
+      "title": "Primary Phone Number",
+      "description": "Please enter your primary phone number",
+      "placeholder": "Primary phone",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_address": {
+      "type": "string",
+      "title": "Current Street Address",
+      "description": "Please enter your current street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your current city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_state": {
+      "type": "string",
+      "title": "State",
+      "description": "Please enter your current state",
+      "placeholder": "State",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_zip": {
+      "type": "string",
+      "title": "ZIP Code",
+      "description": "Please enter your current ZIP code",
+      "placeholder": "ZIP code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "housing_status": {
+      "type": "string",
+      "title": "Housing Status",
+      "description": "Please select your current housing status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Own",
+        "Rent",
+        "Live with Parents/Family",
+        "Military Housing",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "monthly_housing_payment": {
+      "type": "number",
+      "title": "Monthly Housing Payment",
+      "description": "Please enter your monthly rent or mortgage payment (in dollars)",
+      "minimum": 0,
+      "maximum": 10000,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "employment_status": {
+      "type": "string",
+      "title": "Employment Status",
+      "description": "Please select your current employment status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Employed Full-Time",
+        "Employed Part-Time",
+        "Self-Employed",
+        "Retired",
+        "Student",
+        "Military",
+        "Unemployed",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "employer_name": {
+      "type": "string",
+      "title": "Current Employer Name",
+      "description": "Please enter your current employer's name",
+      "placeholder": "Employer name",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "job_title": {
+      "type": "string",
+      "title": "Job Title",
+      "description": "Please enter your current job title",
+      "placeholder": "Job title",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "employer_phone": {
+      "type": "string",
+      "title": "Employer Phone Number",
+      "description": "Please enter your employer's phone number",
+      "placeholder": "Employer phone",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "years_with_employer": {
+      "type": "number",
+      "title": "Years with Current Employer",
+      "description": "Please enter the number of years with your current employer",
+      "minimum": 0,
+      "maximum": 100,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "gross_annual_income": {
+      "type": "number",
+      "title": "Gross Annual Income",
+      "description": "Please enter your gross annual income from employment (before taxes, in dollars)",
+      "minimum": 0,
+      "maximum": 10000000,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_income": {
+      "type": "number",
+      "title": "Additional Annual Income",
+      "description": "Please enter any additional annual income (alimony, child support, investments, etc., in dollars)",
+      "minimum": 0,
+      "maximum": 10000000,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_income_source": {
+      "type": "string",
+      "title": "Additional Income Source",
+      "description": "Please describe the source of your additional income",
+      "placeholder": "Additional income source",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "bank_name": {
+      "type": "string",
+      "title": "Primary Bank Name",
+      "description": "Please enter the name of your primary bank",
+      "placeholder": "Bank name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "account_type": {
+      "type": "array",
+      "title": "Account Types",
+      "description": "Please select the types of accounts you have at this bank (select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Checking",
+        "Savings",
+        "Money Market",
+        "Certificate of Deposit",
+        "Investment",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "checking_balance": {
+      "type": "number",
+      "title": "Checking Account Balance",
+      "description": "Please enter your current checking account balance (in dollars)",
+      "minimum": 0,
+      "maximum": 10000000,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "savings_balance": {
+      "type": "number",
+      "title": "Savings Account Balance",
+      "description": "Please enter your current savings account balance (in dollars)",
+      "minimum": 0,
+      "maximum": 10000000,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "existing_loans": {
+      "type": "boolean",
+      "title": "Existing Loans",
+      "description": "Do you have any existing loans or credit accounts?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "total_monthly_debt": {
+      "type": "number",
+      "title": "Total Monthly Debt Payments",
+      "description": "Please enter your total monthly debt payments for all loans and credit accounts (in dollars)",
+      "minimum": 0,
+      "maximum": 100000,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "bankruptcy_history": {
+      "type": "boolean",
+      "title": "Bankruptcy History",
+      "description": "Have you ever declared bankruptcy?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "bankruptcy_details": {
+      "type": "string",
+      "title": "Bankruptcy Details",
+      "description": "If yes, please provide details including dates and type of bankruptcy",
+      "x-control-variant": "textarea",
+      "placeholder": "Bankruptcy details",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "collateral_intro": {
+      "type": "null",
+      "title": "Collateral Information",
+      "description": "For secured loans, please provide information about the collateral you're offering to secure this loan. This section may not be applicable for unsecured loans.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "collateral_type": {
+      "type": "string",
+      "title": "Collateral Type",
+      "description": "Please select the type of collateral you're offering",
+      "x-control": "selectsingle",
+      "enum": [
+        "Real Estate",
+        "Vehicle",
+        "Business Assets",
+        "Investment Accounts",
+        "Certificate of Deposit",
+        "Other",
+        "No Collateral (Unsecured Loan)"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "collateral_description": {
+      "type": "string",
+      "title": "Collateral Description",
+      "description": "Please provide a detailed description of the collateral",
+      "x-control-variant": "textarea",
+      "placeholder": "Collateral description",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "collateral_value": {
+      "type": "number",
+      "title": "Estimated Collateral Value",
+      "description": "Please enter the estimated value of the collateral (in dollars)",
+      "minimum": 0,
+      "maximum": 100000000,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "documents_intro": {
+      "type": "null",
+      "title": "Required Documents",
+      "description": "Please upload the following documents to support your loan application. All documents should be clear, legible, and complete.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "id_document": {
+      "type": "string",
+      "title": "Identification Document",
+      "description": "Please upload a copy of your government-issued ID (driver's license, passport, etc.)",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "proof_of_income": {
+      "type": "string",
+      "title": "Proof of Income",
+      "description": "Please upload proof of income (recent pay stubs, tax returns, etc.)",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "bank_statements": {
+      "type": "string",
+      "title": "Bank Statements",
+      "description": "Please upload your last 3 months of bank statements",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "collateral_documents": {
+      "type": "string",
+      "title": "Collateral Documents",
+      "description": "Please upload documents related to your collateral (title, deed, etc.)",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "additional_documents": {
+      "type": "string",
+      "title": "Additional Documents",
+      "description": "Please upload any additional documents that may support your application",
+      "x-control": "file",
+      "accept": ".pdf,.jpg,.jpeg,.png",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "terms_intro": {
+      "type": "null",
+      "title": "Terms and Conditions",
+      "description": "Please review the following terms and conditions carefully before submitting your application.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "credit_check_consent": {
+      "type": "boolean",
+      "title": "Credit Check Authorization",
+      "description": "I authorize the lender to obtain my credit report and verify other credit information, including past and present mortgage and landlord references. It is understood that a copy of this form will also serve as authorization.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "information_accuracy": {
+      "type": "boolean",
+      "title": "Information Accuracy",
+      "description": "I certify that the information provided in this application is true and correct as of the date set forth opposite my signature and acknowledge my understanding that any intentional or negligent misrepresentation of the information contained in this application may result in civil liability and/or criminal penalties.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "terms_agreement": {
+      "type": "boolean",
+      "title": "Terms Agreement",
+      "description": "I agree to the terms and conditions of this loan application and understand that submission of this application does not guarantee approval.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "electronic_signature": {
+      "type": "string",
+      "title": "Electronic Signature",
+      "description": "Please type your full legal name as your electronic signature",
+      "placeholder": "Your full legal name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please provide any additional information that may help us process your application",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Loan Application",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for submitting your loan application. We will review your application and contact you within 2-3 business days regarding the status of your application. If you have any questions, please contact our loan department.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.7"
+    }
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "type": "object",
+  "title": "Job Application Form",
+  "description": "Apply for a position within our organization",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "position_details", "title": "Position Details" },
+        { "id": "qualifications", "title": "Qualifications & Experience" },
+        { "id": "additional_info", "title": "Additional Information" },
+        { "id": "submission", "title": "Review & Submit" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Job Application",
+      "description": "Thank you for your interest in joining our team. Please complete all required fields in this application form. Your information will be kept confidential and used only for the hiring process.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full legal name",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address",
+      "description": "Please enter your current address",
+      "x-control-variant": "textarea",
+      "placeholder": "Street address, City, State, Zip Code",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "position_applied": {
+      "type": "string",
+      "title": "Position Applied For",
+      "description": "Please select the position you are applying for",
+      "x-control": "selectsingle",
+      "enum": [
+        "Software Engineer",
+        "Product Manager",
+        "UX Designer",
+        "Marketing Specialist",
+        "Sales Representative",
+        "Customer Support",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_position": {
+      "type": "string",
+      "title": "Other Position",
+      "description": "If you selected 'Other', please specify the position",
+      "placeholder": "Position title",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "employment_type": {
+      "type": "string",
+      "title": "Employment Type",
+      "description": "Please select your preferred employment type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Full-time",
+        "Part-time",
+        "Contract",
+        "Internship",
+        "Temporary"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "start_date": {
+      "type": "string",
+      "title": "Available Start Date",
+      "description": "When would you be available to start?",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "salary_expectation": {
+      "type": "string",
+      "title": "Salary Expectation",
+      "description": "What is your salary expectation?",
+      "placeholder": "e.g., $50,000 - $60,000",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "education": {
+      "type": "string",
+      "title": "Education",
+      "description": "Please provide details about your highest level of education",
+      "x-control-variant": "textarea",
+      "placeholder": "Degree, Institution, Year, Major",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "experience": {
+      "type": "string",
+      "title": "Work Experience",
+      "description": "Please provide details about your relevant work experience",
+      "x-control-variant": "textarea",
+      "placeholder": "Company, Position, Dates, Responsibilities",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "skills": {
+      "type": "string",
+      "title": "Skills",
+      "description": "Please list your relevant skills",
+      "x-control-variant": "textarea",
+      "placeholder": "Technical skills, soft skills, certifications, etc.",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "resume": {
+      "type": "string",
+      "title": "Resume/CV",
+      "description": "Please upload your resume or CV (PDF, DOC, or DOCX format, max 5MB)",
+      "x-control": "file",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "cover_letter": {
+      "type": "string",
+      "title": "Cover Letter",
+      "description": "Please upload your cover letter (PDF, DOC, or DOCX format, max 5MB)",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "interest_reason": {
+      "type": "string",
+      "title": "Why are you interested in this position?",
+      "description": "Please explain why you are interested in this position and why you would be a good fit",
+      "x-control-variant": "textarea",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "referral_source": {
+      "type": "string",
+      "title": "How did you hear about this position?",
+      "description": "Please select how you heard about this job opening",
+      "x-control": "selectsingle",
+      "enum": [
+        "Company Website",
+        "Job Board",
+        "LinkedIn",
+        "Employee Referral",
+        "Career Fair",
+        "Social Media",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "referral_name": {
+      "type": "string",
+      "title": "Referral Name",
+      "description": "If you were referred by an employee, please provide their name",
+      "placeholder": "Employee name",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_info": {
+      "type": "string",
+      "title": "Additional Information",
+      "description": "Is there anything else you would like us to know?",
+      "x-control-variant": "textarea",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "legal_work_status": {
+      "type": "boolean",
+      "title": "Legal Work Status",
+      "description": "I am legally authorized to work in the country where this position is located",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "background_check": {
+      "type": "boolean",
+      "title": "Background Check",
+      "description": "I understand that employment may be contingent upon successful completion of a background check",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "information_certification": {
+      "type": "boolean",
+      "title": "Information Certification",
+      "description": "I certify that all information provided in this application is true and complete to the best of my knowledge",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_message": {
+      "type": "null",
+      "title": "Submit Application",
+      "description": "Please review your application before submitting. Once submitted, you will receive a confirmation email with further instructions.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Application",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

@@ -4,10 +4,13 @@ import React from 'react';
 import { CollectionForm } from './library/form-view';
 import { CollectionTable } from './library/table-view';
 import { RowEvents, TableEvents } from './library/table-view';
-
 export type { RowEvents, TableEvents };
 
 export {  registerCustomComponent, registerCustomComponents, clearCustomComponents } from './library/form-view';
+export { validateForm,validateFormValue,validateValue, schemaValidator } from './library/form-view/form-validator';
+export * from './library/controls';
+
+
 export interface AppmintFormProps {
   demo?: boolean;
   data?: any;
@@ -39,6 +42,7 @@ export interface AppmintTableProps {
   filterPreset?: any;
   schema?: any;
   filters?: any[];
+  selectedIds?: string[];
   accessMode?: string;
   inlineEdit?: boolean;
   datatype?: string;

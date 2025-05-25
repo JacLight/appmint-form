@@ -1,0 +1,195 @@
+{
+  "type": "object",
+  "title": "Academic Research Form",
+  "description": "Collect data for academic research studies",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Research Study Participation",
+      "description": "Thank you for your interest in participating in our academic research study. This form collects basic information to determine your eligibility and to contact you with further details if you qualify.",
+      "x-control": "paragraph"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full name",
+      "placeholder": "Your full name",
+      "inputRequired": true
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone"
+    },
+    "age_group": {
+      "type": "string",
+      "title": "Age Group",
+      "description": "Please select your age group",
+      "x-control": "selectsingle",
+      "enum": [
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65+"
+      ],
+      "inputRequired": true
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer to self-describe",
+        "Prefer not to say"
+      ]
+    },
+    "education_level": {
+      "type": "string",
+      "title": "Education Level",
+      "description": "Please select your highest level of education completed",
+      "x-control": "selectsingle",
+      "enum": [
+        "High School",
+        "Some College",
+        "Associate Degree",
+        "Bachelor's Degree",
+        "Master's Degree",
+        "Doctoral Degree",
+        "Other"
+      ],
+      "inputRequired": true
+    },
+    "occupation": {
+      "type": "string",
+      "title": "Occupation",
+      "description": "Please enter your current occupation",
+      "placeholder": "Your occupation"
+    },
+    "research_topics": {
+      "type": "array",
+      "title": "Research Topics of Interest",
+      "description": "Please select all research topics you would be interested in participating in",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Psychology",
+        "Sociology",
+        "Economics",
+        "Education",
+        "Health and Medicine",
+        "Technology",
+        "Environmental Studies",
+        "Business and Marketing",
+        "Political Science"
+      ]
+    },
+    "availability": {
+      "type": "array",
+      "title": "Availability",
+      "description": "Please select all times you would be available to participate in research studies",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Weekday mornings",
+        "Weekday afternoons",
+        "Weekday evenings",
+        "Weekend mornings",
+        "Weekend afternoons",
+        "Weekend evenings"
+      ]
+    },
+    "participation_method": {
+      "type": "array",
+      "title": "Preferred Participation Methods",
+      "description": "Please select all methods of participation you would be comfortable with",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Online survey",
+        "Phone interview",
+        "Video interview",
+        "In-person interview",
+        "Focus group",
+        "Experimental study"
+      ]
+    },
+    "previous_participation": {
+      "type": "string",
+      "title": "Previous Research Participation",
+      "description": "Have you participated in academic research studies before?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Yes, frequently",
+        "Yes, occasionally",
+        "Yes, once or twice",
+        "No, never",
+        "Not sure"
+      ]
+    },
+    "how_heard": {
+      "type": "string",
+      "title": "How did you hear about this research opportunity?",
+      "description": "Please select how you heard about this research study",
+      "x-control": "selectsingle",
+      "enum": [
+        "University website",
+        "Social media",
+        "Email invitation",
+        "Friend or colleague",
+        "Flyer or poster",
+        "Research participant database",
+        "Other"
+      ]
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please provide any additional information that might be relevant to your participation",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments..."
+    },
+    "consent": {
+      "type": "boolean",
+      "title": "Consent to Participate",
+      "description": "I understand the purpose of this research and consent to be contacted for potential participation in research studies. I understand that I can withdraw my consent at any time.",
+      "x-control": "legalconsent",
+      "inputRequired": true
+    },
+    "data_usage": {
+      "type": "boolean",
+      "title": "Data Usage Agreement",
+      "description": "I agree that the information provided in this form may be used for research purposes in accordance with the privacy policy and ethical guidelines of the research institution.",
+      "x-control": "legalconsent",
+      "inputRequired": true
+    },
+    "contact_permission": {
+      "type": "boolean",
+      "title": "Future Contact",
+      "description": "I agree to be contacted about future research studies that may be relevant to my profile.",
+      "default": true
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for your interest in participating in our research. If you qualify for any current or upcoming studies, a researcher will contact you with more information.",
+      "x-control": "paragraph"
+    }
+  }
+}

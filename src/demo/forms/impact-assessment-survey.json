@@ -1,0 +1,558 @@
+{
+  "type": "object",
+  "title": "Impact Assessment Survey",
+  "description": "Evaluate the social impact of your organization's programs and initiatives",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "organization", "title": "Organization Information" },
+        { "id": "program", "title": "Program Details" },
+        { "id": "outcomes", "title": "Outcomes & Impact" },
+        { "id": "beneficiaries", "title": "Beneficiary Feedback" },
+        { "id": "challenges", "title": "Challenges & Lessons" },
+        { "id": "future", "title": "Future Plans" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Social Impact Assessment Survey",
+      "description": "This survey is designed to help your organization assess and document the social impact of your programs and initiatives. The information collected will be used to evaluate effectiveness, identify areas for improvement, and communicate your impact to stakeholders. Please provide detailed and honest responses to help us understand the full scope of your work and its impact on the communities you serve.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "survey_purpose": {
+      "type": "null",
+      "title": "Purpose of this Assessment",
+      "description": "The data collected through this survey will help:\n• Measure the effectiveness of your programs\n• Identify strengths and areas for improvement\n• Document outcomes for reporting to funders and stakeholders\n• Inform strategic planning and program development\n• Share impact stories and best practices",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "respondent_name": {
+      "type": "string",
+      "title": "Your Name",
+      "description": "Please enter your full name",
+      "placeholder": "Full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "respondent_title": {
+      "type": "string",
+      "title": "Your Title/Position",
+      "description": "Please enter your title or position within the organization",
+      "placeholder": "Title/Position",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "respondent_email": {
+      "type": "string",
+      "title": "Your Email",
+      "description": "Please enter your email address",
+      "placeholder": "Email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_name": {
+      "type": "string",
+      "title": "Organization Name",
+      "description": "Please enter the full name of your organization",
+      "placeholder": "Organization name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "organization_type": {
+      "type": "string",
+      "title": "Organization Type",
+      "description": "Please select the type that best describes your organization",
+      "x-control": "selectsingle",
+      "enum": [
+        "Nonprofit/NGO",
+        "Social Enterprise",
+        "Community-Based Organization",
+        "Foundation",
+        "Government Agency",
+        "Educational Institution",
+        "Healthcare Organization",
+        "Religious Organization",
+        "Cooperative",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "organization_mission": {
+      "type": "string",
+      "title": "Organization Mission",
+      "description": "Please provide your organization's mission statement",
+      "x-control-variant": "textarea",
+      "placeholder": "Mission statement",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "years_operating": {
+      "type": "string",
+      "title": "Years in Operation",
+      "description": "How long has your organization been operating?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 1 year",
+        "1-3 years",
+        "4-5 years",
+        "6-10 years",
+        "11-20 years",
+        "More than 20 years"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "geographic_scope": {
+      "type": "string",
+      "title": "Geographic Scope",
+      "description": "What is the geographic scope of your organization's work?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Local (neighborhood/community)",
+        "City/Town",
+        "County/District",
+        "State/Province",
+        "Regional (multi-state)",
+        "National",
+        "International (limited countries)",
+        "Global"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "focus_areas": {
+      "type": "array",
+      "title": "Focus Areas",
+      "description": "What are your organization's primary focus areas? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Education",
+        "Health & Wellness",
+        "Poverty Alleviation",
+        "Food Security",
+        "Housing",
+        "Economic Development",
+        "Environmental Conservation",
+        "Human Rights",
+        "Gender Equality",
+        "Youth Development",
+        "Arts & Culture",
+        "Disaster Relief",
+        "Community Development",
+        "Civic Engagement",
+        "Disability Services",
+        "Elder Care",
+        "Mental Health",
+        "Refugee/Immigrant Services",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "staff_size": {
+      "type": "string",
+      "title": "Staff Size",
+      "description": "How many paid staff members does your organization have?",
+      "x-control": "selectsingle",
+      "enum": [
+        "0 (Volunteer-run)",
+        "1-5",
+        "6-10",
+        "11-25",
+        "26-50",
+        "51-100",
+        "More than 100"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "annual_budget": {
+      "type": "string",
+      "title": "Annual Operating Budget",
+      "description": "What is your organization's annual operating budget?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Under $50,000",
+        "$50,000 - $100,000",
+        "$100,001 - $250,000",
+        "$250,001 - $500,000",
+        "$500,001 - $1,000,000",
+        "$1,000,001 - $5,000,000",
+        "Over $5,000,000"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "program_name": {
+      "type": "string",
+      "title": "Program/Initiative Name",
+      "description": "Please enter the name of the specific program or initiative you are assessing",
+      "placeholder": "Program name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "program_description": {
+      "type": "string",
+      "title": "Program Description",
+      "description": "Please provide a detailed description of this program or initiative",
+      "x-control-variant": "textarea",
+      "placeholder": "Program description",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "program_goals": {
+      "type": "string",
+      "title": "Program Goals",
+      "description": "What are the primary goals and objectives of this program?",
+      "x-control-variant": "textarea",
+      "placeholder": "Program goals",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "program_start_date": {
+      "type": "string",
+      "title": "Program Start Date",
+      "description": "When did this program begin?",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "program_status": {
+      "type": "string",
+      "title": "Program Status",
+      "description": "What is the current status of this program?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Planning/Development",
+        "Pilot/Testing",
+        "Active/Ongoing",
+        "Expanding",
+        "Scaling Down",
+        "Completed",
+        "On Hold",
+        "Discontinued"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "target_population": {
+      "type": "string",
+      "title": "Target Population",
+      "description": "Who is the target population or beneficiary group for this program?",
+      "x-control-variant": "textarea",
+      "placeholder": "Target population",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "program_activities": {
+      "type": "string",
+      "title": "Key Activities",
+      "description": "Please describe the key activities and services provided through this program",
+      "x-control-variant": "textarea",
+      "placeholder": "Key activities",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "program_funding": {
+      "type": "array",
+      "title": "Program Funding Sources",
+      "description": "What are the funding sources for this program? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Government grants",
+        "Foundation grants",
+        "Corporate sponsorship",
+        "Individual donations",
+        "Membership fees",
+        "Program fees/Service revenue",
+        "Events",
+        "Crowdfunding",
+        "In-kind donations",
+        "Endowment",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "people_served": {
+      "type": "number",
+      "title": "Number of People Served",
+      "description": "How many people has this program directly served in the past year?",
+      "minimum": 0,
+      "maximum": 1000000,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "services_provided": {
+      "type": "number",
+      "title": "Number of Services/Activities",
+      "description": "How many services, activities, or events were provided through this program in the past year?",
+      "minimum": 0,
+      "maximum": 100000,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "primary_outcomes": {
+      "type": "string",
+      "title": "Primary Outcomes",
+      "description": "What are the primary outcomes that have been achieved through this program?",
+      "x-control-variant": "textarea",
+      "placeholder": "Primary outcomes",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "outcome_evidence": {
+      "type": "string",
+      "title": "Outcome Evidence",
+      "description": "What evidence do you have that demonstrates these outcomes? Please be specific about data collected.",
+      "x-control-variant": "textarea",
+      "placeholder": "Outcome evidence",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "data_collection_methods": {
+      "type": "array",
+      "title": "Data Collection Methods",
+      "description": "What methods do you use to collect impact data? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Surveys/Questionnaires",
+        "Interviews",
+        "Focus Groups",
+        "Pre/Post Tests",
+        "Observation",
+        "Administrative Data",
+        "Case Studies",
+        "Testimonials",
+        "External Evaluation",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "impact_stories": {
+      "type": "string",
+      "title": "Impact Stories",
+      "description": "Please share 1-2 specific stories that illustrate the impact of your program on individuals or communities",
+      "x-control-variant": "textarea",
+      "placeholder": "Impact stories",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "impact_rating": {
+      "type": "number",
+      "title": "Overall Impact Rating",
+      "description": "On a scale of 1-10, how would you rate the overall impact of this program?",
+      "minimum": 1,
+      "maximum": 10,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "beneficiary_feedback_methods": {
+      "type": "array",
+      "title": "Beneficiary Feedback Methods",
+      "description": "How do you collect feedback from program beneficiaries? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Satisfaction surveys",
+        "Feedback forms",
+        "Interviews",
+        "Focus groups",
+        "Community meetings",
+        "Suggestion box",
+        "Online feedback",
+        "Advisory committee",
+        "Informal conversations",
+        "We don't currently collect beneficiary feedback",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "satisfaction_level": {
+      "type": "string",
+      "title": "Satisfaction Level",
+      "description": "Based on feedback, what is the overall satisfaction level of beneficiaries with your program?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very satisfied",
+        "Satisfied",
+        "Neutral",
+        "Dissatisfied",
+        "Very dissatisfied",
+        "Mixed/Varied",
+        "Unknown/Not measured"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "positive_feedback": {
+      "type": "string",
+      "title": "Positive Feedback",
+      "description": "What positive feedback have you received from beneficiaries about this program?",
+      "x-control-variant": "textarea",
+      "placeholder": "Positive feedback",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "constructive_feedback": {
+      "type": "string",
+      "title": "Constructive Feedback",
+      "description": "What constructive feedback or suggestions for improvement have you received from beneficiaries?",
+      "x-control-variant": "textarea",
+      "placeholder": "Constructive feedback",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "testimonial": {
+      "type": "string",
+      "title": "Beneficiary Testimonial",
+      "description": "Please share a powerful testimonial from a program beneficiary (with permission)",
+      "x-control-variant": "textarea",
+      "placeholder": "Beneficiary testimonial",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "challenges_faced": {
+      "type": "string",
+      "title": "Challenges Faced",
+      "description": "What significant challenges or obstacles has this program faced?",
+      "x-control-variant": "textarea",
+      "placeholder": "Challenges faced",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "challenge_types": {
+      "type": "array",
+      "title": "Types of Challenges",
+      "description": "What types of challenges has the program faced? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Funding/Financial",
+        "Staffing/Human Resources",
+        "Volunteer Management",
+        "Participant Recruitment",
+        "Participant Retention",
+        "Community Engagement",
+        "Partnerships/Collaboration",
+        "Program Design",
+        "Implementation",
+        "Evaluation/Measurement",
+        "Technology",
+        "Facilities/Space",
+        "Political/Policy Environment",
+        "Cultural Barriers",
+        "Geographic/Transportation",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "challenge_response": {
+      "type": "string",
+      "title": "Response to Challenges",
+      "description": "How have you addressed or overcome these challenges?",
+      "x-control-variant": "textarea",
+      "placeholder": "Response to challenges",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "lessons_learned": {
+      "type": "string",
+      "title": "Lessons Learned",
+      "description": "What are the key lessons learned from implementing this program?",
+      "x-control-variant": "textarea",
+      "placeholder": "Lessons learned",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "future_plans": {
+      "type": "string",
+      "title": "Future Plans",
+      "description": "What are your plans for this program in the next 1-3 years?",
+      "x-control-variant": "textarea",
+      "placeholder": "Future plans",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "planned_changes": {
+      "type": "array",
+      "title": "Planned Changes",
+      "description": "What changes do you plan to make to the program? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Expand reach/scale",
+        "Increase services/activities",
+        "Add new components",
+        "Modify existing components",
+        "Change target population",
+        "Improve quality",
+        "Enhance evaluation",
+        "Increase sustainability",
+        "Develop partnerships",
+        "Advocate for policy change",
+        "No significant changes planned",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "resources_needed": {
+      "type": "array",
+      "title": "Resources Needed",
+      "description": "What additional resources would help you improve or expand this program? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Additional funding",
+        "More staff",
+        "More volunteers",
+        "Training/Capacity building",
+        "Technology/Equipment",
+        "Facilities/Space",
+        "Marketing/Outreach support",
+        "Evaluation support",
+        "Technical assistance",
+        "Strategic partnerships",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "sustainability_plan": {
+      "type": "string",
+      "title": "Sustainability Plan",
+      "description": "What is your plan for ensuring the long-term sustainability of this program?",
+      "x-control-variant": "textarea",
+      "placeholder": "Sustainability plan",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please share any additional information about your program's impact that wasn't covered in previous questions",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Assessment",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for completing this impact assessment survey. Your responses will help us better understand the impact of your program and identify opportunities for improvement and growth. We will analyze the information provided and share a summary report with you.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    }
+  }
+}

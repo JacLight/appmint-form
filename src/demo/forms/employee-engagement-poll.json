@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "title": "Employee Engagement Poll",
+  "description": "A quick poll to gauge employee morale, gather preferences on company initiatives, or measure short-term satisfaction.",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Anonymous Employee Feedback",
+      "description": "Your feedback is important to us! This anonymous poll will help us understand how you're feeling about your work experience and identify areas for improvement. It will take less than 2 minutes to complete.",
+      "x-control": "paragraph"
+    },
+    "mood_rating": {
+      "type": "number",
+      "title": "How would you rate your overall work experience this week?",
+      "description": "Please select the option that best represents your experience.",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true
+    },
+    "work_life_balance": {
+      "type": "number",
+      "title": "How satisfied are you with your current work-life balance?",
+      "description": "1 = Very Dissatisfied, 5 = Very Satisfied",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "team_collaboration": {
+      "type": "number",
+      "title": "How would you rate the collaboration within your team?",
+      "description": "1 = Poor, 5 = Excellent",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "initiative_interest": {
+      "type": "array",
+      "title": "Which of these potential company initiatives would you be most interested in?",
+      "description": "Select all that interest you.",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Flexible work hours",
+        "Professional development opportunities",
+        "Team building activities",
+        "Wellness program",
+        "Mentorship program",
+        "Community service opportunities",
+        "Recognition program"
+      ]
+    },
+    "suggestion_box": {
+      "type": "string",
+      "title": "Any suggestions for improvement or general feedback?",
+      "description": "Your anonymous feedback helps us create a better workplace for everyone.",
+      "x-control-variant": "textarea",
+      "placeholder": "Share your thoughts here..."
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your feedback. Your input helps us create a better workplace environment. Results from this poll will be shared in the next company-wide meeting.",
+      "x-control": "paragraph"
+    }
+  }
+}

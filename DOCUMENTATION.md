@@ -30,6 +30,7 @@ AppmintForm is a powerful, lightweight, and flexible form builder library for Re
 - [Validation](#validation)
 - [Theming](#theming)
 - [API Reference](#api-reference)
+- [Advanced Tips and Tricks](#advanced-tips-and-tricks)
 - [Common Threads](#common-threads)
 - [Examples](#examples)
 - [Troubleshooting](#troubleshooting)
@@ -708,312 +709,246 @@ const InteractingFormsExample = () => {
 | `itemRenderer` | function | Custom item renderer |
 | `options` | object | Table options |
 
-## Examples
+## Advanced Tips and Tricks
 
-### Basic Form
+This section covers advanced usage patterns, hidden features, common pitfalls, and optimization techniques for AppmintForm.
 
-```jsx
-import React from 'react';
-import { AppmintForm } from '@appmint/form';
+### Hidden Features and Power User Tips
 
-const BasicForm = () => {
-  const schema = {
-    type: 'object',
-    title: 'Contact Form',
-    properties: {
-      name: {
-        type: 'string',
-        title: 'Name',
-        inputRequired: true
-      },
-      email: {
-        type: 'string',
-        title: 'Email',
-        format: 'email',
-        inputRequired: true
-      },
-      message: {
-        type: 'string',
-        title: 'Message',
-        'x-control-variant': 'textarea',
-        inputRequired: true
-      }
-    }
-  };
+#### 1. Dynamic Field Properties
 
-  const handleChange = (path, value, data) => {
-    console.log('Form data:', data);
-  };
-
-  return (
-    <AppmintForm
-      schema={schema}
-      onChange={handleChange}
-      id="contact-form"
-    />
-  );
-};
-
-export default BasicForm;
-```
-
-### Multi-Page Form
+You can dynamically change field properties based on other field values using the rules system:
 
 ```jsx
-import React from 'react';
-import { AppmintForm } from '@appmint/form';
-
-const MultiPageForm = () => {
-  const schema = {
-    type: 'object',
-    title: 'Registration Form',
-    pages: [
-      {
-        title: 'Personal Information',
-        properties: {
-          firstName: {
-            type: 'string',
-            title: 'First Name',
-            inputRequired: true
-          },
-          lastName: {
-            type: 'string',
-            title: 'Last Name',
-            inputRequired: true
-          }
-        }
-      },
-      {
-        title: 'Account Information',
-        properties: {
-          email: {
-            type: 'string',
-            title: 'Email',
-            format: 'email',
-            inputRequired: true
-          },
-          password: {
-            type: 'string',
-            title: 'Password',
-            'x-control-variant': 'password',
-            inputRequired: true
-          }
-        }
-      }
-    ],
-    theme: {
-      paging: 'tab'
-    }
-  };
-
-  return (
-    <AppmintForm
-      schema={schema}
-      id="registration-form"
-    />
-  );
-};
-
-export default MultiPageForm;
-```
-
-### Form with Conditional Logic
-
-```jsx
-import React from 'react';
-import { AppmintForm } from '@appmint/form';
-
-const ConditionalForm = () => {
-  const schema = {
-    type: 'object',
-    title: 'Subscription Form',
-    properties: {
-      plan: {
-        type: 'string',
-        title: 'Subscription Plan',
-        enum: ['free', 'basic', 'premium'],
-        default: 'free'
-      },
-      paymentMethod: {
-        type: 'string',
-        title: 'Payment Method',
-        enum: ['credit_card', 'paypal', 'bank_transfer'],
-        default: 'credit_card',
-        hidden: true
-      },
-      cardNumber: {
-        type: 'string',
-        title: 'Card Number',
-        hidden: true
-      }
-    }
-  };
-
-  const rules = [
-    {
-      when: 'plan',
-      is: value => value !== 'free',
-      then: {
-        paymentMethod: {
-          hidden: false
-        }
+const rules = [
+  {
+    when: 'userType',
+    is: 'business',
+    then: {
+      companyName: {
+        inputRequired: true,
+        hidden: false
       }
     },
-    {
-      when: 'paymentMethod',
-      is: 'credit_card',
-      then: {
-        cardNumber: {
-          hidden: false
-        }
+    else: {
+      companyName: {
+        inputRequired: false,
+        hidden: true
       }
     }
-  ];
-
-  return (
-    <AppmintForm
-      schema={schema}
-      rules={rules}
-      id="subscription-form"
-    />
-  );
-};
-
-export default ConditionalForm;
+  }
+];
 ```
 
-## Troubleshooting
+#### 2. Computed Default Values
 
-### Common Issues
-
-#### Form Not Rendering
-
-- Check that you've provided a valid schema
-- Ensure that the schema has a `type` property set to `object`
-- Verify that the `properties` object contains at least one field
-
-#### Validation Not Working
-
-- Make sure you've set `inputRequired: true` for required fields
-- Check that your validation rules are correctly formatted
-- Verify that you're using the correct validation types
-
-#### Layout Issues
-
-- Ensure that your `x-layout` configuration is correct
-- Verify that your `layoutGroup` references match the items in your layout
-- Check that you're using the correct layout type (tab, accordion, slider)
-
-### Debugging
-
-You can enable debug mode by setting the `debug` prop to `true`:
+You can use functions for default values to compute them dynamically:
 
 ```jsx
-<AppmintForm
-  schema={schema}
-  debug={true}
-/>
+{
+  "createdAt": {
+    "type": "string",
+    "format": "date-time",
+    "default": () => new Date().toISOString()
+  }
+}
 ```
 
-This will log additional information to the console, including:
+#### 3. Custom Formatters and Parsers
 
-- Schema parsing
-- Validation results
-- Form state changes
-- Layout rendering
+For specialized input formats, you can provide custom formatters and parsers:
 
-## Demo Examples
+```jsx
+{
+  "currencyField": {
+    "type": "number",
+    "x-control": "number",
+    "x-formatter": (value) => `$${value.toFixed(2)}`,
+    "x-parser": (displayValue) => parseFloat(displayValue.replace('$', ''))
+  }
+}
+```
 
-The library includes several demo examples that showcase different features and capabilities:
+#### 4. Nested Layouts
 
-### Basic Form Demo
+You can nest layouts for complex form structures:
 
-A simple form with various input types to demonstrate the basic functionality.
+```json
+{
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "tab1", "title": "Tab 1" },
+        { "id": "tab2", "title": "Tab 2" }
+      ]
+    },
+    "nestedAccordion": {
+      "type": "accordion",
+      "id": "nestedAccordion",
+      "items": [
+        { "id": "section1", "title": "Section 1" },
+        { "id": "section2", "title": "Section 2" }
+      ]
+    }
+  },
+  "properties": {
+    "field1": {
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "field2": {
+      "layoutGroup": "x-layout.main.items.0.x-layout.nestedAccordion.items.0"
+    }
+  }
+}
+```
 
-### Theme Editor Demo
+#### 5. Conditional Validation
 
-A powerful theme editor that allows you to customize the appearance of your forms. You can:
+Apply different validation rules based on other field values:
 
-- Select from pre-made themes
-- Create custom styles for each component type
-- Preview changes in real-time
-- Export your theme for use in your application
+```jsx
+const rules = [
+  {
+    when: 'paymentMethod',
+    is: 'creditCard',
+    then: {
+      cardNumber: {
+        validations: [
+          {
+            validation: 'regex',
+            arg: '^[0-9]{16}$',
+            message: 'Card number must be 16 digits'
+          }
+        ]
+      }
+    }
+  }
+];
+```
 
-### Text Inputs Demo
+#### 6. Custom Button Actions
 
-Demonstrates various text input types including:
+Define custom actions for button elements:
 
-- Regular text fields
-- Textarea
-- Rich text editor
-- Markdown editor
+```json
+{
+  "submitButton": {
+    "type": "null",
+    "x-control": "button",
+    "title": "Submit",
+    "x-button-action": "submit",
+    "x-button-style": "primary",
+    "x-button-handler": "customSubmitFunction"
+  }
+}
+```
 
-### Number Inputs Demo
+#### 7. Field Dependencies
 
-Shows different number input options:
+Create dependencies between fields for complex validation scenarios:
 
-- Basic number input
-- Slider
-- Number range
+```json
+{
+  "password": {
+    "type": "string",
+    "x-control-variant": "password"
+  },
+  "confirmPassword": {
+    "type": "string",
+    "x-control-variant": "password",
+    "x-depends-on": "password",
+    "validations": [
+      {
+        "validation": "equals",
+        "arg": "{{password}}",
+        "message": "Passwords must match"
+      }
+    ]
+  }
+}
+```
 
-### Selection Inputs Demo
+#### 8. Control Variants
 
-Displays various selection controls:
+Many controls support variants that change their appearance or behavior:
 
-- Dropdown select
-- Checkbox group
-- Radio buttons
-- Switch toggle
+```json
+{
+  "selectManyCheckbox": {
+    "type": "array",
+    "title": "Select Many (Checkboxes)",
+    "x-control": "selectmany",
+    "x-control-variant": "checkbox",
+    "options": ["Option A", "Option B", "Option C"]
+  },
+  "selectManyRadio": {
+    "type": "string",
+    "title": "Select Single (Radio)",
+    "x-control": "selectmany",
+    "x-control-variant": "radio",
+    "options": ["Option A", "Option B", "Option C"]
+  },
+  "selectManyCombo": {
+    "type": "array",
+    "title": "Select Many (Combo)",
+    "x-control": "selectmany",
+    "x-control-variant": "combo",
+    "options": ["Option A", "Option B", "Option C"]
+  }
+}
+```
 
-### Date/Time Inputs Demo
+#### 9. Data Sources for Selection Controls
 
-Showcases date and time related inputs:
+You can provide data for selection controls in multiple ways:
 
-- Date picker
-- Date range picker
-- Date-time picker
-- Cron expression editor
+```json
+{
+  "selectWithEnum": {
+    "type": "string",
+    "title": "Select with Enum",
+    "enum": ["Option 1", "Option 2", "Option 3"]
+  },
+  "selectWithOptions": {
+    "type": "string",
+    "title": "Select with Options",
+    "options": ["Option A", "Option B", "Option C"]
+  },
+  "selectWithLabelValueOptions": {
+    "type": "string",
+    "title": "Select with Label-Value Options",
+    "options": [
+      { "label": "Option One", "value": "option1" },
+      { "label": "Option Two", "value": "option2" },
+      { "label": "Option Three", "value": "option3" }
+    ]
+  },
+  "selectWithDataSource": {
+    "type": "string",
+    "title": "Select with Data Source",
+    "dataSource": {
+      "source": "json",
+      "value": ["Option X", "Option Y", "Option Z"]
+    }
+  }
+}
+```
 
-### Special Inputs Demo
+#### 10. Prefixes and Suffixes
 
-Demonstrates specialized input types:
+Add prefixes and suffixes to input fields:
 
-- Color picker
-- File upload
-- Map location picker
-- Icon picker
+```json
+{
+  "price": {
+    "type": "number",
+    "title": "Price",
+    "prefix": "$",
+    "suffix": "USD"
+  }
+}
+```
 
-### Layout Elements Demo
-
-Shows different layout options:
-
-- Tabs
-- Accordion
-- Slider
-- Collapsible sections
-
-### Advanced Elements Demo
-
-Displays more complex form elements:
-
-- Data view
-- Data lookup
-- Generated content
-- Rating and ranking
-
-### Table Demo
-
-Demonstrates the table component with features like:
-
-- Sorting
-- Filtering
-- Pagination
-- Custom cell rendering
-
-## License
-
-AppmintForm is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
----
-
-Documentation created for AppmintForm v0.3.4
+### Common Pitfalls and How to

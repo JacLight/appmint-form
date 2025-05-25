@@ -1,0 +1,714 @@
+{
+  "type": "object",
+  "title": "Health Assessment Survey",
+  "description": "Evaluate your current health status and identify potential risk factors",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "general", "title": "General Health" },
+        { "id": "physical", "title": "Physical Health" },
+        { "id": "mental", "title": "Mental Health" },
+        { "id": "lifestyle", "title": "Lifestyle" },
+        { "id": "preventive", "title": "Preventive Care" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Health Assessment Survey",
+      "description": "This health assessment survey will help evaluate your current health status and identify potential risk factors. Your responses will be used to provide personalized health recommendations. All information is confidential and protected by privacy laws.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "age": {
+      "type": "number",
+      "title": "Age",
+      "description": "Please enter your age",
+      "minimum": 18,
+      "maximum": 120,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer to self-describe",
+        "Prefer not to say"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender_self_describe": {
+      "type": "string",
+      "title": "Self-Described Gender",
+      "description": "If you selected 'Prefer to self-describe', please specify",
+      "placeholder": "Self-described gender",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "height": {
+      "type": "number",
+      "title": "Height (inches)",
+      "description": "Please enter your height in inches",
+      "minimum": 36,
+      "maximum": 96,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "weight": {
+      "type": "number",
+      "title": "Weight (pounds)",
+      "description": "Please enter your weight in pounds",
+      "minimum": 50,
+      "maximum": 500,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "overall_health": {
+      "type": "string",
+      "title": "Overall Health Rating",
+      "description": "How would you rate your overall health?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Very Good",
+        "Good",
+        "Fair",
+        "Poor"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "health_compared_last_year": {
+      "type": "string",
+      "title": "Health Compared to Last Year",
+      "description": "How would you rate your health compared to one year ago?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Much better",
+        "Somewhat better",
+        "About the same",
+        "Somewhat worse",
+        "Much worse"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "health_goals": {
+      "type": "string",
+      "title": "Health Goals",
+      "description": "What are your primary health goals?",
+      "x-control-variant": "textarea",
+      "placeholder": "Your health goals",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "chronic_conditions": {
+      "type": "array",
+      "title": "Chronic Conditions",
+      "description": "Have you been diagnosed with any of the following conditions?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "High blood pressure (Hypertension)",
+        "High cholesterol",
+        "Heart disease",
+        "Diabetes",
+        "Asthma",
+        "COPD",
+        "Arthritis",
+        "Cancer",
+        "Thyroid disorder",
+        "Kidney disease",
+        "Liver disease",
+        "Autoimmune disorder",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_conditions": {
+      "type": "string",
+      "title": "Other Medical Conditions",
+      "description": "Please list any other medical conditions not mentioned above",
+      "x-control-variant": "textarea",
+      "placeholder": "Other medical conditions",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "physical_limitations": {
+      "type": "boolean",
+      "title": "Physical Limitations",
+      "description": "Do you have any physical limitations that affect your daily activities?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "physical_limitations_description": {
+      "type": "string",
+      "title": "Physical Limitations Description",
+      "description": "If yes, please describe your physical limitations",
+      "x-control-variant": "textarea",
+      "placeholder": "Description of physical limitations",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pain": {
+      "type": "boolean",
+      "title": "Chronic Pain",
+      "description": "Do you experience chronic pain?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pain_description": {
+      "type": "string",
+      "title": "Pain Description",
+      "description": "If yes, please describe your pain (location, severity, frequency)",
+      "x-control-variant": "textarea",
+      "placeholder": "Description of pain",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pain_management": {
+      "type": "string",
+      "title": "Pain Management",
+      "description": "If you experience pain, how do you currently manage it?",
+      "x-control-variant": "textarea",
+      "placeholder": "Pain management methods",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "energy_level": {
+      "type": "string",
+      "title": "Energy Level",
+      "description": "How would you describe your energy level on most days?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very high energy",
+        "High energy",
+        "Moderate energy",
+        "Low energy",
+        "Very low energy"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "fatigue": {
+      "type": "string",
+      "title": "Fatigue",
+      "description": "How often do you experience fatigue?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely",
+        "Sometimes",
+        "Often",
+        "Always"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "sleep_quality": {
+      "type": "string",
+      "title": "Sleep Quality",
+      "description": "How would you rate your sleep quality?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Good",
+        "Fair",
+        "Poor",
+        "Very poor"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "sleep_hours": {
+      "type": "number",
+      "title": "Sleep Hours",
+      "description": "How many hours of sleep do you typically get per night?",
+      "minimum": 0,
+      "maximum": 24,
+      "step": 0.5,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "sleep_issues": {
+      "type": "array",
+      "title": "Sleep Issues",
+      "description": "Do you experience any of the following sleep issues?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Difficulty falling asleep",
+        "Difficulty staying asleep",
+        "Early morning awakening",
+        "Snoring",
+        "Sleep apnea",
+        "Restless legs",
+        "Nightmares",
+        "Daytime sleepiness",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "stress_level": {
+      "type": "string",
+      "title": "Stress Level",
+      "description": "How would you rate your current stress level?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very high",
+        "High",
+        "Moderate",
+        "Low",
+        "Very low"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "stress_management": {
+      "type": "string",
+      "title": "Stress Management",
+      "description": "How do you typically manage stress?",
+      "x-control-variant": "textarea",
+      "placeholder": "Stress management techniques",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mood": {
+      "type": "string",
+      "title": "Mood",
+      "description": "How would you describe your mood most days?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very positive",
+        "Positive",
+        "Neutral",
+        "Negative",
+        "Very negative"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "anxiety": {
+      "type": "string",
+      "title": "Anxiety",
+      "description": "How often do you experience anxiety?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely",
+        "Sometimes",
+        "Often",
+        "Always"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "depression": {
+      "type": "string",
+      "title": "Depression",
+      "description": "How often do you feel down, depressed, or hopeless?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely",
+        "Sometimes",
+        "Often",
+        "Always"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "interest_pleasure": {
+      "type": "string",
+      "title": "Interest or Pleasure",
+      "description": "How often do you have little interest or pleasure in doing things?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely",
+        "Sometimes",
+        "Often",
+        "Always"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "concentration": {
+      "type": "string",
+      "title": "Concentration",
+      "description": "How would you rate your ability to concentrate?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Good",
+        "Fair",
+        "Poor",
+        "Very poor"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mental_health_support": {
+      "type": "boolean",
+      "title": "Mental Health Support",
+      "description": "Are you currently receiving support for mental health concerns?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "mental_health_support_type": {
+      "type": "array",
+      "title": "Mental Health Support Type",
+      "description": "If yes, what type of support are you receiving?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Therapy/Counseling",
+        "Medication",
+        "Support group",
+        "Self-help resources",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "diet_quality": {
+      "type": "string",
+      "title": "Diet Quality",
+      "description": "How would you rate the overall quality of your diet?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Good",
+        "Fair",
+        "Poor",
+        "Very poor"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "diet_type": {
+      "type": "string",
+      "title": "Diet Type",
+      "description": "Which best describes your diet?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Omnivore (meat and plants)",
+        "Pescatarian (fish and plants)",
+        "Vegetarian (no meat)",
+        "Vegan (no animal products)",
+        "Keto/Low-carb",
+        "Paleo",
+        "Mediterranean",
+        "Gluten-free",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "meals_per_day": {
+      "type": "number",
+      "title": "Meals Per Day",
+      "description": "How many meals do you typically eat per day?",
+      "minimum": 0,
+      "maximum": 10,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "water_intake": {
+      "type": "string",
+      "title": "Water Intake",
+      "description": "How many glasses of water do you drink per day?",
+      "x-control": "selectsingle",
+      "enum": [
+        "0-2 glasses",
+        "3-5 glasses",
+        "6-8 glasses",
+        "9+ glasses"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "alcohol_consumption": {
+      "type": "string",
+      "title": "Alcohol Consumption",
+      "description": "How often do you consume alcoholic beverages?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely (few times a year)",
+        "Occasionally (few times a month)",
+        "Weekly (1-2 times a week)",
+        "Frequently (3-5 times a week)",
+        "Daily"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "alcohol_drinks": {
+      "type": "number",
+      "title": "Alcohol Drinks",
+      "description": "If you drink alcohol, how many drinks do you typically have per week?",
+      "minimum": 0,
+      "maximum": 100,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "tobacco_use": {
+      "type": "string",
+      "title": "Tobacco Use",
+      "description": "Do you use tobacco products?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never used",
+        "Former user",
+        "Current user - occasional",
+        "Current user - regular",
+        "Current user - heavy"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "tobacco_type": {
+      "type": "array",
+      "title": "Tobacco Type",
+      "description": "If you use tobacco, what type(s) do you use?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Cigarettes",
+        "Cigars",
+        "Pipe",
+        "Chewing tobacco",
+        "E-cigarettes/Vaping",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "exercise_frequency": {
+      "type": "string",
+      "title": "Exercise Frequency",
+      "description": "How often do you engage in physical exercise?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never",
+        "Rarely (few times a month)",
+        "Occasionally (1-2 times a week)",
+        "Regularly (3-4 times a week)",
+        "Daily"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "exercise_duration": {
+      "type": "string",
+      "title": "Exercise Duration",
+      "description": "When you exercise, how long is your typical session?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 15 minutes",
+        "15-30 minutes",
+        "31-45 minutes",
+        "46-60 minutes",
+        "More than 60 minutes"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "exercise_type": {
+      "type": "array",
+      "title": "Exercise Type",
+      "description": "What types of exercise do you typically do?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Walking",
+        "Running/Jogging",
+        "Cycling",
+        "Swimming",
+        "Weight training",
+        "Group fitness classes",
+        "Yoga/Pilates",
+        "Sports",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "sitting_hours": {
+      "type": "string",
+      "title": "Sitting Hours",
+      "description": "How many hours per day do you typically spend sitting?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 4 hours",
+        "4-6 hours",
+        "7-9 hours",
+        "10-12 hours",
+        "More than 12 hours"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "last_physical_exam": {
+      "type": "string",
+      "title": "Last Physical Exam",
+      "description": "When was your last comprehensive physical examination?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Within the last year",
+        "1-2 years ago",
+        "3-5 years ago",
+        "More than 5 years ago",
+        "Never had one",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "last_blood_work": {
+      "type": "string",
+      "title": "Last Blood Work",
+      "description": "When was your last blood work or lab tests?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Within the last year",
+        "1-2 years ago",
+        "3-5 years ago",
+        "More than 5 years ago",
+        "Never had one",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "last_blood_pressure": {
+      "type": "string",
+      "title": "Last Blood Pressure Check",
+      "description": "When was your last blood pressure check?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Within the last 6 months",
+        "6-12 months ago",
+        "1-2 years ago",
+        "More than 2 years ago",
+        "Never had one",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "last_cholesterol": {
+      "type": "string",
+      "title": "Last Cholesterol Check",
+      "description": "When was your last cholesterol check?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Within the last year",
+        "1-2 years ago",
+        "3-5 years ago",
+        "More than 5 years ago",
+        "Never had one",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "last_eye_exam": {
+      "type": "string",
+      "title": "Last Eye Exam",
+      "description": "When was your last eye examination?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Within the last year",
+        "1-2 years ago",
+        "3-5 years ago",
+        "More than 5 years ago",
+        "Never had one",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "last_dental_exam": {
+      "type": "string",
+      "title": "Last Dental Exam",
+      "description": "When was your last dental examination?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Within the last 6 months",
+        "6-12 months ago",
+        "1-2 years ago",
+        "More than 2 years ago",
+        "Never had one",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "vaccinations": {
+      "type": "array",
+      "title": "Vaccinations",
+      "description": "Which of the following vaccinations are you up to date on?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Influenza (Flu)",
+        "Tetanus/Tdap",
+        "COVID-19",
+        "Pneumonia",
+        "Shingles",
+        "Hepatitis",
+        "HPV",
+        "Not sure",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "cancer_screenings": {
+      "type": "array",
+      "title": "Cancer Screenings",
+      "description": "Which of the following cancer screenings have you had in the recommended timeframe?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Breast cancer (mammogram)",
+        "Cervical cancer (Pap smear)",
+        "Colorectal cancer (colonoscopy)",
+        "Prostate cancer (PSA test)",
+        "Skin cancer screening",
+        "Lung cancer screening",
+        "Not applicable",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "preventive_care_barriers": {
+      "type": "array",
+      "title": "Preventive Care Barriers",
+      "description": "What barriers, if any, prevent you from receiving regular preventive care?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Cost/Insurance issues",
+        "Lack of time",
+        "Transportation difficulties",
+        "Don't know what screenings I need",
+        "Fear or anxiety about medical procedures",
+        "Previous negative experiences",
+        "No regular healthcare provider",
+        "No barriers",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "health_information_sources": {
+      "type": "array",
+      "title": "Health Information Sources",
+      "description": "Where do you typically get health information?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Healthcare provider",
+        "Internet searches",
+        "Health websites",
+        "Social media",
+        "Friends and family",
+        "Books/Magazines",
+        "Television",
+        "Health apps",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Is there anything else you would like to share about your health?",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional health information",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for completing this health assessment survey. Your responses will help identify areas where you're doing well and opportunities for improvement. Remember to discuss your health concerns with your healthcare provider.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

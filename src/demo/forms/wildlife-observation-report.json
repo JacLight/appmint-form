@@ -1,0 +1,717 @@
+{
+  "type": "object",
+  "title": "Wildlife Observation Report",
+  "description": "Document and share your wildlife sightings to support conservation efforts",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "observer", "title": "Observer Information" },
+        { "id": "sighting", "title": "Sighting Details" },
+        { "id": "species", "title": "Species Information" },
+        { "id": "behavior", "title": "Behavior & Habitat" },
+        { "id": "media", "title": "Photos & Media" },
+        { "id": "submit", "title": "Review & Submit" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Wildlife Observation Report",
+      "description": "Thank you for contributing to wildlife conservation through citizen science! Your observations help researchers track wildlife populations, monitor species health, and identify conservation priorities. Please provide as much detail as possible about your wildlife sighting.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number (optional)",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "observer_type": {
+      "type": "string",
+      "title": "Observer Type",
+      "description": "How would you describe yourself?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Casual observer/Citizen scientist",
+        "Wildlife enthusiast/Hobbyist",
+        "Professional biologist/Ecologist",
+        "Conservation organization staff/volunteer",
+        "Park ranger/Wildlife manager",
+        "Student",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "other_observer_type": {
+      "type": "string",
+      "title": "Other Observer Type",
+      "description": "If you selected 'Other', please specify",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "experience_level": {
+      "type": "string",
+      "title": "Wildlife Observation Experience",
+      "description": "How would you rate your experience with wildlife observation?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced",
+        "Expert"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "observation_equipment": {
+      "type": "array",
+      "title": "Observation Equipment",
+      "description": "What equipment did you use for this observation? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Naked eye",
+        "Binoculars",
+        "Spotting scope",
+        "Camera with telephoto lens",
+        "Smartphone camera",
+        "Trail/Wildlife camera",
+        "Audio recording device",
+        "Night vision/Thermal imaging",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "other_equipment": {
+      "type": "string",
+      "title": "Other Equipment",
+      "description": "If you selected 'Other', please specify the equipment used",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_affiliation": {
+      "type": "string",
+      "title": "Organization Affiliation",
+      "description": "Are you affiliated with any wildlife or conservation organizations? (Optional)",
+      "placeholder": "Organization name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "observation_date": {
+      "type": "string",
+      "title": "Observation Date",
+      "description": "When did you observe the wildlife?",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "observation_time": {
+      "type": "string",
+      "title": "Observation Time",
+      "description": "Approximately what time did you observe the wildlife?",
+      "x-control": "time",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "observation_duration": {
+      "type": "string",
+      "title": "Observation Duration",
+      "description": "How long did you observe the wildlife?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Brief glimpse (seconds)",
+        "Less than 5 minutes",
+        "5-15 minutes",
+        "16-30 minutes",
+        "31-60 minutes",
+        "More than 1 hour"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "location_name": {
+      "type": "string",
+      "title": "Location Name",
+      "description": "What is the name of the location where you observed the wildlife? (e.g., park name, trail name, lake name)",
+      "placeholder": "Location name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "location_type": {
+      "type": "string",
+      "title": "Location Type",
+      "description": "What type of location was it?",
+      "x-control": "selectsingle",
+      "enum": [
+        "National park/preserve",
+        "State/Provincial park",
+        "Local/City park",
+        "Wildlife refuge",
+        "Forest/Woodland",
+        "Wetland/Marsh",
+        "Lake/Pond",
+        "River/Stream",
+        "Ocean/Beach",
+        "Desert",
+        "Grassland/Prairie",
+        "Mountain/Alpine",
+        "Urban/Suburban area",
+        "Rural/Agricultural area",
+        "Backyard/Garden",
+        "Roadside",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_location_type": {
+      "type": "string",
+      "title": "Other Location Type",
+      "description": "If you selected 'Other', please specify the location type",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "In which country did you make this observation?",
+      "placeholder": "Country",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state_province": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "In which state/province did you make this observation?",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city_locality": {
+      "type": "string",
+      "title": "City/Locality",
+      "description": "What is the nearest city or locality to your observation?",
+      "placeholder": "City/Locality",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "coordinates_known": {
+      "type": "boolean",
+      "title": "GPS Coordinates Known",
+      "description": "Do you know the GPS coordinates of your observation?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "latitude": {
+      "type": "string",
+      "title": "Latitude",
+      "description": "Please enter the latitude of your observation (decimal degrees)",
+      "placeholder": "e.g., 37.7749",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "longitude": {
+      "type": "string",
+      "title": "Longitude",
+      "description": "Please enter the longitude of your observation (decimal degrees)",
+      "placeholder": "e.g., -122.4194",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "location_accuracy": {
+      "type": "string",
+      "title": "Location Accuracy",
+      "description": "How accurate is your location information?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Exact location (within 10 meters)",
+        "Approximate location (within 100 meters)",
+        "General area (within 1 kilometer)",
+        "Rough estimate (within 10 kilometers)",
+        "Uncertain"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "weather_conditions": {
+      "type": "array",
+      "title": "Weather Conditions",
+      "description": "What were the weather conditions during your observation? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Clear/Sunny",
+        "Partly cloudy",
+        "Overcast",
+        "Foggy/Misty",
+        "Light rain",
+        "Heavy rain",
+        "Thunderstorm",
+        "Snowing",
+        "Windy",
+        "Calm",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "temperature": {
+      "type": "string",
+      "title": "Temperature",
+      "description": "What was the approximate temperature during your observation?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very cold (below freezing)",
+        "Cold",
+        "Cool",
+        "Mild",
+        "Warm",
+        "Hot",
+        "Very hot",
+        "Don't remember"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "species_certainty": {
+      "type": "string",
+      "title": "Species Identification Certainty",
+      "description": "How certain are you about your species identification?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Certain (100% confident)",
+        "Very confident (75-99% confident)",
+        "Somewhat confident (50-74% confident)",
+        "Uncertain (less than 50% confident)",
+        "Unknown species"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "species_category": {
+      "type": "string",
+      "title": "Species Category",
+      "description": "What category of wildlife did you observe?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Mammal",
+        "Bird",
+        "Reptile",
+        "Amphibian",
+        "Fish",
+        "Insect",
+        "Spider/Arachnid",
+        "Other invertebrate",
+        "Plant",
+        "Fungus",
+        "Other",
+        "Not sure"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_species_category": {
+      "type": "string",
+      "title": "Other Species Category",
+      "description": "If you selected 'Other', please specify the species category",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "common_name": {
+      "type": "string",
+      "title": "Common Name",
+      "description": "What is the common name of the species you observed?",
+      "placeholder": "e.g., Red-tailed Hawk, White-tailed Deer",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "scientific_name": {
+      "type": "string",
+      "title": "Scientific Name",
+      "description": "If known, what is the scientific name of the species you observed?",
+      "placeholder": "e.g., Buteo jamaicensis, Odocoileus virginianus",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "identification_method": {
+      "type": "array",
+      "title": "Identification Method",
+      "description": "How did you identify this species? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Visual identification in the field",
+        "Photo identification after observation",
+        "Field guide reference",
+        "Mobile app identification",
+        "Expert consultation",
+        "Previous knowledge/experience",
+        "Distinctive calls/sounds",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_identification_method": {
+      "type": "string",
+      "title": "Other Identification Method",
+      "description": "If you selected 'Other', please specify the identification method",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "individual_count": {
+      "type": "string",
+      "title": "Number of Individuals",
+      "description": "How many individuals of this species did you observe?",
+      "x-control": "selectsingle",
+      "enum": [
+        "1",
+        "2",
+        "3-5",
+        "6-10",
+        "11-20",
+        "21-50",
+        "51-100",
+        "More than 100",
+        "Too many to count",
+        "Unknown"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "life_stage": {
+      "type": "array",
+      "title": "Life Stage",
+      "description": "What life stage(s) did you observe? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Egg/Seed",
+        "Larva/Caterpillar/Tadpole",
+        "Juvenile/Immature",
+        "Adult",
+        "Unknown"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "sex": {
+      "type": "array",
+      "title": "Sex",
+      "description": "What sex(es) did you observe? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Male",
+        "Female",
+        "Unknown"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "distinctive_features": {
+      "type": "string",
+      "title": "Distinctive Features",
+      "description": "Describe any distinctive features that helped you identify this species (markings, colors, size, etc.)",
+      "x-control-variant": "textarea",
+      "placeholder": "Distinctive features",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "rare_unusual": {
+      "type": "boolean",
+      "title": "Rare or Unusual",
+      "description": "To your knowledge, is this species rare or unusual for this location or time of year?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "rare_unusual_details": {
+      "type": "string",
+      "title": "Rare or Unusual Details",
+      "description": "If you believe this sighting is rare or unusual, please explain why",
+      "x-control-variant": "textarea",
+      "placeholder": "Please explain",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "behavior_observed": {
+      "type": "array",
+      "title": "Behaviors Observed",
+      "description": "What behaviors did you observe? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Feeding/Foraging",
+        "Hunting",
+        "Resting/Sleeping",
+        "Moving/Traveling",
+        "Flying/Soaring",
+        "Swimming",
+        "Calling/Singing",
+        "Mating/Courtship",
+        "Nesting/Den building",
+        "Parental care",
+        "Territorial behavior",
+        "Aggressive interaction",
+        "Grooming",
+        "Basking/Sunning",
+        "Migrating",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_behavior": {
+      "type": "string",
+      "title": "Other Behavior",
+      "description": "If you selected 'Other', please specify the behavior observed",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "behavior_description": {
+      "type": "string",
+      "title": "Behavior Description",
+      "description": "Please provide a detailed description of the behavior you observed",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe the behavior in detail",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "habitat_type": {
+      "type": "array",
+      "title": "Habitat Type",
+      "description": "What type of habitat was the wildlife in? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Forest/Woodland",
+        "Grassland/Prairie",
+        "Desert/Arid land",
+        "Wetland/Marsh",
+        "Lake/Pond",
+        "River/Stream",
+        "Ocean/Marine",
+        "Beach/Shoreline",
+        "Mountain/Alpine",
+        "Tundra",
+        "Agricultural land",
+        "Urban/Suburban",
+        "Roadside",
+        "Garden/Backyard",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_habitat_type": {
+      "type": "string",
+      "title": "Other Habitat Type",
+      "description": "If you selected 'Other', please specify the habitat type",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "habitat_description": {
+      "type": "string",
+      "title": "Habitat Description",
+      "description": "Please provide additional details about the habitat (vegetation, water features, etc.)",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe the habitat in detail",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "human_disturbance": {
+      "type": "string",
+      "title": "Human Disturbance",
+      "description": "Was there any human disturbance or activity in the area?",
+      "x-control": "selectsingle",
+      "enum": [
+        "None apparent",
+        "Minimal",
+        "Moderate",
+        "Significant",
+        "Unknown"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "human_disturbance_description": {
+      "type": "string",
+      "title": "Human Disturbance Description",
+      "description": "If there was human disturbance, please describe it",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe the human disturbance",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "interaction_with_other_species": {
+      "type": "boolean",
+      "title": "Interaction with Other Species",
+      "description": "Did you observe any interaction with other species?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "interaction_description": {
+      "type": "string",
+      "title": "Interaction Description",
+      "description": "If you observed interaction with other species, please describe it",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe the interaction",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "photos_available": {
+      "type": "boolean",
+      "title": "Photos Available",
+      "description": "Do you have photos of this wildlife observation?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "photo_upload": {
+      "type": "string",
+      "title": "Photo Upload",
+      "description": "Please upload photos of the wildlife observation (up to 5 photos, max 10MB each)",
+      "x-control": "file",
+      "x-file-accept": "image/*",
+      "x-file-multiple": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "photo_description": {
+      "type": "string",
+      "title": "Photo Description",
+      "description": "Please provide a brief description of the uploaded photos",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe what the photos show",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "video_available": {
+      "type": "boolean",
+      "title": "Video Available",
+      "description": "Do you have video of this wildlife observation?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "video_upload": {
+      "type": "string",
+      "title": "Video Upload",
+      "description": "Please upload video of the wildlife observation (max 50MB)",
+      "x-control": "file",
+      "x-file-accept": "video/*",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "video_description": {
+      "type": "string",
+      "title": "Video Description",
+      "description": "Please provide a brief description of the uploaded video",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe what the video shows",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "audio_available": {
+      "type": "boolean",
+      "title": "Audio Available",
+      "description": "Do you have audio recordings of this wildlife observation (e.g., bird calls)?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "audio_upload": {
+      "type": "string",
+      "title": "Audio Upload",
+      "description": "Please upload audio recordings of the wildlife observation (max 10MB)",
+      "x-control": "file",
+      "x-file-accept": "audio/*",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "audio_description": {
+      "type": "string",
+      "title": "Audio Description",
+      "description": "Please provide a brief description of the uploaded audio",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe what the audio contains",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "media_usage_permission": {
+      "type": "string",
+      "title": "Media Usage Permission",
+      "description": "Do you grant permission for your photos, videos, or audio to be used for conservation, education, or research purposes?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Yes, with attribution",
+        "Yes, anonymously",
+        "No, for verification purposes only",
+        "No media submitted"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "additional_notes": {
+      "type": "string",
+      "title": "Additional Notes",
+      "description": "Please provide any additional information about your wildlife observation that might be relevant",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional notes",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "conservation_concerns": {
+      "type": "string",
+      "title": "Conservation Concerns",
+      "description": "Did you observe any conservation concerns related to this wildlife or its habitat?",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe any conservation concerns",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "follow_up_permission": {
+      "type": "boolean",
+      "title": "Follow-up Permission",
+      "description": "May we contact you for follow-up questions about this observation?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "data_sharing_consent": {
+      "type": "array",
+      "title": "Data Sharing Consent",
+      "description": "Please indicate how you consent to your observation data being shared (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Share with wildlife conservation organizations",
+        "Share with government wildlife agencies",
+        "Share with scientific researchers",
+        "Include in public wildlife databases",
+        "Use for educational purposes",
+        "I do not consent to sharing my observation data"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "newsletter_signup": {
+      "type": "boolean",
+      "title": "Newsletter Signup",
+      "description": "Would you like to receive our wildlife conservation newsletter?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Report",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for submitting your wildlife observation report. Your contribution helps support wildlife conservation efforts. You will receive a confirmation email with a copy of your report.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

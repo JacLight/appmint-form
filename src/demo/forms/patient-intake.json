@@ -1,0 +1,488 @@
+{
+  "type": "object",
+  "title": "Patient Intake Form",
+  "description": "Collect essential patient information for healthcare services",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "contact_info", "title": "Contact Information" },
+        { "id": "insurance_info", "title": "Insurance Information" },
+        { "id": "medical_info", "title": "Medical Information" },
+        { "id": "emergency_contact", "title": "Emergency Contact" },
+        { "id": "consent", "title": "Consent & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Patient Information Form",
+      "description": "Please complete this form to help us provide you with appropriate medical care. All information will be kept confidential in accordance with HIPAA regulations.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Legal Name",
+      "description": "Please enter your full legal name",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "preferred_name": {
+      "type": "string",
+      "title": "Preferred Name",
+      "description": "If different from legal name",
+      "placeholder": "Preferred name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Transgender",
+        "Prefer to self-describe",
+        "Prefer not to say"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender_self_describe": {
+      "type": "string",
+      "title": "Self-Described Gender",
+      "description": "If you selected 'Prefer to self-describe', please specify",
+      "placeholder": "Self-described gender",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "sex_at_birth": {
+      "type": "string",
+      "title": "Sex Assigned at Birth",
+      "description": "Please select your sex assigned at birth",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Intersex",
+        "Prefer not to say"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "marital_status": {
+      "type": "string",
+      "title": "Marital Status",
+      "description": "Please select your marital status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Single",
+        "Married",
+        "Divorced",
+        "Widowed",
+        "Separated",
+        "Domestic Partnership",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "ssn": {
+      "type": "string",
+      "title": "Social Security Number",
+      "description": "Please enter your SSN (for insurance purposes)",
+      "placeholder": "XXX-XX-XXXX",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "address": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "apartment": {
+      "type": "string",
+      "title": "Apartment/Unit Number",
+      "description": "If applicable",
+      "placeholder": "Apartment/Unit number",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state": {
+      "type": "string",
+      "title": "State",
+      "description": "Please enter your state",
+      "placeholder": "State",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "zip_code": {
+      "type": "string",
+      "title": "Zip Code",
+      "description": "Please enter your zip code",
+      "placeholder": "Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone_home": {
+      "type": "string",
+      "title": "Home Phone",
+      "description": "Please enter your home phone number",
+      "placeholder": "Home phone",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone_cell": {
+      "type": "string",
+      "title": "Cell Phone",
+      "description": "Please enter your cell phone number",
+      "placeholder": "Cell phone",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone_work": {
+      "type": "string",
+      "title": "Work Phone",
+      "description": "Please enter your work phone number",
+      "placeholder": "Work phone",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "preferred_contact": {
+      "type": "string",
+      "title": "Preferred Contact Method",
+      "description": "Please select your preferred contact method",
+      "x-control": "selectsingle",
+      "enum": [
+        "Email",
+        "Home Phone",
+        "Cell Phone",
+        "Work Phone",
+        "Text Message"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "insurance_provider": {
+      "type": "string",
+      "title": "Insurance Provider",
+      "description": "Please enter your insurance provider name",
+      "placeholder": "Insurance provider",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_policy_number": {
+      "type": "string",
+      "title": "Policy Number",
+      "description": "Please enter your insurance policy number",
+      "placeholder": "Policy number",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_group_number": {
+      "type": "string",
+      "title": "Group Number",
+      "description": "Please enter your insurance group number",
+      "placeholder": "Group number",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_policyholder": {
+      "type": "string",
+      "title": "Policyholder Name",
+      "description": "Please enter the policyholder's name if different from patient",
+      "placeholder": "Policyholder name",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_relationship": {
+      "type": "string",
+      "title": "Relationship to Policyholder",
+      "description": "Please select your relationship to the policyholder",
+      "x-control": "selectsingle",
+      "enum": [
+        "Self",
+        "Spouse",
+        "Child",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_secondary": {
+      "type": "boolean",
+      "title": "Secondary Insurance",
+      "description": "Do you have secondary insurance?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_secondary_provider": {
+      "type": "string",
+      "title": "Secondary Insurance Provider",
+      "description": "Please enter your secondary insurance provider name",
+      "placeholder": "Secondary insurance provider",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_secondary_policy_number": {
+      "type": "string",
+      "title": "Secondary Policy Number",
+      "description": "Please enter your secondary insurance policy number",
+      "placeholder": "Secondary policy number",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_card_front": {
+      "type": "string",
+      "title": "Insurance Card (Front)",
+      "description": "Please upload a photo of the front of your insurance card",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "insurance_card_back": {
+      "type": "string",
+      "title": "Insurance Card (Back)",
+      "description": "Please upload a photo of the back of your insurance card",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "primary_care_physician": {
+      "type": "string",
+      "title": "Primary Care Physician",
+      "description": "Please enter your primary care physician's name",
+      "placeholder": "Physician name",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "reason_for_visit": {
+      "type": "string",
+      "title": "Reason for Visit",
+      "description": "Please describe the reason for your visit today",
+      "x-control-variant": "textarea",
+      "placeholder": "Reason for visit",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "current_medications": {
+      "type": "string",
+      "title": "Current Medications",
+      "description": "Please list all medications you are currently taking, including over-the-counter medications and supplements",
+      "x-control-variant": "textarea",
+      "placeholder": "List medications, dosages, and frequency",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "allergies": {
+      "type": "string",
+      "title": "Allergies",
+      "description": "Please list any known allergies (medications, food, environmental)",
+      "x-control-variant": "textarea",
+      "placeholder": "List allergies and reactions",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "medical_conditions": {
+      "type": "array",
+      "title": "Medical Conditions",
+      "description": "Please select all that apply",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Asthma",
+        "Cancer",
+        "Diabetes",
+        "Heart Disease",
+        "High Blood Pressure",
+        "High Cholesterol",
+        "Thyroid Disease",
+        "Stroke",
+        "Arthritis",
+        "Depression/Anxiety",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_medical_conditions": {
+      "type": "string",
+      "title": "Other Medical Conditions",
+      "description": "If you selected 'Other', please specify",
+      "x-control-variant": "textarea",
+      "placeholder": "Other medical conditions",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "surgical_history": {
+      "type": "string",
+      "title": "Surgical History",
+      "description": "Please list any previous surgeries with dates",
+      "x-control-variant": "textarea",
+      "placeholder": "Surgeries and dates",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "family_medical_history": {
+      "type": "string",
+      "title": "Family Medical History",
+      "description": "Please describe any significant family medical history",
+      "x-control-variant": "textarea",
+      "placeholder": "Family medical history",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "smoking_status": {
+      "type": "string",
+      "title": "Smoking Status",
+      "description": "Please select your smoking status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Never smoked",
+        "Former smoker",
+        "Current smoker - occasional",
+        "Current smoker - daily",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "alcohol_use": {
+      "type": "string",
+      "title": "Alcohol Use",
+      "description": "Please select your alcohol consumption",
+      "x-control": "selectsingle",
+      "enum": [
+        "None",
+        "Occasional",
+        "Moderate",
+        "Heavy",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "emergency_contact_name": {
+      "type": "string",
+      "title": "Emergency Contact Name",
+      "description": "Please enter your emergency contact's full name",
+      "placeholder": "Emergency contact name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "emergency_contact_relationship": {
+      "type": "string",
+      "title": "Relationship to Patient",
+      "description": "Please enter your relationship to the emergency contact",
+      "placeholder": "Relationship",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "emergency_contact_phone": {
+      "type": "string",
+      "title": "Emergency Contact Phone",
+      "description": "Please enter your emergency contact's phone number",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "emergency_contact_address": {
+      "type": "string",
+      "title": "Emergency Contact Address",
+      "description": "Please enter your emergency contact's address",
+      "x-control-variant": "textarea",
+      "placeholder": "Emergency contact address",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "hipaa_consent": {
+      "type": "boolean",
+      "title": "HIPAA Acknowledgment",
+      "description": "I acknowledge that I have been provided with a copy of the Notice of Privacy Practices (HIPAA) and have had an opportunity to review it.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "treatment_consent": {
+      "type": "boolean",
+      "title": "Consent to Treatment",
+      "description": "I voluntarily consent to the medical care, treatment, and diagnostic tests that the healthcare providers at this facility believe are necessary. I understand that by signing below, I am giving permission for evaluation and treatment.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "financial_responsibility": {
+      "type": "boolean",
+      "title": "Financial Responsibility",
+      "description": "I understand that I am financially responsible for any charges not covered by my insurance and for any services rendered to me or my dependents.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "information_release": {
+      "type": "boolean",
+      "title": "Information Release",
+      "description": "I authorize the release of any medical information necessary to process insurance claims and authorize payment of medical benefits to the physician or supplier for services rendered.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "information_accuracy": {
+      "type": "boolean",
+      "title": "Information Accuracy",
+      "description": "I certify that the information provided on this form is accurate and complete to the best of my knowledge.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "signature": {
+      "type": "string",
+      "title": "Digital Signature",
+      "description": "Please type your full name as your digital signature",
+      "placeholder": "Type your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Form",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your patient intake form has been submitted successfully. Please arrive 15 minutes before your scheduled appointment time to complete any additional paperwork if needed.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

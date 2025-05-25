@@ -41,7 +41,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <FormStoreProvider storeId='demo'>
+    <FormStoreProvider storeId="demo">
       <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
         {/* Sidebar */}
         <Sidebar
@@ -50,7 +50,6 @@ const App: React.FC = () => {
           currentRoute={currentRoute}
           onNavigate={navigateTo}
         />
-
         {/* Main Content */}
         <div
           className={`flex-1 overflow-auto transition-all duration-300 ${

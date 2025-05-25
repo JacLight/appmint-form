@@ -1,0 +1,196 @@
+{
+  "type": "object",
+  "title": "Job Application Form",
+  "description": "Collect detailed applicant info for an open position, including personal details, CV, and relevant experience.",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "introduction", "title": "Job Description & Instructions" },
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "qualifications", "title": "Qualifications & Experience" },
+        { "id": "additional_questions", "title": "Additional Questions" },
+        { "id": "finish", "title": "Submit & Confirmation" }
+      ]
+    }
+  },
+  "properties": {
+    "job_description": {
+      "type": "null",
+      "title": "Software Engineer Position",
+      "description": "We are looking for a talented Software Engineer to join our growing team. This role involves developing and maintaining high-quality applications, collaborating with cross-functional teams, and implementing best practices in software development.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "application_instructions": {
+      "type": "null",
+      "title": "Application Instructions",
+      "description": "Please complete all required fields in this application form. Attach your resume/CV and any other relevant documents. Applications must be submitted by May 31, 2025.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Enter your given name.",
+      "inputRequired": true,
+      "placeholder": "John",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Enter your family name.",
+      "inputRequired": true,
+      "placeholder": "Doe",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Primary contact for interview scheduling.",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "placeholder": "john.doe@example.com",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone_number": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Include country code if relevant.",
+      "x-control": "phone",
+      "inputRequired": true,
+      "placeholder": "+1 (555) 123-4567",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address",
+      "description": "Your current residential address.",
+      "x-control-variant": "textarea",
+      "placeholder": "123 Main St, Apt 4B\nCity, State 12345\nCountry",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "resume_upload": {
+      "type": "string",
+      "title": "Resume/CV",
+      "description": "Upload a PDF or DOC file. Max size: 5MB.",
+      "x-control": "file",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "portfolio_url": {
+      "type": "string",
+      "title": "Portfolio URL",
+      "description": "Optional for design or creative roles. Could be Behance, Dribbble, personal website.",
+      "format": "url",
+      "placeholder": "https://www.yourportfolio.com",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "cover_letter": {
+      "type": "string",
+      "title": "Cover Letter / Motivational Statement",
+      "description": "Explain why you're a strong fit for the role.",
+      "x-control-variant": "textarea",
+      "placeholder": "Dear Hiring Manager,\n\nI am writing to express my interest in the Software Engineer position...",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "years_of_experience": {
+      "type": "number",
+      "title": "Years of Experience",
+      "description": "How many years of relevant experience do you have?",
+      "minimum": 0,
+      "maximum": 50,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "skills": {
+      "type": "array",
+      "title": "Skills",
+      "description": "Select all skills that apply to you.",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "JavaScript",
+        "Python",
+        "Java",
+        "C#",
+        "React",
+        "Angular",
+        "Node.js",
+        "SQL",
+        "NoSQL",
+        "AWS",
+        "Azure",
+        "Docker",
+        "Kubernetes",
+        "Machine Learning",
+        "DevOps",
+        "UI/UX Design"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "start_date": {
+      "type": "string",
+      "title": "Earliest Start Date",
+      "description": "When could you potentially begin if hired?",
+      "format": "date",
+      "x-control": "date",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "salary_expectation": {
+      "type": "string",
+      "title": "Salary Expectation",
+      "description": "What is your expected annual salary range?",
+      "placeholder": "$80,000 - $100,000",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "relocation": {
+      "type": "boolean",
+      "title": "Willing to Relocate",
+      "description": "Are you willing to relocate for this position if necessary?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "referral_source": {
+      "type": "string",
+      "title": "How did you hear about this position?",
+      "description": "Please select the source that led you to this job opening.",
+      "x-control": "selectsingle",
+      "enum": [
+        "Company Website",
+        "LinkedIn",
+        "Indeed",
+        "Glassdoor",
+        "Employee Referral",
+        "Job Fair",
+        "University/College",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_information": {
+      "type": "string",
+      "title": "Additional Information",
+      "description": "Is there anything else you'd like us to know about your application?",
+      "x-control-variant": "textarea",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "legal_consent": {
+      "type": "boolean",
+      "title": "Legal Consent",
+      "description": "I certify that all information provided in this application is true and complete to the best of my knowledge. I understand that any false information or omission may disqualify me from further consideration for employment and may result in my dismissal if discovered at a later date.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_confirmation": {
+      "type": "null",
+      "title": "Thank You for Your Application",
+      "description": "Your application has been submitted successfully. Our hiring team will review your qualifications and contact you if your background matches our requirements. The hiring process typically takes 2-3 weeks.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "title": "Net Promoter Score Survey",
+  "description": "Measure customer loyalty and satisfaction with a standardized NPS survey",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Your Opinion Matters",
+      "description": "Thank you for participating in our Net Promoter Score survey. Your feedback helps us understand how we're doing and how we can improve.",
+      "x-control": "paragraph"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Please enter your full name",
+      "placeholder": "Your name",
+      "inputRequired": true
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true
+    },
+    "nps_score": {
+      "type": "number",
+      "title": "How likely are you to recommend our company/product to a friend or colleague?",
+      "description": "Please select a number from 0 to 10, where 0 is 'Not at all likely' and 10 is 'Extremely likely'",
+      "x-control": "slider",
+      "minimum": 0,
+      "maximum": 10,
+      "inputRequired": true
+    },
+    "nps_explanation": {
+      "type": "string",
+      "title": "What is the primary reason for your score?",
+      "description": "Please explain why you gave this rating",
+      "x-control-variant": "textarea",
+      "placeholder": "I gave this score because...",
+      "inputRequired": true
+    },
+    "nps_categories": {
+      "type": "null",
+      "title": "Understanding Your Score",
+      "description": "Based on your score:\n• 0-6: Detractors - Customers who might impede growth through negative word-of-mouth\n• 7-8: Passives - Satisfied but unenthusiastic customers\n• 9-10: Promoters - Loyal enthusiasts who fuel growth",
+      "x-control": "paragraph"
+    },
+    "additional_feedback": {
+      "type": "string",
+      "title": "Additional Feedback",
+      "description": "Is there anything else you'd like to share about your experience with us?",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments..."
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your feedback. Your input helps us improve our products and services.",
+      "x-control": "paragraph"
+    }
+  }
+}

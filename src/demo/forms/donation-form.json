@@ -1,0 +1,488 @@
+{
+  "type": "object",
+  "title": "Donation Form",
+  "description": "Support our cause with your generous contribution",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "donation_info", "title": "Donation Information" },
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "payment_info", "title": "Payment Information" },
+        { "id": "confirmation", "title": "Confirmation" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Make a Difference Today",
+      "description": "Thank you for your interest in supporting our mission. Your donation will help us continue our important work and make a positive impact in our community. All donations are tax-deductible to the extent allowed by law.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "donation_type": {
+      "type": "string",
+      "title": "Donation Type",
+      "description": "Please select the type of donation you would like to make",
+      "x-control": "selectsingle",
+      "enum": [
+        "One-time donation",
+        "Monthly recurring donation",
+        "Quarterly recurring donation",
+        "Annual recurring donation"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "donation_amount": {
+      "type": "string",
+      "title": "Donation Amount",
+      "description": "Please select or enter the amount you would like to donate",
+      "x-control": "selectsingle",
+      "enum": [
+        "$25",
+        "$50",
+        "$100",
+        "$250",
+        "$500",
+        "$1,000",
+        "Other amount"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "other_amount": {
+      "type": "number",
+      "title": "Other Amount",
+      "description": "If you selected 'Other amount', please enter the amount you would like to donate",
+      "placeholder": "Enter amount",
+      "minimum": 1,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "donation_designation": {
+      "type": "string",
+      "title": "Donation Designation",
+      "description": "Please select where you would like your donation to be directed",
+      "x-control": "selectsingle",
+      "enum": [
+        "General Fund (Greatest Need)",
+        "Education Programs",
+        "Community Outreach",
+        "Research & Innovation",
+        "Emergency Relief",
+        "Scholarship Fund",
+        "Capital Campaign",
+        "Specific Project"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "specific_project": {
+      "type": "string",
+      "title": "Specific Project",
+      "description": "If you selected 'Specific Project', please enter the name of the project",
+      "placeholder": "Project name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "donation_motivation": {
+      "type": "string",
+      "title": "Donation Motivation",
+      "description": "What inspired you to donate today? (Optional)",
+      "x-control-variant": "textarea",
+      "placeholder": "Share your motivation",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "in_honor_memory": {
+      "type": "boolean",
+      "title": "Tribute Donation",
+      "description": "Is this donation in honor or memory of someone?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "honoree_name": {
+      "type": "string",
+      "title": "Honoree Name",
+      "description": "Please enter the name of the person you are honoring",
+      "placeholder": "Honoree name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "tribute_type": {
+      "type": "string",
+      "title": "Tribute Type",
+      "description": "Please select the type of tribute",
+      "x-control": "selectsingle",
+      "enum": [
+        "In Honor Of",
+        "In Memory Of",
+        "In Celebration Of"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "notify_honoree": {
+      "type": "boolean",
+      "title": "Notify Honoree",
+      "description": "Would you like us to notify someone about this tribute donation?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "honoree_notification_name": {
+      "type": "string",
+      "title": "Notification Recipient Name",
+      "description": "Please enter the name of the person to notify",
+      "placeholder": "Recipient name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "honoree_notification_email": {
+      "type": "string",
+      "title": "Notification Recipient Email",
+      "description": "Please enter the email address of the person to notify",
+      "placeholder": "Recipient email",
+      "format": "email",
+      "x-control": "email",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "honoree_notification_address": {
+      "type": "string",
+      "title": "Notification Recipient Address",
+      "description": "Please enter the mailing address of the person to notify",
+      "x-control-variant": "textarea",
+      "placeholder": "Recipient address",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "company_match": {
+      "type": "boolean",
+      "title": "Matching Gift",
+      "description": "Does your employer match charitable donations?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "company_name": {
+      "type": "string",
+      "title": "Company Name",
+      "description": "Please enter the name of your employer",
+      "placeholder": "Company name",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "donor_type": {
+      "type": "string",
+      "title": "Donor Type",
+      "description": "Please select your donor type",
+      "x-control": "selectsingle",
+      "enum": [
+        "Individual",
+        "Corporation",
+        "Foundation",
+        "Donor-Advised Fund",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "First name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "organization_name": {
+      "type": "string",
+      "title": "Organization Name",
+      "description": "If donating on behalf of an organization, please enter the organization name",
+      "placeholder": "Organization name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address_line1": {
+      "type": "string",
+      "title": "Address Line 1",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address_line2": {
+      "type": "string",
+      "title": "Address Line 2",
+      "description": "Please enter your apartment, suite, unit, etc.",
+      "placeholder": "Apt, Suite, Unit, etc. (optional)",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_country": {
+      "type": "string",
+      "title": "Other Country",
+      "description": "If you selected 'Other', please specify your country",
+      "placeholder": "Country name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "anonymous_donation": {
+      "type": "boolean",
+      "title": "Anonymous Donation",
+      "description": "Would you like your donation to remain anonymous?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "donor_recognition": {
+      "type": "string",
+      "title": "Donor Recognition",
+      "description": "How would you like your name to appear in donor recognition materials?",
+      "placeholder": "Name for recognition",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "communication_preference": {
+      "type": "array",
+      "title": "Communication Preferences",
+      "description": "How would you like to receive communications from us?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Email",
+        "Postal Mail",
+        "Phone",
+        "Text Message"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "newsletter_signup": {
+      "type": "boolean",
+      "title": "Newsletter Signup",
+      "description": "Would you like to receive our newsletter?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "payment_method": {
+      "type": "string",
+      "title": "Payment Method",
+      "description": "Please select your payment method",
+      "x-control": "selectsingle",
+      "enum": [
+        "Credit/Debit Card",
+        "PayPal",
+        "Bank Transfer (ACH)",
+        "Check",
+        "Cryptocurrency",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "card_holder_name": {
+      "type": "string",
+      "title": "Cardholder Name",
+      "description": "Please enter the name as it appears on your card",
+      "placeholder": "Cardholder name",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "card_number": {
+      "type": "string",
+      "title": "Card Number",
+      "description": "Please enter your card number",
+      "placeholder": "Card number",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "card_expiration": {
+      "type": "string",
+      "title": "Expiration Date",
+      "description": "Please enter the expiration date of your card",
+      "placeholder": "MM/YY",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "card_cvv": {
+      "type": "string",
+      "title": "CVV",
+      "description": "Please enter the 3 or 4 digit security code on your card",
+      "placeholder": "CVV",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_same_as_mailing": {
+      "type": "boolean",
+      "title": "Billing Address",
+      "description": "Is your billing address the same as your mailing address?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_address_line1": {
+      "type": "string",
+      "title": "Billing Address Line 1",
+      "description": "Please enter your billing street address",
+      "placeholder": "Billing street address",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_address_line2": {
+      "type": "string",
+      "title": "Billing Address Line 2",
+      "description": "Please enter your billing apartment, suite, unit, etc.",
+      "placeholder": "Apt, Suite, Unit, etc. (optional)",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_city": {
+      "type": "string",
+      "title": "Billing City",
+      "description": "Please enter your billing city",
+      "placeholder": "Billing city",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_state": {
+      "type": "string",
+      "title": "Billing State/Province",
+      "description": "Please enter your billing state or province",
+      "placeholder": "Billing state/province",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_postal_code": {
+      "type": "string",
+      "title": "Billing Postal/Zip Code",
+      "description": "Please enter your billing postal or zip code",
+      "placeholder": "Billing postal/zip code",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_country": {
+      "type": "string",
+      "title": "Billing Country",
+      "description": "Please select your billing country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "billing_other_country": {
+      "type": "string",
+      "title": "Other Billing Country",
+      "description": "If you selected 'Other', please specify your billing country",
+      "placeholder": "Billing country name",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "payment_notes": {
+      "type": "string",
+      "title": "Payment Notes",
+      "description": "Please provide any additional information about your payment",
+      "x-control-variant": "textarea",
+      "placeholder": "Payment notes",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "donation_summary": {
+      "type": "null",
+      "title": "Donation Summary",
+      "description": "Please review your donation information below before submitting.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "tax_deductible_acknowledgment": {
+      "type": "boolean",
+      "title": "Tax-Deductible Acknowledgment",
+      "description": "I understand that this donation is tax-deductible to the extent allowed by law, and I will receive a receipt for tax purposes.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "recurring_donation_acknowledgment": {
+      "type": "boolean",
+      "title": "Recurring Donation Acknowledgment",
+      "description": "For recurring donations: I understand that this donation will be automatically charged to my payment method according to the frequency I selected until I choose to cancel.",
+      "x-control": "legalconsent",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "privacy_policy": {
+      "type": "boolean",
+      "title": "Privacy Policy",
+      "description": "I acknowledge that I have read and understand the privacy policy regarding how my personal information will be used.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please provide any additional comments or questions",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Complete Donation",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You for Your Generous Support!",
+      "description": "Your donation has been successfully processed. A receipt has been sent to your email address. Your support makes our work possible, and we are deeply grateful for your contribution to our mission.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    }
+  }
+}

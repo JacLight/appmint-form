@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "title": "Customer Satisfaction Survey",
+  "description": "Gather feedback from customers about their experience with your product or service",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "We Value Your Feedback",
+      "description": "Thank you for taking the time to complete this survey. Your feedback helps us improve our products and services.",
+      "x-control": "paragraph"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Please enter your full name",
+      "placeholder": "Your name",
+      "inputRequired": true
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true
+    },
+    "satisfaction_level": {
+      "type": "string",
+      "title": "How satisfied are you with our product/service?",
+      "description": "Please select the option that best describes your satisfaction level",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very satisfied",
+        "Satisfied",
+        "Neutral",
+        "Dissatisfied",
+        "Very dissatisfied"
+      ],
+      "inputRequired": true
+    },
+    "likes": {
+      "type": "string",
+      "title": "What did you like most about our product/service?",
+      "description": "Please share what aspects you enjoyed the most",
+      "x-control-variant": "textarea",
+      "placeholder": "I liked..."
+    },
+    "improvements": {
+      "type": "string",
+      "title": "How can we improve our product/service?",
+      "description": "Please share any suggestions for improvement",
+      "x-control-variant": "textarea",
+      "placeholder": "You could improve..."
+    },
+    "recommendation_rating": {
+      "type": "number",
+      "title": "How likely are you to recommend us to others?",
+      "description": "Please rate on a scale of 1-5, where 1 is 'Not at all likely' and 5 is 'Extremely likely'",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your feedback. Your input helps us improve our products and services.",
+      "x-control": "paragraph"
+    }
+  }
+}

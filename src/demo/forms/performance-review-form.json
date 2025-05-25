@@ -1,0 +1,549 @@
+{
+  "type": "object",
+  "title": "Employee Performance Review Form",
+  "description": "Annual performance evaluation to assess employee achievements, skills, and areas for development",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "employee", "title": "Employee Information" },
+        { "id": "goals", "title": "Goals & Objectives Review" },
+        { "id": "competencies", "title": "Core Competencies" },
+        { "id": "skills", "title": "Job-Specific Skills" },
+        { "id": "achievements", "title": "Key Achievements" },
+        { "id": "development", "title": "Development Plan" },
+        { "id": "overall", "title": "Overall Assessment" },
+        { "id": "signatures", "title": "Acknowledgment & Signatures" }
+      ]
+    }
+  },
+  "properties": {
+    "review_intro": {
+      "type": "null",
+      "title": "Performance Review Process",
+      "description": "This performance review is designed to evaluate employee performance, recognize achievements, identify areas for improvement, and establish development goals. The review process encourages open communication between employees and managers to support professional growth and organizational success.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "review_instructions": {
+      "type": "null",
+      "title": "Instructions",
+      "description": "• Both manager and employee should prepare for the review by reflecting on the past performance period\n• Complete each section with specific examples and observations\n• Be objective and focus on behaviors and results rather than personality\n• Provide constructive feedback that helps the employee grow professionally\n• Discuss the completed review in a private meeting\n• Both parties should sign the form after the review discussion\n• The completed form will be stored in the employee's personnel file",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "review_period": {
+      "type": "string",
+      "title": "Review Period",
+      "description": "Please select the review period",
+      "x-control": "selectsingle",
+      "enum": [
+        "Annual Review (January - December 2024)",
+        "Annual Review (July 2024 - June 2025)",
+        "Mid-Year Review (January - June 2025)",
+        "Mid-Year Review (July - December 2024)",
+        "Quarterly Review (Q1 2025)",
+        "Quarterly Review (Q2 2025)",
+        "Quarterly Review (Q3 2024)",
+        "Quarterly Review (Q4 2024)",
+        "Probationary Period Review",
+        "Special Performance Review"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "review_date": {
+      "type": "string",
+      "title": "Review Date",
+      "description": "Date of the performance review meeting",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "employee_name": {
+      "type": "string",
+      "title": "Employee Name",
+      "description": "Full name of the employee being reviewed",
+      "placeholder": "Employee name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "employee_id": {
+      "type": "string",
+      "title": "Employee ID",
+      "description": "Employee identification number",
+      "placeholder": "Employee ID",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "job_title": {
+      "type": "string",
+      "title": "Job Title",
+      "description": "Employee's current position",
+      "placeholder": "Job title",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "department": {
+      "type": "string",
+      "title": "Department",
+      "description": "Employee's department",
+      "placeholder": "Department",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "hire_date": {
+      "type": "string",
+      "title": "Hire Date",
+      "description": "Employee's original hire date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "manager_name": {
+      "type": "string",
+      "title": "Manager Name",
+      "description": "Name of the manager conducting the review",
+      "placeholder": "Manager name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "goals_summary": {
+      "type": "null",
+      "title": "Goals and Objectives",
+      "description": "Review the goals and objectives established for this performance period. Assess the employee's progress and achievement of each goal.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal1_description": {
+      "type": "string",
+      "title": "Goal 1 Description",
+      "description": "Description of the first goal/objective set for this review period",
+      "x-control-variant": "textarea",
+      "placeholder": "Goal description",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal1_achievement": {
+      "type": "string",
+      "title": "Goal 1 Achievement Level",
+      "description": "Level of achievement for Goal 1",
+      "x-control": "selectsingle",
+      "enum": [
+        "Exceeded expectations",
+        "Met expectations",
+        "Partially met expectations",
+        "Did not meet expectations",
+        "No longer applicable"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal1_comments": {
+      "type": "string",
+      "title": "Goal 1 Comments",
+      "description": "Comments on progress, achievements, and challenges related to Goal 1",
+      "x-control-variant": "textarea",
+      "placeholder": "Comments on Goal 1",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal2_description": {
+      "type": "string",
+      "title": "Goal 2 Description",
+      "description": "Description of the second goal/objective set for this review period",
+      "x-control-variant": "textarea",
+      "placeholder": "Goal description",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal2_achievement": {
+      "type": "string",
+      "title": "Goal 2 Achievement Level",
+      "description": "Level of achievement for Goal 2",
+      "x-control": "selectsingle",
+      "enum": [
+        "Exceeded expectations",
+        "Met expectations",
+        "Partially met expectations",
+        "Did not meet expectations",
+        "No longer applicable"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal2_comments": {
+      "type": "string",
+      "title": "Goal 2 Comments",
+      "description": "Comments on progress, achievements, and challenges related to Goal 2",
+      "x-control-variant": "textarea",
+      "placeholder": "Comments on Goal 2",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal3_description": {
+      "type": "string",
+      "title": "Goal 3 Description",
+      "description": "Description of the third goal/objective set for this review period",
+      "x-control-variant": "textarea",
+      "placeholder": "Goal description",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal3_achievement": {
+      "type": "string",
+      "title": "Goal 3 Achievement Level",
+      "description": "Level of achievement for Goal 3",
+      "x-control": "selectsingle",
+      "enum": [
+        "Exceeded expectations",
+        "Met expectations",
+        "Partially met expectations",
+        "Did not meet expectations",
+        "No longer applicable"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goal3_comments": {
+      "type": "string",
+      "title": "Goal 3 Comments",
+      "description": "Comments on progress, achievements, and challenges related to Goal 3",
+      "x-control-variant": "textarea",
+      "placeholder": "Comments on Goal 3",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "competencies_intro": {
+      "type": "null",
+      "title": "Core Competencies Assessment",
+      "description": "Evaluate the employee's demonstration of core competencies that are essential for all employees in the organization. Rate each competency on a scale of 1-5:\n\n1 = Needs significant improvement\n2 = Needs some improvement\n3 = Meets expectations\n4 = Exceeds expectations\n5 = Exceptional performance",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "communication": {
+      "type": "number",
+      "title": "Communication",
+      "description": "Ability to express ideas clearly, listen actively, and share information appropriately",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "communication_comments": {
+      "type": "string",
+      "title": "Communication Comments",
+      "description": "Specific examples and observations regarding communication skills",
+      "x-control-variant": "textarea",
+      "placeholder": "Communication comments",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "teamwork": {
+      "type": "number",
+      "title": "Teamwork & Collaboration",
+      "description": "Ability to work effectively with others, contribute to team goals, and foster a positive work environment",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "teamwork_comments": {
+      "type": "string",
+      "title": "Teamwork Comments",
+      "description": "Specific examples and observations regarding teamwork and collaboration",
+      "x-control-variant": "textarea",
+      "placeholder": "Teamwork comments",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "problem_solving": {
+      "type": "number",
+      "title": "Problem Solving & Decision Making",
+      "description": "Ability to analyze situations, identify solutions, and make sound decisions",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "problem_solving_comments": {
+      "type": "string",
+      "title": "Problem Solving Comments",
+      "description": "Specific examples and observations regarding problem solving and decision making",
+      "x-control-variant": "textarea",
+      "placeholder": "Problem solving comments",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "adaptability": {
+      "type": "number",
+      "title": "Adaptability & Flexibility",
+      "description": "Ability to adjust to changing priorities, embrace new approaches, and manage uncertainty",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "adaptability_comments": {
+      "type": "string",
+      "title": "Adaptability Comments",
+      "description": "Specific examples and observations regarding adaptability and flexibility",
+      "x-control-variant": "textarea",
+      "placeholder": "Adaptability comments",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "job_skills_intro": {
+      "type": "null",
+      "title": "Job-Specific Skills Assessment",
+      "description": "Evaluate the employee's proficiency in skills that are specific to their role. Rate each skill on a scale of 1-5:\n\n1 = Needs significant improvement\n2 = Needs some improvement\n3 = Meets expectations\n4 = Exceeds expectations\n5 = Exceptional performance",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "technical_knowledge": {
+      "type": "number",
+      "title": "Technical Knowledge",
+      "description": "Understanding of technical concepts, methods, and tools required for the role",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "technical_knowledge_comments": {
+      "type": "string",
+      "title": "Technical Knowledge Comments",
+      "description": "Specific examples and observations regarding technical knowledge",
+      "x-control-variant": "textarea",
+      "placeholder": "Technical knowledge comments",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "quality_of_work": {
+      "type": "number",
+      "title": "Quality of Work",
+      "description": "Accuracy, thoroughness, and effectiveness of work products",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "quality_comments": {
+      "type": "string",
+      "title": "Quality of Work Comments",
+      "description": "Specific examples and observations regarding quality of work",
+      "x-control-variant": "textarea",
+      "placeholder": "Quality of work comments",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "productivity": {
+      "type": "number",
+      "title": "Productivity & Efficiency",
+      "description": "Volume of work, time management, and resource utilization",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "productivity_comments": {
+      "type": "string",
+      "title": "Productivity Comments",
+      "description": "Specific examples and observations regarding productivity and efficiency",
+      "x-control-variant": "textarea",
+      "placeholder": "Productivity comments",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "achievements_intro": {
+      "type": "null",
+      "title": "Key Achievements",
+      "description": "Document significant accomplishments, contributions, and successes during the review period. Focus on impact, results, and value added.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "achievement1": {
+      "type": "string",
+      "title": "Key Achievement 1",
+      "description": "Description of a significant achievement during the review period",
+      "x-control-variant": "textarea",
+      "placeholder": "Achievement description",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "achievement1_impact": {
+      "type": "string",
+      "title": "Achievement 1 Impact",
+      "description": "Impact or results of this achievement (e.g., metrics, outcomes, benefits)",
+      "x-control-variant": "textarea",
+      "placeholder": "Impact description",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "achievement2": {
+      "type": "string",
+      "title": "Key Achievement 2",
+      "description": "Description of a significant achievement during the review period",
+      "x-control-variant": "textarea",
+      "placeholder": "Achievement description",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "achievement2_impact": {
+      "type": "string",
+      "title": "Achievement 2 Impact",
+      "description": "Impact or results of this achievement (e.g., metrics, outcomes, benefits)",
+      "x-control-variant": "textarea",
+      "placeholder": "Impact description",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "development_intro": {
+      "type": "null",
+      "title": "Development Plan",
+      "description": "Identify areas for development, learning opportunities, and career growth. This section should focus on building strengths and addressing development needs.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "strengths": {
+      "type": "string",
+      "title": "Key Strengths",
+      "description": "Identify the employee's primary strengths and talents",
+      "x-control-variant": "textarea",
+      "placeholder": "Key strengths",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "development_areas": {
+      "type": "string",
+      "title": "Development Areas",
+      "description": "Identify areas where the employee could improve or develop new skills",
+      "x-control-variant": "textarea",
+      "placeholder": "Development areas",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "development_goal1": {
+      "type": "string",
+      "title": "Development Goal 1",
+      "description": "Specific development goal for the upcoming period",
+      "x-control-variant": "textarea",
+      "placeholder": "Development goal",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "development_actions1": {
+      "type": "string",
+      "title": "Action Steps for Goal 1",
+      "description": "Specific actions to achieve development goal 1",
+      "x-control-variant": "textarea",
+      "placeholder": "Action steps",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "resources_needed": {
+      "type": "string",
+      "title": "Resources Needed",
+      "description": "Resources, support, or training needed to achieve development goals",
+      "x-control-variant": "textarea",
+      "placeholder": "Resources needed",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "overall_rating": {
+      "type": "string",
+      "title": "Overall Performance Rating",
+      "description": "Summary rating of the employee's overall performance during this review period",
+      "x-control": "selectsingle",
+      "enum": [
+        "Outstanding - Consistently exceeds all expectations",
+        "Exceeds Expectations - Frequently exceeds expectations",
+        "Meets Expectations - Consistently meets expectations",
+        "Needs Improvement - Partially meets expectations",
+        "Unsatisfactory - Does not meet expectations"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "overall_comments": {
+      "type": "string",
+      "title": "Overall Comments",
+      "description": "Summary comments on the employee's overall performance, including key strengths and areas for improvement",
+      "x-control-variant": "textarea",
+      "placeholder": "Overall comments",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "next_review_date": {
+      "type": "string",
+      "title": "Next Review Date",
+      "description": "Planned date for the next performance review",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "manager_signature": {
+      "type": "string",
+      "title": "Manager Signature",
+      "description": "Manager's electronic signature",
+      "placeholder": "Manager's full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "manager_signature_date": {
+      "type": "string",
+      "title": "Manager Signature Date",
+      "description": "Date of manager's signature",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "employee_signature": {
+      "type": "string",
+      "title": "Employee Signature",
+      "description": "Employee's electronic signature",
+      "placeholder": "Employee's full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "employee_signature_date": {
+      "type": "string",
+      "title": "Employee Signature Date",
+      "description": "Date of employee's signature",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "employee_acknowledgment": {
+      "type": "boolean",
+      "title": "Employee Acknowledgment",
+      "description": "I acknowledge that I have discussed this performance review with my manager. My signature does not necessarily indicate agreement with the review.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "hr_review": {
+      "type": "boolean",
+      "title": "HR Review",
+      "description": "This performance review has been reviewed by Human Resources",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "hr_reviewer": {
+      "type": "string",
+      "title": "HR Reviewer",
+      "description": "Name of HR representative who reviewed this form",
+      "placeholder": "HR reviewer name",
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "hr_review_date": {
+      "type": "string",
+      "title": "HR Review Date",
+      "description": "Date of HR review",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Performance Review",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.8"
+    }
+  }
+}

@@ -1,0 +1,403 @@
+{
+  "type": "object",
+  "title": "Census & Demographic Data Collection",
+  "description": "Collect demographic information for statistical purposes",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "location_info", "title": "Location Information" },
+        { "id": "demographic_info", "title": "Demographic Information" },
+        { "id": "household_info", "title": "Household Information" },
+        { "id": "submission", "title": "Review & Submit" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Census & Demographic Survey",
+      "description": "This form collects demographic information for statistical purposes. Your information will be kept confidential and used only for statistical analysis. Please complete all required fields.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full legal name",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer to self-describe",
+        "Prefer not to say"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "gender_self_describe": {
+      "type": "string",
+      "title": "Self-Described Gender",
+      "description": "If you selected 'Prefer to self-describe', please specify",
+      "placeholder": "Self-described gender",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "address": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "apartment": {
+      "type": "string",
+      "title": "Apartment/Unit Number",
+      "description": "Please enter your apartment or unit number (if applicable)",
+      "placeholder": "Apartment/Unit number",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state_province": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "other_country": {
+      "type": "string",
+      "title": "Other Country",
+      "description": "If you selected 'Other', please specify your country",
+      "placeholder": "Country name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "residence_type": {
+      "type": "string",
+      "title": "Residence Type",
+      "description": "Please select your type of residence",
+      "x-control": "selectsingle",
+      "enum": [
+        "Single-family home",
+        "Apartment/Condominium",
+        "Townhouse",
+        "Mobile home",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "residence_ownership": {
+      "type": "string",
+      "title": "Residence Ownership",
+      "description": "Please select your residence ownership status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Own",
+        "Rent",
+        "Other arrangement"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "ethnicity": {
+      "type": "string",
+      "title": "Ethnicity",
+      "description": "Please select your ethnicity",
+      "x-control": "selectsingle",
+      "enum": [
+        "White",
+        "Black or African American",
+        "Asian",
+        "Hispanic or Latino",
+        "Native American",
+        "Pacific Islander",
+        "Two or more races",
+        "Other",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_ethnicity": {
+      "type": "string",
+      "title": "Other Ethnicity",
+      "description": "If you selected 'Other', please specify your ethnicity",
+      "placeholder": "Ethnicity",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "primary_language": {
+      "type": "string",
+      "title": "Primary Language",
+      "description": "Please select your primary language spoken at home",
+      "x-control": "selectsingle",
+      "enum": [
+        "English",
+        "Spanish",
+        "French",
+        "Chinese",
+        "Arabic",
+        "Hindi",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_language": {
+      "type": "string",
+      "title": "Other Language",
+      "description": "If you selected 'Other', please specify your primary language",
+      "placeholder": "Language",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "education_level": {
+      "type": "string",
+      "title": "Education Level",
+      "description": "Please select your highest level of education completed",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than high school",
+        "High school or equivalent",
+        "Some college, no degree",
+        "Associate's degree",
+        "Bachelor's degree",
+        "Master's degree",
+        "Doctoral or professional degree",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "employment_status": {
+      "type": "string",
+      "title": "Employment Status",
+      "description": "Please select your current employment status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Employed full-time",
+        "Employed part-time",
+        "Self-employed",
+        "Unemployed and looking for work",
+        "Unemployed and not looking for work",
+        "Student",
+        "Retired",
+        "Unable to work",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "occupation": {
+      "type": "string",
+      "title": "Occupation",
+      "description": "If employed, please enter your occupation",
+      "placeholder": "Occupation",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "marital_status": {
+      "type": "string",
+      "title": "Marital Status",
+      "description": "Please select your marital status",
+      "x-control": "selectsingle",
+      "enum": [
+        "Single, never married",
+        "Married",
+        "Domestic partnership",
+        "Divorced",
+        "Separated",
+        "Widowed",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "household_size": {
+      "type": "string",
+      "title": "Household Size",
+      "description": "Please select the number of people in your household (including yourself)",
+      "x-control": "selectsingle",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6+",
+        "Prefer not to say"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "household_composition": {
+      "type": "array",
+      "title": "Household Composition",
+      "description": "Please select all that apply to your household",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Children under 18",
+        "Adults 18-64",
+        "Adults 65+",
+        "Persons with disabilities",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "annual_household_income": {
+      "type": "string",
+      "title": "Annual Household Income",
+      "description": "Please select your annual household income range",
+      "x-control": "selectsingle",
+      "enum": [
+        "Under $25,000",
+        "$25,000-$49,999",
+        "$50,000-$74,999",
+        "$75,000-$99,999",
+        "$100,000-$149,999",
+        "$150,000+",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "internet_access": {
+      "type": "string",
+      "title": "Internet Access",
+      "description": "Please select your primary method of internet access at home",
+      "x-control": "selectsingle",
+      "enum": [
+        "Broadband (cable, fiber, DSL)",
+        "Cellular data",
+        "Satellite",
+        "Dial-up",
+        "No internet access at home",
+        "Other",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "transportation": {
+      "type": "string",
+      "title": "Primary Transportation",
+      "description": "Please select your primary mode of transportation",
+      "x-control": "selectsingle",
+      "enum": [
+        "Personal vehicle",
+        "Public transportation",
+        "Carpool",
+        "Bicycle",
+        "Walking",
+        "Rideshare services",
+        "Other",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please provide any additional information that might be relevant",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments...",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "information_certification": {
+      "type": "boolean",
+      "title": "Information Certification",
+      "description": "I certify that the information provided is accurate to the best of my knowledge.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "privacy_agreement": {
+      "type": "boolean",
+      "title": "Privacy Agreement",
+      "description": "I understand that this information will be used for statistical purposes only and will be kept confidential in accordance with applicable privacy laws.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "contact_permission": {
+      "type": "boolean",
+      "title": "Future Contact",
+      "description": "I agree to be contacted for follow-up surveys or clarification if needed.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Information",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for completing this census and demographic survey. Your information has been submitted successfully.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

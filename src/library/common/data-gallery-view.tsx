@@ -4,9 +4,9 @@ import { classNames, deepCopy, getRandomString, getResponseErrorMessage, toTitle
 import { LoadingIndicator } from './loading-indicator';
 import { IconRenderer } from './icons/icon-renderer';
 import ViewManager from './view-manager/view-manager';
-import { AppmintForm, AppmintTable } from '..';
 import { iconButtonClass } from '../utils/constants';
 import { JSONViewer } from './json-viewer';
+import { AppmintForm, AppmintTable } from '../..';
 
 const style = {
   left: 'calc(30% / 2)',

@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "title": "Net Promoter Score (NPS) Survey",
+  "description": "A one-question survey measuring how likely customers are to recommend your product or service, plus optional follow-up queries.",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Help Us Improve",
+      "description": "We value your opinion and would appreciate your feedback on your experience with our product/service. This will take less than a minute to complete.",
+      "x-control": "paragraph"
+    },
+    "nps_rating": {
+      "type": "number",
+      "title": "How likely are you to recommend us to a friend or colleague?",
+      "description": "On a scale from 0 (Not at all likely) to 10 (Extremely likely)",
+      "minimum": 0,
+      "maximum": 10,
+      "x-control-variant": "slider",
+      "inputRequired": true
+    },
+    "nps_followup": {
+      "type": "string",
+      "title": "What influenced your score?",
+      "description": "Your feedback helps us understand what we're doing well and where we can improve.",
+      "x-control-variant": "textarea",
+      "placeholder": "Please share your thoughts..."
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You for Your Feedback",
+      "description": "We appreciate you taking the time to provide your feedback. Your input is valuable to us as we work to improve our products and services.",
+      "x-control": "paragraph"
+    }
+  }
+}

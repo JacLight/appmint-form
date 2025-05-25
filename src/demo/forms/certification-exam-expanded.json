@@ -1,0 +1,251 @@
+{
+  "type": "object",
+  "title": "Certification Exam Registration",
+  "description": "Register for a professional certification examination",
+  "x-layout": {
+    "main": {
+      "type": "slider",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "exam_details", "title": "Exam Details" },
+        { "id": "prerequisites", "title": "Prerequisites" },
+        { "id": "confirmation", "title": "Confirmation" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_header": {
+      "type": "null",
+      "title": "Professional Certification Examination",
+      "description": "Thank you for your interest in our professional certification program. This form will guide you through the registration process for your chosen certification exam.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "certification_benefits": {
+      "type": "null",
+      "title": "Benefits of Certification",
+      "description": "• Enhance your professional credibility\n• Validate your expertise and knowledge\n• Increase your earning potential\n• Expand your career opportunities\n• Join a network of certified professionals",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "exam_process": {
+      "type": "null",
+      "title": "Exam Process",
+      "description": "After registration, you will receive an email with instructions on how to schedule your exam. The exam can be taken at an authorized testing center or online with remote proctoring. Results are typically available within 2-3 weeks after the exam date.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full legal name as it appears on your ID",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address for exam communications",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address": {
+      "type": "string",
+      "title": "Mailing Address",
+      "description": "Please enter your complete mailing address",
+      "x-control-variant": "textarea",
+      "placeholder": "Street address, City, State, Zip Code, Country",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "certification_type": {
+      "type": "string",
+      "title": "Certification Type",
+      "description": "Please select the certification you are applying for",
+      "x-control": "selectsingle",
+      "enum": [
+        "Project Management Professional (PMP)",
+        "Certified Software Developer (CSD)",
+        "Data Science Certification (DSC)",
+        "Digital Marketing Specialist (DMS)",
+        "Human Resources Certification (HRC)",
+        "Financial Planning Certification (FPC)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "exam_level": {
+      "type": "string",
+      "title": "Exam Level",
+      "description": "Please select the level of certification",
+      "x-control": "selectsingle",
+      "enum": [
+        "Foundation",
+        "Associate",
+        "Professional",
+        "Expert",
+        "Master"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "exam_format": {
+      "type": "string",
+      "title": "Exam Format",
+      "description": "Please select your preferred exam format",
+      "x-control": "selectsingle",
+      "enum": [
+        "In-person at testing center",
+        "Online with remote proctoring"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "preferred_date": {
+      "type": "string",
+      "title": "Preferred Exam Date",
+      "description": "Please select your preferred date for the exam",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "alternate_date": {
+      "type": "string",
+      "title": "Alternate Exam Date",
+      "description": "Please select an alternate date in case your preferred date is unavailable",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "special_accommodations": {
+      "type": "string",
+      "title": "Special Accommodations",
+      "description": "If you require any special accommodations for your exam, please describe them here",
+      "x-control-variant": "textarea",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "prerequisites_info": {
+      "type": "null",
+      "title": "Prerequisites Information",
+      "description": "Depending on the certification type and level, certain prerequisites may be required. Please review the requirements for your selected certification and provide the necessary documentation.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "education": {
+      "type": "string",
+      "title": "Education",
+      "description": "Please provide details about your highest level of education",
+      "x-control-variant": "textarea",
+      "placeholder": "Degree, Institution, Year, Major",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "work_experience": {
+      "type": "string",
+      "title": "Relevant Work Experience",
+      "description": "Please provide details about your relevant work experience",
+      "x-control-variant": "textarea",
+      "placeholder": "Position, Company, Dates, Responsibilities",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "previous_certifications": {
+      "type": "string",
+      "title": "Previous Certifications",
+      "description": "Please list any relevant certifications you currently hold",
+      "x-control-variant": "textarea",
+      "placeholder": "Certification, Issuing Organization, Date Obtained",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "prerequisites_document": {
+      "type": "string",
+      "title": "Proof of Prerequisites",
+      "description": "Please upload documentation that verifies you meet the prerequisites for this certification (e.g., degree certificates, previous certifications, work experience letters)",
+      "x-control": "file",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "eligibility_confirmation": {
+      "type": "boolean",
+      "title": "Eligibility Confirmation",
+      "description": "I confirm that I have reviewed the exam requirements and am eligible to take this certification exam",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "payment_info": {
+      "type": "null",
+      "title": "Payment Information",
+      "description": "The registration fee for your selected certification exam is $299. Payment will be processed securely after submission of this form.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "cancellation_policy": {
+      "type": "null",
+      "title": "Cancellation Policy",
+      "description": "• Full refund: Cancellations made 30+ days before the exam date\n• Partial refund (50%): Cancellations made 15-29 days before the exam date\n• No refund: Cancellations made less than 15 days before the exam date\n• Rescheduling fee: $50 if rescheduled less than 15 days before the exam date",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "terms_agreement": {
+      "type": "boolean",
+      "title": "Terms and Conditions",
+      "description": "I agree to the certification program's terms and conditions, including the exam policies, code of ethics, and cancellation policy.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "honor_code": {
+      "type": "boolean",
+      "title": "Honor Code",
+      "description": "I agree to complete the exam honestly, without assistance from others or unauthorized reference materials. I understand that violating this honor code may result in disqualification and revocation of any certifications earned.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "marketing_opt_in": {
+      "type": "boolean",
+      "title": "Marketing Communications",
+      "description": "I would like to receive updates about certification programs, continuing education opportunities, and related information",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Register for Exam",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your registration has been submitted. You will receive a confirmation email shortly with additional details about your certification exam.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

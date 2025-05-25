@@ -1,0 +1,496 @@
+{
+  "type": "object",
+  "title": "Resource Usage Tracking Form",
+  "description": "Track and monitor your resource consumption to promote sustainability",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "energy", "title": "Energy Usage" },
+        { "id": "water", "title": "Water Usage" },
+        { "id": "waste", "title": "Waste Generation" },
+        { "id": "transportation", "title": "Transportation" },
+        { "id": "goals", "title": "Goals & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Resource Usage Tracking",
+      "description": "Welcome to the Resource Usage Tracking Form. This tool helps you monitor your consumption of energy, water, and other resources, allowing you to identify patterns, set reduction goals, and track your progress toward more sustainable living. Regular tracking is a powerful way to understand your environmental impact and make informed decisions about resource use.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "tracking_benefits": {
+      "type": "null",
+      "title": "Benefits of Resource Tracking",
+      "description": "• **Awareness**: Gain insights into your consumption patterns and environmental impact\n• **Cost Savings**: Identify opportunities to reduce utility bills and other expenses\n• **Goal Setting**: Establish realistic targets for reducing resource use\n• **Progress Monitoring**: Track improvements over time and celebrate successes\n• **Environmental Impact**: Quantify your contribution to conservation efforts\n• **Behavior Change**: Develop more sustainable habits through regular monitoring",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "tracking_period": {
+      "type": "string",
+      "title": "Tracking Period",
+      "description": "Please select the time period for this resource usage report",
+      "x-control": "selectsingle",
+      "enum": [
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Quarterly",
+        "Annual"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "tracking_date": {
+      "type": "string",
+      "title": "Tracking Date",
+      "description": "Please enter the date or period end date for this report",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "household_size": {
+      "type": "number",
+      "title": "Household Size",
+      "description": "How many people are included in this resource usage report?",
+      "minimum": 1,
+      "maximum": 20,
+      "default": 1,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "property_type": {
+      "type": "string",
+      "title": "Property Type",
+      "description": "What type of property does this report cover?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Apartment/Condominium",
+        "Townhouse",
+        "Single-family home (small)",
+        "Single-family home (medium)",
+        "Single-family home (large)",
+        "Mobile home",
+        "Office space",
+        "Commercial building",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "property_size": {
+      "type": "number",
+      "title": "Property Size",
+      "description": "What is the approximate size of your property in square feet?",
+      "minimum": 0,
+      "maximum": 10000,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "energy_intro": {
+      "type": "null",
+      "title": "Energy Usage Tracking",
+      "description": "In this section, record your electricity, natural gas, and other energy consumption. Having your utility bills on hand will help you provide accurate information. If you don't have exact figures, you can enter estimates and update them later.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "electricity_usage": {
+      "type": "number",
+      "title": "Electricity Usage",
+      "description": "How many kilowatt-hours (kWh) of electricity did you use during this period?",
+      "minimum": 0,
+      "maximum": 10000,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "electricity_bill": {
+      "type": "number",
+      "title": "Electricity Bill",
+      "description": "What was the total cost of your electricity bill for this period? (in local currency)",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "electricity_renewable": {
+      "type": "number",
+      "title": "Renewable Electricity",
+      "description": "What percentage of your electricity came from renewable sources? (if known)",
+      "minimum": 0,
+      "maximum": 100,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "natural_gas_usage": {
+      "type": "number",
+      "title": "Natural Gas Usage",
+      "description": "How many therms or cubic feet of natural gas did you use during this period?",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "natural_gas_bill": {
+      "type": "number",
+      "title": "Natural Gas Bill",
+      "description": "What was the total cost of your natural gas bill for this period? (in local currency)",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "energy_notes": {
+      "type": "string",
+      "title": "Energy Usage Notes",
+      "description": "Please provide any additional information or context about your energy usage during this period",
+      "x-control-variant": "textarea",
+      "placeholder": "Energy usage notes",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "energy_comparison": {
+      "type": "string",
+      "title": "Energy Usage Comparison",
+      "description": "How does this period's energy usage compare to your previous tracking period?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Significantly lower (more than 20% reduction)",
+        "Somewhat lower (5-20% reduction)",
+        "About the same (within 5%)",
+        "Somewhat higher (5-20% increase)",
+        "Significantly higher (more than 20% increase)",
+        "This is my first time tracking"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "water_intro": {
+      "type": "null",
+      "title": "Water Usage Tracking",
+      "description": "In this section, record your water consumption. Your water bill should provide information on your usage in gallons or cubic feet/meters. If you don't have exact figures, you can enter estimates based on your bill amount and update them later.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "water_usage": {
+      "type": "number",
+      "title": "Water Usage",
+      "description": "How many gallons or cubic feet/meters of water did you use during this period?",
+      "minimum": 0,
+      "maximum": 100000,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "water_bill": {
+      "type": "number",
+      "title": "Water Bill",
+      "description": "What was the total cost of your water bill for this period? (in local currency)",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "water_units": {
+      "type": "string",
+      "title": "Water Units",
+      "description": "What units is your water usage measured in?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Gallons",
+        "Cubic feet (CCF)",
+        "Cubic meters",
+        "Liters",
+        "Other",
+        "Not sure"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "water_conservation": {
+      "type": "array",
+      "title": "Water Conservation Measures",
+      "description": "Which water conservation measures do you currently employ? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Low-flow fixtures",
+        "Water-efficient appliances",
+        "Rainwater collection",
+        "Greywater recycling",
+        "Drought-resistant landscaping",
+        "Efficient irrigation system",
+        "Leak detection and repair",
+        "Behavioral changes (shorter showers, etc.)",
+        "None currently"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "water_notes": {
+      "type": "string",
+      "title": "Water Usage Notes",
+      "description": "Please provide any additional information or context about your water usage during this period",
+      "x-control-variant": "textarea",
+      "placeholder": "Water usage notes",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "waste_intro": {
+      "type": "null",
+      "title": "Waste Generation Tracking",
+      "description": "In this section, record information about the waste you generate and how it is managed. This includes trash sent to landfill, recycling, composting, and other waste streams. Estimates are acceptable if you don't have precise measurements.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "landfill_waste": {
+      "type": "number",
+      "title": "Landfill Waste",
+      "description": "How many pounds/kilograms of waste did you send to landfill during this period?",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "recycling_amount": {
+      "type": "number",
+      "title": "Recycling Amount",
+      "description": "How many pounds/kilograms of materials did you recycle during this period?",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "recycling_types": {
+      "type": "array",
+      "title": "Recycling Types",
+      "description": "What types of materials did you recycle? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Paper/cardboard",
+        "Plastic",
+        "Glass",
+        "Metal/aluminum",
+        "Electronics",
+        "Batteries",
+        "Textiles",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "compost_amount": {
+      "type": "number",
+      "title": "Compost Amount",
+      "description": "How many pounds/kilograms of material did you compost during this period?",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "waste_reduction_strategies": {
+      "type": "array",
+      "title": "Waste Reduction Strategies",
+      "description": "Which waste reduction strategies do you currently employ? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Avoiding single-use items",
+        "Purchasing products with minimal packaging",
+        "Buying in bulk",
+        "Using reusable alternatives",
+        "Composting food waste",
+        "Donating unwanted items",
+        "Repairing items instead of replacing",
+        "Practicing zero-waste principles",
+        "None currently"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "waste_notes": {
+      "type": "string",
+      "title": "Waste Notes",
+      "description": "Please provide any additional information or context about your waste generation during this period",
+      "x-control-variant": "textarea",
+      "placeholder": "Waste notes",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "transportation_intro": {
+      "type": "null",
+      "title": "Transportation Tracking",
+      "description": "In this section, record information about your transportation usage and associated resource consumption. This includes personal vehicles, public transit, air travel, and other modes of transportation.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "vehicle_miles": {
+      "type": "number",
+      "title": "Vehicle Miles",
+      "description": "How many miles/kilometers did you drive during this period?",
+      "minimum": 0,
+      "maximum": 10000,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "vehicle_fuel": {
+      "type": "number",
+      "title": "Vehicle Fuel",
+      "description": "How many gallons/liters of fuel did you use during this period?",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "vehicle_fuel_type": {
+      "type": "string",
+      "title": "Fuel Type",
+      "description": "What type of fuel does your primary vehicle use?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Gasoline",
+        "Diesel",
+        "Electricity",
+        "Natural gas",
+        "Hybrid (gasoline/electric)",
+        "Plug-in hybrid",
+        "Other",
+        "Not applicable"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "vehicle_fuel_cost": {
+      "type": "number",
+      "title": "Fuel Cost",
+      "description": "What was the total cost of fuel or charging during this period? (in local currency)",
+      "minimum": 0,
+      "maximum": 1000,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "public_transit_trips": {
+      "type": "number",
+      "title": "Public Transit Trips",
+      "description": "How many public transit trips did you take during this period?",
+      "minimum": 0,
+      "maximum": 100,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "air_travel_miles": {
+      "type": "number",
+      "title": "Air Travel Miles",
+      "description": "How many miles/kilometers did you travel by air during this period?",
+      "minimum": 0,
+      "maximum": 100000,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "air_travel_flights": {
+      "type": "number",
+      "title": "Number of Flights",
+      "description": "How many flights did you take during this period?",
+      "minimum": 0,
+      "maximum": 50,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "active_transportation": {
+      "type": "array",
+      "title": "Active Transportation",
+      "description": "Which forms of active transportation did you use? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Walking",
+        "Bicycling",
+        "Scooter",
+        "Skateboard",
+        "Other human-powered transportation",
+        "None"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "transportation_notes": {
+      "type": "string",
+      "title": "Transportation Notes",
+      "description": "Please provide any additional information or context about your transportation during this period",
+      "x-control-variant": "textarea",
+      "placeholder": "Transportation notes",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "goals_intro": {
+      "type": "null",
+      "title": "Resource Usage Goals",
+      "description": "Based on your tracking data, set specific, measurable goals for reducing your resource consumption in the coming period. Effective goals are realistic yet challenging, with clear timelines and metrics for success.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "energy_goal": {
+      "type": "string",
+      "title": "Energy Goal",
+      "description": "What is your goal for energy usage in the next tracking period?",
+      "x-control-variant": "textarea",
+      "placeholder": "Energy goal",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "water_goal": {
+      "type": "string",
+      "title": "Water Goal",
+      "description": "What is your goal for water usage in the next tracking period?",
+      "x-control-variant": "textarea",
+      "placeholder": "Water goal",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "waste_goal": {
+      "type": "string",
+      "title": "Waste Goal",
+      "description": "What is your goal for waste reduction in the next tracking period?",
+      "x-control-variant": "textarea",
+      "placeholder": "Waste goal",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "transportation_goal": {
+      "type": "string",
+      "title": "Transportation Goal",
+      "description": "What is your goal for transportation usage in the next tracking period?",
+      "x-control-variant": "textarea",
+      "placeholder": "Transportation goal",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "action_steps": {
+      "type": "string",
+      "title": "Action Steps",
+      "description": "What specific actions will you take to achieve these goals?",
+      "x-control-variant": "textarea",
+      "placeholder": "Action steps",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "resource_needs": {
+      "type": "string",
+      "title": "Resource Needs",
+      "description": "What resources, information, or support do you need to achieve these goals?",
+      "x-control-variant": "textarea",
+      "placeholder": "Resource needs",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tracking_commitment": {
+      "type": "string",
+      "title": "Tracking Commitment",
+      "description": "How often do you commit to tracking your resource usage going forward?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Quarterly",
+        "Annually",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please provide any additional comments or information about your resource usage or goals",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Resource Usage Report",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for tracking your resource usage. Your commitment to monitoring and reducing your consumption is an important step toward sustainability. You will receive a summary of your report and goals via email. Keep up the good work!",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

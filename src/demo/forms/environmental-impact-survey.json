@@ -1,0 +1,586 @@
+{
+  "type": "object",
+  "title": "Environmental Impact Survey",
+  "description": "Assess your environmental footprint and identify areas for improvement",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "energy", "title": "Energy Usage" },
+        { "id": "transportation", "title": "Transportation" },
+        { "id": "waste", "title": "Waste & Recycling" },
+        { "id": "water", "title": "Water Usage" },
+        { "id": "results", "title": "Results & Recommendations" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Environmental Impact Assessment",
+      "description": "This survey will help you assess your environmental footprint and identify areas where you can make changes to reduce your impact on the planet. The assessment covers key areas including energy usage, transportation, waste management, and water consumption. After completing the survey, you'll receive personalized recommendations for reducing your environmental impact.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address to receive your results",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "location_type": {
+      "type": "string",
+      "title": "Location Type",
+      "description": "What type of area do you live in?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Urban (city)",
+        "Suburban",
+        "Rural",
+        "Small town"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "household_size": {
+      "type": "number",
+      "title": "Household Size",
+      "description": "How many people live in your household?",
+      "minimum": 1,
+      "maximum": 20,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "dwelling_type": {
+      "type": "string",
+      "title": "Dwelling Type",
+      "description": "What type of dwelling do you live in?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Apartment/Condominium",
+        "Townhouse/Duplex",
+        "Single-family house (small)",
+        "Single-family house (medium)",
+        "Single-family house (large)",
+        "Mobile home",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "environmental_concern": {
+      "type": "string",
+      "title": "Environmental Concern",
+      "description": "How concerned are you about environmental issues?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Extremely concerned",
+        "Very concerned",
+        "Moderately concerned",
+        "Slightly concerned",
+        "Not at all concerned"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "primary_heating_source": {
+      "type": "string",
+      "title": "Primary Heating Source",
+      "description": "What is the primary heating source for your home?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Natural gas",
+        "Electricity",
+        "Oil",
+        "Propane",
+        "Wood/Pellet stove",
+        "Coal",
+        "Solar",
+        "Geothermal",
+        "District heating",
+        "I don't know"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "heating_temperature": {
+      "type": "string",
+      "title": "Heating Temperature",
+      "description": "At what temperature do you typically set your thermostat during heating season?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Below 65°F (18°C)",
+        "65-68°F (18-20°C)",
+        "69-72°F (20-22°C)",
+        "Above 72°F (22°C)",
+        "I don't use heating",
+        "I don't have control over the temperature"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "cooling_system": {
+      "type": "string",
+      "title": "Cooling System",
+      "description": "What type of cooling system do you use in your home?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Central air conditioning",
+        "Window/Wall air conditioning units",
+        "Evaporative cooler",
+        "Ceiling fans only",
+        "Portable fans only",
+        "None",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "renewable_energy": {
+      "type": "boolean",
+      "title": "Renewable Energy",
+      "description": "Do you use renewable energy sources for your home?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "renewable_energy_type": {
+      "type": "array",
+      "title": "Renewable Energy Type",
+      "description": "What type of renewable energy do you use? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Solar panels (owned)",
+        "Solar panels (community solar)",
+        "Wind power",
+        "Geothermal",
+        "Green power purchase from utility",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "energy_efficient_appliances": {
+      "type": "array",
+      "title": "Energy-Efficient Appliances",
+      "description": "Which energy-efficient appliances or features do you have in your home? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "ENERGY STAR refrigerator",
+        "ENERGY STAR washing machine",
+        "ENERGY STAR dishwasher",
+        "LED lighting",
+        "Programmable/Smart thermostat",
+        "Energy-efficient windows",
+        "Additional insulation",
+        "Low-flow water fixtures",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "energy_saving_habits": {
+      "type": "array",
+      "title": "Energy-Saving Habits",
+      "description": "Which energy-saving habits do you practice? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Turn off lights when not in use",
+        "Unplug electronics/use power strips",
+        "Use natural lighting when possible",
+        "Wash clothes in cold water",
+        "Air-dry clothes instead of using dryer",
+        "Adjust thermostat when away or sleeping",
+        "Use ceiling fans to reduce AC usage",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "primary_transportation": {
+      "type": "string",
+      "title": "Primary Transportation",
+      "description": "What is your primary mode of transportation?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Personal car (gasoline/diesel)",
+        "Personal car (hybrid)",
+        "Personal car (electric)",
+        "Carpool/Rideshare",
+        "Public transportation",
+        "Walking",
+        "Biking",
+        "Motorcycle/Scooter",
+        "Work from home (minimal travel)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "vehicle_type": {
+      "type": "string",
+      "title": "Vehicle Type",
+      "description": "If you use a personal vehicle, what type is it?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Compact car",
+        "Mid-size car",
+        "Full-size car",
+        "SUV/Crossover",
+        "Minivan",
+        "Pickup truck",
+        "Hybrid vehicle",
+        "Electric vehicle",
+        "I don't use a personal vehicle"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "weekly_driving_distance": {
+      "type": "string",
+      "title": "Weekly Driving Distance",
+      "description": "Approximately how many miles/kilometers do you drive in a typical week?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 50 miles (80 km)",
+        "50-100 miles (80-160 km)",
+        "101-200 miles (161-320 km)",
+        "201-300 miles (321-480 km)",
+        "More than 300 miles (480+ km)",
+        "I don't drive"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "public_transportation_frequency": {
+      "type": "string",
+      "title": "Public Transportation Frequency",
+      "description": "How often do you use public transportation?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Daily",
+        "Several times a week",
+        "Once a week",
+        "Several times a month",
+        "Rarely",
+        "Never",
+        "Not available in my area"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "walking_biking_frequency": {
+      "type": "string",
+      "title": "Walking/Biking Frequency",
+      "description": "How often do you walk or bike instead of using motorized transportation?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Daily",
+        "Several times a week",
+        "Once a week",
+        "Several times a month",
+        "Rarely",
+        "Never"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "air_travel_frequency": {
+      "type": "string",
+      "title": "Air Travel Frequency",
+      "description": "How often do you travel by airplane?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Weekly",
+        "Monthly",
+        "Several times a year",
+        "Once a year",
+        "Less than once a year",
+        "Never"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "recycling_participation": {
+      "type": "string",
+      "title": "Recycling Participation",
+      "description": "How consistently do you recycle?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Always - I recycle everything that can be recycled",
+        "Usually - I recycle most items",
+        "Sometimes - I recycle when convenient",
+        "Rarely - I occasionally recycle",
+        "Never - I don't recycle",
+        "Recycling is not available in my area"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "recycled_materials": {
+      "type": "array",
+      "title": "Recycled Materials",
+      "description": "Which materials do you regularly recycle? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Paper/Cardboard",
+        "Plastic bottles",
+        "Other plastics",
+        "Glass",
+        "Aluminum cans",
+        "Other metals",
+        "Electronics",
+        "Batteries",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "composting": {
+      "type": "string",
+      "title": "Composting",
+      "description": "Do you compost food scraps and yard waste?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Yes, I compost all eligible waste",
+        "Yes, I compost some eligible waste",
+        "No, but composting is available in my area",
+        "No, composting is not available in my area",
+        "I'm not sure what composting is"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "single_use_plastics": {
+      "type": "array",
+      "title": "Single-Use Plastics",
+      "description": "Which single-use plastics do you regularly use? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Plastic water bottles",
+        "Plastic shopping bags",
+        "Plastic straws",
+        "Plastic utensils",
+        "Plastic food containers",
+        "Plastic wrap/bags for food storage",
+        "I avoid all single-use plastics"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "reusable_items": {
+      "type": "array",
+      "title": "Reusable Items",
+      "description": "Which reusable items do you regularly use? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Reusable water bottle",
+        "Reusable shopping bags",
+        "Reusable straws",
+        "Reusable food containers",
+        "Reusable coffee/tea cup",
+        "Cloth napkins",
+        "Rechargeable batteries",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "waste_reduction_efforts": {
+      "type": "array",
+      "title": "Waste Reduction Efforts",
+      "description": "Which waste reduction efforts do you practice? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Buy products with minimal packaging",
+        "Buy in bulk to reduce packaging",
+        "Repair items instead of replacing",
+        "Choose durable, long-lasting products",
+        "Borrow or rent items used infrequently",
+        "Avoid printing documents",
+        "Opt out of junk mail",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "shower_length": {
+      "type": "string",
+      "title": "Shower Length",
+      "description": "How long is your typical shower?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 5 minutes",
+        "5-10 minutes",
+        "11-15 minutes",
+        "16-20 minutes",
+        "More than 20 minutes",
+        "I typically take baths instead of showers"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "shower_frequency": {
+      "type": "string",
+      "title": "Shower Frequency",
+      "description": "How often do you shower or bathe?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Multiple times per day",
+        "Once daily",
+        "Every other day",
+        "2-3 times per week",
+        "Once a week or less"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "water_saving_fixtures": {
+      "type": "array",
+      "title": "Water-Saving Fixtures",
+      "description": "Which water-saving fixtures do you have in your home? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Low-flow showerhead",
+        "Low-flow faucets",
+        "Dual-flush or low-flow toilet",
+        "Water-efficient dishwasher",
+        "Water-efficient washing machine",
+        "Rainwater collection system",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "water_saving_habits": {
+      "type": "array",
+      "title": "Water-Saving Habits",
+      "description": "Which water-saving habits do you practice? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Turn off water while brushing teeth",
+        "Turn off water while soaping in shower",
+        "Fix leaks promptly",
+        "Only run full loads of laundry",
+        "Only run full dishwasher loads",
+        "Collect and reuse water when possible",
+        "Use a broom instead of hose for cleaning outdoors",
+        "None of the above"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "lawn_garden": {
+      "type": "boolean",
+      "title": "Lawn/Garden",
+      "description": "Do you have a lawn or garden that you maintain?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "lawn_watering": {
+      "type": "string",
+      "title": "Lawn Watering",
+      "description": "How often do you water your lawn or garden during growing season?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Daily",
+        "Every other day",
+        "Twice a week",
+        "Once a week",
+        "Only during dry periods",
+        "Never - rely on rainfall only",
+        "I have drought-resistant landscaping",
+        "I don't have a lawn/garden"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "results_intro": {
+      "type": "null",
+      "title": "Your Environmental Impact Results",
+      "description": "Based on your responses, we've calculated your environmental impact and prepared personalized recommendations to help you reduce your footprint. Review the information below to see where you're doing well and where you can improve.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "impact_summary": {
+      "type": "null",
+      "title": "Impact Summary",
+      "description": "Your responses have been analyzed to estimate your environmental impact. A detailed report will be sent to your email address with specific recommendations for reducing your environmental footprint.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "commitment": {
+      "type": "array",
+      "title": "Environmental Commitments",
+      "description": "Which of the following actions are you willing to commit to in the next 3 months? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Reduce energy consumption at home",
+        "Switch to more renewable energy sources",
+        "Drive less/use alternative transportation",
+        "Improve recycling habits",
+        "Reduce single-use plastic consumption",
+        "Conserve water",
+        "Reduce food waste",
+        "Support environmental organizations",
+        "Share what I've learned with others"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "feedback": {
+      "type": "string",
+      "title": "Survey Feedback",
+      "description": "Do you have any feedback about this environmental impact survey?",
+      "x-control-variant": "textarea",
+      "placeholder": "Your feedback",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "newsletter_signup": {
+      "type": "boolean",
+      "title": "Newsletter Signup",
+      "description": "Would you like to receive our environmental newsletter with tips and resources?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Survey",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for completing the Environmental Impact Survey. Your detailed results and personalized recommendations will be sent to your email address. Together, we can make a difference for our planet!",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

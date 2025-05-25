@@ -1,0 +1,444 @@
+{
+  "type": "object",
+  "title": "Pet Adoption Application",
+  "description": "Apply to adopt a pet from our shelter",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "applicant_info", "title": "Applicant Information" },
+        { "id": "household", "title": "Household Information" },
+        { "id": "pet_preferences", "title": "Pet Preferences" },
+        { "id": "pet_care", "title": "Pet Care Experience" },
+        { "id": "agreement", "title": "Agreement & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Pet Adoption Application",
+      "description": "Thank you for your interest in adopting a pet from our shelter. This application helps us ensure that each animal is placed in a loving, responsible, lifelong home and that the pet you're interested in is a good match for you. Please answer all questions honestly and thoroughly.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "phone_primary": {
+      "type": "string",
+      "title": "Primary Phone Number",
+      "description": "Please enter your primary phone number",
+      "placeholder": "Primary phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "address_line1": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "housing_type": {
+      "type": "string",
+      "title": "Housing Type",
+      "description": "Please select your housing type",
+      "x-control": "selectsingle",
+      "enum": [
+        "House",
+        "Apartment",
+        "Condominium",
+        "Townhouse",
+        "Mobile Home",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "housing_status": {
+      "type": "string",
+      "title": "Housing Status",
+      "description": "Do you own or rent your home?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Own",
+        "Rent",
+        "Live with parents/family",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "landlord_permission": {
+      "type": "boolean",
+      "title": "Landlord Permission",
+      "description": "If you rent, do you have permission from your landlord to have a pet?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "yard": {
+      "type": "boolean",
+      "title": "Yard",
+      "description": "Do you have a yard?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "yard_fenced": {
+      "type": "boolean",
+      "title": "Fenced Yard",
+      "description": "If you have a yard, is it fully fenced?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "household_members": {
+      "type": "number",
+      "title": "Household Members",
+      "description": "How many people live in your household?",
+      "minimum": 1,
+      "maximum": 20,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "household_children": {
+      "type": "number",
+      "title": "Children in Household",
+      "description": "How many children (under 18) live in your household?",
+      "minimum": 0,
+      "maximum": 20,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "children_ages": {
+      "type": "string",
+      "title": "Children's Ages",
+      "description": "If you have children, please list their ages",
+      "placeholder": "Children's ages",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "household_agreement": {
+      "type": "boolean",
+      "title": "Household Agreement",
+      "description": "Do all members of your household agree to this adoption?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "household_allergies": {
+      "type": "boolean",
+      "title": "Household Allergies",
+      "description": "Does anyone in your household have allergies to animals?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "pet_type": {
+      "type": "string",
+      "title": "Pet Type",
+      "description": "What type of pet are you interested in adopting?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Dog",
+        "Cat",
+        "Small Animal (rabbit, guinea pig, etc.)",
+        "Bird",
+        "Reptile",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "specific_pet": {
+      "type": "boolean",
+      "title": "Specific Pet",
+      "description": "Are you interested in a specific pet from our shelter?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "specific_pet_name": {
+      "type": "string",
+      "title": "Specific Pet Name",
+      "description": "If yes, what is the name or ID of the pet you're interested in?",
+      "placeholder": "Pet name or ID",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "pet_age_preference": {
+      "type": "array",
+      "title": "Age Preference",
+      "description": "What age pet are you interested in? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Baby/Puppy/Kitten",
+        "Young (under 2 years)",
+        "Adult (2-7 years)",
+        "Senior (8+ years)",
+        "No preference"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "pet_gender_preference": {
+      "type": "string",
+      "title": "Gender Preference",
+      "description": "Do you have a gender preference?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "No preference"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "adoption_reason": {
+      "type": "string",
+      "title": "Adoption Reason",
+      "description": "Why do you want to adopt a pet?",
+      "x-control-variant": "textarea",
+      "placeholder": "Your reason for adopting",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_pets": {
+      "type": "boolean",
+      "title": "Current Pets",
+      "description": "Do you currently have any pets?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "current_pets_details": {
+      "type": "string",
+      "title": "Current Pets Details",
+      "description": "If you have current pets, please list species, breed, age, gender, and how long you've had them",
+      "x-control-variant": "textarea",
+      "placeholder": "Current pets details",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "previous_pets": {
+      "type": "boolean",
+      "title": "Previous Pets",
+      "description": "Have you had pets in the past (other than current pets)?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "previous_pets_details": {
+      "type": "string",
+      "title": "Previous Pets Details",
+      "description": "If you've had previous pets, please list species, breed, how long you had them, and what happened to them",
+      "x-control-variant": "textarea",
+      "placeholder": "Previous pets details",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "pet_experience": {
+      "type": "string",
+      "title": "Pet Experience",
+      "description": "How would you describe your experience level with pets?",
+      "x-control": "selectsingle",
+      "enum": [
+        "First-time pet owner",
+        "Some experience",
+        "Experienced",
+        "Very experienced/Professional"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "pet_alone_time": {
+      "type": "string",
+      "title": "Time Alone",
+      "description": "How many hours per day will the pet be left alone?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 2 hours",
+        "2-4 hours",
+        "4-8 hours",
+        "8-10 hours",
+        "More than 10 hours"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "exercise_plan": {
+      "type": "string",
+      "title": "Exercise Plan",
+      "description": "How do you plan to exercise the pet?",
+      "x-control-variant": "textarea",
+      "placeholder": "Exercise plan",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "training_plan": {
+      "type": "string",
+      "title": "Training Plan",
+      "description": "What are your plans for training the pet?",
+      "x-control-variant": "textarea",
+      "placeholder": "Training plan",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "home_visit": {
+      "type": "boolean",
+      "title": "Home Visit",
+      "description": "Are you willing to allow a representative to visit your home prior to adoption approval?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "adoption_fee": {
+      "type": "boolean",
+      "title": "Adoption Fee",
+      "description": "Are you aware that there is an adoption fee to help cover the cost of care for our animals?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "pet_return": {
+      "type": "boolean",
+      "title": "Pet Return",
+      "description": "Do you agree to return the pet to our shelter if you can no longer care for it?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "follow_up": {
+      "type": "boolean",
+      "title": "Follow-up Visits/Calls",
+      "description": "Do you agree to allow follow-up visits or calls to check on the pet's well-being?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "spay_neuter": {
+      "type": "boolean",
+      "title": "Spay/Neuter Agreement",
+      "description": "Do you agree to have the pet spayed/neutered if it hasn't been already?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "indoor_pet": {
+      "type": "boolean",
+      "title": "Indoor Pet",
+      "description": "Do you agree to keep the pet primarily indoors and provide appropriate shelter when outdoors?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "regular_care": {
+      "type": "boolean",
+      "title": "Regular Care Agreement",
+      "description": "Do you agree to provide regular veterinary care, including vaccinations and preventative treatments?",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "information_accuracy": {
+      "type": "boolean",
+      "title": "Information Accuracy",
+      "description": "I certify that the information provided in this application is true and complete to the best of my knowledge.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature": {
+      "type": "string",
+      "title": "Digital Signature",
+      "description": "Please type your full name as your digital signature",
+      "placeholder": "Type your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Application",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for submitting your adoption application. We will review your information and contact you within 2-3 business days to discuss next steps. If you have any questions in the meantime, please contact our adoption team.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

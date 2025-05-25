@@ -1,0 +1,184 @@
+{
+  "type": "object",
+  "title": "Product Concept Test",
+  "description": "Gather feedback on a new product concept before development",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "concept", "title": "Product Concept" },
+        { "id": "feedback", "title": "Feedback" },
+        { "id": "finish", "title": "Thank You" }
+      ]
+    }
+  },
+  "properties": {
+    "welcome": {
+      "type": "null",
+      "title": "Product Concept Feedback",
+      "description": "Thank you for participating in our product concept test. Your feedback will help us refine our product before development. This survey should take about 5 minutes to complete.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Please enter your full name",
+      "placeholder": "Your name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "product_description": {
+      "type": "null",
+      "title": "Smart Home Assistant Pro",
+      "description": "The Smart Home Assistant Pro is an advanced AI-powered device that integrates with your entire home ecosystem. It features voice recognition with 99.9% accuracy, natural language processing for conversational interactions, and machine learning that adapts to your preferences over time.\n\nUnlike existing smart assistants, it includes a high-resolution touchscreen display, 360-degree far-field microphones, premium speakers for immersive sound, and a built-in camera with privacy shutter for video calls and home monitoring.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "product_image": {
+      "type": "null",
+      "title": "Product Concept Image",
+      "description": "![Smart Home Assistant Pro Concept](https://example.com/images/product-concept.jpg)",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "appeal_rating": {
+      "type": "number",
+      "title": "How appealing is this product concept?",
+      "description": "1 = Not at all appealing, 5 = Extremely appealing",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "uniqueness_rating": {
+      "type": "number",
+      "title": "How unique is this product concept?",
+      "description": "1 = Not at all unique, 5 = Extremely unique",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "purchase_intent": {
+      "type": "number",
+      "title": "How likely would you be to purchase this product?",
+      "description": "1 = Not at all likely, 5 = Extremely likely",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "likes": {
+      "type": "string",
+      "title": "What do you like about this product concept?",
+      "description": "Please share what aspects you find most appealing",
+      "x-control-variant": "textarea",
+      "placeholder": "I like...",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "improvements": {
+      "type": "string",
+      "title": "What would you improve about this product concept?",
+      "description": "Please share any suggestions for improvement",
+      "x-control-variant": "textarea",
+      "placeholder": "I would improve...",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "feature_importance": {
+      "type": "object",
+      "title": "Feature Importance",
+      "description": "Please rate the importance of each feature on a scale of 1-5 (1 = Not at all important, 5 = Extremely important)",
+      "properties": {
+        "voice_recognition": {
+          "type": "number",
+          "title": "Advanced Voice Recognition",
+          "x-control": "rating",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "touchscreen": {
+          "type": "number",
+          "title": "High-Resolution Touchscreen",
+          "x-control": "rating",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "sound_quality": {
+          "type": "number",
+          "title": "Premium Sound Quality",
+          "x-control": "rating",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "camera": {
+          "type": "number",
+          "title": "Built-in Camera with Privacy Shutter",
+          "x-control": "rating",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "smart_home_integration": {
+          "type": "number",
+          "title": "Smart Home Device Integration",
+          "x-control": "rating",
+          "minimum": 1,
+          "maximum": 5
+        }
+      },
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "price_expectation": {
+      "type": "string",
+      "title": "How much would you expect to pay for this product?",
+      "description": "Please select the price range you think would be reasonable",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than $100",
+        "$100 - $149",
+        "$150 - $199",
+        "$200 - $249",
+        "$250 - $299",
+        "$300 or more"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "missing_features": {
+      "type": "string",
+      "title": "Are there any features not mentioned that you would like to see in this product?",
+      "description": "Please describe any additional features you'd like",
+      "x-control-variant": "textarea",
+      "placeholder": "I would like to see...",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "We appreciate your valuable feedback on our product concept. Your input will help us refine and improve the Smart Home Assistant Pro. As a token of our appreciation, we'll send a $25 gift card to the email address you provided.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "contact_permission": {
+      "type": "boolean",
+      "title": "Future Contact",
+      "description": "May we contact you for future product testing opportunities?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.3"
+    }
+  }
+}

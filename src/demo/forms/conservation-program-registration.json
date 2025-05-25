@@ -1,0 +1,671 @@
+{
+  "type": "object",
+  "title": "Conservation Program Registration",
+  "description": "Register to participate in our environmental conservation programs and initiatives",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Program Information" },
+        { "id": "personal", "title": "Personal Information" },
+        { "id": "interests", "title": "Conservation Interests" },
+        { "id": "skills", "title": "Skills & Experience" },
+        { "id": "availability", "title": "Availability" },
+        { "id": "agreement", "title": "Agreements & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "program_intro": {
+      "type": "null",
+      "title": "Environmental Conservation Programs",
+      "description": "Thank you for your interest in our conservation programs. Your participation helps protect and restore our natural environment for future generations. Please complete this registration form to join our community of environmental stewards.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_overview": {
+      "type": "null",
+      "title": "Program Overview",
+      "description": "Our conservation programs engage volunteers and participants in a variety of environmental protection and restoration activities. These include habitat restoration, wildlife monitoring, citizen science projects, environmental education, advocacy initiatives, and sustainable practices workshops. By participating, you'll gain valuable experience while making a tangible difference in your community and beyond.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_options": {
+      "type": "null",
+      "title": "Available Programs",
+      "description": "**Habitat Restoration:** Participate in planting native species, removing invasive plants, and restoring natural habitats in parks, wetlands, and forests.\n\n**Wildlife Monitoring:** Help track and monitor local wildlife populations through observation, data collection, and reporting.\n\n**Citizen Science:** Contribute to scientific research by collecting environmental data, such as water quality testing, biodiversity surveys, and climate monitoring.\n\n**Environmental Education:** Assist with educational programs for schools and community groups, or become a trained environmental educator.\n\n**Conservation Advocacy:** Join campaigns and initiatives to promote environmental protection policies and raise awareness about conservation issues.\n\n**Sustainable Living Workshops:** Participate in or lead workshops on sustainable practices, such as composting, energy conservation, and waste reduction.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_benefits": {
+      "type": "null",
+      "title": "Benefits of Participation",
+      "description": "• Hands-on experience in environmental conservation\n• Training and education in ecological principles and practices\n• Networking with conservation professionals and like-minded individuals\n• Opportunity to make a positive impact on your local environment\n• Development of new skills and knowledge\n• Community service hours for students\n• Potential pathways to careers in environmental fields\n• Connection with nature and improved well-being",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address_line1": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address_line2": {
+      "type": "string",
+      "title": "Address Line 2",
+      "description": "Apartment, suite, unit, building, floor, etc.",
+      "placeholder": "Apt, Suite, Unit, etc.",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "age_group": {
+      "type": "string",
+      "title": "Age Group",
+      "description": "Please select your age group",
+      "x-control": "selectsingle",
+      "enum": [
+        "Under 18",
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65+"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_name": {
+      "type": "string",
+      "title": "Emergency Contact Name",
+      "description": "Please provide an emergency contact name",
+      "placeholder": "Emergency contact name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_phone": {
+      "type": "string",
+      "title": "Emergency Contact Phone",
+      "description": "Please provide an emergency contact phone number",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_relationship": {
+      "type": "string",
+      "title": "Relationship to Emergency Contact",
+      "description": "Please specify your relationship to the emergency contact",
+      "placeholder": "Relationship",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "how_heard": {
+      "type": "string",
+      "title": "How did you hear about our conservation programs?",
+      "description": "Please select how you learned about our programs",
+      "x-control": "selectsingle",
+      "enum": [
+        "Website",
+        "Social media",
+        "Friend/Family",
+        "School/University",
+        "Community event",
+        "News/Media",
+        "Other organization",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "program_interests": {
+      "type": "array",
+      "title": "Program Interests",
+      "description": "Which conservation programs are you interested in? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Habitat Restoration",
+        "Wildlife Monitoring",
+        "Citizen Science",
+        "Environmental Education",
+        "Conservation Advocacy",
+        "Sustainable Living Workshops",
+        "Climate Action Initiatives",
+        "Water Conservation",
+        "Waste Reduction",
+        "Urban Greening",
+        "Trail Maintenance",
+        "Beach/Waterway Cleanup"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "habitat_interests": {
+      "type": "array",
+      "title": "Habitat Interests",
+      "description": "Which types of habitats are you most interested in? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Forests/Woodlands",
+        "Wetlands/Marshes",
+        "Rivers/Streams",
+        "Lakes/Ponds",
+        "Coastal/Marine",
+        "Grasslands/Prairies",
+        "Mountains/Alpine",
+        "Desert/Arid",
+        "Urban/City Parks",
+        "Agricultural Lands"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "species_interests": {
+      "type": "array",
+      "title": "Species Interests",
+      "description": "Which types of species are you most interested in? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Birds",
+        "Mammals",
+        "Reptiles/Amphibians",
+        "Fish",
+        "Insects/Pollinators",
+        "Plants/Trees",
+        "Marine Life",
+        "Endangered Species",
+        "Invasive Species"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "environmental_issues": {
+      "type": "array",
+      "title": "Environmental Issues",
+      "description": "Which environmental issues are you most concerned about? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Climate Change",
+        "Habitat Loss",
+        "Biodiversity Loss",
+        "Water Pollution",
+        "Air Pollution",
+        "Plastic Pollution",
+        "Deforestation",
+        "Ocean Acidification",
+        "Soil Degradation",
+        "Invasive Species",
+        "Wildlife Trafficking",
+        "Sustainable Agriculture",
+        "Renewable Energy",
+        "Environmental Justice"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "motivation": {
+      "type": "string",
+      "title": "Motivation",
+      "description": "Please tell us why you are interested in participating in our conservation programs",
+      "x-control-variant": "textarea",
+      "placeholder": "Your motivation",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "goals": {
+      "type": "string",
+      "title": "Goals",
+      "description": "What do you hope to achieve or learn through your participation?",
+      "x-control-variant": "textarea",
+      "placeholder": "Your goals",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "education_level": {
+      "type": "string",
+      "title": "Education Level",
+      "description": "Please select your highest level of education",
+      "x-control": "selectsingle",
+      "enum": [
+        "High School/GED",
+        "Some College",
+        "Associate's Degree",
+        "Bachelor's Degree",
+        "Master's Degree",
+        "Doctoral Degree",
+        "Technical/Vocational Training",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "field_of_study": {
+      "type": "string",
+      "title": "Field of Study",
+      "description": "If applicable, please enter your field of study",
+      "placeholder": "Field of study",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "occupation": {
+      "type": "string",
+      "title": "Current Occupation",
+      "description": "Please enter your current occupation",
+      "placeholder": "Occupation",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "skills": {
+      "type": "array",
+      "title": "Skills",
+      "description": "Which skills can you contribute to our conservation programs? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Plant Identification",
+        "Wildlife Identification",
+        "Data Collection/Analysis",
+        "GIS/Mapping",
+        "Photography/Videography",
+        "Writing/Editing",
+        "Public Speaking",
+        "Teaching/Education",
+        "Event Planning",
+        "Social Media/Marketing",
+        "Graphic Design",
+        "Web Development",
+        "Carpentry/Construction",
+        "Landscaping/Gardening",
+        "Trail Building",
+        "First Aid/CPR",
+        "Project Management",
+        "Fundraising",
+        "Scientific Research",
+        "Leadership/Coordination",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_skills": {
+      "type": "string",
+      "title": "Other Skills",
+      "description": "If you selected 'Other', please specify your skills",
+      "placeholder": "Other skills",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "languages": {
+      "type": "array",
+      "title": "Languages",
+      "description": "Which languages do you speak? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "English",
+        "Spanish",
+        "French",
+        "Mandarin",
+        "Cantonese",
+        "Arabic",
+        "Russian",
+        "Hindi",
+        "Portuguese",
+        "German",
+        "Japanese",
+        "Korean",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_languages": {
+      "type": "string",
+      "title": "Other Languages",
+      "description": "If you selected 'Other', please specify the languages you speak",
+      "placeholder": "Other languages",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "certifications": {
+      "type": "string",
+      "title": "Relevant Certifications",
+      "description": "Please list any relevant certifications you hold (e.g., Master Naturalist, Wilderness First Aid, Master Gardener)",
+      "x-control-variant": "textarea",
+      "placeholder": "Certifications",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "previous_experience": {
+      "type": "string",
+      "title": "Previous Conservation Experience",
+      "description": "Please describe any previous experience you have with environmental conservation or related activities",
+      "x-control-variant": "textarea",
+      "placeholder": "Previous experience",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "availability_type": {
+      "type": "string",
+      "title": "Availability Type",
+      "description": "What type of time commitment are you interested in?",
+      "x-control": "selectsingle",
+      "enum": [
+        "One-time event",
+        "Short-term project (1-3 months)",
+        "Long-term commitment (3+ months)",
+        "Regular ongoing participation",
+        "Seasonal availability only",
+        "Flexible/As needed"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "availability_frequency": {
+      "type": "string",
+      "title": "Availability Frequency",
+      "description": "How often are you available to participate?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Multiple times per week",
+        "Weekly",
+        "Bi-weekly",
+        "Monthly",
+        "Quarterly",
+        "Irregularly/As schedule permits"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "preferred_days": {
+      "type": "array",
+      "title": "Preferred Days",
+      "description": "Which days are you typically available? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "preferred_times": {
+      "type": "array",
+      "title": "Preferred Times",
+      "description": "Which times of day are you typically available? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Early morning (before 9am)",
+        "Morning (9am-12pm)",
+        "Afternoon (12pm-5pm)",
+        "Evening (5pm-8pm)",
+        "Night (after 8pm)"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "start_date": {
+      "type": "string",
+      "title": "Earliest Start Date",
+      "description": "What is the earliest date you could begin participating?",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "end_date": {
+      "type": "string",
+      "title": "End Date",
+      "description": "If your availability has an end date, please specify (leave blank if ongoing)",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "seasonal_availability": {
+      "type": "array",
+      "title": "Seasonal Availability",
+      "description": "Which seasons are you most available? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Spring (March-May)",
+        "Summer (June-August)",
+        "Fall (September-November)",
+        "Winter (December-February)"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "travel_distance": {
+      "type": "string",
+      "title": "Travel Distance",
+      "description": "How far are you willing to travel to participate in conservation activities?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Up to 5 miles",
+        "5-15 miles",
+        "15-30 miles",
+        "30-50 miles",
+        "50+ miles",
+        "Willing to travel anywhere in the region"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "transportation": {
+      "type": "array",
+      "title": "Transportation",
+      "description": "What forms of transportation do you have access to? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Personal vehicle",
+        "Public transportation",
+        "Bicycle",
+        "Walking only",
+        "Carpool/Rideshare",
+        "Need transportation assistance"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "group_participation": {
+      "type": "boolean",
+      "title": "Group Participation",
+      "description": "Are you registering as part of a group (family, friends, organization)?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "group_details": {
+      "type": "string",
+      "title": "Group Details",
+      "description": "If registering as a group, please provide details about your group (number of people, ages, organization name if applicable)",
+      "x-control-variant": "textarea",
+      "placeholder": "Group details",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "physical_limitations": {
+      "type": "boolean",
+      "title": "Physical Limitations",
+      "description": "Do you have any physical limitations or health concerns that might affect your participation?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "limitation_details": {
+      "type": "string",
+      "title": "Limitation Details",
+      "description": "If you have physical limitations, please provide details so we can accommodate your needs",
+      "x-control-variant": "textarea",
+      "placeholder": "Limitation details",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "liability_waiver": {
+      "type": "boolean",
+      "title": "Liability Waiver",
+      "description": "I understand that participation in conservation activities involves certain risks, and I voluntarily assume those risks. I waive and release the organization, its officers, agents, and volunteers from all claims for injuries or damages that may arise from my participation.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "photo_release": {
+      "type": "boolean",
+      "title": "Photo Release",
+      "description": "I grant permission for photographs, videos, and audio recordings of me to be used by the organization for educational and promotional purposes in any media without compensation.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "code_of_conduct": {
+      "type": "boolean",
+      "title": "Code of Conduct",
+      "description": "I agree to follow all safety guidelines, instructions from program leaders, and the organization's code of conduct while participating in conservation activities.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "data_policy": {
+      "type": "boolean",
+      "title": "Data Policy",
+      "description": "I consent to the collection and processing of my personal information as described in the organization's privacy policy for the purpose of managing my participation in conservation programs.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "age_confirmation": {
+      "type": "boolean",
+      "title": "Age Confirmation",
+      "description": "I confirm that I am 18 years of age or older, or I am the parent/legal guardian of the minor participant and consent to their participation.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "parent_guardian_name": {
+      "type": "string",
+      "title": "Parent/Guardian Name",
+      "description": "If participant is under 18, please provide the name of parent/guardian",
+      "placeholder": "Parent/Guardian name",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "parent_guardian_contact": {
+      "type": "string",
+      "title": "Parent/Guardian Contact",
+      "description": "If participant is under 18, please provide parent/guardian contact information",
+      "placeholder": "Parent/Guardian contact",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "newsletter_signup": {
+      "type": "boolean",
+      "title": "Newsletter Signup",
+      "description": "I would like to receive the organization's newsletter with updates on conservation programs, events, and environmental news.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "volunteer_database": {
+      "type": "boolean",
+      "title": "Volunteer Database",
+      "description": "I would like to be added to the volunteer database to be contacted about future conservation opportunities that match my interests and skills.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "additional_comments": {
+      "type": "string",
+      "title": "Additional Comments",
+      "description": "Please provide any additional information or questions you may have",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional comments",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Registration",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for registering for our conservation programs! We have received your registration and will contact you within 3-5 business days with more information about getting started. In the meantime, please check your email for a confirmation message with additional details about our programs.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.5"
+    }
+  }
+}

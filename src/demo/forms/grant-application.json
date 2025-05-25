@@ -1,0 +1,562 @@
+{
+  "type": "object",
+  "title": "Grant Application Form",
+  "description": "Apply for funding for your nonprofit organization or project",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "organization", "title": "Organization Information" },
+        { "id": "contact", "title": "Contact Information" },
+        { "id": "project", "title": "Project Details" },
+        { "id": "funding", "title": "Funding Request" },
+        { "id": "impact", "title": "Impact & Evaluation" },
+        { "id": "attachments", "title": "Required Attachments" },
+        { "id": "certification", "title": "Certification & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Grant Application Form",
+      "description": "Thank you for your interest in applying for a grant. This form collects the information we need to evaluate your request for funding. Please complete all required fields and provide detailed information about your organization and project. Applications are reviewed on a quarterly basis, and you will be notified of the decision within 60 days of the submission deadline.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_name": {
+      "type": "string",
+      "title": "Organization Name",
+      "description": "Please enter the full legal name of your organization",
+      "placeholder": "Legal name of organization",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_dba": {
+      "type": "string",
+      "title": "DBA (Doing Business As)",
+      "description": "If your organization operates under a different name, please enter it here",
+      "placeholder": "DBA name (if applicable)",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_type": {
+      "type": "string",
+      "title": "Organization Type",
+      "description": "Please select the type of organization",
+      "x-control": "selectsingle",
+      "enum": [
+        "501(c)(3) Public Charity",
+        "501(c)(3) Private Foundation",
+        "501(c)(4) Social Welfare Organization",
+        "501(c)(6) Business League",
+        "Government Entity",
+        "Fiscally Sponsored Project",
+        "Other Nonprofit",
+        "For-profit Social Enterprise",
+        "Individual/Unincorporated Group"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "tax_id": {
+      "type": "string",
+      "title": "Tax ID Number (EIN)",
+      "description": "Please enter your organization's Tax ID Number/Employer Identification Number",
+      "placeholder": "XX-XXXXXXX",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "fiscal_sponsor": {
+      "type": "boolean",
+      "title": "Fiscal Sponsor",
+      "description": "Are you applying through a fiscal sponsor?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "year_established": {
+      "type": "string",
+      "title": "Year Established",
+      "description": "In what year was your organization established?",
+      "placeholder": "YYYY",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "mission_statement": {
+      "type": "string",
+      "title": "Mission Statement",
+      "description": "Please provide your organization's mission statement",
+      "x-control-variant": "textarea",
+      "placeholder": "Organization mission statement",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_website": {
+      "type": "string",
+      "title": "Organization Website",
+      "description": "Please enter your organization's website URL",
+      "placeholder": "https://www.example.org",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_address": {
+      "type": "string",
+      "title": "Organization Address",
+      "description": "Please enter your organization's street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter the city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter the state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_zip": {
+      "type": "string",
+      "title": "ZIP/Postal Code",
+      "description": "Please enter the ZIP or postal code",
+      "placeholder": "ZIP/Postal code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please enter the country",
+      "placeholder": "Country",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "annual_budget": {
+      "type": "string",
+      "title": "Annual Operating Budget",
+      "description": "What is your organization's annual operating budget?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Under $50,000",
+        "$50,000 - $100,000",
+        "$100,001 - $250,000",
+        "$250,001 - $500,000",
+        "$500,001 - $1,000,000",
+        "$1,000,001 - $5,000,000",
+        "Over $5,000,000"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "staff_size": {
+      "type": "string",
+      "title": "Staff Size",
+      "description": "How many paid staff members does your organization have?",
+      "x-control": "selectsingle",
+      "enum": [
+        "0 (Volunteer-run)",
+        "1-5",
+        "6-10",
+        "11-25",
+        "26-50",
+        "51-100",
+        "More than 100"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "board_size": {
+      "type": "number",
+      "title": "Board Size",
+      "description": "How many members are on your Board of Directors?",
+      "minimum": 0,
+      "maximum": 100,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "organization_description": {
+      "type": "string",
+      "title": "Organization Description",
+      "description": "Please provide a brief description of your organization, its history, and key accomplishments (max 500 words)",
+      "x-control-variant": "textarea",
+      "placeholder": "Organization description",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "primary_contact_name": {
+      "type": "string",
+      "title": "Primary Contact Name",
+      "description": "Please enter the name of the primary contact for this application",
+      "placeholder": "Full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "primary_contact_title": {
+      "type": "string",
+      "title": "Primary Contact Title",
+      "description": "Please enter the job title of the primary contact",
+      "placeholder": "Job title",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "primary_contact_email": {
+      "type": "string",
+      "title": "Primary Contact Email",
+      "description": "Please enter the email address of the primary contact",
+      "placeholder": "Email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "primary_contact_phone": {
+      "type": "string",
+      "title": "Primary Contact Phone",
+      "description": "Please enter the phone number of the primary contact",
+      "placeholder": "Phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "executive_director_name": {
+      "type": "string",
+      "title": "Executive Director/CEO Name",
+      "description": "Please enter the name of your organization's Executive Director or CEO",
+      "placeholder": "Full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "executive_director_email": {
+      "type": "string",
+      "title": "Executive Director/CEO Email",
+      "description": "Please enter the email address of your Executive Director or CEO",
+      "placeholder": "Email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "project_title": {
+      "type": "string",
+      "title": "Project Title",
+      "description": "Please enter the title of the project for which you are seeking funding",
+      "placeholder": "Project title",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "project_type": {
+      "type": "string",
+      "title": "Project Type",
+      "description": "Please select the type of request",
+      "x-control": "selectsingle",
+      "enum": [
+        "General Operating Support",
+        "Program/Project Support",
+        "Capacity Building",
+        "Capital Project",
+        "Equipment Purchase",
+        "Research",
+        "Event/Conference",
+        "Technical Assistance",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "project_focus_areas": {
+      "type": "array",
+      "title": "Project Focus Areas",
+      "description": "Please select all focus areas that apply to this project (Select up to 3)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Arts & Culture",
+        "Community Development",
+        "Education",
+        "Environment & Conservation",
+        "Health & Wellness",
+        "Human Services",
+        "Social Justice & Equity",
+        "Economic Development",
+        "Youth Development",
+        "Animal Welfare",
+        "Disaster Relief",
+        "International Aid",
+        "Science & Technology",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "project_summary": {
+      "type": "string",
+      "title": "Project Summary",
+      "description": "Please provide a brief summary of your project (max 200 words)",
+      "x-control-variant": "textarea",
+      "placeholder": "Project summary",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "project_description": {
+      "type": "string",
+      "title": "Project Description",
+      "description": "Please provide a detailed description of your project, including goals, activities, and timeline (max 1000 words)",
+      "x-control-variant": "textarea",
+      "placeholder": "Project description",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "project_need": {
+      "type": "string",
+      "title": "Statement of Need",
+      "description": "Please describe the need or problem your project addresses and why it is important (max 500 words)",
+      "x-control-variant": "textarea",
+      "placeholder": "Statement of need",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "target_population": {
+      "type": "string",
+      "title": "Target Population",
+      "description": "Please describe the population that will benefit from this project, including demographic information and geographic area served",
+      "x-control-variant": "textarea",
+      "placeholder": "Target population description",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "estimated_reach": {
+      "type": "string",
+      "title": "Estimated Reach",
+      "description": "How many people do you estimate will be directly served by this project?",
+      "x-control": "selectsingle",
+      "enum": [
+        "1-50",
+        "51-100",
+        "101-500",
+        "501-1,000",
+        "1,001-5,000",
+        "5,001-10,000",
+        "More than 10,000"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "amount_requested": {
+      "type": "string",
+      "title": "Amount Requested",
+      "description": "Please enter the amount of funding you are requesting",
+      "placeholder": "$",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "total_project_cost": {
+      "type": "string",
+      "title": "Total Project Cost",
+      "description": "Please enter the total cost of the project",
+      "placeholder": "$",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "funding_period": {
+      "type": "string",
+      "title": "Funding Period",
+      "description": "For what period are you requesting funding?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 6 months",
+        "6-12 months",
+        "1-2 years",
+        "More than 2 years"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "budget_narrative": {
+      "type": "string",
+      "title": "Budget Narrative",
+      "description": "Please provide a narrative explanation of your budget, including how the requested funds will be used",
+      "x-control-variant": "textarea",
+      "placeholder": "Budget narrative",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_funding_sources": {
+      "type": "string",
+      "title": "Other Funding Sources",
+      "description": "Please list other sources of funding for this project, including amounts and whether the funding is committed, pending, or anticipated",
+      "x-control-variant": "textarea",
+      "placeholder": "Other funding sources",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "sustainability_plan": {
+      "type": "string",
+      "title": "Sustainability Plan",
+      "description": "How will you sustain this project after the grant period ends?",
+      "x-control-variant": "textarea",
+      "placeholder": "Sustainability plan",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "expected_outcomes": {
+      "type": "string",
+      "title": "Expected Outcomes",
+      "description": "Please describe the specific outcomes you expect to achieve with this project",
+      "x-control-variant": "textarea",
+      "placeholder": "Expected outcomes",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "success_measurement": {
+      "type": "string",
+      "title": "Success Measurement",
+      "description": "How will you measure the success of this project? What metrics or indicators will you use?",
+      "x-control-variant": "textarea",
+      "placeholder": "Success measurement",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "evaluation_methods": {
+      "type": "array",
+      "title": "Evaluation Methods",
+      "description": "What methods will you use to evaluate the project? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Surveys/Questionnaires",
+        "Interviews",
+        "Focus Groups",
+        "Pre/Post Tests",
+        "Observation",
+        "Data Collection & Analysis",
+        "Case Studies",
+        "External Evaluation",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "long_term_impact": {
+      "type": "string",
+      "title": "Long-term Impact",
+      "description": "What long-term impact do you expect this project to have on your organization, the community, or the issue you are addressing?",
+      "x-control-variant": "textarea",
+      "placeholder": "Long-term impact",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "project_budget": {
+      "type": "string",
+      "title": "Project Budget",
+      "description": "Please upload a detailed project budget (Excel or PDF format)",
+      "x-control": "file",
+      "x-file-accept": ".xlsx,.xls,.pdf",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "organization_budget": {
+      "type": "string",
+      "title": "Organization Budget",
+      "description": "Please upload your organization's current annual operating budget (Excel or PDF format)",
+      "x-control": "file",
+      "x-file-accept": ".xlsx,.xls,.pdf",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "financial_statements": {
+      "type": "string",
+      "title": "Financial Statements",
+      "description": "Please upload your most recent audited financial statements or Form 990 (PDF format)",
+      "x-control": "file",
+      "x-file-accept": ".pdf",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "board_list": {
+      "type": "string",
+      "title": "Board of Directors List",
+      "description": "Please upload a list of your Board of Directors, including their affiliations (PDF format)",
+      "x-control": "file",
+      "x-file-accept": ".pdf",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "tax_exemption_letter": {
+      "type": "string",
+      "title": "Tax Exemption Letter",
+      "description": "Please upload your IRS 501(c)(3) determination letter or fiscal sponsor agreement (PDF format)",
+      "x-control": "file",
+      "x-file-accept": ".pdf",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "certification_text": {
+      "type": "null",
+      "title": "Certification",
+      "description": "By submitting this application, I certify that the information provided is true and correct to the best of my knowledge. I understand that any false statements or misrepresentations may disqualify this application from consideration or result in the termination of any grant awarded. I also certify that I am authorized to submit this application on behalf of the organization named above.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "authorized_representative": {
+      "type": "string",
+      "title": "Authorized Representative",
+      "description": "Please enter the name of the person authorized to submit this application",
+      "placeholder": "Full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "authorized_title": {
+      "type": "string",
+      "title": "Title",
+      "description": "Please enter the title of the authorized representative",
+      "placeholder": "Title",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "certification_date": {
+      "type": "string",
+      "title": "Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "electronic_signature": {
+      "type": "boolean",
+      "title": "Electronic Signature",
+      "description": "I agree that my name typed above constitutes my electronic signature on this application",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "terms_agreement": {
+      "type": "boolean",
+      "title": "Terms Agreement",
+      "description": "I have read and agree to the grant terms and conditions",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Application",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for submitting your grant application. We have received your application and will review it carefully. You will be notified of the decision within 60 days of the submission deadline. If you have any questions, please contact our grants team.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    }
+  }
+}

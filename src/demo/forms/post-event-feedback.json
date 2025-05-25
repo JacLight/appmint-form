@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "title": "Post-Event Feedback Form",
+  "description": "Collect attendee opinions after a conference, webinar, or workshop to evaluate success and areas for improvement.",
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Thank You for Attending!",
+      "description": "We appreciate your participation in our recent event. Your feedback is invaluable in helping us improve future events. This survey will take approximately 3-5 minutes to complete.",
+      "x-control": "paragraph"
+    },
+    "event_rating": {
+      "type": "number",
+      "title": "Rate the Overall Event",
+      "description": "How would you rate your overall experience at the event?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true
+    },
+    "favorite_aspect": {
+      "type": "string",
+      "title": "Favorite Aspect",
+      "description": "What was your favorite part of the event?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Keynote Presentation",
+        "Panel Discussions",
+        "Networking Opportunities",
+        "Workshops",
+        "Q&A Sessions",
+        "Exhibition Area",
+        "Other"
+      ]
+    },
+    "favorite_aspect_other": {
+      "type": "string",
+      "title": "If Other, please specify",
+      "description": "Please tell us what your favorite aspect was.",
+      "x-control-variant": "textarea"
+    },
+    "best_session": {
+      "type": "string",
+      "title": "Which Session Was Most Valuable?",
+      "description": "Please select the session that provided the most value to you.",
+      "x-control": "selectsingle",
+      "enum": [
+        "Session A: Introduction to the Topic",
+        "Session B: Advanced Strategies",
+        "Session C: Case Studies",
+        "Session D: Interactive Workshop",
+        "Session E: Expert Panel",
+        "None of the above"
+      ]
+    },
+    "improvement_suggestions": {
+      "type": "string",
+      "title": "Any suggestions for improvement?",
+      "description": "Please share any specific feedback on how we could improve future events.",
+      "x-control-variant": "textarea",
+      "placeholder": "Your suggestions help us make our events better..."
+    },
+    "would_attend_again": {
+      "type": "boolean",
+      "title": "Would you attend a similar event in the future?",
+      "description": "Let us know if you'd be interested in future events.",
+      "default": true
+    },
+    "closing_note": {
+      "type": "null",
+      "title": "Thank You for Your Feedback!",
+      "description": "We appreciate your input and look forward to seeing you at our next event. Follow us on social media for updates on upcoming events and resources.",
+      "x-control": "paragraph"
+    }
+  }
+}

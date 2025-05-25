@@ -1,0 +1,643 @@
+{
+  "type": "object",
+  "title": "Business Feedback Form",
+  "description": "Help us improve our business relationship and services by providing your valuable feedback",
+  "x-layout": {
+    "main": {
+      "type": "accordion",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "contact", "title": "Contact Information" },
+        { "id": "relationship", "title": "Business Relationship" },
+        { "id": "satisfaction", "title": "Satisfaction Assessment" },
+        { "id": "communication", "title": "Communication & Support" },
+        { "id": "products", "title": "Products & Services" },
+        { "id": "improvements", "title": "Suggestions for Improvement" },
+        { "id": "future", "title": "Future Relationship" },
+        { "id": "submit", "title": "Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Business Feedback",
+      "description": "Thank you for taking the time to provide feedback on our business relationship. Your insights are invaluable in helping us improve our products, services, and processes to better serve you and other clients. This survey should take approximately 10-15 minutes to complete. All responses will be kept confidential and will be used solely for the purpose of enhancing our business operations.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "Your first name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Your last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "job_title": {
+      "type": "string",
+      "title": "Job Title",
+      "description": "Please enter your job title",
+      "placeholder": "Your job title",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "company_name": {
+      "type": "string",
+      "title": "Company Name",
+      "description": "Please enter your company name",
+      "placeholder": "Your company name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your business email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your business phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "preferred_contact": {
+      "type": "string",
+      "title": "Preferred Contact Method",
+      "description": "How would you prefer to be contacted if we have follow-up questions?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Email",
+        "Phone",
+        "Video call",
+        "In-person meeting",
+        "No follow-up needed"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "relationship_type": {
+      "type": "string",
+      "title": "Relationship Type",
+      "description": "What is your relationship with our company?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Client/Customer",
+        "Supplier/Vendor",
+        "Partner/Collaborator",
+        "Distributor/Reseller",
+        "Consultant",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_relationship": {
+      "type": "string",
+      "title": "Other Relationship",
+      "description": "If you selected 'Other', please specify your relationship with our company",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "relationship_duration": {
+      "type": "string",
+      "title": "Relationship Duration",
+      "description": "How long have you been doing business with our company?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Less than 6 months",
+        "6 months to 1 year",
+        "1-2 years",
+        "3-5 years",
+        "More than 5 years"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "interaction_frequency": {
+      "type": "string",
+      "title": "Interaction Frequency",
+      "description": "How frequently do you interact with our company?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Quarterly",
+        "Annually",
+        "As needed/Irregularly"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "departments": {
+      "type": "array",
+      "title": "Departments Interaction",
+      "description": "Which departments in our company do you interact with? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Sales",
+        "Customer Service",
+        "Technical Support",
+        "Account Management",
+        "Product Development",
+        "Finance/Billing",
+        "Executive Leadership",
+        "Marketing",
+        "Operations",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_departments": {
+      "type": "string",
+      "title": "Other Departments",
+      "description": "If you selected 'Other', please specify which departments you interact with",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "primary_contacts": {
+      "type": "string",
+      "title": "Primary Contacts",
+      "description": "Who are your primary contacts at our company? (Optional)",
+      "x-control-variant": "textarea",
+      "placeholder": "Names and roles of your primary contacts",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "overall_satisfaction": {
+      "type": "number",
+      "title": "Overall Satisfaction",
+      "description": "How satisfied are you with our overall business relationship?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "satisfaction_explanation": {
+      "type": "string",
+      "title": "Satisfaction Explanation",
+      "description": "Please explain your rating for overall satisfaction",
+      "x-control-variant": "textarea",
+      "placeholder": "Your explanation",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "expectations_met": {
+      "type": "string",
+      "title": "Expectations Met",
+      "description": "To what extent have we met your expectations?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Exceeded expectations",
+        "Met all expectations",
+        "Met most expectations",
+        "Met some expectations",
+        "Failed to meet expectations"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "value_for_money": {
+      "type": "number",
+      "title": "Value for Money",
+      "description": "How would you rate the value for money of our products/services?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "reliability": {
+      "type": "number",
+      "title": "Reliability",
+      "description": "How would you rate our reliability as a business partner?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "professionalism": {
+      "type": "number",
+      "title": "Professionalism",
+      "description": "How would you rate the professionalism of our team?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "expertise": {
+      "type": "number",
+      "title": "Expertise",
+      "description": "How would you rate our expertise in our field?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "responsiveness": {
+      "type": "number",
+      "title": "Responsiveness",
+      "description": "How would you rate our responsiveness to your needs and inquiries?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "innovation": {
+      "type": "number",
+      "title": "Innovation",
+      "description": "How would you rate our innovation and adaptability?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "strengths": {
+      "type": "string",
+      "title": "Our Strengths",
+      "description": "What do you consider to be our greatest strengths as a business partner?",
+      "x-control-variant": "textarea",
+      "placeholder": "Our strengths",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "weaknesses": {
+      "type": "string",
+      "title": "Areas for Improvement",
+      "description": "What areas do you think we need to improve upon?",
+      "x-control-variant": "textarea",
+      "placeholder": "Areas for improvement",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "communication_quality": {
+      "type": "number",
+      "title": "Communication Quality",
+      "description": "How would you rate the quality of our communication?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "communication_frequency": {
+      "type": "string",
+      "title": "Communication Frequency",
+      "description": "How would you describe the frequency of our communication?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Too frequent",
+        "Just right",
+        "Not frequent enough"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "preferred_channels": {
+      "type": "array",
+      "title": "Preferred Communication Channels",
+      "description": "Which communication channels do you prefer? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Email",
+        "Phone calls",
+        "Video conferences",
+        "In-person meetings",
+        "Instant messaging",
+        "Project management tools",
+        "Customer portal",
+        "Social media",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "other_channels": {
+      "type": "string",
+      "title": "Other Communication Channels",
+      "description": "If you selected 'Other', please specify your preferred communication channels",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "response_time": {
+      "type": "string",
+      "title": "Response Time",
+      "description": "How satisfied are you with our response time to inquiries or issues?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Very satisfied",
+        "Satisfied",
+        "Neutral",
+        "Dissatisfied",
+        "Very dissatisfied"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "issue_resolution": {
+      "type": "string",
+      "title": "Issue Resolution",
+      "description": "How effectively do we resolve issues or concerns when they arise?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Extremely effectively",
+        "Very effectively",
+        "Moderately effectively",
+        "Slightly effectively",
+        "Not effectively at all",
+        "No issues have arisen"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "support_quality": {
+      "type": "number",
+      "title": "Support Quality",
+      "description": "How would you rate the quality of support you receive?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "communication_improvement": {
+      "type": "string",
+      "title": "Communication Improvement",
+      "description": "How can we improve our communication and support?",
+      "x-control-variant": "textarea",
+      "placeholder": "Suggestions for improvement",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "products_used": {
+      "type": "array",
+      "title": "Products/Services Used",
+      "description": "Which of our products or services do you currently use? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Product/Service A",
+        "Product/Service B",
+        "Product/Service C",
+        "Product/Service D",
+        "Product/Service E",
+        "Custom solutions",
+        "Consulting services",
+        "Support services",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "other_products": {
+      "type": "string",
+      "title": "Other Products/Services",
+      "description": "If you selected 'Other', please specify which products or services you use",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_quality": {
+      "type": "number",
+      "title": "Product/Service Quality",
+      "description": "How would you rate the overall quality of our products/services?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_reliability": {
+      "type": "number",
+      "title": "Product/Service Reliability",
+      "description": "How would you rate the reliability of our products/services?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_ease": {
+      "type": "number",
+      "title": "Ease of Use",
+      "description": "How would you rate the ease of use of our products/services?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_features": {
+      "type": "number",
+      "title": "Features and Functionality",
+      "description": "How would you rate the features and functionality of our products/services?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_customization": {
+      "type": "number",
+      "title": "Customization Options",
+      "description": "How would you rate our ability to customize products/services to your needs?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_documentation": {
+      "type": "number",
+      "title": "Documentation and Training",
+      "description": "How would you rate our documentation, instructions, and training materials?",
+      "x-control": "rating",
+      "minimum": 1,
+      "maximum": 5,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_comparison": {
+      "type": "string",
+      "title": "Competitive Comparison",
+      "description": "How do our products/services compare to others in the market?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Significantly better",
+        "Somewhat better",
+        "About the same",
+        "Somewhat worse",
+        "Significantly worse",
+        "Not sure/Haven't compared"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "product_improvement": {
+      "type": "string",
+      "title": "Product/Service Improvement",
+      "description": "How can we improve our products or services to better meet your needs?",
+      "x-control-variant": "textarea",
+      "placeholder": "Suggestions for improvement",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "missing_offerings": {
+      "type": "string",
+      "title": "Missing Offerings",
+      "description": "Are there any products or services we don't currently offer that would be valuable to you?",
+      "x-control-variant": "textarea",
+      "placeholder": "Products or services you'd like us to offer",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "process_improvement": {
+      "type": "string",
+      "title": "Process Improvement",
+      "description": "How can we improve our business processes to serve you better?",
+      "x-control-variant": "textarea",
+      "placeholder": "Suggestions for process improvement",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "pain_points": {
+      "type": "string",
+      "title": "Pain Points",
+      "description": "What are the biggest pain points or challenges in our business relationship?",
+      "x-control-variant": "textarea",
+      "placeholder": "Pain points or challenges",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "innovation_suggestions": {
+      "type": "string",
+      "title": "Innovation Suggestions",
+      "description": "Do you have any suggestions for innovative approaches or solutions we could implement?",
+      "x-control-variant": "textarea",
+      "placeholder": "Innovation suggestions",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "industry_trends": {
+      "type": "string",
+      "title": "Industry Trends",
+      "description": "Are there any industry trends or developments we should be aware of or addressing?",
+      "x-control-variant": "textarea",
+      "placeholder": "Industry trends or developments",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "additional_services": {
+      "type": "string",
+      "title": "Additional Services",
+      "description": "What additional services or support would you find valuable?",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional services or support",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "continue_business": {
+      "type": "string",
+      "title": "Future Business",
+      "description": "How likely are you to continue doing business with us in the future?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Definitely will continue",
+        "Probably will continue",
+        "Might or might not continue",
+        "Probably will not continue",
+        "Definitely will not continue"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "continue_reason": {
+      "type": "string",
+      "title": "Reason for Continuation Decision",
+      "description": "Please explain your answer regarding future business",
+      "x-control-variant": "textarea",
+      "placeholder": "Your explanation",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "recommend_likelihood": {
+      "type": "number",
+      "title": "Recommendation Likelihood",
+      "description": "How likely are you to recommend our company to others?",
+      "x-control": "slider",
+      "minimum": 0,
+      "maximum": 10,
+      "default": 5,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "recommend_reason": {
+      "type": "string",
+      "title": "Recommendation Reason",
+      "description": "Please explain your recommendation rating",
+      "x-control-variant": "textarea",
+      "placeholder": "Your explanation",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "expansion_opportunities": {
+      "type": "string",
+      "title": "Expansion Opportunities",
+      "description": "Are there opportunities to expand our business relationship? If so, in what areas?",
+      "x-control-variant": "textarea",
+      "placeholder": "Expansion opportunities",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "partnership_ideas": {
+      "type": "string",
+      "title": "Partnership Ideas",
+      "description": "Do you have any ideas for how we could partner more effectively?",
+      "x-control-variant": "textarea",
+      "placeholder": "Partnership ideas",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "future_needs": {
+      "type": "string",
+      "title": "Future Needs",
+      "description": "How do you see your needs evolving in the next 1-3 years, and how can we prepare to meet them?",
+      "x-control-variant": "textarea",
+      "placeholder": "Future needs",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "additional_feedback": {
+      "type": "string",
+      "title": "Additional Feedback",
+      "description": "Is there anything else you'd like to share that wasn't covered in this survey?",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional feedback",
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "follow_up_permission": {
+      "type": "boolean",
+      "title": "Follow-up Permission",
+      "description": "May we contact you to follow up on your feedback?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "feedback_frequency": {
+      "type": "string",
+      "title": "Feedback Frequency",
+      "description": "How often would you like to be invited to provide feedback?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Monthly",
+        "Quarterly",
+        "Bi-annually",
+        "Annually",
+        "Only after significant interactions",
+        "Prefer not to receive feedback requests"
+      ],
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Feedback",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.8"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for taking the time to provide your valuable feedback. We greatly appreciate your insights and will use them to improve our business relationship, products, and services. If you've given us permission to follow up, a member of our team may contact you to discuss your feedback in more detail. We look forward to continuing and strengthening our business relationship.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.8"
+    }
+  }
+}

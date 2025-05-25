@@ -1,0 +1,576 @@
+{
+  "type": "object",
+  "title": "Wellness Program Registration",
+  "description": "Register for our comprehensive wellness program to improve your health and wellbeing",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "program_info", "title": "Program Information" },
+        { "id": "personal_info", "title": "Personal Information" },
+        { "id": "health_info", "title": "Health Information" },
+        { "id": "goals", "title": "Goals & Preferences" },
+        { "id": "agreement", "title": "Agreement & Submission" }
+      ]
+    }
+  },
+  "properties": {
+    "intro": {
+      "type": "null",
+      "title": "Wellness Program Registration",
+      "description": "Thank you for your interest in our wellness program. This program is designed to help you achieve your health and wellness goals through personalized guidance, resources, and support. Please complete this registration form to get started on your wellness journey.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_selection": {
+      "type": "string",
+      "title": "Program Selection",
+      "description": "Please select the wellness program you are interested in",
+      "x-control": "selectsingle",
+      "enum": [
+        "Comprehensive Wellness Program (12 weeks)",
+        "Weight Management Program (8 weeks)",
+        "Stress Reduction & Mental Wellness (6 weeks)",
+        "Fitness & Physical Activity Program (10 weeks)",
+        "Nutrition & Healthy Eating (8 weeks)",
+        "Chronic Disease Management (12 weeks)",
+        "Smoking Cessation Program (6 weeks)",
+        "Sleep Improvement Program (4 weeks)",
+        "Custom Wellness Plan"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_start_date": {
+      "type": "string",
+      "title": "Preferred Start Date",
+      "description": "Please select your preferred program start date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_format": {
+      "type": "array",
+      "title": "Program Format Preference",
+      "description": "Please select your preferred program format(s)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "In-person sessions",
+        "Virtual/online sessions",
+        "Hybrid (combination of in-person and virtual)",
+        "Self-paced with periodic check-ins",
+        "Group sessions",
+        "One-on-one coaching"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_referral": {
+      "type": "string",
+      "title": "How did you hear about our wellness program?",
+      "description": "Please select how you learned about our program",
+      "x-control": "selectsingle",
+      "enum": [
+        "Healthcare provider referral",
+        "Employer/workplace",
+        "Friend or family member",
+        "Social media",
+        "Website/online search",
+        "Email newsletter",
+        "Community event",
+        "Previous participant",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "program_referral_other": {
+      "type": "string",
+      "title": "Other Referral Source",
+      "description": "If you selected 'Other', please specify how you heard about our program",
+      "placeholder": "Other referral source",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Full Name",
+      "description": "Please enter your full name",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "age": {
+      "type": "number",
+      "title": "Age",
+      "description": "Please enter your current age",
+      "minimum": 18,
+      "maximum": 120,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Please select your gender",
+      "x-control": "selectsingle",
+      "enum": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer to self-describe",
+        "Prefer not to say"
+      ],
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "gender_self_describe": {
+      "type": "string",
+      "title": "Self-Described Gender",
+      "description": "If you selected 'Prefer to self-describe', please specify",
+      "placeholder": "Self-described gender",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Your email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Your phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address",
+      "description": "Please enter your address",
+      "x-control-variant": "textarea",
+      "placeholder": "Street address, City, State, Zip Code",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_name": {
+      "type": "string",
+      "title": "Emergency Contact Name",
+      "description": "Please enter the name of an emergency contact",
+      "placeholder": "Emergency contact name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_phone": {
+      "type": "string",
+      "title": "Emergency Contact Phone",
+      "description": "Please enter the phone number of your emergency contact",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_relationship": {
+      "type": "string",
+      "title": "Emergency Contact Relationship",
+      "description": "Please enter your relationship to the emergency contact",
+      "placeholder": "Relationship to emergency contact",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "height": {
+      "type": "number",
+      "title": "Height (inches)",
+      "description": "Please enter your height in inches",
+      "minimum": 36,
+      "maximum": 96,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "weight": {
+      "type": "number",
+      "title": "Weight (pounds)",
+      "description": "Please enter your weight in pounds",
+      "minimum": 50,
+      "maximum": 500,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "current_health_rating": {
+      "type": "string",
+      "title": "Current Health Rating",
+      "description": "How would you rate your current overall health?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Excellent",
+        "Very Good",
+        "Good",
+        "Fair",
+        "Poor"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "medical_conditions": {
+      "type": "array",
+      "title": "Medical Conditions",
+      "description": "Do you have any of the following medical conditions? (Select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "High blood pressure",
+        "High cholesterol",
+        "Diabetes",
+        "Heart disease",
+        "Asthma",
+        "Arthritis",
+        "Chronic pain",
+        "Depression/Anxiety",
+        "Sleep apnea",
+        "Thyroid disorder",
+        "Cancer",
+        "None of the above",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_medical_conditions": {
+      "type": "string",
+      "title": "Other Medical Conditions",
+      "description": "If you selected 'Other', please specify your medical conditions",
+      "x-control-variant": "textarea",
+      "placeholder": "Other medical conditions",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "medications": {
+      "type": "string",
+      "title": "Current Medications",
+      "description": "Please list any medications you are currently taking",
+      "x-control-variant": "textarea",
+      "placeholder": "List medications",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "allergies": {
+      "type": "string",
+      "title": "Allergies",
+      "description": "Please list any allergies you have",
+      "x-control-variant": "textarea",
+      "placeholder": "List allergies",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "physical_limitations": {
+      "type": "boolean",
+      "title": "Physical Limitations",
+      "description": "Do you have any physical limitations that may affect your participation in the program?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "physical_limitations_description": {
+      "type": "string",
+      "title": "Physical Limitations Description",
+      "description": "If yes, please describe your physical limitations",
+      "x-control-variant": "textarea",
+      "placeholder": "Description of physical limitations",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "healthcare_provider": {
+      "type": "string",
+      "title": "Primary Healthcare Provider",
+      "description": "Please enter the name of your primary healthcare provider",
+      "placeholder": "Healthcare provider name",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "healthcare_provider_consent": {
+      "type": "boolean",
+      "title": "Healthcare Provider Consent",
+      "description": "Do we have your permission to contact your healthcare provider if necessary?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "primary_wellness_goals": {
+      "type": "array",
+      "title": "Primary Wellness Goals",
+      "description": "What are your primary wellness goals? (Select up to 3)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Weight management",
+        "Increase physical activity",
+        "Improve nutrition",
+        "Reduce stress",
+        "Improve sleep",
+        "Manage chronic condition",
+        "Quit smoking/tobacco",
+        "Reduce alcohol consumption",
+        "Improve mental wellbeing",
+        "Increase energy levels",
+        "Improve work-life balance",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_wellness_goal": {
+      "type": "string",
+      "title": "Other Wellness Goal",
+      "description": "If you selected 'Other', please specify your wellness goal",
+      "placeholder": "Other wellness goal",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "specific_goals": {
+      "type": "string",
+      "title": "Specific Goals",
+      "description": "Please describe your specific goals for this wellness program",
+      "x-control-variant": "textarea",
+      "placeholder": "Describe your specific goals",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "current_activity_level": {
+      "type": "string",
+      "title": "Current Activity Level",
+      "description": "How would you describe your current physical activity level?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Sedentary (little to no exercise)",
+        "Lightly active (light exercise/sports 1-3 days/week)",
+        "Moderately active (moderate exercise/sports 3-5 days/week)",
+        "Very active (hard exercise/sports 6-7 days/week)",
+        "Extremely active (very hard exercise/physical job/training twice a day)"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "exercise_preference": {
+      "type": "array",
+      "title": "Exercise Preferences",
+      "description": "What types of physical activities do you enjoy or are interested in?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Walking",
+        "Running/Jogging",
+        "Cycling",
+        "Swimming",
+        "Weight training",
+        "Yoga/Pilates",
+        "Group fitness classes",
+        "Team sports",
+        "Dancing",
+        "Hiking",
+        "Home workouts",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_exercise_preference": {
+      "type": "string",
+      "title": "Other Exercise Preference",
+      "description": "If you selected 'Other', please specify your exercise preference",
+      "placeholder": "Other exercise preference",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "dietary_preference": {
+      "type": "string",
+      "title": "Dietary Preference",
+      "description": "Please select your dietary preference",
+      "x-control": "selectsingle",
+      "enum": [
+        "No specific diet",
+        "Vegetarian",
+        "Vegan",
+        "Pescatarian",
+        "Gluten-free",
+        "Dairy-free",
+        "Keto/Low-carb",
+        "Paleo",
+        "Mediterranean",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_dietary_preference": {
+      "type": "string",
+      "title": "Other Dietary Preference",
+      "description": "If you selected 'Other', please specify your dietary preference",
+      "placeholder": "Other dietary preference",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "nutrition_challenges": {
+      "type": "string",
+      "title": "Nutrition Challenges",
+      "description": "Please describe any challenges you face with nutrition or healthy eating",
+      "x-control-variant": "textarea",
+      "placeholder": "Nutrition challenges",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "stress_management": {
+      "type": "array",
+      "title": "Stress Management Techniques",
+      "description": "Which stress management techniques are you interested in learning or practicing?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Meditation",
+        "Deep breathing exercises",
+        "Yoga",
+        "Mindfulness",
+        "Progressive muscle relaxation",
+        "Guided imagery",
+        "Journaling",
+        "Time management",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_stress_management": {
+      "type": "string",
+      "title": "Other Stress Management",
+      "description": "If you selected 'Other', please specify your stress management technique of interest",
+      "placeholder": "Other stress management technique",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "motivation_level": {
+      "type": "string",
+      "title": "Motivation Level",
+      "description": "How motivated are you to make lifestyle changes to improve your health and wellness?",
+      "x-control": "selectsingle",
+      "enum": [
+        "Extremely motivated",
+        "Very motivated",
+        "Moderately motivated",
+        "Somewhat motivated",
+        "Not very motivated"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "barriers": {
+      "type": "array",
+      "title": "Potential Barriers",
+      "description": "What potential barriers might affect your participation or success in this program?",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Lack of time",
+        "Work schedule",
+        "Family responsibilities",
+        "Financial constraints",
+        "Lack of motivation",
+        "Health limitations",
+        "Lack of support",
+        "Transportation issues",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "other_barrier": {
+      "type": "string",
+      "title": "Other Barrier",
+      "description": "If you selected 'Other', please specify the potential barrier",
+      "placeholder": "Other potential barrier",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "additional_information": {
+      "type": "string",
+      "title": "Additional Information",
+      "description": "Please provide any additional information that may be helpful for your wellness program",
+      "x-control-variant": "textarea",
+      "placeholder": "Additional information",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "participation_agreement": {
+      "type": "boolean",
+      "title": "Participation Agreement",
+      "description": "I agree to actively participate in the wellness program and follow the recommended guidelines to the best of my ability.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "medical_disclaimer": {
+      "type": "boolean",
+      "title": "Medical Disclaimer",
+      "description": "I understand that this wellness program is not a substitute for professional medical advice, diagnosis, or treatment. I will consult with my healthcare provider before starting any new exercise or nutrition program, especially if I have any medical conditions or concerns.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "liability_waiver": {
+      "type": "boolean",
+      "title": "Liability Waiver",
+      "description": "I understand and acknowledge that participation in wellness program activities involves inherent risks. I voluntarily agree to assume all such risks and release the program providers from any liability for injuries or damages that may occur during my participation.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "privacy_policy": {
+      "type": "boolean",
+      "title": "Privacy Policy",
+      "description": "I acknowledge that I have read and understand the privacy policy regarding how my personal and health information will be used and protected during my participation in the wellness program.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "communication_consent": {
+      "type": "boolean",
+      "title": "Communication Consent",
+      "description": "I consent to receive communications related to the wellness program via email, phone, or text message.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "data_usage_consent": {
+      "type": "boolean",
+      "title": "Data Usage Consent",
+      "description": "I consent to the collection and analysis of my program participation data for the purpose of evaluating program effectiveness. All data will be anonymized for any reporting purposes.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "photo_release": {
+      "type": "boolean",
+      "title": "Photo Release",
+      "description": "I grant permission for photos or videos taken during program activities to be used for promotional purposes.",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature": {
+      "type": "string",
+      "title": "Digital Signature",
+      "description": "Please type your full name as your digital signature",
+      "placeholder": "Type your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Registration",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Your wellness program registration has been submitted successfully. A program coordinator will contact you within 2-3 business days to discuss next steps and answer any questions you may have. We look forward to supporting you on your wellness journey!",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    }
+  }
+}

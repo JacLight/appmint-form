@@ -1,0 +1,715 @@
+{
+  "type": "object",
+  "title": "Course Registration Form",
+  "description": "Register for courses, workshops, and training programs",
+  "x-layout": {
+    "main": {
+      "type": "tab",
+      "id": "main",
+      "items": [
+        { "id": "intro", "title": "Introduction" },
+        { "id": "personal", "title": "Personal Information" },
+        { "id": "course", "title": "Course Selection" },
+        { "id": "education", "title": "Educational Background" },
+        { "id": "requirements", "title": "Prerequisites & Requirements" },
+        { "id": "payment", "title": "Payment Information" },
+        { "id": "policies", "title": "Policies & Agreements" },
+        { "id": "submission", "title": "Review & Submit" }
+      ]
+    }
+  },
+  "properties": {
+    "intro_text": {
+      "type": "null",
+      "title": "Course Registration",
+      "description": "Welcome to our course registration portal. Please complete this form to register for courses, workshops, or training programs. Required fields are marked with an asterisk (*).",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "registration_type": {
+      "type": "string",
+      "title": "Registration Type",
+      "description": "Please select the type of program you're registering for",
+      "x-control": "selectsingle",
+      "enum": [
+        "Academic Course",
+        "Professional Development Workshop",
+        "Certificate Program",
+        "Technical Training",
+        "Continuing Education",
+        "Seminar/Conference",
+        "Online Course"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "registration_period": {
+      "type": "string",
+      "title": "Registration Period",
+      "description": "Please select the applicable registration period",
+      "x-control": "selectsingle",
+      "enum": [
+        "Spring Semester 2025",
+        "Summer Semester 2025",
+        "Fall Semester 2025",
+        "Winter Semester 2025",
+        "Quarter 1 (Jan-Mar 2025)",
+        "Quarter 2 (Apr-Jun 2025)",
+        "Quarter 3 (Jul-Sep 2025)",
+        "Quarter 4 (Oct-Dec 2025)",
+        "Custom Date Range"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "custom_date_range": {
+      "type": "string",
+      "title": "Custom Date Range",
+      "description": "If you selected 'Custom Date Range', please specify the dates",
+      "placeholder": "e.g., June 15-30, 2025",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "registration_deadline": {
+      "type": "string",
+      "title": "Registration Deadline",
+      "description": "Please note the registration deadline for your selected period",
+      "x-control": "date",
+      "format": "date",
+      "layoutGroup": "x-layout.main.items.0"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "description": "Please enter your first name",
+      "placeholder": "First name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "middle_name": {
+      "type": "string",
+      "title": "Middle Name",
+      "description": "Please enter your middle name (if applicable)",
+      "placeholder": "Middle name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "Please enter your last name",
+      "placeholder": "Last name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "preferred_name": {
+      "type": "string",
+      "title": "Preferred Name",
+      "description": "If different from your legal name, please enter your preferred name",
+      "placeholder": "Preferred name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "title": "Date of Birth",
+      "description": "Please enter your date of birth",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email Address",
+      "description": "Please enter your email address",
+      "placeholder": "Email address",
+      "format": "email",
+      "x-control": "email",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone Number",
+      "description": "Please enter your phone number",
+      "placeholder": "Phone number",
+      "x-control": "phone",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "address": {
+      "type": "string",
+      "title": "Street Address",
+      "description": "Please enter your street address",
+      "placeholder": "Street address",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "city": {
+      "type": "string",
+      "title": "City",
+      "description": "Please enter your city",
+      "placeholder": "City",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "state": {
+      "type": "string",
+      "title": "State/Province",
+      "description": "Please enter your state or province",
+      "placeholder": "State/Province",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "Postal/Zip Code",
+      "description": "Please enter your postal or zip code",
+      "placeholder": "Postal/Zip code",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Please select your country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_name": {
+      "type": "string",
+      "title": "Emergency Contact Name",
+      "description": "Please provide an emergency contact name",
+      "placeholder": "Emergency contact name",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_phone": {
+      "type": "string",
+      "title": "Emergency Contact Phone",
+      "description": "Please provide an emergency contact phone number",
+      "placeholder": "Emergency contact phone",
+      "x-control": "phone",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "emergency_contact_relationship": {
+      "type": "string",
+      "title": "Emergency Contact Relationship",
+      "description": "Please specify your relationship to the emergency contact",
+      "placeholder": "Relationship (e.g., parent, spouse, friend)",
+      "layoutGroup": "x-layout.main.items.1"
+    },
+    "course_selection_intro": {
+      "type": "null",
+      "title": "Course Selection",
+      "description": "Please select the course(s) you wish to register for. You can select multiple courses if applicable.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "primary_course": {
+      "type": "string",
+      "title": "Primary Course",
+      "description": "Please select your primary course or program",
+      "x-control": "selectsingle",
+      "enum": [
+        "Introduction to Computer Science (CS101)",
+        "Advanced Programming Techniques (CS301)",
+        "Data Structures and Algorithms (CS201)",
+        "Web Development Fundamentals (WD101)",
+        "Mobile App Development (MAD201)",
+        "Database Management Systems (DB301)",
+        "Artificial Intelligence Basics (AI101)",
+        "Machine Learning Fundamentals (ML201)",
+        "Project Management Professional (PMP) Prep",
+        "Business Analytics Essentials (BA101)",
+        "Digital Marketing Certification (DM201)",
+        "Leadership and Management Skills (LMS301)",
+        "Financial Planning and Analysis (FP201)",
+        "Other (please specify)"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_primary_course": {
+      "type": "string",
+      "title": "Other Primary Course",
+      "description": "If you selected 'Other', please specify the primary course",
+      "placeholder": "Course name and code (if applicable)",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "additional_courses": {
+      "type": "array",
+      "title": "Additional Courses",
+      "description": "Please select any additional courses you wish to register for",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Introduction to Computer Science (CS101)",
+        "Advanced Programming Techniques (CS301)",
+        "Data Structures and Algorithms (CS201)",
+        "Web Development Fundamentals (WD101)",
+        "Mobile App Development (MAD201)",
+        "Database Management Systems (DB301)",
+        "Artificial Intelligence Basics (AI101)",
+        "Machine Learning Fundamentals (ML201)",
+        "Project Management Professional (PMP) Prep",
+        "Business Analytics Essentials (BA101)",
+        "Digital Marketing Certification (DM201)",
+        "Leadership and Management Skills (LMS301)",
+        "Financial Planning and Analysis (FP201)",
+        "Other (please specify)"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "other_additional_courses": {
+      "type": "string",
+      "title": "Other Additional Courses",
+      "description": "If you selected 'Other' for additional courses, please specify",
+      "x-control-variant": "textarea",
+      "placeholder": "List additional courses",
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "course_format": {
+      "type": "string",
+      "title": "Course Format",
+      "description": "Please select your preferred course format",
+      "x-control": "selectsingle",
+      "enum": [
+        "In-person (On-campus)",
+        "Online (Synchronous - scheduled live sessions)",
+        "Online (Asynchronous - self-paced)",
+        "Hybrid (Combination of in-person and online)",
+        "No preference"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "course_schedule": {
+      "type": "string",
+      "title": "Preferred Schedule",
+      "description": "Please select your preferred course schedule",
+      "x-control": "selectsingle",
+      "enum": [
+        "Weekday mornings (8am-12pm)",
+        "Weekday afternoons (12pm-5pm)",
+        "Weekday evenings (5pm-9pm)",
+        "Weekend mornings (8am-12pm)",
+        "Weekend afternoons (12pm-5pm)",
+        "Flexible/No preference"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "course_location": {
+      "type": "string",
+      "title": "Preferred Location",
+      "description": "For in-person or hybrid courses, please select your preferred location",
+      "x-control": "selectsingle",
+      "enum": [
+        "Main Campus",
+        "Downtown Center",
+        "West Campus",
+        "East Campus",
+        "South Campus",
+        "North Satellite Location",
+        "Not applicable (online only)"
+      ],
+      "layoutGroup": "x-layout.main.items.2"
+    },
+    "education_level": {
+      "type": "string",
+      "title": "Highest Education Level",
+      "description": "Please select your highest level of education completed",
+      "x-control": "selectsingle",
+      "enum": [
+        "High School Diploma or GED",
+        "Some College (no degree)",
+        "Associate's Degree",
+        "Bachelor's Degree",
+        "Master's Degree",
+        "Doctoral Degree",
+        "Professional Degree (MD, JD, etc.)",
+        "Trade/Technical/Vocational Training",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "current_student": {
+      "type": "boolean",
+      "title": "Current Student Status",
+      "description": "Are you currently enrolled as a student at our institution?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "student_id": {
+      "type": "string",
+      "title": "Student ID",
+      "description": "If you are a current or former student, please enter your student ID",
+      "placeholder": "Student ID",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "previous_institution": {
+      "type": "string",
+      "title": "Previous Educational Institution",
+      "description": "Please enter the name of your most recent educational institution",
+      "placeholder": "Institution name",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "major_field": {
+      "type": "string",
+      "title": "Major/Field of Study",
+      "description": "Please enter your major or primary field of study",
+      "placeholder": "Major/Field of study",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "graduation_year": {
+      "type": "string",
+      "title": "Graduation Year",
+      "description": "Please enter the year you graduated (or expect to graduate)",
+      "placeholder": "Graduation year",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "gpa": {
+      "type": "string",
+      "title": "GPA",
+      "description": "Please enter your cumulative GPA (if applicable)",
+      "placeholder": "GPA (e.g., 3.5)",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "transcript": {
+      "type": "string",
+      "title": "Transcript Upload",
+      "description": "If required for your course, please upload your most recent transcript",
+      "x-control": "file",
+      "accept": ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+      "layoutGroup": "x-layout.main.items.3"
+    },
+    "prerequisites_intro": {
+      "type": "null",
+      "title": "Prerequisites & Requirements",
+      "description": "Some courses have specific prerequisites or requirements. Please provide information about your qualifications and experience relevant to your selected course(s).",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "prerequisites_met": {
+      "type": "boolean",
+      "title": "Prerequisites Confirmation",
+      "description": "I confirm that I meet all prerequisites for the course(s) I am registering for",
+      "default": false,
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "relevant_experience": {
+      "type": "string",
+      "title": "Relevant Experience",
+      "description": "Please describe any relevant experience or qualifications you have for the selected course(s)",
+      "x-control-variant": "textarea",
+      "placeholder": "Relevant experience",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "previous_courses": {
+      "type": "string",
+      "title": "Previous Related Courses",
+      "description": "Please list any previous courses you've taken that are related to your current selection",
+      "x-control-variant": "textarea",
+      "placeholder": "Previous related courses",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "technical_requirements": {
+      "type": "array",
+      "title": "Technical Requirements",
+      "description": "For online or technical courses, please confirm you have access to the following (select all that apply)",
+      "x-control": "selectmany",
+      "x-control-variant": "checkbox",
+      "options": [
+        "Computer with reliable internet connection",
+        "Webcam and microphone",
+        "Required software (as specified in course description)",
+        "Mobile device (smartphone or tablet)",
+        "Printer",
+        "Specific hardware requirements (as specified in course description)"
+      ],
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "accommodations_needed": {
+      "type": "boolean",
+      "title": "Accommodations",
+      "description": "Do you require any accommodations or special arrangements?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "accommodations_details": {
+      "type": "string",
+      "title": "Accommodation Details",
+      "description": "If you require accommodations, please provide details",
+      "x-control-variant": "textarea",
+      "placeholder": "Accommodation details",
+      "layoutGroup": "x-layout.main.items.4"
+    },
+    "payment_method": {
+      "type": "string",
+      "title": "Payment Method",
+      "description": "Please select your preferred payment method",
+      "x-control": "selectsingle",
+      "enum": [
+        "Credit/Debit Card",
+        "Bank Transfer",
+        "PayPal",
+        "Employer Sponsorship",
+        "Financial Aid/Scholarship",
+        "Payment Plan",
+        "Other"
+      ],
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_holder_name": {
+      "type": "string",
+      "title": "Cardholder Name",
+      "description": "Please enter the name as it appears on your credit/debit card",
+      "placeholder": "Cardholder name",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_number": {
+      "type": "string",
+      "title": "Card Number",
+      "description": "Please enter your credit/debit card number",
+      "placeholder": "Card number",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_expiry": {
+      "type": "string",
+      "title": "Card Expiration Date",
+      "description": "Please enter the expiration date of your credit/debit card",
+      "placeholder": "MM/YY",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "card_cvv": {
+      "type": "string",
+      "title": "Card CVV",
+      "description": "Please enter the 3 or 4 digit security code on your credit/debit card",
+      "placeholder": "CVV",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_address_same": {
+      "type": "boolean",
+      "title": "Billing Address",
+      "description": "Is your billing address the same as your mailing address?",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_address": {
+      "type": "string",
+      "title": "Billing Street Address",
+      "description": "If different from mailing address, please enter your billing street address",
+      "placeholder": "Billing street address",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_city": {
+      "type": "string",
+      "title": "Billing City",
+      "description": "If different from mailing address, please enter your billing city",
+      "placeholder": "Billing city",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_state": {
+      "type": "string",
+      "title": "Billing State/Province",
+      "description": "If different from mailing address, please enter your billing state/province",
+      "placeholder": "Billing state/province",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_postal_code": {
+      "type": "string",
+      "title": "Billing Postal/Zip Code",
+      "description": "If different from mailing address, please enter your billing postal/zip code",
+      "placeholder": "Billing postal/zip code",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "billing_country": {
+      "type": "string",
+      "title": "Billing Country",
+      "description": "If different from mailing address, please select your billing country",
+      "x-control": "selectsingle",
+      "enum": [
+        "United States",
+        "Canada",
+        "United Kingdom",
+        "Australia",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "employer_sponsorship": {
+      "type": "boolean",
+      "title": "Employer Sponsorship",
+      "description": "Is your employer sponsoring your registration?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "employer_name": {
+      "type": "string",
+      "title": "Employer Name",
+      "description": "If employer sponsored, please enter your employer's name",
+      "placeholder": "Employer name",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "employer_contact": {
+      "type": "string",
+      "title": "Employer Contact",
+      "description": "If employer sponsored, please enter the name of the contact person at your employer",
+      "placeholder": "Employer contact name",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "employer_email": {
+      "type": "string",
+      "title": "Employer Email",
+      "description": "If employer sponsored, please enter the email address of the contact person",
+      "placeholder": "Employer contact email",
+      "format": "email",
+      "x-control": "email",
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "invoice_required": {
+      "type": "boolean",
+      "title": "Invoice Required",
+      "description": "Do you require an invoice for payment?",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.5"
+    },
+    "policies_intro": {
+      "type": "null",
+      "title": "Policies & Agreements",
+      "description": "Please review the following policies and agreements. You must agree to these terms to complete your registration.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "cancellation_policy": {
+      "type": "null",
+      "title": "Cancellation Policy",
+      "description": "Cancellations must be submitted in writing at least 14 days before the course start date to receive a full refund. Cancellations received less than 14 days but more than 7 days before the start date will receive a 50% refund. No refunds will be issued for cancellations received less than 7 days before the start date. Substitutions may be made at any time with written notice.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "attendance_policy": {
+      "type": "null",
+      "title": "Attendance Policy",
+      "description": "Regular attendance is required for all courses. Students must attend at least 80% of scheduled sessions to receive credit or certification. For online courses, active participation in discussions and completion of assignments is required.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "code_of_conduct": {
+      "type": "null",
+      "title": "Code of Conduct",
+      "description": "All participants are expected to behave professionally and respectfully. Harassment, discrimination, or disruptive behavior will not be tolerated and may result in removal from the course without refund.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "privacy_policy": {
+      "type": "null",
+      "title": "Privacy Policy",
+      "description": "Your personal information will be used only for course administration, communication, and institutional record-keeping. We will not share your information with third parties except as required by law or with your explicit consent.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "terms_agreement": {
+      "type": "boolean",
+      "title": "Terms & Conditions Agreement",
+      "description": "I have read and agree to the terms and conditions, including the cancellation policy, attendance policy, code of conduct, and privacy policy.",
+      "x-control": "legalconsent",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "photo_release": {
+      "type": "boolean",
+      "title": "Photo Release",
+      "description": "I grant permission for photographs or videos taken during the course to be used for promotional or educational purposes.",
+      "default": false,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "communication_consent": {
+      "type": "boolean",
+      "title": "Communication Consent",
+      "description": "I consent to receive emails, texts, or other communications related to my course registration, upcoming courses, and educational opportunities.",
+      "default": true,
+      "layoutGroup": "x-layout.main.items.6"
+    },
+    "review_intro": {
+      "type": "null",
+      "title": "Review Your Information",
+      "description": "Please review all the information you've provided before submitting your registration. You can go back to previous sections to make changes if needed.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "special_requests": {
+      "type": "string",
+      "title": "Special Requests or Comments",
+      "description": "Please enter any special requests, questions, or comments you have regarding your registration",
+      "x-control-variant": "textarea",
+      "placeholder": "Special requests or comments",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "referral_source": {
+      "type": "string",
+      "title": "How Did You Hear About Us?",
+      "description": "Please let us know how you heard about this course or program",
+      "x-control": "selectsingle",
+      "enum": [
+        "Website",
+        "Email",
+        "Social Media",
+        "Friend/Colleague",
+        "Employer",
+        "Former Student",
+        "Advertisement",
+        "Search Engine",
+        "Other"
+      ],
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "other_referral": {
+      "type": "string",
+      "title": "Other Referral Source",
+      "description": "If you selected 'Other', please specify how you heard about us",
+      "placeholder": "Please specify",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "electronic_signature": {
+      "type": "string",
+      "title": "Electronic Signature",
+      "description": "Please type your full name as your electronic signature",
+      "placeholder": "Your full name",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "signature_date": {
+      "type": "string",
+      "title": "Signature Date",
+      "description": "Today's date",
+      "x-control": "date",
+      "format": "date",
+      "inputRequired": true,
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "submit_button": {
+      "type": "null",
+      "title": "Submit Registration",
+      "x-control": "button",
+      "x-button-action": "submit",
+      "x-button-style": "primary",
+      "layoutGroup": "x-layout.main.items.7"
+    },
+    "thank_you": {
+      "type": "null",
+      "title": "Thank You!",
+      "description": "Thank you for submitting your course registration. You will receive a confirmation email shortly with details about your registration. If you have any questions, please contact our registration office.",
+      "x-control": "paragraph",
+      "layoutGroup": "x-layout.main.items.7"
+    }
+  }
+}
