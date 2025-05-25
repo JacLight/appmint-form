@@ -1,4 +1,46 @@
 import * as objectPath from 'object-path';
+import { validateValue } from './form-validator';
+import { isJsonString, isNotEmpty, toSentenceCase } from '../utils';
+
+export const getSelectOptions = async (dataSource, data, arrayIndex?) => {
+  if (!dataSource) return;
+
+  let options;
+
+  if (dataSource.source === 'self') {
+    const key = resolveExpression(dataSource.value, arrayIndex);
+    options = objectPath.get(data, key);
+  }  else if (dataSource.source === 'json') {
+    options = dataSource.json || dataSource.value;
+  }
+
+  if (isJsonString(options)) {
+    options = JSON.parse(options);
+  }
+
+  if (isNotEmpty(options) && typeof options[0] === 'string') {
+    options = options.map(o => ({ value: o, label: toSentenceCase(o) }));
+  }
+
+  if (dataSource.filter && dataSource?.value?.toLowerCase() !== 'country-regions') {
+    let filterValue = typeof dataSource.filter === 'string' ? dataSource.filter : dataSource.filter?.value;
+    if (filterValue?.startsWith('{{') && filterValue?.endsWith('}}')) {
+      const filterKey = resolveExpression(filterValue, arrayIndex);
+      filterValue = objectPath.get(data, filterKey);
+    }
+    const filterProperty = typeof dataSource.filter?.property === 'string' ? dataSource.filter?.property : 'value';
+    const filterOperation = typeof dataSource.filter?.property === 'string' ? dataSource.filter?.operation : 'equal';
+
+    if (filterValue) {
+      options = options.filter(option => {
+        const response = validateValue(filterOperation, filterValue, option[filterProperty], '');
+        return response?.valid;
+      });
+    }
+  }
+  return options;
+};
+
 
 const resolveExpression = (rawValue, arrayIndex) => {
   if (!rawValue) return rawValue;
@@ -11,6 +53,13 @@ const resolveExpression = (rawValue, arrayIndex) => {
     parsedValue = valueKey;
   }
   return parsedValue;
+};
+
+const getTemplateValue = (template, data, arrayIndex) => {
+  if (!template || !template.startsWith('{{') || !template.endsWith('}}')) return template;
+  const valueKey = resolveExpression(template, arrayIndex);
+  const value = objectPath.get(data, valueKey);
+  return value;
 };
 
 export const getWatchedPaths = (schema, parentPath, arrayIndex?) => {

@@ -1,6 +1,5 @@
 import { FormLayoutAccordion } from '../form-view/form-layout-accordion';
 import { FormLayoutTab } from '../form-view/form-layout-tab';
-import { FormLayoutSlider } from '../form-view/form-layout-slider';
 import { getRandomString } from '../utils';
 import { getComponentPartStyling } from '../form-elements/styling/style-utils';
 import { LegacyTheme, ThemeStyling } from '../form-elements/styling/theme-settings';
@@ -8,7 +7,6 @@ import { LegacyTheme, ThemeStyling } from '../form-elements/styling/theme-settin
 export const formLayouts = {
   accordion: FormLayoutAccordion,
   tab: FormLayoutTab,
-  slide: FormLayoutSlider,
 };
 
 export interface FormStoreProps {

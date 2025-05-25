@@ -1,8 +1,7 @@
-/* eslint-disable no-prototype-builtins */
 import { z } from 'zod';
 import * as objectPath from 'object-path';
 import { ruleOperations } from './form-rules';
-import { deepCopy } from '../utils';
+import { deepCopy, isEmpty, isNotEmpty } from '../utils';
 
 interface ValidationResult {
   valid: boolean;
@@ -200,14 +199,14 @@ export const validateForm = (sourceData: any, schema: any): { valid: boolean; va
     }
 
     return { valid: true, validate: { errors: undefined } };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Form validation error:', error);
     return {
       valid: false,
-      validate: { errors: [{ message: 'Form validation error' }] },
-      errors: [{ message: 'Form validation error' }],
+      validate: { errors: [{ message: error.message }] },
+      errors: [{ message: error.message }],
       message: 'Form validation error',
-      validationResults: [{ valid: false, errors: [{ message: 'Form validation error' }], message: 'Form validation error' }],
+      validationResults: [{ valid: false, errors: [{ message: error.message }], message: error.message }],
     };
   }
 };
@@ -227,20 +226,23 @@ const validateSchemaItems = (path: string, dataPath: string, schema: any, data: 
         continue;
       }
       const valuePath = dataPath ? `${dataPath}.${key}` : key;
-      if (itemSchema.properties[key] && itemSchema.properties[key].type === 'array' && itemSchema.properties[key].items?.type === 'object') {
+      const itemProps = itemSchema.properties[key];
+      if (itemProps?.type === 'array' && itemProps?.items?.type === 'object') {
         validateSchemaItems(`${basePath}.${key}`, valuePath, schema, data, store);
-      } else if (itemSchema.properties[key] && itemSchema.properties[key].type === 'object') {
+      } else if (itemProps?.type === 'object') {
         validateSchemaItems(`${basePath}.${key}`, valuePath, schema, data, store);
       } else {
-        const hasItems = itemSchema.properties[key].items;
+        const hasItems = itemProps?.items;
         let validationResult;
-        if (hasItems?.type && (hasItems?.type !== 'object' || hasItems?.type !== 'array')) {
+        if (itemProps['x-control'] && (itemProps.type === 'array' || itemProps?.type === 'object')) {
+          validationResult = validateFormValue(valuePath, value[key], itemProps, data);
+        } else if (hasItems?.type && (hasItems?.type !== 'object' || hasItems?.type !== 'array')) {
           if (typeof value[key] !== 'undefined') {
             validationResult = validateFormValue(valuePath, value[key], hasItems, data);
           }
         } else {
-          if (typeof value[key] !== 'undefined' || itemSchema.properties[key].inputRequired) {
-            validationResult = validateFormValue(valuePath, value[key], itemSchema.properties[key], data);
+          if (typeof value[key] !== 'undefined' || itemProps?.inputRequired) {
+            validationResult = validateFormValue(valuePath, value[key], itemProps, data);
           }
         }
         if (validationResult && !validationResult?.valid) {
@@ -262,6 +264,10 @@ const validateSchemaItems = (path: string, dataPath: string, schema: any, data: 
 export const validateFormValue = (path: string, value: any, schema: any, data?: any): ValidationResult => {
   // No validation for hidden fields
   if (!schema || schema.hidden) return { path, valid: true };
+
+  if (isEmpty(value) && !schema?.inputRequired) {
+    return { path, valid: true };
+  }
 
   const copySchema = deepCopy(schema);
   // Remove minItems or maxItems if undefined and property exist
@@ -358,15 +364,12 @@ export const validateFormValue = (path: string, value: any, schema: any, data?: 
 };
 
 export const validateValue = (type: string, valueA: any, valueB: any, message?: string): ValidationResult => {
-  if (!type) {
-    return { valid: true, message: '' };
-  }
-  
+  if (!type) return;
   const rule = ruleOperations[type];
 
   if (!rule) {
     console.error(`Validation rule "${type}" not found.`);
-    return { valid: false, message: `Validation rule "${type}" not found.` };
+    return;
   }
 
   const isValid = rule.validate(valueA, valueB);

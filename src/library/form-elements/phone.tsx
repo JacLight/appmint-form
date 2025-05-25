@@ -21,7 +21,7 @@ interface PhoneElementProps {
 export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
 
   // State for phone value and country code
-  const [phoneValue, setPhoneValue] = useState<string>(props.data || props.value || '');
+  const [phoneValue, setPhoneValue] = useState<string>(props.value || '');
   const [countryCode, setCountryCode] = useState<string>('+1'); // Default to US
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
@@ -34,7 +34,7 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
     } else if (props.value && props.value !== phoneValue) {
       setPhoneValue(props.value);
     }
-  }, [props.data, props.value]);
+  }, []);
 
   // Handle click outside to close dropdown
   useEffect(() => {
