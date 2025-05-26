@@ -119,7 +119,6 @@ export const FormRender = (props: {
     );
 
   let layoutComponent = null;
-  const elements = [];
   if (isNotEmpty(schema['x-layout'])) {
     const layouts = schema['x-layout'];
     layoutComponent = Object.keys(layouts).map(layoutId => {
@@ -139,7 +138,11 @@ export const FormRender = (props: {
         />
       );
       if (path === '') {
-        elements.push(elementRender);
+        store
+          .getState()
+          .updateRenderedElement(path ? path + '.properties' : 'properties', {
+            render: elementRender,
+          });
       }
       return elementRender;
     });
@@ -272,6 +275,8 @@ export const FormRender = (props: {
           console.error('field not found', fieldName, properties);
           return <div key={fieldName}>`field not found ${fieldName}`</div>;
         }
+        const fieldPath = childPath + '.' + fieldName;
+        const valuePath = dataPath ? dataPath + '.' + fieldName : fieldName;
         if (field.layoutGroup && field.layoutGroup !== layoutPath) return null;
         if (field.hidden) return null;
         if (field.group) {
@@ -299,7 +304,9 @@ export const FormRender = (props: {
               {groupFields.map(({ key, field }) => {
                 const elementRender = renderElements(key, field);
                 if (path === '') {
-                  elements.push(elementRender);
+                  store.getState().updateRenderedElement(fieldPath, {
+                    render: elementRender,
+                  });
                 }
                 return elementRender;
               })}
@@ -308,7 +315,9 @@ export const FormRender = (props: {
         } else {
           const elementRender = renderElements(fieldName, field);
           if (path === '') {
-            elements.push(elementRender);
+            store.getState().updateRenderedElement(fieldPath, {
+              render: elementRender,
+            });
           }
           return elementRender;
         }
@@ -317,8 +326,6 @@ export const FormRender = (props: {
   );
 
   if (path === '') {
-    console.log('render', render, elements);
-    store.getState().setStateItem({ renderedElements: elements });
     return render;
   }
   return (

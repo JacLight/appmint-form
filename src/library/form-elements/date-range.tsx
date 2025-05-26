@@ -1,56 +1,36 @@
-import { classNames } from '../utils';
-import React, { useEffect, useState } from 'react';
-import { DateTimePicker } from './date-time-picker';
-import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
-import { twMerge } from 'tailwind-merge';
+import React from 'react';
 import { StyledComponent } from './styling';
+import { RadixDate } from '../common/radix-date';
 
 export const DateRangeElement = (props: {
-  change;
-  focus;
-  blur;
-  mode;
-  value;
-  schema;
-  path;
-  name;
-  data;
-  theme?; // Add theme prop
-  ui?; // Add ui prop for backward compatibility
+  change: (value: any) => void;
+  focus: (value?: any) => void;
+  blur: (value: any) => void;
+  mode: string;
+  value: any;
+  schema: any;
+  path: string;
+  name: string;
+  data: any;
+  theme?: any;
+  ui?: any;
 }) => {
-  const [dateTime, setDateTime] = useState<any>();
   let variant = props.schema['x-control-variant'] || 'date';
   variant = (variant === 'date-time' || variant === 'datetime') ? 'date-time' : variant;
 
-  useEffect(() => {
-    if (Array.isArray(props.value)) {
-      setDateTime(props.value);
-    }
-  }, []);
-
-  const handleChange = ({ startDate, endDate }) => {
-    let newDate;
-    if (variant === 'time') {
-      newDate = [startDate, endDate];
-      props.blur([startDate, endDate]);
-      return;
-    } else {
-      newDate = [new Date(startDate), new Date(endDate)];
-    }
-    if (newDate[0].toString() === 'Invalid Date') return;
-    props.blur(newDate);
+  const handleChange = (value: string | string[] | null) => {
+    props.blur(value);
   };
 
-  const handleFocus = e => {
-    e.preventDefault();
-    props.focus();
+  const handleFocus = (value?: any) => {
+    props.focus(value);
   };
 
-  const { min, max, disabled, readOnly, prefix, suffix, placeholder } = props.schema;
-  const [startDate, endDate] = dateTime || [null, null];
-  // Extract styling from schema
-  const customStyling = extractStylingFromSchema(props.schema);
-  const inputClasses = getComponentPartStyling('date-range', 'input', '', props.theme, customStyling);
+  const handleBlur = (value?: any) => {
+    // Additional blur handling if needed
+  };
+
+  const { min, max, disabled, readOnly, prefix, suffix, placeholder, required } = props.schema;
 
   return (
     <StyledComponent
@@ -58,7 +38,7 @@ export const DateRangeElement = (props: {
       part="container"
       schema={props.schema}
       theme={props.theme}
-      className="flex items-center"
+      className="flex items-center w-full"
     >
       {prefix && (
         <StyledComponent
@@ -66,29 +46,37 @@ export const DateRangeElement = (props: {
           part="prefix"
           schema={props.schema}
           theme={props.theme}
+          className="mr-2"
         >
           {prefix}
         </StyledComponent>
       )}
-      <DateTimePicker
-        onChange={handleChange}
-        startDate={startDate}
-        endDate={endDate}
-        disabled={disabled}
-        readOnly={readOnly}
-        min={min}
-        max={max}
-        mode={variant}
-        isRange={true}
-        className={inputClasses}
-        placeholder={placeholder}
-      />
+      
+      <div className="flex-1">
+        <RadixDate
+          value={props.value}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          variant="range"
+          placeholder={placeholder}
+          min={min}
+          max={max}
+          disabled={disabled}
+          readOnly={readOnly}
+          required={required}
+          schema={props.schema}
+          theme={props.theme}
+        />
+      </div>
+
       {suffix && (
         <StyledComponent
           componentType="date-range"
           part="suffix"
           schema={props.schema}
           theme={props.theme}
+          className="ml-2"
         >
           {suffix}
         </StyledComponent>

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(npm install:*)",
+      "Bash(yarn add:*)",
+      "Bash(npm run typecheck:*)"
+    ],
+    "deny": []
+  }
+}

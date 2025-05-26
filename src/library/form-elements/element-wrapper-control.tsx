@@ -5,10 +5,25 @@ import { getElementTheme } from '../context/store';
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ElementIcon } from './element-icon';
-import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import {
+  extractStylingFromSchema,
+  getComponentPartStyling,
+} from './styling/style-utils';
 import { StyledComponent } from './styling';
+import { useFormStore } from '../context/form-store-context';
 
-const fixedLabel = ['checkbox', 'radio', 'switch', 'button', 'color', 'icon-button', 'date', 'date-time', 'date-range', 'lookup'];
+const fixedLabel = [
+  'checkbox',
+  'radio',
+  'switch',
+  'button',
+  'color',
+  'icon-button',
+  'date',
+  'date-time',
+  'date-range',
+  'lookup',
+];
 
 export const ElementWrapperControl = (props: {
   mode;
@@ -22,10 +37,33 @@ export const ElementWrapperControl = (props: {
   name;
   theme?;
   arrayIndex?;
-  schema?: { validations; hidden; name; title; hideLabel; position; children; image?; icon?; labelPosition; iconPosition?; error?; description };
+  schema?: {
+    validations;
+    hidden;
+    name;
+    title;
+    hideLabel;
+    position;
+    children;
+    image?;
+    icon?;
+    labelPosition;
+    iconPosition?;
+    error?;
+    description;
+  };
 }) => {
-  const { path, name, schema, controlType, isActive, hasValue, activeDataPath } = props;
+  const {
+    path,
+    name,
+    schema,
+    controlType,
+    isActive,
+    hasValue,
+    activeDataPath,
+  } = props;
   const [errorMsg, setErrorMsg] = useState('');
+  const store = useFormStore();
 
   useEffect(() => {
     const errorMsg = props.error || schema.error;
@@ -40,15 +78,29 @@ export const ElementWrapperControl = (props: {
   if (labelPosition === 'auto' && props.mode === 'design') {
     labelPosition = 'top';
   }
-  const labelStartEnd = schema.labelPosition === 'start' || schema.labelPosition === 'end';
-  const inlineControls = ['checkbox', 'radio', 'switch', 'button', 'icon-button'];
+  const labelStartEnd =
+    schema.labelPosition === 'start' || schema.labelPosition === 'end';
+  const inlineControls = [
+    'checkbox',
+    'radio',
+    'switch',
+    'button',
+    'icon-button',
+  ];
   const isInline = inlineControls.includes(schema['x-control-variant']);
-  const iconStarEnd = !(schema.iconPosition === 'beforeLabel' || schema.iconPosition === 'afterLabel');
+  const iconStarEnd = !(
+    schema.iconPosition === 'beforeLabel' ||
+    schema.iconPosition === 'afterLabel'
+  );
 
   let info = '';
   if (schema?.validations?.length > 0) {
-    const hasMaxLength = schema.validations.find(v => v.validation === 'maxLength');
-    const hasMinLength = schema.validations.find(v => v.validation === 'minLength');
+    const hasMaxLength = schema.validations.find(
+      v => v.validation === 'maxLength'
+    );
+    const hasMinLength = schema.validations.find(
+      v => v.validation === 'minLength'
+    );
     if (hasMaxLength && hasMinLength) {
       info = 'Min ' + hasMinLength.arg + ' Max ' + hasMaxLength.arg;
     } else if (hasMaxLength) {
@@ -65,10 +117,13 @@ export const ElementWrapperControl = (props: {
   const customStyling = extractStylingFromSchema(schema);
 
   // Get help container styling
-  const helpContainerClasses = getComponentPartStyling(controlType, 'helpContainer', '', props.theme, customStyling);
-
-  // Get description styling
-  const descriptionClasses = getComponentPartStyling(controlType, 'description', '', props.theme, customStyling);
+  const helpContainerClasses = getComponentPartStyling(
+    controlType,
+    'helpContainer',
+    '',
+    props.theme,
+    customStyling
+  );
 
   const description =
     schema.description || info ? (
@@ -78,16 +133,17 @@ export const ElementWrapperControl = (props: {
         schema={schema}
         theme={props.theme}
         className={twMerge(
-          iconStarEnd && labelStartEnd && schema.icon && !isInline && helpContainerClasses,
+          iconStarEnd &&
+            labelStartEnd &&
+            schema.icon &&
+            !isInline &&
+            helpContainerClasses,
           'cb-control-error'
         )}
       >
         {schema.description || ''} {info}
       </StyledComponent>
     ) : null;
-
-  // Get error styling
-  const errorClasses = getComponentPartStyling(controlType, 'error', '', props.theme, customStyling);
 
   const error = errorMsg ? (
     <StyledComponent
@@ -100,12 +156,36 @@ export const ElementWrapperControl = (props: {
       {errorMsg}
     </StyledComponent>
   ) : null;
-  const icon = schema.icon?.length == 2 ? schema.icon : typeof schema.icon === 'string' ? <ElementIcon ui={schema['x-ui']} icon={schema?.icon} image={schema?.image} mode={props.mode} theme={props.theme} /> : null;
+  const icon =
+    schema.icon?.length == 2 ? (
+      schema.icon
+    ) : typeof schema.icon === 'string' ? (
+      <ElementIcon
+        ui={schema['x-ui']}
+        icon={schema?.icon}
+        image={schema?.image}
+        mode={props.mode}
+        theme={props.theme}
+      />
+    ) : null;
   let element;
-  const controlThemeStyle = getElementTheme('control-' + controlType, props.theme);
+  const controlThemeStyle = getElementTheme(
+    'control-' + controlType,
+    props.theme
+  );
   // Get input container styling
-  const inputContainerClasses = getComponentPartStyling(controlType, 'input-container', '', props.theme, customStyling);
-  const inputClasses = classNames(isInline ? 'w-fit' : 'w-full', ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center', controlThemeStyle?.className);
+  const inputContainerClasses = getComponentPartStyling(
+    controlType,
+    'input-container',
+    '',
+    props.theme,
+    customStyling
+  );
+  const inputClasses = classNames(
+    isInline ? 'w-fit' : 'w-full',
+    ['start', 'end'].includes(iconPosition) && 'my-1 flex gap-2 items-center',
+    controlThemeStyle?.className
+  );
   if (icon && (iconPosition === 'start' || iconPosition === 'end')) {
     element = (
       <StyledComponent
@@ -115,7 +195,8 @@ export const ElementWrapperControl = (props: {
         theme={props.theme}
         className={inputClasses}
       >
-        {iconPosition === 'start' && icon} {props.children} {iconPosition === 'end' && icon}
+        {iconPosition === 'start' && icon} {props.children}{' '}
+        {iconPosition === 'end' && icon}
       </StyledComponent>
     );
   } else {
@@ -133,7 +214,9 @@ export const ElementWrapperControl = (props: {
   }
 
   let label;
-  const caption = schema.title ? schema.title : toSentenceCase(schema.name || props.name || '');
+  const caption = schema.title
+    ? schema.title
+    : toSentenceCase(schema.name || props.name || '');
 
   if (caption && !schema.hideLabel) {
     if (iconPosition === 'beforeLabel' || iconPosition === 'afterLabel') {
@@ -144,7 +227,7 @@ export const ElementWrapperControl = (props: {
           schema={schema}
           theme={props.theme}
           className={twMerge(
-            'cb-label-with-icon flex gap-2 text-xs items-center whitespace-nowrap',
+            'cb-label-with-icon flex gap-2 text-xs items-center whitespace-nowrap'
           )}
         >
           {iconPosition === 'beforeLabel' && icon}
@@ -168,10 +251,13 @@ export const ElementWrapperControl = (props: {
           schema={schema}
           theme={props.theme}
           className={twMerge(
-            labelPosition === 'auto' && !isFixedLabel && !hasValue && 'opacity-0',
+            labelPosition === 'auto' &&
+              !isFixedLabel &&
+              !hasValue &&
+              'opacity-0',
             labelPosition === 'auto' && hasValue && '!text-[8px]  opacity-100',
             'cb-label text-xs',
-            'transition-all duration-200  whitespace-nowrap',
+            'transition-all duration-200  whitespace-nowrap'
           )}
         >
           {caption}
@@ -180,8 +266,12 @@ export const ElementWrapperControl = (props: {
     }
   }
 
-  const className = `cb-control label-${labelPosition}  ${schema.hideLabel ? 'hide-label' : ''}  ${schema.hidden ? ' opacity-60 ' : ''} `;
-
+  const className = `cb-control label-${labelPosition}  ${
+    schema.hideLabel ? 'hide-label' : ''
+  }  ${schema.hidden ? ' opacity-60 ' : ''} `;
+  store
+    .getState()
+    .updateRenderedElement(path, { label, description, error, input: element });
   if (labelStartEnd && isInline) {
     return (
       <StyledComponent
@@ -258,4 +348,4 @@ export const ElementWrapperControl = (props: {
       {error}
     </StyledComponent>
   );
-}
+};

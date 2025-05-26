@@ -21,8 +21,9 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
       renderedElements: state.renderedElements || [],
     }))
   );
+  console.log('renderedElements', renderedElements);
 
-  const totalItems = renderedElements.length;
+  const totalItems = renderedElements.filter(_ => _.render).length;
 
   // Navigation functions
   const goto = {
@@ -70,9 +71,9 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
 
       {/* Current form element */}
       <div className="mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm min-h-[200px] flex items-center justify-center">
-        {currentElement ? (
+        {currentElement?.render ? (
           <div className="w-full">
-            {currentElement}
+            {currentElement.render}
           </div>
         ) : (
           <div className="text-gray-400">

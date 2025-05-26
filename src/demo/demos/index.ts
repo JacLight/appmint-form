@@ -29,7 +29,6 @@ import CustomComponentsDemo from './CustomComponentsDemo';
 import TextFieldDemo from './textInputs/TextFieldDemo';
 import TextareaDemo from './textInputs/TextareaDemo';
 import RichtextDemo from './textInputs/RichtextDemo';
-import { Bus } from 'lucide-react';
 import BusinessMadeDemo from './business-nade';
 import PageDemo from './page-demo';
 import SliderFormDemo from './SliderFormDemo';

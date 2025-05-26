@@ -1,66 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
+import React from 'react';
 import { StyledComponent } from './styling';
-import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
+import { RadixDate } from '../common/radix-date';
 
-export const DateElement = (props: { readOnly?; change; dataPath, focus; blur; mode; value; schema; path; name; data, className, theme?, ui?}) => {
-  const [dateTime, setDateTime] = useState<any>();
+export const DateElement = (props: { 
+  readOnly?: boolean; 
+  change: (value: any) => void; 
+  dataPath: string;
+  focus: (value?: any) => void; 
+  blur: (value: any) => void; 
+  mode: string; 
+  value: any; 
+  schema: any; 
+  path: string; 
+  name: string; 
+  data: any;
+  className?: string;
+  theme?: any;
+  ui?: any;
+}) => {
   let variant = props.schema['format'] || props.schema['x-control-variant'] || 'date';
   variant = (variant === 'datetime' || variant === 'date-time') ? 'date-time' : variant;
 
-  useEffect(() => {
-    if (props.value) {
-      setDateTime(new Date(props.value));
-    }
-  }, []);
-
-  const getDateFromValue = e => {
-    const date = new Date(e.target.value);
-    if (date.toString() === 'Invalid Date') {
-      return '';
-    } else {
-      return date.toISOString();
-    }
+  const handleChange = (value: string | string[] | null) => {
+    props.blur(value);
   };
 
-  const handleBlur = e => {
-    e.preventDefault();
-    props.blur(getDateFromValue(e));
+  const handleFocus = (value?: any) => {
+    props.focus(value);
   };
 
-  const handleChange = ({ startDate, endDate }) => {
-    let newDate;
-    if (variant === 'date') {
-      newDate = new Date(startDate);
-    } else if (variant === 'time') {
-      newDate = startDate;
-      props.blur(startDate);
-      return;
-    } else {
-      newDate = new Date(startDate);
-    }
-    if (newDate.toString() === 'Invalid Date') return;
-    props.blur(newDate.toISOString());
+  const handleBlur = (value?: any) => {
+    // Additional blur handling if needed
   };
 
-  const handleFocus = e => {
-    e.preventDefault();
-    props.focus(e.target.value);
-  };
+  const { min, max, placeholder, disabled, required } = props.schema;
 
-  const { min, max, placeholder } = props.schema;
-
-  // Extract styling from schema
-  const customStyling = extractStylingFromSchema(props.schema);
-
-  // Get date styling
   return (
     <StyledComponent
       componentType="date"
       part="container"
       schema={props.schema}
       theme={props.theme}
-      className="flex items-center"
+      className="flex items-center w-full"
     >
       {props.schema.prefix && (
         <StyledComponent
@@ -68,39 +49,38 @@ export const DateElement = (props: { readOnly?; change; dataPath, focus; blur; m
           part="prefix"
           schema={props.schema}
           theme={props.theme}
+          className="mr-2"
         >
           {props.schema.prefix}
         </StyledComponent>
       )}
-      <StyledComponent
-        componentType="text"
-        part="input"
-        schema={props.schema}
-        theme={props.theme}
-        as="input"
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        value={props.value}
-        disabled={props.schema.disabled}
-        readOnly={props.readOnly || props.schema.readOnly}
-        type={variant}
-        name={props.name}
-        id={props.path}
-        className={props.className}
-        startDate={dateTime}
-        min={min}
-        max={max}
-        mode={variant}
-        isRange={false}
-        placeholder={placeholder}
-      />
+      
+      <div className="flex-1">
+        <RadixDate
+          value={props.value}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          variant={variant as any}
+          placeholder={placeholder}
+          min={min}
+          max={max}
+          disabled={disabled}
+          readOnly={props.readOnly || props.schema.readOnly}
+          required={required}
+          schema={props.schema}
+          theme={props.theme}
+          className={props.className}
+        />
+      </div>
+
       {props.schema.suffix && (
         <StyledComponent
           componentType="date"
           part="suffix"
           schema={props.schema}
           theme={props.theme}
+          className="ml-2"
         >
           {props.schema.suffix}
         </StyledComponent>

@@ -36,6 +36,7 @@ export interface FormStoreProps {
   dataViewProps?: any;
   renderedElements?: any[];
   refreshPath(path: string): void;
+  updateRenderedElement: (path: string, element: any) => void;
   setStateItem: (item: { [key: string]: any }) => void;
   getStateItem: (key: string) => any;
   getSchemaItem: (path?: string) => any;

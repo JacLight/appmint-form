@@ -208,6 +208,17 @@ const createFormStore = () => create<FormStoreProps>((set, get) => ({
         });
         set({ repository });
     },
+    updateRenderedElement: (path, elementParts) => {
+        const renderedElements = produce(get().renderedElements || [], draft => {
+            const existingIndex = draft.findIndex(el => el.path === path);
+            if (existingIndex !== -1) {
+                draft[existingIndex] = { ...draft[existingIndex], ...elementParts };
+            } else {
+                draft.push({ path, ...elementParts });
+            }
+        });
+        set({ renderedElements });
+    },
     onFormEvent: null,
 }));
 
