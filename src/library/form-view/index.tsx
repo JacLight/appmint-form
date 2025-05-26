@@ -41,7 +41,7 @@ const FormInternal = (props: {
   collapsible?;
   onChange?: (path, value, data, files, error) => void;
   storeId: string;
-  onFormEvent?: (eventtype, params, options) => Promise<any>;
+  onFormEvent?: (eventName, params, options) => Promise<any>;
 }) => {
   const store = useFormStore();
 

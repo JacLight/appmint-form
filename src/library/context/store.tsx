@@ -34,6 +34,7 @@ export interface FormStoreProps {
   repository: { [key: string]: any };
   notifications?: any[];
   dataViewProps?: any;
+  renderedElements?: any[];
   refreshPath(path: string): void;
   setStateItem: (item: { [key: string]: any }) => void;
   getStateItem: (key: string) => any;

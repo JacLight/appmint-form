@@ -33,10 +33,19 @@ import { Bus } from 'lucide-react';
 import BusinessMadeDemo from './business-nade';
 import PageDemo from './page-demo';
 import SliderFormDemo from './SliderFormDemo';
+import StepperDemo from './stepper-demo';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
     // Slider Form Demo
+        {
+        id: 'stepper-demo',
+        title: 'Stepper Form',
+        description: 'A form with smooth slide animations between sections, similar to TypeForm.',
+        category: 'Views',
+        component: StepperDemo,
+        code: `// StepperDemo Code`
+    },
     {
         id: 'slider-form-demo',
         title: 'TypeForm-like Slider Form',

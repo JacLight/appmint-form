@@ -7,7 +7,7 @@ const schema = {
     title: 'TypeForm-like Slider Form Demo',
     'x-layout': {
         main: {
-            type: 'slide',
+            type: 'tab',
             id: 'main',
             autoProgress: true,
             autoProgressDelay: 1500,
