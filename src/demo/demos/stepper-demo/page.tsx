@@ -1,6 +1,6 @@
 'use client';
 
-import { FormSlider } from '@/components/common/form-slider';
+import FormSlider from './form-slider';
 import React, { useEffect, useState } from 'react';
 import { FormProvider, useFormFlow } from './context';
 import IntroPage from './intro';

@@ -98,6 +98,7 @@ export const TextElement = (props: { readOnly?; change; dataPath, focus; blur; m
         <StyledComponent
           componentType="text"
           part="suffix"
+          className=''
           schema={props.schema}
           theme={props.theme}
         >
