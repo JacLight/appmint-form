@@ -14,12 +14,14 @@ export const ShadowElement = ({ change, blur, value, schema, theme }) => {
   const [isInset, setIsInset] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [cssCode, setCssCode] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Extract styling from schema
   const customStyling = schema ? extractStylingFromSchema(schema) : undefined;
 
   useEffect(() => {
-    // setCssCode(value)
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
   useEffect(() => {

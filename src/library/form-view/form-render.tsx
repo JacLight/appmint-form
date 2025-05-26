@@ -1,10 +1,7 @@
-import { LoadingIndicator } from '../common/loading-indicator';
 import { formLayouts } from '../context/store';
-import { getElementTheme } from '../context/store';
 import { useFormStore } from '../context/form-store-context';
 import { FormElementRender } from '../form-elements';
 import { ElementWrapperLayout } from '../form-elements/element-wrapper-layout';
-import { classNames } from '../utils';
 import { deepCopy } from '../utils';
 import { isEmpty } from '../utils';
 import { isNotEmpty } from '../utils';
@@ -239,7 +236,6 @@ export const FormRender = (props: {
     }
   };
 
-  console.log('render', path, dataPath);
   if (
     ['string', 'number', 'boolean'].includes(properties.type) ||
     properties['x-control']
@@ -291,7 +287,7 @@ export const FormRender = (props: {
           const fieldIndex = groupFields.findIndex(f => f.key === fieldName);
           if (fieldIndex !== 0) return null;
           const groupPath = childPath + '.' + field.group;
-          return (
+          const elementRender = (
             <StyledComponent
               componentType={props.arrayControl ? 'form-array' : 'form'}
               part="group"
@@ -302,16 +298,16 @@ export const FormRender = (props: {
               key={groupPath}
             >
               {groupFields.map(({ key, field }) => {
-                const elementRender = renderElements(key, field);
-                if (path === '') {
-                  store.getState().updateRenderedElement(fieldPath, {
-                    render: elementRender,
-                  });
-                }
-                return elementRender;
+                return renderElements(key, field);
               })}
             </StyledComponent>
           );
+          if (path === '') {
+            store.getState().updateRenderedElement(fieldPath, {
+              render: elementRender,
+            });
+          }
+          return elementRender;
         } else {
           const elementRender = renderElements(fieldName, field);
           if (path === '') {

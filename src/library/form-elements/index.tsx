@@ -180,7 +180,7 @@ export const FormElementRender = (props: {
     const validationResult = validateFormValue(path, newValue, schema);
     if (isNotEmpty(validationResult.errors)) {
       updateError(dataPath, validationResult.message);
-    }
+    } 
     setItemValue(dataPath, newValue, arrayIndex);
     // setLocalValue(newValue);
 

@@ -1,32 +1,12 @@
 import React, { useState } from 'react';
 import { classNames } from '../utils';
+import { SelectManyList } from '../controls';
 
-// Stubs for missing components
 const DebouncedInput = (props) => (
   <input {...props} onChange={(e) => props.onChange(e.target.value)} />
 );
 
-// Stub for CollectionHelper
-const CollectionHelper = {
-  getInstance: () => ({
-    getCollectionOptions: () => []
-  })
-};
-
-// Stub for SelectManyList
-const SelectManyList = (props) => (
-  <select
-    value={props.value}
-    onChange={(e) => props.change(e.target.value)}
-    className="border-0 text-sm px-2 focus:outline-none focus:ring-0 dark:bg-gray-700 dark:text-white"
-    aria-label={props.schema?.placeholder || "Select datatype"}
-    title={props.schema?.placeholder || "Select datatype"}
-  >
-    <option value="" className="dark:bg-gray-700">{props.schema?.placeholder || "Select..."}</option>
-  </select>
-);
-
-export const TableFilter: React.FC<any> = ({ globalFilter, setGlobalFilter, datatype, onTableEvent }) => {
+export const TableFilter: React.FC<any> = ({ globalFilter, setGlobalFilter, datatype, onTableEvent, datatypeOptions }) => {
   const [searchOnServer, setSearchOnServer] = useState(false);
 
   const changeSearchMode = e => {
@@ -56,7 +36,7 @@ export const TableFilter: React.FC<any> = ({ globalFilter, setGlobalFilter, data
         type="text"
         value={globalFilter ?? ''}
       />
-      {datatype && <SelectManyList options={CollectionHelper.getInstance().getCollectionOptions()} change={onCollectionChange} value={datatype} schema={{ placeholder: 'Select Datatype' }} />}
+      {datatype && <SelectManyList options={datatypeOptions|| []} change={onCollectionChange} value={datatype} schema={{ placeholder: 'Select Datatype' }} />}
     </div>
   );
 };

@@ -61,7 +61,7 @@ export const SliderElement: React.FC<SliderProps> = ({ schema, name, storeId, va
   const percentage = ((sliderValue - min) / (max - min)) * 100;
 
   // Format the displayed value
-  const formattedValue = isNaN(sliderValue) ? '0' : Number.isInteger(sliderValue) ? sliderValue.toString() : sliderValue.toFixed(1);
+  const formattedValue = isNaN(sliderValue) ? '0' : Number.isInteger(sliderValue) ? sliderValue.toString() : sliderValue?.toFixed(1);
   const variant = schema?.['x-control-variant'] || 'horizontal';
 
   const showInput = schema['x-show-input'];

@@ -31,6 +31,7 @@ export const CollectionTable = (props: {
   filterPreset?;
   schema?;
   filters?;
+  datatypeOptions?;
   accessMode?;
   inlineEdit?;
   datatype?;
@@ -268,7 +269,7 @@ export const CollectionTable = (props: {
             </div>
           )}
           <div className="flex justify-between items-center gap-5 w-full">
-            <TableFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} datatype={datatype} onTableEvent={onTableEvent} />
+            <TableFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} datatype={datatype} onTableEvent={onTableEvent}  datatypeOptions={props.datatypeOptions} />
             <TableButtons onTableEvent={onTableEvent} options={props.options} selectedRows={selectedRows} />
           </div>
         </div>

@@ -45,7 +45,7 @@ export const SelectManyList = (props: { blur?; change?; focus?; mode?; schema?; 
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) return undefined;
     
     const handleClickOutside = (event: MouseEvent) => {
       if (

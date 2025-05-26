@@ -1,27 +1,50 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { employee } from './employee';
 import { AppmintForm, getFormStore } from '../../..';
 import { useShallow } from 'zustand/shallow';
 
 const StepperDemo: React.FC = () => {
+  const [formData, setFormData] = useState<any>({
+    path: '',
+    value: undefined,
+    data: {},
+    error: undefined,
+    files: undefined,
+  });
+
+  const handleChange = useCallback(
+    (path: string, value: any, data: any, files?: any ,error?: any,) => {
+      setFormData({ path, value, data, error, files });
+    },
+    []
+  );
+
   return (
     <>
-      <div className='hidden'><AppmintForm schema={employee} id="demo" data={{}} /></div>
-      <StepperElementsDemo id={'demo'} />
+      <div className="hidden">
+        <AppmintForm
+          schema={employee}
+          id="demo"
+          data={{}}
+          onChange={handleChange}
+        />
+      </div>
+      <StepperElementsDemo id={'demo'} formData={formData}/>
     </>
   );
 };
 
-const StepperElementsDemo: React.FC<any> = ({id}) => {
+const StepperElementsDemo: React.FC<any> = ({ id,formData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const formStore = getFormStore('demo');
+  const { path, value, data, error, files} = formData;
+  console.log('formData', { path, value, data, error, files });
 
   const { renderedElements } = formStore(
     useShallow(state => ({
       renderedElements: state.renderedElements || [],
     }))
   );
-  console.log('renderedElements', renderedElements);
 
   const totalItems = renderedElements.filter(_ => _.render).length;
 
@@ -30,7 +53,7 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
     start: () => setCurrentIndex(0),
     end: () => setCurrentIndex(Math.max(0, totalItems - 1)),
     prev: () => setCurrentIndex(prev => Math.max(0, prev - 1)),
-    next: () => setCurrentIndex(prev => Math.min(totalItems - 1, prev + 1))
+    next: () => setCurrentIndex(prev => Math.min(totalItems - 1, prev + 1)),
   };
 
   // Get current element
@@ -52,7 +75,8 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
           Form Stepper Demo
         </h2>
         <p className="text-gray-600">
-          Navigate through form elements one at a time using the rendered elements array.
+          Navigate through form elements one at a time using the rendered
+          elements array.
         </p>
       </div>
 
@@ -60,10 +84,10 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
       <div className="mb-4 text-sm text-gray-600 text-center">
         Step {currentIndex + 1} of {totalItems}
       </div>
-      
+
       {/* Progress bar */}
       <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-        <div 
+        <div
           className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-in-out"
           style={{ width: `${((currentIndex + 1) / totalItems) * 100}%` }}
         />
@@ -72,13 +96,9 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
       {/* Current form element */}
       <div className="mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm min-h-[200px] flex items-center justify-center">
         {currentElement?.render ? (
-          <div className="w-full">
-            {currentElement.render}
-          </div>
+          <div className="w-full">{currentElement.render}</div>
         ) : (
-          <div className="text-gray-400">
-            No element to display
-          </div>
+          <div className="text-gray-400">No element to display</div>
         )}
       </div>
 
@@ -91,7 +111,7 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
         >
           Previous
         </button>
-        
+
         <div className="flex gap-2">
           <button
             onClick={goto.start}
@@ -124,7 +144,9 @@ const StepperElementsDemo: React.FC<any> = ({id}) => {
         <div className="text-xs text-gray-600 space-y-1">
           <div>Total Elements: {totalItems}</div>
           <div>Current Index: {currentIndex}</div>
-          <div>Elements Available: {renderedElements.length > 0 ? 'Yes' : 'No'}</div>
+          <div>
+            Elements Available: {renderedElements.length > 0 ? 'Yes' : 'No'}
+          </div>
         </div>
       </div>
     </div>

@@ -31,7 +31,7 @@ export interface LegacyTheme {
 export const baseTheme: ThemeStyling = {
   // Layout components
   'appmint-form': {
-    root: 'relative dark:bg-gray-900 bg-white',
+    root: 'relative dark:bg-gray-900 bg-white p-4',
     container: 'relative ',
     title: 'block text-sm font-medium text-gray-700 mb-1',
     description: 'mt-1 text-xs text-gray-500',

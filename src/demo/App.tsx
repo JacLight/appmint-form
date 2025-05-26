@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import DemoPage from './pages/DemoPage';
 import { demoRegistry } from './demos';
 import { ThemeToggle } from './components/theme/theme-toggle';
-import { FormStoreProvider } from '../library/context/form-store-context';
+import { AppmintFormStoreProvider } from '..';
 
 // Define the types for our app
 type Route = 'home' | string;
@@ -41,7 +41,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <FormStoreProvider storeId="demo">
+    <AppmintFormStoreProvider storeId="demo">
       <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
         {/* Sidebar */}
         <Sidebar
@@ -89,7 +89,7 @@ const App: React.FC = () => {
           <main className="p-6">{renderContent()}</main>
         </div>
       </div>
-    </FormStoreProvider>
+    </AppmintFormStoreProvider>
   );
 };
 

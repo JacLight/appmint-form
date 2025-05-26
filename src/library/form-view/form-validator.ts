@@ -364,12 +364,12 @@ export const validateFormValue = (path: string, value: any, schema: any, data?: 
 };
 
 export const validateValue = (type: string, valueA: any, valueB: any, message?: string): ValidationResult => {
-  if (!type) return;
+  if (!type) return undefined;
   const rule = ruleOperations[type];
 
   if (!rule) {
     console.error(`Validation rule "${type}" not found.`);
-    return;
+    return undefined;
   }
 
   const isValid = rule.validate(valueA, valueB);

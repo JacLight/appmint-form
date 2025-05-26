@@ -1,14 +1,15 @@
 import React from 'react';
 import { IconRenderer } from '../common/icons/icon-renderer';
 import { classNames } from '../utils';
+import { JSONViewer } from '../common/json-viewer';
+import BusyIcon from '../common/icons/svg';
 
 
 const DataJSONView = (props) => {
     return (
         <div className=' dark:bg-[#1f2937]   bg-white text-black  rounded-lg shadow-lg dark:text-gray-100 transform-[translate(-50%,-50%)] fixed top-1/2 left-1/2 p-4 z-10 dark:shadow-[]'
         >
-            <h3>JSON Data</h3>
-            <pre>{JSON.stringify(props.data, null, 2)}</pre>
+           <JSONViewer json={props.data} />
             <button
                 onClick={props.onClose}
                 className='dark:bg-[#374151] bg-[#f3f4f6] text-black dark:text-white p-2 rounded-md'
@@ -19,16 +20,6 @@ const DataJSONView = (props) => {
     );
 };
 
-const BusyIcon = ({ isLoading }) => isLoading ? <span>⌛</span> : null;
-
-const Icon = ({ name, color, size }) => {
-    const icons = {
-        FaEdit: '✏️',
-        FaEye: '👁️',
-        FaClone: '📋'
-    };
-    return <span style={{ color, fontSize: size }}>{icons[name] || '⚠️'}</span>;
-};
 
 const iconSize = 12;
 export const RowHandler: React.FC<any> = (props: { rowActions?, options?; row; onRowEvent: (event, id, row) => boolean; datatype; onRowDataEvent }) => {

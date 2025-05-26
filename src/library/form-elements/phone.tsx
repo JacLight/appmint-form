@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyledComponent } from './styling';
-import { extractStylingFromSchema, getComponentPartStyling } from './styling/style-utils';
 import { twMerge } from 'tailwind-merge';
 
 interface PhoneElementProps {
