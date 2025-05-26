@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "version": "0.4.2",
+=======
+  "version": "0.5.0",
+>>>>>>> aec47d394c81f537a7870271aee5617815d8e037
   "license": "MIT",
   "type": "module",
   "main": "dist/appmint-form.cjs.js",
