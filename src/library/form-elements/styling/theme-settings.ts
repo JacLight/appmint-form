@@ -184,6 +184,19 @@ export const baseTheme: ThemeStyling = {
     calendarDayDisabled: 'text-gray-300 dark:text-gray-600',
     calendarNavButton: 'p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700',
   },
+    'date': {
+    container: 'relative w-full',
+    input: 'block w-full  text-sm rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400 sm:text-sm dark:bg-gray-700 dark:text-white',
+    prefix: 'flex select-none items-center pl-3 text-gray-500 dark:text-gray-400 sm:text-sm',
+    suffix: 'flex select-none items-center pr-3 text-gray-500 dark:text-gray-400 sm:text-sm',
+    calendar: 'bg-white dark:bg-gray-800 shadow-lg rounded-md p-2 mt-1',
+    calendarHeader: 'flex justify-between items-center mb-2',
+    calendarDay: 'w-8 h-8 flex items-center justify-center rounded-full',
+    calendarDaySelected: 'bg-indigo-200',
+    calendarDayInRange: 'bg-indigo-100 dark:bg-indigo-800',
+    calendarDayDisabled: 'text-gray-300 dark:text-gray-600',
+    calendarNavButton: 'p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700',
+  },
   // Select styling
   select: {
     container: 'relative w-full',
@@ -645,3 +658,31 @@ export const themes: Record<string, ThemeStyling> = {
   mintflow: mintflowTheme,
   inline: inlineTheme,
 };
+
+
+export const registerTheme = (name: string, theme: ThemeStyling) => {
+  if (themes[name]) {
+    console.warn(`Theme "${name}" already exists. Overwriting.`);
+  }
+  themes[name] = theme;
+}
+
+export const getTheme = (name: string): ThemeStyling => {
+  if (!themes[name]) {
+    console.warn(`Theme "${name}" not found. Falling back to default theme.`);
+    return baseTheme;
+  }
+  return themes[name];
+}
+
+export const getAllThemes = (): Record<string, ThemeStyling> => {
+  return themes;
+}
+
+export const removeTheme = (name: string) => {
+  if (themes[name]) {
+    delete themes[name];
+  } else {
+    console.warn(`Theme "${name}" not found. Cannot remove.`);
+  }
+}

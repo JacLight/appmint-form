@@ -7,6 +7,7 @@ import { RowEvents, TableEvents } from './library/table-view';
 import {getFormStore, useFormStore, FormStoreProvider} from './library/context/form-store-context';
 export type { RowEvents, TableEvents };
 
+export {  registerTheme, getAllThemes, removeTheme, getTheme } from './library/form-elements/styling/theme-settings';
 export {  registerCustomComponent, registerCustomComponents, clearCustomComponents } from './library/form-view';
 export { validateForm,validateFormValue,validateValue, schemaValidator } from './library/form-view/form-validator';
 export * from './library/controls';

@@ -4,8 +4,14 @@
       "Bash(grep:*)",
       "Bash(npm install:*)",
       "Bash(yarn add:*)",
-      "Bash(npm run typecheck:*)"
+      "Bash(npm run typecheck:*)",
+      "Bash(awk:*)",
+      "Bash(rg:*)",
+      "Bash(perl:*)",
+      "Bash(cp:*)",
+      "Bash(python3:*)"
     ],
     "deny": []
-  }
+  },
+  "enableAllProjectMcpServers": false
 }

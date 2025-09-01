@@ -28,17 +28,19 @@ export const DateElement = (props: { readOnly?; change; dataPath, focus; blur; m
     props.blur(getDateFromValue(e));
   };
 
-  const handleChange = ({ startDate, endDate }) => {
-    let newDate;
-    if (variant === 'date') {
-      newDate = new Date(startDate);
-    } else if (variant === 'time') {
-      newDate = startDate;
-      props.blur(startDate);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (!value) {
+      props.blur('');
       return;
-    } else {
-      newDate = new Date(startDate);
     }
+    
+    if (variant === 'time') {
+      props.blur(value);
+      return;
+    }
+    
+    const newDate = new Date(value);
     if (newDate.toString() === 'Invalid Date') return;
     props.blur(newDate.toISOString());
   };
@@ -81,7 +83,18 @@ export const DateElement = (props: { readOnly?; change; dataPath, focus; blur; m
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        value={props.value}
+        value={props.value ? (() => {
+          try {
+            const date = new Date(props.value);
+            if (date.toString() === 'Invalid Date') return '';
+            return variant === 'date' ? date.toISOString().split('T')[0] : 
+                   variant === 'datetime-local' ? date.toISOString().slice(0, 16) :
+                   variant === 'time' ? date.toISOString().slice(11, 16) : 
+                   date.toISOString().split('T')[0];
+          } catch {
+            return '';
+          }
+        })() : ''}
         disabled={props.schema.disabled}
         readOnly={props.readOnly || props.schema.readOnly}
         type={variant}

@@ -1,6 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyledComponent } from './styling';
 import { twMerge } from 'tailwind-merge';
+import { countries, getCountryDropDownOptions } from '../data';
+
+// Helper function to get placeholder based on country code
+const getPlaceholderForCountry = (countryCode: string): string => {
+  const placeholders: { [key: string]: string } = {
+    '+1': '(555) 123-4567',     // US/Canada
+    '+44': '7700 900123',       // UK
+    '+33': '06 12 34 56 78',    // France
+    '+49': '0151 12345678',     // Germany
+    '+81': '090-1234-5678',     // Japan
+    '+86': '138 0013 8000',     // China
+    '+91': '98765 43210',       // India
+    '+61': '0412 345 678',      // Australia
+    '+7': '912 345-67-89',      // Russia
+    '+55': '(11) 99999-9999',   // Brazil
+  };
+  
+  return placeholders[countryCode] || '123 456 7890';
+};
 
 interface PhoneElementProps {
   update?: (value: string) => void;
@@ -17,28 +36,32 @@ interface PhoneElementProps {
   className?: string;
 }
 
-export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
-
+export const PhoneElement: React.FC<PhoneElementProps> = props => {
   // State for phone value and country code
-  const [phoneValue, setPhoneValue] = useState<string>(props.value || '');
+  const [phoneValue, setPhoneValue] = useState<string>('');
   const [countryCode, setCountryCode] = useState<string>('+1'); // Default to US
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<boolean>(true);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Update value when props.data or props.value changes
   useEffect(() => {
-    if (props.data && props.data !== phoneValue) {
-      setPhoneValue(props.data);
-    } else if (props.value && props.value !== phoneValue) {
-      setPhoneValue(props.value);
+    if (props.value) {
+      const normalized = normalizePhoneInput(props.value);
+      const [code, number] = getPhoneParts(normalized);
+      setCountryCode(code);
+      setPhoneValue(number);
     }
-  }, []);
+  }, [props.value]);
 
   // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -51,22 +74,32 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
 
   // Handle input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    setPhoneValue(newValue);
+    const rawValue = event.target.value;
+    const formattedValue = formatPhoneInput(rawValue);
+    setPhoneValue(formattedValue);
+
+    // Validate the phone number
+    const fullPhone = `${countryCode} ${formattedValue}`;
+    const valid = validatePhoneNumber(fullPhone);
+    setIsValid(valid);
 
     // Notify parent component of change
     if (props.change) {
-      props.change(`${countryCode} ${newValue}`);
+      props.change(fullPhone);
     }
     if (props.update) {
-      props.update(`${countryCode} ${newValue}`);
+      props.update(fullPhone);
     }
   };
 
   // Handle blur event
   const handleBlur = () => {
+    const fullPhone = `${countryCode} ${phoneValue}`;
+    const valid = validatePhoneNumber(fullPhone);
+    setIsValid(valid);
+    
     if (props.blur) {
-      props.blur(`${countryCode} ${phoneValue}`);
+      props.blur(fullPhone);
     }
   };
 
@@ -87,13 +120,26 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
     setCountryCode(code);
     setIsDropdownOpen(false);
 
+    // Validate with new country code
+    const fullPhone = `${code} ${phoneValue}`;
+    const valid = validatePhoneNumber(fullPhone);
+    setIsValid(valid);
+
     // Notify parent component of change
     if (props.change) {
-      props.change(`${code} ${phoneValue}`);
+      props.change(fullPhone);
     }
     if (props.update) {
-      props.update(`${code} ${phoneValue}`);
+      props.update(fullPhone);
     }
+  };
+
+  const countries = getCountryDropDownOptions();
+  const country = countries.find(c => '+' + c.phone === countryCode) || {
+    label: 'United States',
+    value: 'us',
+    phone: '1',
+    flag: '🇺🇸',
   };
 
   return (
@@ -103,7 +149,7 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
         part="container"
         schema={props.schema}
         theme={props.theme}
-        className={twMerge("flex items-center", props.className)}
+        className={twMerge('flex items-center', props.className)}
       >
         <StyledComponent
           componentType="phone"
@@ -117,46 +163,22 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
           aria-expanded={isDropdownOpen}
           aria-haspopup="true"
         >
-          <svg fill="none" aria-hidden="true" className="h-4 w-4 me-2" viewBox="0 0 20 15">
-            <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-            <mask id="a" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-              <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-            </mask>
-            <g mask="url(#a)">
-              <path
-                fill="#D02F44"
-                fillRule="evenodd"
-                d="M19.6.5H0v.933h19.6V.5zm0 1.867H0V3.3h19.6v-.933zM0 4.233h19.6v.934H0v-.934zM19.6 6.1H0v.933h19.6V6.1zM0 7.967h19.6V8.9H0v-.933zm19.6 1.866H0v.934h19.6v-.934zM0 11.7h19.6v.933H0V11.7zm19.6 1.867H0v.933h19.6v-.933z"
-                clipRule="evenodd"
-              />
-              <path fill="#46467F" d="M0 .5h8.4v6.533H0z" />
-              <g filter="url(#filter0_d_343_121520)">
-                <path
-                  fill="url(#paint0_linear_343_121520)"
-                  fillRule="evenodd"
-                  d="M1.867 1.9a.467.467 0 11-.934 0 .467.467 0 01.934 0zm1.866 0a.467.467 0 11-.933 0 .467.467 0 01.933 0zm1.4.467a.467.467 0 100-.934.467.467 0 000 .934zM7.467 1.9a.467.467 0 11-.934 0 .467.467 0 01.934 0zM2.333 3.3a.467.467 0 100-.933.467.467 0 000 .933zm2.334-.467a.467.467 0 11-.934 0 .467.467 0 01.934 0zm1.4.467a.467.467 0 100-.933.467.467 0 000 .933zm1.4.467a.467.467 0 11-.934 0 .467.467 0 01.934 0zm-2.334.466a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.466a.467.467 0 11-.933 0 .467.467 0 01.933 0zM1.4 4.233a.467.467 0 100-.933.467.467 0 000 .933zm1.4.467a.467.467 0 11-.933 0 .467.467 0 01.933 0zm1.4.467a.467.467 0 100-.934.467.467 0 000 .934zM6.533 4.7a.467.467 0 11-.933 0 .467.467 0 01.933 0zM7 6.1a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.467a.467.467 0 11-.933 0 .467.467 0 01.933 0zM3.267 6.1a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.467a.467.467 0 11-.934 0 .467.467 0 01.934 0z"
-                  clipRule="evenodd"
-                />
-              </g>
-            </g>
-            <defs>
-              <linearGradient id="paint0_linear_343_121520" x1=".933" x2=".933" y1="1.433" y2="6.1" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#fff" />
-                <stop offset="1" stopColor="#F0F0F0" />
-              </linearGradient>
-              <filter id="filter0_d_343_121520" width="6.533" height="5.667" x=".933" y="1.433" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
-                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                <feOffset dy="1" />
-                <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0" />
-                <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_343_121520" />
-                <feBlend in="SourceGraphic" in2="effect1_dropShadow_343_121520" result="shape" />
-              </filter>
-            </defs>
-          </svg>
-          {countryCode}{' '}
-          <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+          {country.flag || '🇺🇸'} {/* Fallback to US flag if not available */}
+          {countryCode}
+          <svg
+            className="w-2.5 h-2.5 ms-2.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 10 6"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m1 1 4 4 4-4"
+            />
           </svg>
         </StyledComponent>
 
@@ -168,9 +190,11 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
           as="input"
           type="text"
           id="phone-input"
-          className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-0 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-          placeholder="123-456-7890"
+          className={twMerge(
+            "block p-2.5 w-full z-20 text-sm bg-gray-50 rounded-e-lg border-s-0 border border-gray-300 focus:ring-blue-500 focus:border-blue-500",
+            isValid ? "text-gray-900" : "text-red-600 border-red-300"
+          )}
+          placeholder={getPlaceholderForCountry(countryCode)}
           value={phoneValue}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -179,168 +203,209 @@ export const PhoneElement: React.FC<PhoneElementProps> = (props) => {
         />
       </StyledComponent>
 
+      {/* Validation message */}
+      {!isValid && phoneValue && (
+        <StyledComponent
+          componentType="phone"
+          part="errorMessage"
+          schema={props.schema}
+          theme={props.theme}
+          className="mt-1 text-sm text-red-600"
+        >
+          Please enter a valid phone number
+        </StyledComponent>
+      )}
+
       {isDropdownOpen && (
         <StyledComponent
           componentType="phone"
           part="dropdownMenu"
           schema={props.schema}
           theme={props.theme}
-          className="absolute z-10 mt-1 bg-white divide-y divide-gray-100 rounded-lg shadow w-52 top-full"
+          className="absolute z-10 mt-1 bg-white divide-y divide-gray-100 rounded-lg shadow w-52 top-full max-h-96 overflow-y-auto"
           ref={dropdownRef}
         >
-          <ul className="py-2 text-sm text-gray-700" aria-labelledby="dropdown-phone-button">
-            <li>
-              <StyledComponent
-                componentType="phone"
-                part="dropdownItem"
-                schema={props.schema}
-                theme={props.theme}
-                as="button"
-                type="button"
-                className={twMerge(
-                  "inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-                  countryCode === '+1' ? 'bg-gray-100' : ''
-                )}
-                role="menuitem"
-                onClick={() => selectCountryCode('+1')}
-              >
-                <div className="inline-flex items-center">
-                  <svg fill="none" aria-hidden="true" className="h-4 w-4 me-2" viewBox="0 0 20 15">
-                    <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    <mask id="a" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                      <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    </mask>
-                    <g mask="url(#a)">
-                      <path
-                        fill="#D02F44"
-                        fillRule="evenodd"
-                        d="M19.6.5H0v.933h19.6V.5zm0 1.867H0V3.3h19.6v-.933zM0 4.233h19.6v.934H0v-.934zM19.6 6.1H0v.933h19.6V6.1zM0 7.967h19.6V8.9H0v-.933zm19.6 1.866H0v.934h19.6v-.934zM0 11.7h19.6v.933H0V11.7zm19.6 1.867H0v.933h19.6v-.933z"
-                        clipRule="evenodd"
-                      />
-                      <path fill="#46467F" d="M0 .5h8.4v6.533H0z" />
-                    </g>
-                  </svg>
-                  United States (+1)
-                </div>
-              </StyledComponent>
-            </li>
-            <li>
-              <StyledComponent
-                componentType="phone"
-                part="dropdownItem"
-                schema={props.schema}
-                theme={props.theme}
-                as="button"
-                type="button"
-                className={twMerge(
-                  "inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-                  countryCode === '+44' ? 'bg-gray-100' : ''
-                )}
-                role="menuitem"
-                onClick={() => selectCountryCode('+44')}
-              >
-                <div className="inline-flex items-center">
-                  <svg className="h-4 w-4 me-2" fill="none" viewBox="0 0 20 15">
-                    <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    <mask id="a" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                      <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    </mask>
-                    <g mask="url(#a)">
-                      <path fill="#0A17A7" d="M0 .5h19.6v14H0z" />
-                    </g>
-                  </svg>
-                  United Kingdom (+44)
-                </div>
-              </StyledComponent>
-            </li>
-            <li>
-              <StyledComponent
-                componentType="phone"
-                part="dropdownItem"
-                schema={props.schema}
-                theme={props.theme}
-                as="button"
-                type="button"
-                className={twMerge(
-                  "inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-                  countryCode === '+61' ? 'bg-gray-100' : ''
-                )}
-                role="menuitem"
-                onClick={() => selectCountryCode('+61')}
-              >
-                <div className="inline-flex items-center">
-                  <svg className="h-4 w-4 me-2" fill="none" viewBox="0 0 20 15">
-                    <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    <mask id="a" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                      <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    </mask>
-                    <g mask="url(#a)">
-                      <path fill="#0A17A7" d="M0 .5h19.6v14H0z" />
-                    </g>
-                  </svg>
-                  Australia (+61)
-                </div>
-              </StyledComponent>
-            </li>
-            <li>
-              <StyledComponent
-                componentType="phone"
-                part="dropdownItem"
-                schema={props.schema}
-                theme={props.theme}
-                as="button"
-                type="button"
-                className={twMerge(
-                  "inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-                  countryCode === '+49' ? 'bg-gray-100' : ''
-                )}
-                role="menuitem"
-                onClick={() => selectCountryCode('+49')}
-              >
-                <div className="inline-flex items-center">
-                  <svg className="w-4 h-4 me-2" fill="none" viewBox="0 0 20 15">
-                    <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    <mask id="a" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                      <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    </mask>
-                    <g mask="url(#a)">
-                      <path fill="#262626" fillRule="evenodd" d="M0 5.167h19.6V.5H0v4.667z" clipRule="evenodd" />
-                    </g>
-                  </svg>
-                  Germany (+49)
-                </div>
-              </StyledComponent>
-            </li>
-            <li>
-              <StyledComponent
-                componentType="phone"
-                part="dropdownItem"
-                schema={props.schema}
-                theme={props.theme}
-                as="button"
-                type="button"
-                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                role="menuitem"
-                onClick={() => selectCountryCode('+33')}
-              >
-                <div className="inline-flex items-center">
-                  <svg className="w-4 h-4 me-2" fill="none" viewBox="0 0 20 15">
-                    <rect width="19.1" height="13.5" x=".25" y=".75" fill="#fff" stroke="#F5F5F5" strokeWidth=".5" rx="1.75" />
-                    <mask id="a" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                      <rect width="19.1" height="13.5" x=".25" y=".75" fill="#fff" stroke="#fff" strokeWidth=".5" rx="1.75" />
-                    </mask>
-                    <g mask="url(#a)">
-                      <path fill="#F44653" d="M13.067.5H19.6v14h-6.533z" />
-                      <path fill="#1035BB" fillRule="evenodd" d="M0 14.5h6.533V.5H0v14z" clipRule="evenodd" />
-                    </g>
-                  </svg>
-                  France (+33)
-                </div>
-              </StyledComponent>
-            </li>
+          <ul
+            className="py-2 text-sm text-gray-700"
+            aria-labelledby="dropdown-phone-button"
+          >
+            {getCountryDropDownOptions().map(country => (
+              <li key={country.value}>
+                <StyledComponent
+                  componentType="phone"
+                  part="dropdownItem"
+                  schema={props.schema}
+                  theme={props.theme}
+                  as="button"
+                  type="button"
+                  className={twMerge(
+                    'inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100',
+                    countryCode === country.value ? 'bg-gray-100' : ''
+                  )}
+                  role="menuitem"
+                  onClick={() => selectCountryCode('+' + country.phone)}
+                >
+                  <div className="inline-flex items-center  gap-2 truncate">
+                    {country.flag}
+                    {country.label} +{country.phone}
+                  </div>
+                </StyledComponent>
+              </li>
+            ))}
           </ul>
         </StyledComponent>
       )}
     </div>
   );
+};
+
+// Helper function to clean phone number input
+const cleanPhoneNumber = (input: string): string => {
+  // Remove all non-digit characters except + at the beginning
+  return input.replace(/[^\d+]/g, '');
+};
+
+// Helper function to format phone input as user types
+const formatPhoneInput = (input: string): string => {
+  // Keep only digits, spaces, hyphens, parentheses, and plus signs
+  let cleaned = input.replace(/[^\d\s\-\(\)\+]/g, '');
+  
+  // If user is entering with their own formatting, preserve it initially
+  if (input.includes('(') || input.includes(' ') || input.includes('-')) {
+    return cleaned;
+  }
+  
+  // Auto-format for clean digit-only input (US style)
+  const digits = cleaned.replace(/\D/g, '');
+  
+  if (digits.length <= 3) {
+    return digits;
+  } else if (digits.length <= 6) {
+    return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  } else {
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+  }
+};
+
+// Helper function to validate phone number
+const validatePhoneNumber = (fullPhone: string): boolean => {
+  if (!fullPhone || fullPhone.trim() === '') return true; // Empty is valid (optional field)
+  
+  // Clean the phone number
+  const cleaned = cleanPhoneNumber(fullPhone);
+  
+  if (!cleaned) return false;
+  
+  // Extract country code and local number
+  const [countryCode, localNumber] = getPhoneParts(fullPhone);
+  
+  if (!localNumber) return false;
+  
+  // Clean local number for validation
+  const localDigits = localNumber.replace(/\D/g, '');
+  
+  // Country-specific validation rules
+  const countryValidation: { [key: string]: { min: number; max: number } } = {
+    '+1': { min: 10, max: 10 },   // US/Canada: exactly 10 digits
+    '+44': { min: 10, max: 11 },  // UK: 10-11 digits
+    '+33': { min: 9, max: 10 },   // France: 9-10 digits
+    '+49': { min: 10, max: 12 },  // Germany: 10-12 digits
+    '+81': { min: 10, max: 11 },  // Japan: 10-11 digits
+    '+86': { min: 11, max: 11 },  // China: exactly 11 digits
+    '+91': { min: 10, max: 10 },  // India: exactly 10 digits
+    '+61': { min: 9, max: 9 },    // Australia: exactly 9 digits
+    '+7': { min: 10, max: 10 },   // Russia: exactly 10 digits
+    '+55': { min: 10, max: 11 },  // Brazil: 10-11 digits
+  };
+  
+  const rules = countryValidation[countryCode];
+  if (rules) {
+    return localDigits.length >= rules.min && localDigits.length <= rules.max;
+  }
+  
+  // Default validation for other countries (ITU-T E.164 standard)
+  // Local number should be 4-14 digits
+  return localDigits.length >= 4 && localDigits.length <= 14;
+};
+
+const allPhoneCodes = getCountryDropDownOptions().map(
+  country => '+' + country.phone
+);
+
+export const getPhoneParts = (phone: string): string[] => {
+  if (!phone) return ['+1', ''];
+
+  // Clean the input first
+  const cleaned = cleanPhoneNumber(phone.trim());
+  
+  if (!cleaned) return ['+1', ''];
+
+  let code = '+1'; // Default
+  let number = '';
+
+  // Try to match with known country codes, starting with longest codes first
+  const sortedCodes = [...allPhoneCodes].sort((a, b) => b.length - a.length);
+  
+  for (const countryCode of sortedCodes) {
+    if (cleaned.startsWith(countryCode)) {
+      code = countryCode;
+      number = cleaned.slice(countryCode.length);
+      break;
+    }
+  }
+  
+  // If no country code found, assume it's a local number
+  if (code === '+1' && cleaned !== phone.trim()) {
+    // If the cleaned version differs from original, it had a + but no matching code
+    if (cleaned.startsWith('+')) {
+      // Extract what looks like a country code (1-4 digits after +)
+      const match = cleaned.match(/^\+(\d{1,4})(\d*)$/);
+      if (match) {
+        const potentialCode = '+' + match[1];
+        if (allPhoneCodes.includes(potentialCode)) {
+          code = potentialCode;
+          number = match[2];
+        } else {
+          // Invalid code, treat whole thing as number with default country
+          number = cleaned.replace(/^\+/, '');
+        }
+      }
+    } else {
+      // No + sign, treat as local number
+      number = cleaned;
+    }
+  }
+  
+  return [code, number];
+};
+
+// Enhanced helper to handle various phone input formats
+export const normalizePhoneInput = (input: string): string => {
+  if (!input) return '';
+  
+  // Handle common input formats and normalize them
+  let normalized = input.trim();
+  
+  // Remove common prefixes
+  normalized = normalized.replace(/^tel:/, '');
+  normalized = normalized.replace(/^phone:/, '');
+  
+  // Handle parentheses format like (555) 123-4567
+  normalized = normalized.replace(/^\((\d+)\)\s*/, '+1$1');
+  
+  // Handle format like 555.123.4567
+  normalized = normalized.replace(/\./g, '');
+  
+  // Handle multiple spaces
+  normalized = normalized.replace(/\s+/g, ' ');
+  
+  // If it starts with just digits and is US length, assume +1
+  if (/^\d{10}$/.test(normalized.replace(/\D/g, ''))) {
+    const digits = normalized.replace(/\D/g, '');
+    if (digits.length === 10) {
+      normalized = '+1 ' + normalized;
+    }
+  }
+  
+  return normalized;
 };
