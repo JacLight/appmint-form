@@ -32,9 +32,10 @@
     "analyze": "size-limit --why",
     "dev": "vite --config vite.demo.config.ts",
     "demo": "vite --config vite.demo.config.ts",
-    "build:demo": "vite build --config vite.demo.config.ts",
+    "build:demo": "vite build --config vite.demo.config.ts && node scripts/generate-sitemap.js",
     "theme-test": "vite --config vite.theme-test.config.ts",
-    "build:theme-test": "vite build --config vite.theme-test.config.ts"
+    "build:theme-test": "vite build --config vite.theme-test.config.ts",
+    "generate-sitemap": "node scripts/generate-sitemap.js"
   },
   "peerDependencies": {
     "react": ">=18"
@@ -92,12 +93,13 @@
     "type": "git",
     "url": "https://github.com/durubata/appmint-form.git"
   },
-  "homepage": "https://github.com/durubata/appmint-form",
+  "homepage": "https://appmint-form.spinforge.dev",
   "dependencies": {
     "@radix-ui/react-select": "^2.1.6",
     "@tailwindcss/vite": "^4.0.9",
     "@tanstack/match-sorter-utils": "^8.15.1",
     "@tanstack/react-table": "^8.19.2",
+    "@types/react-router-dom": "^5.3.3",
     "@uiw/react-md-editor": "^4.0.4",
     "color": "^5.0.0",
     "colord": "^2.9.3",
@@ -109,7 +111,9 @@
     "lucide-react": "^0.476.0",
     "object-path": "^0.11.8",
     "react-best-gradient-color-picker": "^3.0.14",
+    "react-helmet-async": "^2.0.5",
     "react-json-view": "^1.21.3",
+    "react-router-dom": "^7.8.2",
     "tailwind-merge": "^3.0.2",
     "uuid": "^10.0.0",
     "zod": "^3.24.2",

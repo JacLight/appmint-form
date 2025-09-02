@@ -24,6 +24,7 @@ import FormDemo from './FormDemo';
 import ThemeEditorDemo from './ThemeEditorDemo';
 import MultiFormDemo from './MultiFormDemo';
 import CustomComponentsDemo from './CustomComponentsDemo';
+import AdvancedFeaturesDemo from './AdvancedFeaturesDemo';
 
 // Text Input Elements
 import TextFieldDemo from './textInputs/TextFieldDemo';
@@ -36,6 +37,15 @@ import StepperDemo from './stepper-demo';
 
 // Demo registry
 export const demoRegistry: Demo[] = [
+    // Advanced Features Demo
+    {
+        id: 'advanced-features',
+        title: 'Advanced Features',
+        description: 'Advanced components including screen capture, data lookup, cron selector, and more.',
+        category: 'Advanced',
+        component: AdvancedFeaturesDemo,
+        code: `// Advanced Features Demo Code`
+    },
     // Slider Form Demo
         {
         id: 'stepper-demo',
@@ -860,12 +870,12 @@ const AdvancedElementsDemo = () => {
 export default AdvancedElementsDemo;`
     },
 
-    // Views
+    // Tables
     {
         id: 'table-demo',
-        title: 'Table View',
-        description: 'Table view component for displaying and interacting with tabular data.',
-        category: 'Views',
+        title: 'Table Examples (4 Types)',
+        description: 'Comprehensive table demos showing Basic, Slim, Card View, and Advanced tables with grouping.',
+        category: 'Tables',
         component: TableDemo,
         code: `// Table Demo Code
 import React from 'react';

@@ -6,6 +6,7 @@ export default defineConfig({
     plugins: [
         react(),
     ],
+    publicDir: 'public',
     // Use the demo.tsx as the entry point
     build: {
         outDir: 'demo-dist',

@@ -29,16 +29,11 @@ const schema = {
             minLength: 5,
             maxLength: 10
         },
-        textArea: {
-            type: 'string',
-            format: 'email',
-            'x-control-variant': 'textarea',
-        },
         textarea: {
             type: 'string',
             title: 'Text Area',
             description: 'Multi-line text input',
-            'x-control': 'textarea',
+            'x-control-variant': 'textarea',
             default: 'This is a\nmulti-line\ntext area'
         },
         richtext: {

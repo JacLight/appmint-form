@@ -1,0 +1,90 @@
+/* Enhanced Documentation Styles */
+
+/* Headings with better hierarchy */
+.doc-content h1 {
+  @apply text-4xl font-bold text-gray-900 dark:text-white mb-6 pb-4 border-b-2 border-gray-200 dark:border-gray-800;
+}
+
+.doc-content h2 {
+  @apply text-2xl font-semibold text-gray-800 dark:text-gray-100 mt-12 mb-4 pb-2 border-b border-gray-200 dark:border-gray-800;
+}
+
+.doc-content h3 {
+  @apply text-xl font-medium text-gray-700 dark:text-gray-200 mt-8 mb-3;
+}
+
+.doc-content h4 {
+  @apply text-lg font-medium text-gray-600 dark:text-gray-300 mt-6 mb-2;
+}
+
+/* Lead paragraph */
+.doc-content .lead {
+  @apply text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed;
+}
+
+/* Regular paragraphs */
+.doc-content p {
+  @apply text-base text-gray-700 dark:text-gray-300 mb-4 leading-relaxed;
+}
+
+/* Lists with better spacing */
+.doc-content ul {
+  @apply list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mb-6 ml-4;
+}
+
+.doc-content ol {
+  @apply list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 mb-6 ml-4;
+}
+
+/* Code inline */
+.doc-content code:not(pre code) {
+  @apply bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+/* Tables with better styling */
+.doc-content table {
+  @apply w-full border-collapse mb-8;
+}
+
+.doc-content th {
+  @apply bg-gray-100 dark:bg-gray-800 text-left p-3 font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-gray-300 dark:border-gray-700;
+}
+
+.doc-content td {
+  @apply p-3 border-b border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300;
+}
+
+.doc-content tr:hover {
+  @apply bg-gray-50 dark:bg-gray-900/50;
+}
+
+/* Blockquotes */
+.doc-content blockquote {
+  @apply border-l-4 border-blue-500 pl-4 py-2 my-6 bg-blue-50 dark:bg-blue-900/20 text-gray-700 dark:text-gray-300 italic;
+}
+
+/* Links */
+.doc-content a {
+  @apply text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline;
+}
+
+/* Alert boxes */
+.doc-alert {
+  @apply p-4 rounded-lg border mb-6;
+}
+
+.doc-alert.info {
+  @apply bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200;
+}
+
+.doc-alert.warning {
+  @apply bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-200;
+}
+
+.doc-alert.error {
+  @apply bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200;
+}
+
+.doc-alert.success {
+  @apply bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200;
+}

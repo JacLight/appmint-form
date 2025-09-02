@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
-import { Demo } from '../demos';
+import { useParams, Navigate } from 'react-router-dom';
+import { Demo, demoRegistry } from '../demos';
 
 interface DemoPageProps {
-    demo: Demo;
+    demo?: Demo;
 }
 
-const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
+const DemoPage: React.FC<DemoPageProps> = ({ demo: propDemo }) => {
+    const { demoId } = useParams<{ demoId: string }>();
     const [activeTab, setActiveTab] = useState<'demo' | 'code'>('demo');
+
+    // Get demo from props or find it based on URL param
+    const demo = propDemo || demoRegistry.find(d => d.id === demoId);
+
+    if (!demo) {
+        return <Navigate to="/examples" replace />;
+    }
 
     const DemoComponent = demo.component;
 
     return (
-        <div>
-            <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">{demo.title}</h1>
-                <p className="text-lg text-gray-600 dark:text-gray-400">{demo.description}</p>
-            </div>
+        <div className="min-h-screen bg-white dark:bg-gray-950">
+            <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 max-w-7xl">
+                <div className="mb-6">
+                    <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">{demo.title}</h1>
+                    <p className="text-lg text-gray-600 dark:text-gray-400">{demo.description}</p>
+                </div>
 
             {/* Tabs */}
             <div className="mb-6 border-b border-gray-200">
@@ -54,6 +64,7 @@ const DemoPage: React.FC<DemoPageProps> = ({ demo }) => {
                         </pre>
                     </div>
                 )}
+            </div>
             </div>
         </div>
     );

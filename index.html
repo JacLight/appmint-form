@@ -3,13 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Library Demo</title>
+    <title>AppMint Form Library - React Form Components Demo</title>
+    <meta name="description" content="AppMint Form Library - A comprehensive React form component library with 40+ input types, advanced layouts, theming, and validation. Build beautiful forms quickly.">
+    <meta name="keywords" content="react forms, form library, react components, form builder, form validation, input components, react ui library, form elements, typescript forms">
+    <meta name="author" content="AppMint">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://appmint-form.spinforge.dev/">
+    <meta property="og:title" content="AppMint Form Library - React Form Components">
+    <meta property="og:description" content="A comprehensive React form component library with 40+ input types, advanced layouts, and theming capabilities.">
+    <meta property="og:image" content="https://appmint-form.spinforge.dev/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://appmint-form.spinforge.dev/">
+    <meta property="twitter:title" content="AppMint Form Library - React Form Components">
+    <meta property="twitter:description" content="A comprehensive React form component library with 40+ input types, advanced layouts, and theming capabilities.">
+    <meta property="twitter:image" content="https://appmint-form.spinforge.dev/og-image.png">
+    
+    <link rel="canonical" href="https://appmint-form.spinforge.dev/">
+    <link rel="icon" type="image/png" href="/images/appmint_icon.png">
+    <link rel="apple-touch-icon" href="/images/appmint_icon.png">
+    <!-- Tailwind CSS CDN - For development only -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {},
+        // Suppress CDN warning in development
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                darkMode: 'class',
+                theme: {
+                    extend: {},
+                }
             }
         }
     </script>
